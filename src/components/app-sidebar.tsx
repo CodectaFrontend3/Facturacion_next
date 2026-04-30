@@ -316,9 +316,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 								side="top"
 								align="end"
 								sideOffset={8}
-								className={`w-44 bg-white text-black border-gray-200 p-1 ${!isHovered ? "hidden" : ""}`}
-								onMouseEnter={handleMouseEnter}
-								onMouseLeave={handleMouseLeave}
+								className={`w-38 bg-white text-black border-gray-200 p-1 ${!isHovered ? "hidden" : ""}`}
 							>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
 									<CircleUserRound className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
