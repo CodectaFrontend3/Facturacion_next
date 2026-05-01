@@ -11,6 +11,9 @@ importers:
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      bootstrap-icons:
+        specifier: ^1.13.1
+        version: 1.13.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1542,6 +1545,9 @@ packages:
     resolution: {integrity: sha512-Q+rUQ7Uz8AHM7DEaNdwvfFCTq7a43lNTzuS94eiWqwyxfV/wJv+oUivef51T91mmRY4d4A1u9rcSvkeufCVXlA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+
+  bootstrap-icons@1.13.1:
+    resolution: {integrity: sha512-ijombt4v6bv5CLeXvRWKy7CuM3TRTuPEuGaGKvTV5cz65rQSY8RQ2JcHt6b90cBBAC7s8fsf2EkQDldzCoXUjw==}
 
   brace-expansion@1.1.14:
     resolution: {integrity: sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==}
@@ -4270,6 +4276,8 @@ snapshots:
   balanced-match@4.0.4: {}
 
   baseline-browser-mapping@2.10.21: {}
+
+  bootstrap-icons@1.13.1: {}
 
   brace-expansion@1.1.14:
     dependencies:

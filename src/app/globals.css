@@ -25,11 +25,41 @@ body {
 }
 
 @keyframes collapsible-down {
-  from { height: 0; opacity: 0; }
-  to { height: var(--radix-collapsible-content-height); opacity: 1; }
+  from {
+    height: 0;
+    opacity: 0;
+  }
+
+  to {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
 }
 
 @keyframes collapsible-up {
-  from { height: var(--radix-collapsible-content-height); opacity: 1; }
-  to { height: 0; opacity: 0; }
+  from {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes breathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 1s infinite ease-in-out;
 }
