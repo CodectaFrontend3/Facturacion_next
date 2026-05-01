@@ -1,0 +1,9 @@
+[
+    { "id": 16, "nombre": "SEBASTIAN GABRIEL ZORRILLA QUISPE", "tipoDoc": "DNI", "numDoc": "60975829", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "17-09-2025" },
+    { "id": 15, "nombre": "EVERARDO PINO ROJAS", "tipoDoc": "DNI", "numDoc": "085202162", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "10-06-2025" },
+    { "id": 14, "nombre": "VOLVO PERU S A", "tipoDoc": "RUC", "numDoc": "20100070031", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "07-02-2025" },
+    { "id": 13, "nombre": "were", "tipoDoc": "RUC", "numDoc": "12322222222", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "17-04-2024" },
+    { "id": 12, "nombre": "luis", "tipoDoc": "RUC", "numDoc": "33322222222", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "17-04-2024" },
+    { "id": 11, "nombre": "EREN", "tipoDoc": "RUC", "numDoc": "1111111111", "correo": "sincorreoE@gmail.com", "celular": "654852347", "fechaRegistro": "27-03-2024" },
+    { "id": 10, "nombre": "GALVAN ALFARO RICHARD EDGAR", "tipoDoc": "RUC", "numDoc": "10099763740", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "15-08-2023" }
+]
