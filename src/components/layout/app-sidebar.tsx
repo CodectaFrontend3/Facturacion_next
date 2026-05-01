@@ -6,21 +6,21 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
 	BadgeCheck,
-	Boxes,
-	ClipboardList,
+	Archive,
 	CreditCard,
 	FileText,
 	Home,
+	Users,
 	LogOut,
 	Mail,
 	MoreVertical,
-	PackageSearch,
-	Settings2,
+	Settings,
 	ShieldCheck,
-	Stethoscope,
-	Tag,
-	User,
-	Users,
+	Tags,
+	Handbag,
+	Wrench,
+	MessageCircle,
+	Sheet,
 	CircleUserRound,
 	Wallet,
 	Landmark
@@ -56,18 +56,19 @@ type IconComponent = ComponentType<{ className?: string; strokeWidth?: number }>
 
 const iconMap: Record<string, IconComponent> = {
 	Home,
-	Tag,
+	Tags,
 	Wallet,
+	MessageCircle,
 	FileText,
 	ShieldCheck,
-	Boxes,
+	Archive,
 	CreditCard,
-	Stethoscope,
-	Users,
-	PackageSearch,
+	Wrench,
+	Sheet,
+	Handbag,
 	BadgeCheck,
-	ClipboardList,
 	Mail,
+	Users
 }
 
 const mainItems = sidebarData as sidebarItem[]
@@ -121,7 +122,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 		>
 			<Sidebar
 				collapsible="icon"
-				className="relative h-svh border-none bg-[#1538A0]"
+				className="border-none bg-[#1538A0]"
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 			>
@@ -327,7 +328,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 									Mi Empresa
 								</DropdownMenuItem>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<Settings2 className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
+									<Settings className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
 									Configuración
 								</DropdownMenuItem>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
