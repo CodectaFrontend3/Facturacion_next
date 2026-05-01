@@ -27,9 +27,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans">
         <AppSidebar>
-          <main className="flex min-w-0 flex-1 flex-col">
+          <main className="flex min-w-0 flex-1 flex-col h-full">
             <AppHeader />
-            <div className="flex-1">{children}</div>
+            <div className="flex-1 flex flex-col bg-white">{children}</div>
           </main>
         </AppSidebar>
       </body>
