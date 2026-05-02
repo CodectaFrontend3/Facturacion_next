@@ -21,7 +21,7 @@
 	},
 	{
 		"label": "Garantias",
-		"path": "/garantia_guia_ingreso",
+		"path": "/garantia?guia=ingreso",
 		"icon": "ShieldCheck"
 	},
 	{

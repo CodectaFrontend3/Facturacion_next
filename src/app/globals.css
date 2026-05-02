@@ -20,6 +20,7 @@
 }
 
 body {
+  cursor: default;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
@@ -33,4 +34,97 @@ body {
 @keyframes collapsible-up {
   from { height: var(--radix-collapsible-content-height); opacity: 1; }
   to { height: 0; opacity: 0; }
+}
+
+.tab {
+  padding: 0.75rem 0.5rem;
+  border-top: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+}
+
+.tab-active {
+  color: rgb(82, 82, 82);
+  background: white;
+  transform: scale(1.1);
+  transform: translateY(5px);
+  font-weight: 600;
+}
+
+.tab-inactive {
+  background: #d1d5db;
+  border-bottom: 1px solid white;
+  transition: transform 0.3s ease;
+  transform: translateY(5px);
+}
+
+.tab-inactive:hover {
+  transform: scale(1.01);
+  z-index: 1;
+  cursor: pointer;
+}
+
+tr {
+  transition: background 0.15s ease;
+}
+
+.search-btn,
+.download-btn,
+.add-btn {
+  transition: transform 0.2s ease-in-out;
+}
+
+.search-btn:hover,
+.download-btn:hover,
+.add-btn:hover {
+  transform: translateY(-3px);
+  cursor: pointer;
+  background-color: rgb(21, 65, 185);
+}
+
+.reset-btn:hover {
+  cursor: pointer;
+  background-color: rgb(87, 95, 110);
+}
+
+.nav:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.view-btn,
+.trash-btn,
+.sign-btn {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.view-btn:hover {
+  background-color: rgb(21, 65, 185);
+}
+
+.trash-btn:hover {
+  background-color: rgb(236, 177, 28);
+}
+
+.sign-btn:hover {
+  background-color: rgb(38, 189, 169);
+}
+
+input, select {
+  border: 1px solid #c2c4c9;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border: 1px solid #8c939e;
+}
+
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }

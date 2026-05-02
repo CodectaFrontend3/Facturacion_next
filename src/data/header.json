@@ -1,0 +1,16 @@
+{
+    "tipoCambio": {
+        "compra": "3.51",
+        "venta": "3.52",
+        "paralelo": "3.46"
+    },
+    "notificacionesCarousel": [
+        { "count": 7, "label": "Facturas" },
+        { "count": 4, "label": "Boletas" },
+        { "count": 3, "label": "Guías R." }
+    ],
+    "notificacionesMensajes": {
+        "count": 0,
+        "total": 0
+    }
+}

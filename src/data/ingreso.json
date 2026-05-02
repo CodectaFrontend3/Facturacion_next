@@ -1,0 +1,12 @@
+[
+  {
+    "id": 128,
+    "codigo": "000001",
+    "producto": "Laptop",
+    "marca": "LENOVO",
+    "serie": "15",
+    "cliente": "Leonardo",
+    "ruc": "123456",
+    "fecha": "01/05/2026"
+  }
+]
