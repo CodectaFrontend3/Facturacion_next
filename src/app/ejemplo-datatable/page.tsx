@@ -30,7 +30,7 @@ import mockData from "./_data/clientes.json"
  * despues solo llaman al componente DataTable y le pasan sus columnas y su lista de datos 
  * tambien pueden jugar con las opciones como showSelection para los cuadritos o isLoading por si la data demora en llegar
  */
-
+const data: Cliente[] = mockData
 // aqui definimos que columnas vamos a mostrar y como se van a ver
 const columns: ColumnDef<Cliente>[] = [
     { accessorKey: "id", header: "ID", size: 60 },
@@ -202,8 +202,7 @@ export default function EjemploDataTablePage() {
                 {/* aca es donde prendemos la tabla */}
                 <DataTable
                     columns={columns}
-                    data={mockData}
-                    pageSize={10}
+                    data={data}
                     showSelection={true} // Mostrar o no la columna de checkboxes
                     isLoading={false} // Mostrar o no el estado de carga
                 />
