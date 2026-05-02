@@ -6,7 +6,7 @@ export default function PageNavigator() {
             <div className="flex-1 flex justify-center">
                 <div className="grid grid-cols-3 gap-4">
                     <p className="nav text-xs text-gray-500 rounded p-3 text-center">Anterior</p>
-                    <button className="bg-blue-700 text-white rounded">1</button>
+                    <button className="page-nav bg-blue-700 text-white rounded">1</button>
                     <p className="nav text-xs text-gray-500 rounded p-3 text-center">Siguiente</p>
                 </div>
             </div>

@@ -102,6 +102,11 @@ tr {
   text-decoration: underline;
 }
 
+.page-nav:hover {
+  cursor: pointer;
+  background-color: rgb(21, 65, 185);
+}
+
 .view-btn,
 .trash-btn,
 .sign-btn {
@@ -110,14 +115,17 @@ tr {
 }
 
 .view-btn:hover {
+  transform: translateY(-2px);
   background-color: rgb(21, 65, 185);
 }
 
 .trash-btn:hover {
+  transform: translateY(-2px);
   background-color: rgb(236, 177, 28);
 }
 
 .sign-btn:hover {
+  transform: translateY(-2px);
   background-color: rgb(38, 189, 169);
 }
 
@@ -140,17 +148,17 @@ input:focus, select:focus {
 }
 
 .dropdown-menu[data-state="open"] {
-  animation: dropdownIn 0.2s ease;
+  animation: dropdownIn 0.25s ease;
 }
 
 .dropdown-menu[data-state="closed"] {
-  animation: dropdownOut 0.15s ease;
+  animation: dropdownOut 0.2s ease;
 }
 
 @keyframes dropdownIn {
   from {
     opacity: 0;
-    transform: scale(0.3);
+    transform: scale(0.1);
   }
   to {
     opacity: 1;
@@ -165,7 +173,7 @@ input:focus, select:focus {
   }
   to {
     opacity: 0;
-    transform: translateY(-5px);
+    transform: scale(0.1);
   }
 }
 
