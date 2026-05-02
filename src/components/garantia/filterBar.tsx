@@ -35,8 +35,7 @@ export default function FilterBar({ type }: { type: TableType }) {
                 ))}
                 
                 <input placeholder="Buscar" className="flex-1 border border-gray-400 p-2 rounded"/>
-
-                <button className="flex-1 bg-blue-700 text-white p-2 px-4 rounded">Buscar</button>
+                <button className="search-btn flex-1 bg-blue-700 text-white p-2 px-4 rounded">Buscar</button>
             </div>
         </div>
     );
