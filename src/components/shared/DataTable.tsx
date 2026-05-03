@@ -123,9 +123,8 @@ export function DataTable<TData, TValue>({
                                 {headerGroup.headers.map((header) => (
                                     <TableHead
                                         key={header.id}
-                                        className={`border-r border-gray-200 last:border-r-0 text-[13px] font-bold font-sans tracking-wide text-[#676A6C] last:bg-[#F2F2F2] ${
-                                            header.id === "select" ? "bg-[#F2F2F2]" : "bg-white"
-                                        }`}
+                                        className={`border-r border-gray-200 last:border-r-0 text-[13px] font-bold font-sans tracking-wide text-[#676A6C] last:bg-[#F2F2F2] ${header.id === "select" ? "bg-[#F2F2F2]" : "bg-white"
+                                            }`}
                                         style={{
                                             width:
                                                 header.getSize() !== 150
