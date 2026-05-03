@@ -9,12 +9,12 @@ export default function Modal({ onClose }: { onClose: () => void }) {
 
         setTimeout(() => {
             onClose();
-        }, 200);
+        }, 300);
     }
 
     return (
-        <div className="modal-content fixed inset-0 bg-black/40 z-20">
-            <div className={`bg-white p-3 rounded shadow w-120 modal-box ${closing ? "closing" : ""}`}>
+        <div className="modal-content fixed inset-0 bg-black/40 z-20" onClick={handleClose}>
+            <div className={`bg-white p-3 rounded shadow w-120 modal-box ${closing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
                 <div className="p-4 border border-gray-300 space-y-3">
                     <div className="flex justify-between items-center">
                         <h3 className="modal-title">Agregar</h3>
