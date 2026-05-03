@@ -49,44 +49,68 @@ interface DataTableProps<TData, TValue> {
     showPagination?: boolean
     isLoading?: boolean
     getRowId?: (originalRow: TData, index: number, parent?: Row<TData>) => string
+    onRowSelectionChange?: (selectedRows: TData[]) => void
+    // Props para modo controlado (con useTableData)
+    pageIndex?: number
+    onPageChange?: (index: number) => void
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
-    pageSize = 16,
+    pageSize = 3,
     showSelection = true,
     showPagination = true,
     isLoading = false,
     getRowId,
+    onRowSelectionChange,
+    pageIndex: pageIndexProp,
+    onPageChange,
 }: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({})
-    const [pageIndex, setPageIndex] = useState(0)
+
+    // Modo controlado: pageIndex viene del padre (useTableData)
+    // Modo autónomo:  pageIndex vive acá adentro
+    const isControlled = pageIndexProp !== undefined && onPageChange !== undefined
+    const [internalPageIndex, setInternalPageIndex] = useState(0)
+
+    const currentPageIndex = isControlled ? pageIndexProp : internalPageIndex
+    const setCurrentPageIndex = isControlled ? onPageChange : setInternalPageIndex
 
     const selectColumn = useMemo(() => getSelectColumn<TData>(), [])
     const allColumns = useMemo(() => {
         return showSelection ? [selectColumn, ...columns] : columns
     }, [showSelection, columns, selectColumn])
 
-    // ─── Paginación manual ───────────────────────────────────────────────────
+    // Paginación manual sobre la data que llega (ya filtrada si viene del hook)
     const pageCount = Math.ceil(data.length / pageSize)
     const paginatedData = useMemo(() => {
-        const start = pageIndex * pageSize
+        const start = currentPageIndex * pageSize
         return data.slice(start, start + pageSize)
-    }, [data, pageIndex, pageSize])
+    }, [data, currentPageIndex, pageSize])
 
     const table = useReactTable({
         data: paginatedData,
         columns: allColumns,
         state: { rowSelection },
-        onRowSelectionChange: setRowSelection,
+        onRowSelectionChange: (updater) => {
+            const next = typeof updater === "function" ? updater(rowSelection) : updater
+            setRowSelection(next)
+            if (onRowSelectionChange) {
+                const selectedRows = table
+                    .getRowModel()
+                    .rows.filter((row) => next[row.id])
+                    .map((row) => row.original)
+                onRowSelectionChange(selectedRows)
+            }
+        },
         getCoreRowModel: getCoreRowModel(),
         enableRowSelection: showSelection,
-        getRowId: getRowId || ((_row, index) => String(pageIndex * pageSize + index)),
+        getRowId: getRowId || ((_row, index) => String(currentPageIndex * pageSize + index)),
     })
 
-    const canPreviousPage = pageIndex > 0
-    const canNextPage = pageIndex < pageCount - 1
+    const canPreviousPage = currentPageIndex > 0
+    const canNextPage = currentPageIndex < pageCount - 1
 
     return (
         <div className="w-full space-y-4 font-sans">
@@ -134,7 +158,7 @@ export function DataTable<TData, TValue>({
                         ) : (
                             <TableRow className="bg-[#F2F2F2] border-b border-gray-200">
                                 <TableCell colSpan={allColumns.length} className="text-left text-[13px] font-sans text-[#676A6C] py-3 px-4">
-                                    No data available in table
+                                    No hay datos disponibles
                                 </TableCell>
                             </TableRow>
                         )}
@@ -144,13 +168,13 @@ export function DataTable<TData, TValue>({
 
             {showPagination && data.length > 0 && (
                 <DataTablePagination
-                    pageIndex={pageIndex}
+                    pageIndex={currentPageIndex}
                     pageSize={pageSize}
                     dataLength={data.length}
                     pageCount={pageCount}
                     canPreviousPage={canPreviousPage}
                     canNextPage={canNextPage}
-                    setPageIndex={setPageIndex}
+                    setPageIndex={setCurrentPageIndex}
                 />
             )}
         </div>

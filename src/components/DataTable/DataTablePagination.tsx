@@ -1,6 +1,4 @@
 "use client"
-
-import React from "react"
 import {
     Pagination,
     PaginationContent,
@@ -14,7 +12,7 @@ interface DataTablePaginationProps {
     pageCount: number
     canPreviousPage: boolean
     canNextPage: boolean
-    setPageIndex: React.Dispatch<React.SetStateAction<number>>
+    setPageIndex: (index: number) => void
 }
 
 export function DataTablePagination({
@@ -59,7 +57,7 @@ export function DataTablePagination({
                     <PaginationContent className="gap-0 -space-x-px">
                         <PaginationItem>
                             <button
-                                onClick={() => setPageIndex(p => p - 1)}
+                                onClick={() => setPageIndex(pageIndex - 1)}
                                 disabled={!canPreviousPage}
                                 className="relative inline-flex cursor-pointer items-center px-3 py-1.5 rounded-l border border-gray-300 bg-white text-[13px] font-sans font-medium text-[#676A6C] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
@@ -73,8 +71,8 @@ export function DataTablePagination({
                                     <button
                                         onClick={() => setPageIndex(page)}
                                         className={`relative inline-flex cursor-pointer items-center px-3.5 py-1.5 border text-[13px] font-sans font-medium ${pageIndex === page
-                                                ? "z-10 bg-[#1D549F] border-[#1D549F] text-white hover:bg-[#15407A]"
-                                                : "bg-white border-gray-300 text-[#676A6C] hover:bg-gray-50"
+                                            ? "z-10 bg-[#1D549F] border-[#1D549F] text-white hover:bg-[#15407A]"
+                                            : "bg-white border-gray-300 text-[#676A6C] hover:bg-gray-50"
                                             }`}
                                     >
                                         {page + 1}
@@ -89,7 +87,7 @@ export function DataTablePagination({
 
                         <PaginationItem>
                             <button
-                                onClick={() => setPageIndex(p => p + 1)}
+                                onClick={() => setPageIndex(pageIndex + 1)}
                                 disabled={!canNextPage}
                                 className="relative inline-flex cursor-pointer items-center px-3 py-1.5 rounded-r border border-gray-300 bg-white text-[13px] font-sans font-medium text-[#676A6C] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
