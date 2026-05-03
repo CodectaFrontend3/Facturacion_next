@@ -18,7 +18,6 @@ export default function FilterBar({ type }: { type: TableType }) {
     return (
         <div className="flex flex-col gap-4 text-gray-500 border-t border-l border-r border-gray-200 p-5 mb-0">
             <div className="flex w-full gap-5 items-end">
-                
                 <DateRangeInput />
 
                 <select className="flex-1 border p-2.5 rounded">
