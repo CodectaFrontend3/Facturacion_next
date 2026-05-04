@@ -1,6 +1,8 @@
 "use client"
 
 import { DataTable } from "@/components/shared/DataTable"
+import { SummaryCard } from "@/components/shared/SummaryCard"
+import { type SummaryCardSlide } from "@/types/summary-card"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { DataFilters } from "@/components/DataFilters/DataFilters"
@@ -13,10 +15,9 @@ import {
     FilePenLineIcon,
     FileCheckIcon,
     UsersIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
     PlusIcon,
     DownloadIcon,
+    ReceiptIcon
 } from "lucide-react"
 
 import { Cliente } from "./_types/cliente"
@@ -57,13 +58,27 @@ const columns: ColumnDef<Cliente>[] = [
 ]
 
 // Configuracion de tarjetas superiores
-const summaryCards = [
-    { icon: FileTextIcon, label: "Cotizacion", count: "0 Documentos", amount: "S/ 0.00", borderColor: "border-green-500", textColor: "text-green-600", iconColor: "text-green-600", bgColor: "bg-green-50" },
-    { icon: FilePenLineIcon, label: "Cotizacion Manual", count: "0 Documentos", amount: "S/ 0.00", borderColor: "border-amber-500", textColor: "text-amber-600", iconColor: "text-amber-600", bgColor: "bg-amber-50" },
-    { icon: FileCheckIcon, label: "Nota de Venta", count: "0 Documentos", amount: "S/ 0.00", borderColor: "border-green-500", textColor: "text-green-600", iconColor: "text-green-600", bgColor: "bg-green-50" },
-    { icon: UsersIcon, label: "Clientes", count: "0 Clientes", amount: null, borderColor: "border-blue-600", textColor: "text-blue-600", iconColor: "text-blue-600", bgColor: "bg-blue-50" },
+const cards: SummaryCardSlide[][] = [
+    [
+        { icon: FileTextIcon, label: "Cotizacion", count: "0 Documentos", amount: "S/ 0.00",
+          tone: { ring: "border-green-500", icon: "text-green-600", amount: "text-green-600" } },
+        { icon: FilePenLineIcon, label: "Cotizacion Manual", count: "0 Documentos", amount: "S/ 0.00",
+          tone: { ring: "border-amber-500", icon: "text-amber-600", amount: "text-amber-600" } },
+    ],
+    [
+        { icon: FileCheckIcon, label: "Nota de Venta", count: "0 Documentos", amount: "S/ 0.00",
+          tone: { ring: "border-red-500", icon: "text-red-600", amount: "text-red-600" } },
+    ],
+    [
+        { icon: UsersIcon, label: "Clientes", count: "0 Clientes",
+          tone: { ring: "border-blue-600", icon: "text-blue-600" } },
+    ],
+    [
+        { icon: UsersIcon, label: "Clientes", count: "0 Clientes",
+          tone: { ring: "border-blue-600", icon: "text-blue-600" },
+          meta: { label: "Ultima actualizacion:", value: "hace 2 dias" } },
+    ],
 ]
-
 // Configuracion de pestañas (Tabs)
 const tabs = [
     { label: "Cotizacion", count: 0 },
@@ -95,32 +110,10 @@ export default function EjemploDataTablePage() {
     return (
         <div className="bg-white min-h-full p-6 space-y-8">
             {/* Cabecera con tarjetas circulares */}
-            <div className="flex items-center justify-center gap-4">
-                <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                    <ChevronLeftIcon className="size-6" />
-                    <ChevronLeftIcon className="size-6 -ml-3" />
-                </button>
-
-                <div className="flex items-start gap-12">
-                    {summaryCards.map((card) => {
-                        const Icon = card.icon
-                        return (
-                            <div key={card.label} className="flex flex-col items-center gap-2">
-                                <div className={`w-24 h-24 rounded-full border-3 ${card.borderColor} ${card.bgColor} flex items-center justify-center`}>
-                                    <Icon className={`size-10 ${card.iconColor}`} />
-                                </div>
-                                <span className="text-sm font-semibold text-gray-700">{card.label}</span>
-                                <span className="text-xs text-gray-500">{card.count}</span>
-                                {card.amount && <span className={`text-sm font-bold ${card.textColor}`}>{card.amount}</span>}
-                            </div>
-                        )
-                    })}
-                </div>
-
-                <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                    <ChevronRightIcon className="size-6" />
-                    <ChevronRightIcon className="size-6 -ml-3" />
-                </button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {cards.map((slides, index) => (
+                    <SummaryCard key={index} items={slides} size="lg" />
+                ))}
             </div>
 
             <div className="space-y-0">

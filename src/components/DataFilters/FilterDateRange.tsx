@@ -60,7 +60,7 @@ export function FilterDateRange({
                     >
                         <div className="flex">
                             {/* Panel izquierdo de inputs y botones */}
-                            <div className="flex flex-col justify-between p-4 border-r border-gray-200 min-w-[160px]">
+                            <div className="flex flex-col justify-between p-4 border-r border-gray-200 min-w-40">
                                 <div className="flex gap-3">
                                     <div>
                                         <div className="text-[11px] font-bold text-[#676A6C] mb-1 uppercase tracking-wider">DESDE</div>
