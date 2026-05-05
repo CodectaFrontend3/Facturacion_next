@@ -1,0 +1,102 @@
+[
+  {
+    "id": 17,
+    "numero": "CMB 005-00000001",
+    "ruc_dni": "12322222222",
+    "cliente": "were",
+    "fecha_emision": "04-05-2026",
+    "tipo_comprobante": "Factura",
+    "forma_pago": "Credito",
+    "importe_total": "S/118.00"
+  },
+  {
+    "id": 18,
+    "numero": "CMB 005-00000002",
+    "ruc_dni": "20522045773",
+    "cliente": "Tecnologías Avanzadas S.A.",
+    "fecha_emision": "05-05-2026",
+    "tipo_comprobante": "Boleta",
+    "forma_pago": "Contado",
+    "importe_total": "S/250.00"
+  },
+  {
+    "id": 19,
+    "numero": "CMB 005-00000003",
+    "ruc_dni": "10456789123",
+    "cliente": "Juan Pérez",
+    "fecha_emision": "05-05-2026",
+    "tipo_comprobante": "NotaVenta",
+    "forma_pago": "Credito",
+    "importe_total": "S/1,200.50"
+  },
+  {
+    "id": 20,
+    "numero": "CMB 005-00000004",
+    "ruc_dni": "20123456789",
+    "cliente": "Constructora del Norte",
+    "fecha_emision": "06-05-2026",
+    "tipo_comprobante": "Factura",
+    "forma_pago": "Contado",
+    "importe_total": "S/890.00"
+  },
+  {
+    "id": 21,
+    "numero": "CMB 005-00000005",
+    "ruc_dni": "10785412369",
+    "cliente": "María García",
+    "fecha_emision": "07-05-2026",
+    "tipo_comprobante": "Boleta",
+    "forma_pago": "Credito",
+    "importe_total": "S/45.00"
+  },
+  {
+    "id": 22,
+    "numero": "CMB 005-00000006",
+    "ruc_dni": "20888777666",
+    "cliente": "Logística Express",
+    "fecha_emision": "08-05-2026",
+    "tipo_comprobante": "NotaVenta",
+    "forma_pago": "Contado",
+    "importe_total": "S/3,500.00"
+  },
+  {
+    "id": 23,
+    "numero": "CMB 005-00000007",
+    "ruc_dni": "10222333444",
+    "cliente": "Estudio Jurídico Asociados",
+    "fecha_emision": "09-05-2026",
+    "tipo_comprobante": "Factura",
+    "forma_pago": "Credito",
+    "importe_total": "S/150.75"
+  },
+  {
+    "id": 24,
+    "numero": "CMB 005-00000008",
+    "ruc_dni": "20333444555",
+    "cliente": "Clínica Santa María",
+    "fecha_emision": "10-05-2026",
+    "tipo_comprobante": "Boleta",
+    "forma_pago": "Contado",
+    "importe_total": "S/2,100.00"
+  },
+  {
+    "id": 25,
+    "numero": "CMB 005-00000009",
+    "ruc_dni": "10999888777",
+    "cliente": "Carlos Ruiz",
+    "fecha_emision": "11-05-2026",
+    "tipo_comprobante": "Factura",
+    "forma_pago": "Credito",
+    "importe_total": "S/99.90"
+  },
+  {
+    "id": 26,
+    "numero": "CMB 005-00000010",
+    "ruc_dni": "20444555666",
+    "cliente": "Supermercados Global",
+    "fecha_emision": "12-05-2026",
+    "tipo_comprobante": "NotaVenta",
+    "forma_pago": "Contado",
+    "importe_total": "S/560.20"
+  }
+]

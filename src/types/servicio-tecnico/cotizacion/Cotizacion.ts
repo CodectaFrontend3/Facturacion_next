@@ -1,9 +1,10 @@
 export interface Cotizacion {
   id: number;
-  numeroCotizacion: string;
-  rucDni: string;
+  numero: string;
+  ruc_dni: string;
   cliente: string;
-  emision: string;
-  formaPago: string;
-  importeTotal: number;
+  fecha_emision: string;
+  forma_pago: string;
+  importe_total: string;
+  tipo_comprobante: string;
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,7 +9,7 @@ interface Props {
   actions?: React.ReactNode;
 }
 
-export default function ServicioTecnicoTabs({ children, actions }: Props) {
+function ServicioTecnicoTabs({ children, actions }: Props) {
   const pathname = usePathname();
 
   // Los tabs ahora solo manejan la navegación
@@ -64,3 +66,5 @@ export default function ServicioTecnicoTabs({ children, actions }: Props) {
     </div>
   );
 }
+
+export default ServicioTecnicoTabs;

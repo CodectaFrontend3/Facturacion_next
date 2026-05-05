@@ -1,3 +1,5 @@
+"use client";
+
 import ServicioTecnicoTabs from "@/components/servicio-tecnico/ServicioTecnicoTabs";
 
 function page() {
