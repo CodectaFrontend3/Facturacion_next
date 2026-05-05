@@ -1,11 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import SummaryCards from "@/components/garantia/summaryCards";
-import TabsBar from "@/components/garantia/tabsBar";
-import FilterBar from "@/components/garantia/filterBar";
-import DataTable, { TableType } from "@/components/garantia/dataTable";
-import PageNavigator from "@/components/garantia/pageNavigator";
+import SummaryCards from "@/app/garantia/components/summaryCards";
+import TabsBar from "@/app/garantia/components/tabsBar";
+import FilterBar from "./components/filter/filterBar";
+import DataTable, { TableType } from "./components/tables/dataTable";
 
 export default function Page() {
   const router = useRouter();
@@ -36,8 +35,6 @@ export default function Page() {
           <FilterBar type={activeTab}/>
 
           <DataTable type={activeTab} />
-
-          <PageNavigator />
         </div>
       </div>
     </main>

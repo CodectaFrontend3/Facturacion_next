@@ -5,7 +5,7 @@ import {
     DropdownMenuContent,
     DropdownMenuItem
 } from "@/components/ui/dropdown-menu";
-import Modal from "@/components/garantia/modal";
+import Modal from "@/app/garantia/components/modal";
 
 export default function tabsBar({ activeTab, setActiveTab }: any) {
     const [isOpen, setIsOpen] = useState(false);
