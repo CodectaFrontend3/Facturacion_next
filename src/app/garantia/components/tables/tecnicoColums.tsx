@@ -36,5 +36,11 @@ export const tecnicoColumns: ColumnDef<Tecnico>[] = [
     },
     {
         header: "Ver",
+        id: "ver",
+        cell: ({ row }) => {
+            return (
+                <button className="bg-blue-700 text-white p-2 rounded hover:bg-blue-800"><i className="bi bi-eye"></i></button>
+            )
+        },
     },
 ];
