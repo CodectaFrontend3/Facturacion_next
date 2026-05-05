@@ -1,69 +1,30 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Plus, Printer, Download } from "lucide-react";
 
-const actionButtonClass = `
-  flex items-center justify-center
-  bg-[#1d4ed8] text-white p-2 rounded-md 
-  cursor-pointer transition-all duration-200 ease-in-out
-  hover:-translate-y-1 hover:shadow-lg hover:bg-blue-800 
-  active:translate-y-0 active:shadow-sm
-`;
-
-export default function ServicioTecnicoLayout({
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
-}) {
+  actions?: React.ReactNode;
+}
+
+export default function ServicioTecnicoTabs({ children, actions }: Props) {
   const pathname = usePathname();
 
+  // Los tabs ahora solo manejan la navegación
   const tabs = [
-    {
-      name: "Servicios",
-      href: "/servicio-tecnico/servicios",
-      count: 0,
-      actions: (
-        <button className={actionButtonClass}>
-          <Plus size={20} strokeWidth={2.5} />
-        </button>
-      ),
-    },
-    {
-      name: "Cotización",
-      href: "/servicio-tecnico/cotizacion",
-      count: 0,
-      actions: (
-        <div className="flex gap-2">
-          <button className={actionButtonClass}>
-            <Printer size={20} />
-          </button>
-          <button className={actionButtonClass}>
-            <Download size={20} />
-          </button>
-        </div>
-      ),
-    },
+    { name: "Servicios", href: "/servicio-tecnico/servicios", count: 0 },
+    { name: "Cotización", href: "/servicio-tecnico/cotizacion", count: 0 },
     {
       name: "Orden Servicio",
       href: "/servicio-tecnico/orden-servicio",
       count: 0,
-      actions: null,
     },
-    {
-      name: "Entregados",
-      href: "/servicio-tecnico/entregados",
-      count: 0,
-      actions: null,
-    },
+    { name: "Entregados", href: "/servicio-tecnico/entregados", count: 0 },
   ];
-
-  const activeTab = tabs.find((tab) => tab.href === pathname);
 
   return (
     <div className="w-full min-h-screen bg-[#f8fafc] p-4 lg:p-6">
+      {/* Cabecera: Tabs + Acciones */}
       <div className="flex items-center justify-between">
         <nav className="flex items-end space-x-1">
           {tabs.map((tab) => {
@@ -92,10 +53,12 @@ export default function ServicioTecnicoLayout({
           })}
         </nav>
 
-        <div className="mb-2">{activeTab?.actions}</div>
+        {/* Botones de acción (Printer, Download, etc.) */}
+        <div className="mb-2 flex items-center gap-2">{actions}</div>
       </div>
 
-      <div className="bg-white border border-gray-300 rounded-b-lg rounded-tr-none p-6 shadow-sm min-h-[calc(100vh-220px)]">
+      {/* Contenedor de contenido: Altura automática */}
+      <div className="bg-white border border-gray-300 rounded-b-lg rounded-tr-none p-6 shadow-sm h-auto">
         {children}
       </div>
     </div>

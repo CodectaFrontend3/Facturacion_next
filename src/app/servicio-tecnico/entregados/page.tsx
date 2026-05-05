@@ -1,5 +1,11 @@
+import ServicioTecnicoTabs from "@/components/servicio-tecnico/ServicioTecnicoTabs";
+
 function page() {
-  return <div>entregados</div>;
+  return (
+    <ServicioTecnicoTabs>
+      <div></div>
+    </ServicioTecnicoTabs>
+  );
 }
 
 export default page;
