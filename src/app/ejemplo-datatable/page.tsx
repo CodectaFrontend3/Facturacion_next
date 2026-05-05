@@ -1,37 +1,38 @@
 "use client"
 
 import { DataTable } from "@/components/shared/DataTable"
+import { SummaryCard } from "@/components/shared/SummaryCard"
+import { type SummaryCardSlide } from "@/types/summary-card"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
+import { DataFilters } from "@/components/DataFilters/DataFilters"
+import { FilterSearch } from "@/components/DataFilters/FilterSearch"
+import { FilterSelect } from "@/components/DataFilters/FilterSelect"
+import { FilterDateRange } from "@/components/DataFilters/FilterDateRange"
 import {
     EyeIcon,
     FileTextIcon,
     FilePenLineIcon,
     FileCheckIcon,
     UsersIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    RotateCcwIcon,
     PlusIcon,
     DownloadIcon,
-    SearchIcon,
+    ReceiptIcon
 } from "lucide-react"
 
-// importamos el tipo e informacion desde archivos externos para que todo este mas limpio
 import { Cliente } from "./_types/cliente"
+import { useClientesTable } from "./_hooks/useClientesTable"
 import mockData from "./_data/clientes.json"
 
-/**
- * como usar - Estructura de ejemplo
- * 
- * primero definan sus columnas usando ColumnDef y ponganle el nombre del dato que quieren jalar en accessorKey
- * si necesitan meterle botones o iconos usen la propiedad cell que les deja poner lo que sea como el boton de ver que puse abajo
- * 
- * despues solo llaman al componente DataTable y le pasan sus columnas y su lista de datos 
- * tambien pueden jugar con las opciones como showSelection para los cuadritos o isLoading por si la data demora en llegar
- */
+// Datos de ejemplo
+const data: Cliente[] = mockData
 
-// aqui definimos que columnas vamos a mostrar y como se van a ver
+/**
+ * DEFINICION DE COLUMNAS
+ * Aqui configuras que campos mostrar y como se ven.
+ * accessorKey: El nombre del campo en tu JSON.
+ * header: El titulo que sale arriba en la tabla.
+ */
 const columns: ColumnDef<Cliente>[] = [
     { accessorKey: "id", header: "ID", size: 60 },
     { accessorKey: "nombre", header: "Nombre" },
@@ -44,7 +45,6 @@ const columns: ColumnDef<Cliente>[] = [
         id: "actions",
         header: "Ver",
         size: 60,
-        // Ejemplo de columna con componente personalizado (Boton)
         cell: ({ row }) => (
             <Button
                 size="icon-sm"
@@ -57,155 +57,122 @@ const columns: ColumnDef<Cliente>[] = [
     },
 ]
 
-// datos para las tarjetas de arriba - prueba
-const summaryCards = [
-    {
-        icon: FileTextIcon,
-        label: "Cotización",
-        count: "0 Documentos",
-        amount: "S/ 0.00",
-        borderColor: "border-green-500",
-        textColor: "text-green-600",
-        iconColor: "text-green-600",
-        bgColor: "bg-green-50",
-    },
-    {
-        icon: FilePenLineIcon,
-        label: "Cotización Manual",
-        count: "0 Documentos",
-        amount: "S/ 0.00",
-        borderColor: "border-amber-500",
-        textColor: "text-amber-600",
-        iconColor: "text-amber-600",
-        bgColor: "bg-amber-50",
-    },
-    {
-        icon: FileCheckIcon,
-        label: "Nota de Venta",
-        count: "0 Documentos",
-        amount: "S/ 0.00",
-        borderColor: "border-green-500",
-        textColor: "text-green-600",
-        iconColor: "text-green-600",
-        bgColor: "bg-green-50",
-    },
-    {
-        icon: UsersIcon,
-        label: "Clientes",
-        count: "0 Clientes",
-        amount: null,
-        borderColor: "border-blue-600",
-        textColor: "text-blue-600",
-        iconColor: "text-blue-600",
-        bgColor: "bg-blue-50",
-    },
+// Configuracion de tarjetas superiores
+const cards: SummaryCardSlide[][] = [
+    [
+        { icon: FileTextIcon, label: "Cotizacion", count: "0 Documentos", amount: "S/ 0.00",
+          tone: { ring: "border-green-500", icon: "text-green-600", amount: "text-green-600" } },
+        { icon: FilePenLineIcon, label: "Cotizacion Manual", count: "0 Documentos", amount: "S/ 0.00",
+          tone: { ring: "border-amber-500", icon: "text-amber-600", amount: "text-amber-600" } },
+    ],
+    [
+        { icon: FileCheckIcon, label: "Nota de Venta", count: "0 Documentos", amount: "S/ 0.00",
+          tone: { ring: "border-red-500", icon: "text-red-600", amount: "text-red-600" } },
+    ],
+    [
+        { icon: UsersIcon, label: "Clientes", count: "0 Clientes",
+          tone: { ring: "border-blue-600", icon: "text-blue-600" } },
+    ],
+    [
+        { icon: UsersIcon, label: "Clientes", count: "0 Clientes",
+          tone: { ring: "border-blue-600", icon: "text-blue-600" },
+          meta: { label: "Ultima actualizacion:", value: "hace 2 dias" } },
+    ],
 ]
-
-// info para las pestañas
+// Configuracion de pestañas (Tabs)
 const tabs = [
-    { label: "Cotización", count: 0 },
-    { label: "Cotización Manual", count: 0 },
+    { label: "Cotizacion", count: 0 },
+    { label: "Cotizacion Manual", count: 0 },
     { label: "Nota de Venta", count: 0 },
     { label: "Clientes", count: 0, active: true },
-    { label: "Renovación", count: 0 },
+    { label: "Renovacion", count: 0 },
+]
+
+// Opciones para el selector de tipo de documento
+const tipoDocOptions = [
+    { label: "Todos los Documentos", value: "todos" },
+    { label: "DNI", value: "DNI" },
+    { label: "RUC", value: "RUC" },
 ]
 
 export default function EjemploDataTablePage() {
+    /**
+     * USO DEL HOOK CEREBRO
+     * Extraemos todo lo necesario para que la pagina funcione:
+     * - filteredData: Los datos ya filtrados y listos para la tabla.
+     * - pendingFilters: Lo que el usuario esta escribiendo pero aun no ha dado "Buscar".
+     * - applyFilters: La funcion que se dispara al dar clic en "Buscar".
+     * - setFilterValue: Funcion para actualizar un filtro (ej: cuando escribes).
+     */
+    const { filteredData, totalCount, pendingFilters, setFilterValue, applyFilters, resetFilters, pageIndex, setPageIndex } =
+        useClientesTable(data)
+
     return (
         <div className="bg-white min-h-full p-6 space-y-8">
-            {/* fila de las tarjetas con circulos */}
-            <div className="flex items-center justify-center gap-4">
-                <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                    <ChevronLeftIcon className="size-6" />
-                    <ChevronLeftIcon className="size-6 -ml-3" />
-                </button>
-
-                <div className="flex items-start gap-12">
-                    {summaryCards.map((card) => {
-                        const Icon = card.icon
-                        return (
-                            <div key={card.label} className="flex flex-col items-center gap-2">
-                                <div className={`w-24 h-24 rounded-full border-3 ${card.borderColor} ${card.bgColor} flex items-center justify-center`}>
-                                    <Icon className={`size-10 ${card.iconColor}`} />
-                                </div>
-                                <span className="text-sm font-semibold text-gray-700">{card.label}</span>
-                                <span className="text-xs text-gray-500">{card.count}</span>
-                                {card.amount && (
-                                    <span className={`text-sm font-bold ${card.textColor}`}>{card.amount}</span>
-                                )}
-                            </div>
-                        )
-                    })}
-                </div>
-
-                <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                    <ChevronRightIcon className="size-6" />
-                    <ChevronRightIcon className="size-6 -ml-3" />
-                </button>
+            {/* Cabecera con tarjetas circulares */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {cards.map((slides, index) => (
+                    <SummaryCard key={index} items={slides} size="lg" />
+                ))}
             </div>
 
-            {/* todo lo que es la tabla y filtros */}
             <div className="space-y-0">
+                {/* TABS Y BOTONES DE ACCION */}
                 <div className="flex items-center justify-between border-b border-gray-200">
-                    {/* navegacion de las pestañas */}
                     <div className="flex">
                         {tabs.map((tab) => (
-                            <button
-                                key={tab.label}
-                                className={`px-4 py-2.5 text-sm font-medium transition-colors relative ${tab.active ? "text-gray-900 border-b-2 border-gray-800" : "text-gray-500 hover:text-gray-700"
-                                    }`}
-                            >
-                                <span className={`inline-flex items-center justify-center w-5 h-5 rounded text-xs font-bold mr-1.5 ${tab.active ? "bg-gray-800 text-white" : "bg-orange-500 text-white"
-                                    }`}>
-                                    {tab.count}
+                            <button key={tab.label} className={`px-4 py-2.5 text-sm font-medium relative ${tab.active ? "text-gray-900 border-b-2 border-gray-800" : "text-gray-500 hover:text-gray-700"}`}>
+                                <span className={`inline-flex items-center justify-center w-5 h-5 rounded text-xs font-bold mr-1.5 ${tab.active ? "bg-gray-800 text-white" : "bg-orange-500 text-white"}`}>
+                                    {tab.label === "Clientes" ? totalCount : tab.count}
                                 </span>
                                 {tab.label}
                             </button>
                         ))}
                     </div>
-
-                    {/* botones de mas y descargar */}
                     <div className="flex items-center gap-1.5 pb-1">
-                        <Button size="icon-sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-none">
-                            <PlusIcon className="size-4" />
-                        </Button>
-                        <Button size="icon-sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-none">
-                            <DownloadIcon className="size-4" />
-                        </Button>
+                        <Button size="icon-sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-none"><PlusIcon className="size-4" /></Button>
+                        <Button size="icon-sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-none"><DownloadIcon className="size-4" /></Button>
                     </div>
                 </div>
 
-                {/* filtros y el buscador azul */}
-                <div className="flex items-center gap-3 py-4">
-                    <div className="flex items-center gap-0 flex-1 max-w-xs">
-                        <input type="text" className="flex-1 h-9 border border-gray-300 px-3 text-sm outline-none rounded-none" readOnly />
-                        <button className="h-9 w-9 bg-gray-600 text-white flex items-center justify-center shrink-0">
-                            <RotateCcwIcon className="size-4" />
-                        </button>
-                    </div>
+                {/**
+                 * COMPONENTE DE FILTROS
+                 * Los envolvemos en <DataFilters>.
+                 * Cada filtro interno debe estar conectado a 'pendingFilters' y 'setFilterValue'.
+                 */}
+                <DataFilters onSearch={applyFilters} onReset={resetFilters}>
+                    <FilterDateRange
+                        nameFrom="fechaDesde"
+                        nameTo="fechaHasta"
+                        valueFrom={pendingFilters.fechaDesde}
+                        valueTo={pendingFilters.fechaHasta}
+                        onChange={setFilterValue}
+                    />
+                    <FilterSelect
+                        name="tipoDoc"
+                        value={pendingFilters.tipoDoc}
+                        onChange={setFilterValue}
+                        options={tipoDocOptions}
+                    />
+                    <FilterSearch
+                        name="search"
+                        value={pendingFilters.search}
+                        onChange={setFilterValue}
+                    />
+                </DataFilters>
 
-                    <select className="h-9 border border-gray-300 px-3 text-sm text-gray-600 outline-none rounded-none flex-1 max-w-xs" defaultValue="todos" disabled>
-                        <option value="todos">Todos los Documentos</option>
-                    </select>
-
-                    <div className="flex items-center gap-2 flex-1 max-w-xs">
-                        <label className="text-sm text-gray-600 whitespace-nowrap">Buscar:</label>
-                        <input type="text" className="flex-1 h-9 border border-gray-300 px-3 text-sm outline-none rounded-none" readOnly />
-                    </div>
-
-                    <Button className="bg-blue-900 hover:bg-blue-950 text-white rounded-none h-9 px-6">
-                        <SearchIcon className="size-4 mr-1.5" />
-                        Buscar
-                    </Button>
-                </div>
-
-                {/* aca es donde prendemos la tabla */}
+                {/**
+                 * LA TABLA (DataTable)
+                 * Le pasamos las columnas que definimos arriba y los datos YA filtrados.
+                 * Tambien conectamos la paginacion para que el hook controle el cambio de pagina.
+                 */}
                 <DataTable
                     columns={columns}
-                    data={mockData}
-                    pageSize={10}
-                    showSelection={true} // Mostrar o no la columna de checkboxes
-                    isLoading={false} // Mostrar o no el estado de carga
+                    data={filteredData}
+                    showSelection={true}
+                    isLoading={false}
+                    pageIndex={pageIndex}
+                    onPageChange={setPageIndex}
                 />
             </div>
         </div>
