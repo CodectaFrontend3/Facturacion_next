@@ -1,49 +1,28 @@
 "use client"
 
-import React, { useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import {
     ColumnDef,
     flexRender,
     getCoreRowModel,
-    getPaginationRowModel,
     useReactTable,
-    PaginationState,
-    Table as TanStackTable,
     Row,
 } from "@tanstack/react-table"
 
+import { DataTablePagination } from "../DataTable/DataTablePagination"
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+    Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
-import {
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    ChevronsLeftIcon,
-    ChevronsRightIcon,
-    Loader2Icon,
-} from "lucide-react"
+import { Loader2Icon } from "lucide-react"
 
-// ─── Selection column helper ────────────────────────────────────────────────
-// Se extrajo fuera del componente para garantizar una referencia estable
 export function getSelectColumn<TData>(): ColumnDef<TData> {
     return {
         id: "select",
         header: ({ table }) => (
             <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
+                checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                 aria-label="Seleccionar todo"
                 className="hover:border-[#2C8F7B] hover:border-3 cursor-pointer border-[#D3CFC8] size-5 [&_svg]:size-4"
             />
@@ -62,7 +41,6 @@ export function getSelectColumn<TData>(): ColumnDef<TData> {
     }
 }
 
-// ─── DataTable Props ────────────────────────────────────────────────────────
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
@@ -71,90 +49,97 @@ interface DataTableProps<TData, TValue> {
     showPagination?: boolean
     isLoading?: boolean
     getRowId?: (originalRow: TData, index: number, parent?: Row<TData>) => string
+    onRowSelectionChange?: (selectedRows: TData[]) => void
+    // Props para modo controlado (con useTableData)
+    pageIndex?: number
+    onPageChange?: (index: number) => void
+    footerContent?: React.ReactNode
 }
 
-// ─── DataTable Component ────────────────────────────────────────────────────
 export function DataTable<TData, TValue>({
     columns,
     data,
-    pageSize = 10,
+    pageSize = 3,
     showSelection = true,
     showPagination = true,
     isLoading = false,
     getRowId,
+    onRowSelectionChange,
+    pageIndex: pageIndexProp,
+    onPageChange,
+    footerContent,
 }: DataTableProps<TData, TValue>) {
-    const [rowSelection, setRowSelection] = useState({})
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize,
-    })
+    const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({})
 
-    // Memorización de columnas para prevenir rerenderizados costosos innecesarios
+    // Modo controlado: pageIndex viene del padre (useTableData)
+    // Modo autónomo:  pageIndex vive acá adentro
+    const isControlled = pageIndexProp !== undefined && onPageChange !== undefined
+    const [internalPageIndex, setInternalPageIndex] = useState(0)
+
+    const currentPageIndex = isControlled ? pageIndexProp : internalPageIndex
+    const setCurrentPageIndex = isControlled ? onPageChange : setInternalPageIndex
+
+    const selectColumn = useMemo(() => getSelectColumn<TData>(), [])
     const allColumns = useMemo(() => {
-        return showSelection ? [getSelectColumn<TData>(), ...columns] : columns
-    }, [showSelection, columns])
+        return showSelection ? [selectColumn, ...columns] : columns
+    }, [showSelection, columns, selectColumn])
+
+    // Paginación manual sobre la data que llega (ya filtrada si viene del hook)
+    const pageCount = Math.ceil(data.length / pageSize)
+    const paginatedData = useMemo(() => {
+        const start = currentPageIndex * pageSize
+        return data.slice(start, start + pageSize)
+    }, [data, currentPageIndex, pageSize])
 
     const table = useReactTable({
-        data,
+        data: paginatedData,
         columns: allColumns,
-        state: {
-            rowSelection,
-            pagination,
+        state: { rowSelection },
+        onRowSelectionChange: (updater) => {
+            const next = typeof updater === "function" ? updater(rowSelection) : updater
+            setRowSelection(next)
+            if (onRowSelectionChange) {
+                const selectedRows = table
+                    .getRowModel()
+                    .rows.filter((row) => next[row.id])
+                    .map((row) => row.original)
+                onRowSelectionChange(selectedRows)
+            }
         },
-        onRowSelectionChange: setRowSelection,
-        onPaginationChange: setPagination,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         enableRowSelection: showSelection,
-        getRowId: getRowId || ((row, index) => (row as any).id ? String((row as any).id) : String(index)),
+        getRowId: getRowId || ((_row, index) => String(currentPageIndex * pageSize + index)),
     })
+
+    const canPreviousPage = currentPageIndex > 0
+    const canNextPage = currentPageIndex < pageCount - 1
 
     return (
         <div className="w-full space-y-4 font-sans">
-            {/* ── Table ─────────────────────────────────────────────── */}
             <div className="border border-gray-200 overflow-hidden rounded-none">
                 <Table aria-label="Tabla de datos principal">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow
-                                key={headerGroup.id}
-                                className="bg-white hover:bg-white"
-                            >
+                            <TableRow key={headerGroup.id} className="bg-white hover:bg-white">
                                 {headerGroup.headers.map((header) => (
                                     <TableHead
                                         key={header.id}
-                                        className={`border-r border-gray-200 last:border-r-0 text-[13px] font-bold font-sans tracking-wide text-[#676A6C] last:bg-[#F2F2F2] ${header.id === "select" ? "bg-[#F2F2F2]" : "bg-white"
-                                            }`}
-                                        style={{
-                                            width:
-                                                header.getSize() !== 150
-                                                    ? header.getSize()
-                                                    : undefined,
-                                        }}
-                                        aria-sort={header.column.getIsSorted() ? (header.column.getIsSorted() === "asc" ? "ascending" : "descending") : "none"}
+                                        className={`border-r border-gray-200 last:border-r-0 text-[13px] font-bold font-sans tracking-wide text-[#676A6C] last:bg-[#F2F2F2] ${header.id === "select" ? "bg-[#F2F2F2]" : "bg-white"}`}
+                                        style={{ width: header.getSize() !== 150 ? header.getSize() : undefined }}
                                     >
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
+                                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                     </TableHead>
                                 ))}
                             </TableRow>
                         ))}
                     </TableHeader>
-
                     <TableBody>
                         {isLoading ? (
                             <TableRow>
-                                <TableCell
-                                    colSpan={allColumns.length}
-                                    className="h-24 text-center"
-                                >
+                                <TableCell colSpan={allColumns.length} className="h-24 text-center">
                                     <div className="flex flex-col items-center justify-center space-y-2 text-gray-500">
-                                        <Loader2Icon className="size-6 animate-spin text-gray-400" aria-hidden="true" />
-                                        <span aria-live="polite">Cargando datos...</span>
+                                        <Loader2Icon className="size-6 animate-spin text-gray-400" />
+                                        <span>Cargando datos...</span>
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -166,25 +151,16 @@ export function DataTable<TData, TValue>({
                                     className="transition-colors odd:bg-[#F2F2F2] even:bg-white hover:bg-[#ECECEC] border-b border-gray-200"
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell
-                                            key={cell.id}
-                                            className="border-r border-gray-200 last:border-r-0 text-[13px] font-sans text-[#676A6C] py-3"
-                                        >
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )}
+                                        <TableCell key={cell.id} className="border-r border-gray-200 last:border-r-0 text-[13px] font-sans text-[#676A6C] py-3">
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
                                 </TableRow>
                             ))
                         ) : (
-                            <TableRow>
-                                <TableCell
-                                    colSpan={allColumns.length}
-                                    className="h-24 text-center text-gray-500"
-                                >
-                                    <span aria-live="polite">Sin resultados.</span>
+                            <TableRow className="bg-[#F2F2F2] border-b border-gray-200">
+                                <TableCell colSpan={allColumns.length} className="text-left text-[13px] font-sans text-[#676A6C] py-3 px-4">
+                                    No hay datos disponibles
                                 </TableCell>
                             </TableRow>
                         )}
@@ -192,81 +168,23 @@ export function DataTable<TData, TValue>({
                 </Table>
             </div>
 
-            {/* ── Footer ────────────────────────────────────────────── */}
-            {showPagination && (
-                <DataTablePagination table={table} showSelection={showSelection} />
-            )}
-        </div>
-    )
-}
-
-// ─── Subcomponent: Pagination ───────────────────────────────────────────────
-interface DataTablePaginationProps<TData> {
-    table: TanStackTable<TData>
-    showSelection: boolean
-}
-
-function DataTablePagination<TData>({ table, showSelection }: DataTablePaginationProps<TData>) {
-    const currentPage = table.getState().pagination.pageIndex + 1
-    const totalPages = table.getPageCount()
-
-    return (
-        <div className="flex items-center justify-between px-1">
-            {/* Selection count */}
-            <div className="text-sm text-gray-500" aria-live="polite">
-                {showSelection && (
-                    <span>
-                        {table.getFilteredSelectedRowModel().rows.length} de{" "}
-                        {table.getFilteredRowModel().rows.length} fila(s) seleccionada(s).
-                    </span>
-                )}
-            </div>
-
-            {/* Pagination controls */}
-            <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-500" aria-live="polite">
-                    Página {currentPage} de {totalPages}
-                </span>
-
-                <div className="flex items-center gap-1" role="group" aria-label="Controles de paginación">
-                    <Button
-                        variant="outline"
-                        size="icon-sm"
-                        onClick={() => table.firstPage()}
-                        disabled={!table.getCanPreviousPage()}
-                        aria-label="Ir a la primera página"
-                    >
-                        <ChevronsLeftIcon className="size-4" aria-hidden="true" />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="icon-sm"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                        aria-label="Ir a la página anterior"
-                    >
-                        <ChevronLeftIcon className="size-4" aria-hidden="true" />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="icon-sm"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                        aria-label="Ir a la página siguiente"
-                    >
-                        <ChevronRightIcon className="size-4" aria-hidden="true" />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="icon-sm"
-                        onClick={() => table.lastPage()}
-                        disabled={!table.getCanNextPage()}
-                        aria-label="Ir a la última página"
-                    >
-                        <ChevronsRightIcon className="size-4" aria-hidden="true" />
-                    </Button>
+            {footerContent && (
+                <div className="w-full">
+                    {footerContent}
                 </div>
-            </div>
+            )}
+
+            {showPagination && data.length > 0 && (
+                <DataTablePagination
+                    pageIndex={currentPageIndex}
+                    pageSize={pageSize}
+                    dataLength={data.length}
+                    pageCount={pageCount}
+                    canPreviousPage={canPreviousPage}
+                    canNextPage={canNextPage}
+                    setPageIndex={setCurrentPageIndex}
+                />
+            )}
         </div>
     )
 }

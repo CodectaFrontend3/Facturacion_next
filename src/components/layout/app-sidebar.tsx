@@ -6,21 +6,21 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
 	BadgeCheck,
-	Boxes,
-	ClipboardList,
+	Archive,
 	CreditCard,
 	FileText,
 	Home,
+	Users,
 	LogOut,
 	Mail,
 	MoreVertical,
-	PackageSearch,
-	Settings2,
+	Settings,
 	ShieldCheck,
-	Stethoscope,
-	Tag,
-	User,
-	Users,
+	Tags,
+	Handbag,
+	Wrench,
+	MessageCircle,
+	Sheet,
 	CircleUserRound,
 	Wallet,
 	Landmark
@@ -56,18 +56,19 @@ type IconComponent = ComponentType<{ className?: string; strokeWidth?: number }>
 
 const iconMap: Record<string, IconComponent> = {
 	Home,
-	Tag,
+	Tags,
 	Wallet,
+	MessageCircle,
 	FileText,
 	ShieldCheck,
-	Boxes,
+	Archive,
 	CreditCard,
-	Stethoscope,
-	Users,
-	PackageSearch,
+	Wrench,
+	Sheet,
+	Handbag,
 	BadgeCheck,
-	ClipboardList,
 	Mail,
+	Users
 }
 
 const mainItems = sidebarData as sidebarItem[]
@@ -121,7 +122,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 		>
 			<Sidebar
 				collapsible="icon"
-				className="relative h-svh border-none bg-[#1538A0]"
+				className="border-none bg-[#1538A0]"
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 			>
@@ -167,7 +168,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 													<SidebarMenuButton
 														isActive={active}
 														className={`
-															group relative flex h-[46px] w-full items-center gap-3 rounded-none border-none px-6 text-[12px] font-bold tracking-wide text-white transition-all duration-500 ease-in-out
+															group relative flex h-11.5 w-full items-center gap-3 rounded-none border-none px-6 text-[12px] font-bold tracking-wide text-white transition-all duration-500 ease-in-out
 															group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:justify-center
 															hover:bg-[#09267B] hover:text-white cursor-pointer
 															group-data-[state=open]/collapsible:shadow-[inset_4px_0_0_0_white]
@@ -176,7 +177,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 															group-data-[collapsible=icon]:data-[active=true]:bg-[#09267B]
 														`}
 													>
-														<Icon className="size-[20px] shrink-0 transition-all duration-500 ease-in-out group-data-[collapsible=icon]:size-[26px]" strokeWidth={2.5} />
+														<Icon className="size-5 shrink-0 transition-all duration-500 ease-in-out group-data-[collapsible=icon]:size-6.5" strokeWidth={2.5} />
 														<span className="text-[12px] font-bold tracking-wide text-white truncate transition-all duration-500 ease-in-out overflow-hidden group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
 															{item.label}
 														</span>
@@ -196,7 +197,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 																				<SidebarMenuSubButton
 																					isActive={subActive}
 																					className={`
-																						group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-[44px] pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
+																						group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-11 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																						hover:bg-[#09267B] hover:text-white cursor-pointer
 																						shadow-[inset_4px_0_0_0_white]
 																						data-[active=true]:text-white
@@ -216,7 +217,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 																									asChild
 																									isActive={kActive}
 																									className={`
-																										group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-[64px] pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
+																										group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-16 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																										hover:bg-[#09267B] hover:text-white
 																										shadow-[inset_4px_0_0_0_white]
 																										data-[active=true]:bg-[#09267B] data-[active=true]:text-white
@@ -239,7 +240,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 																			asChild
 																			isActive={subActive}
 																			className={`
-																				group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-[44px] pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
+																				group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-11 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																				hover:bg-[#09267B] hover:text-white
 																				shadow-[inset_4px_0_0_0_white]
 																				data-[active=true]:bg-[#09267B] data-[active=true]:text-white
@@ -266,14 +267,14 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 											asChild
 											isActive={active}
 											className={`
-												group relative flex h-[46px] w-full items-center gap-3 rounded-none border-none px-6 text-[12px] font-bold tracking-wide text-white transition-all duration-500 ease-in-out
+												group relative flex h-11.5 w-full items-center gap-3 rounded-none border-none px-6 text-[12px] font-bold tracking-wide text-white transition-all duration-500 ease-in-out
 												group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:justify-center
 												hover:bg-[#09267B] hover:text-white
 												data-[active=true]:bg-[#09267B] data-[active=true]:text-white data-[active=true]:shadow-none
 											`}
 										>
 											<Link href={item.path!}>
-												<Icon className="size-[20px] shrink-0 transition-all duration-500 ease-in-out group-data-[collapsible=icon]:size-[26px]" strokeWidth={2.5} />
+												<Icon className="size-5 shrink-0 transition-all duration-500 ease-in-out group-data-[collapsible=icon]:size-6.5" strokeWidth={2.5} />
 												<span className="text-[12px] font-bold tracking-wide text-white truncate transition-all duration-500 ease-in-out overflow-hidden group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
 													{item.label}
 												</span>
@@ -288,7 +289,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 
 				{/* Footer: User Info */}
 				<SidebarFooter className="relative z-10 p-3 bg-[#1538A0] overflow-hidden">
-					<div className="flex w-[236px] items-center gap-3 px-2 py-2 text-left text-white transition-all duration-500 ease-in-out group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:invisible">
+					<div className="flex w-59 items-center gap-3 px-2 py-2 text-left text-white transition-all duration-500 ease-in-out group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:invisible">
 						<Avatar size="lg" className="ring-2 ring-white/20">
 							<AvatarImage src="" alt="Demo" />
 							<AvatarFallback className="bg-white/15 text-[14px] font-bold tracking-wide text-white">
@@ -299,7 +300,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 							<p className="text-[12px] font-bold tracking-wide text-white truncate">
 								Demo
 							</p>
-							<p className="text-[11px] font-bold tracking-wide text-white truncate text-white/90">
+							<p className="text-[11px] font-bold tracking-wide truncate text-white/90">
 								Administrador Web
 							</p>
 						</div>
@@ -327,7 +328,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 									Mi Empresa
 								</DropdownMenuItem>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<Settings2 className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
+									<Settings className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
 									Configuración
 								</DropdownMenuItem>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">

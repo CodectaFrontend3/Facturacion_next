@@ -8,14 +8,15 @@ export interface Tab {
   count: number
   color: string
   activeColor: string
+  href: string
 }
 
 export interface SummaryCard {
   label: string
   documents: number | string
   amount: string
-  borderColor: string
-  amountColor: string
+  borderColorClass: string
+  amountColorClass: string
   icon: ReactNode
 }
 
