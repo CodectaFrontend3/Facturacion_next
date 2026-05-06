@@ -8,5 +8,25 @@
     "cliente": "Leonardo",
     "ruc": "123456",
     "fecha": "01/05/2026"
+  },
+  {
+    "id": 128,
+    "codigo": "000001",
+    "producto": "Laptop",
+    "marca": "LENOVO",
+    "serie": "15",
+    "cliente": "María",
+    "ruc": "123456",
+    "fecha": "01/05/2026"
+  },
+  {
+    "id": 128,
+    "codigo": "000001",
+    "producto": "Laptop",
+    "marca": "LENOVO",
+    "serie": "15",
+    "cliente": "Camila",
+    "ruc": "123456",
+    "fecha": "01/05/2026"
   }
 ]

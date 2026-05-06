@@ -1,7 +1,7 @@
 "use client";
-import { ingresoColumns } from "../components/tables/ingresoColumns";
-import { egresoColumns } from "../components/tables/egresoColumns";
-import { tecnicoColumns } from "../components/tables/tecnicoColums";
+import { ingresoColumns } from "./ingresoColumns";
+import { egresoColumns } from "./egresoColumns";
+import { tecnicoColumns } from "./tecnicoColums";
 
 import ingresoData from "../data/ingreso.json";
 import egresoData from "../data/egreso.json"

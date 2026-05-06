@@ -28,12 +28,193 @@ body {
 }
 
 @keyframes collapsible-down {
-  from { height: 0; opacity: 0; }
-  to { height: var(--radix-collapsible-content-height); opacity: 1; }
+  from {
+    height: 0;
+    opacity: 0;
+  }
+
+  to {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
 }
 
 @keyframes collapsible-up {
-  from { height: var(--radix-collapsible-content-height); opacity: 1; }
-  to { height: 0; opacity: 0; }
+  from {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+
+  to {
+    height: 0;
+    opacity: 0;
+  }
 }
 
+.dropdown-menu[data-state="open"] {
+  animation: dropdownIn 0.2s ease;
+}
+
+.dropdown-menu[data-state="closed"] {
+  animation: dropdownOut 0.15s ease;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dropdownOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+.dropdown-item {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-item:hover {
+  cursor: pointer;
+  transform: translateX(4px);
+  color: rgb(21, 65, 185)
+}
+
+.modal-box {
+  animation: modalDrop 0.25s ease;
+}
+
+.modal-box.closing {
+  animation: modalExit 0.2s ease forwards;
+}
+
+.modal-content {
+  animation: modalDrop 0.4s ease;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 20px;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+@keyframes modalDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-45px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.download-btn,
+.add-btn {
+  transition: transform 0.2s ease-in-out;
+}
+
+.download-btn:hover,
+.add-btn:hover {
+  transform: translateY(-3px);
+  cursor: pointer;
+  background-color: rgb(21, 65, 185);
+  transition: transform 0.3s ease;
+}
+
+.download-btn[data-state="open"] {
+  transform: translateY(-5px);
+}
+
+.view-btn,
+.trash-btn,
+.sign-btn,
+.info-btn {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.view-btn:hover {
+  background-color: rgb(21, 65, 185);
+  transform: translateY(-2px);
+}
+
+.trash-btn:hover, 
+.info-btn:hover {
+  background-color: rgb(236, 177, 28);
+  transform: translateY(-2px);
+}
+
+.sign-btn:hover {
+  background-color: rgb(38, 189, 169);
+  transform: translateY(-2px);
+}
+
+.dropdown-menu[data-state="open"] {
+  animation: dropdownIn 0.2s ease;
+}
+
+.dropdown-menu[data-state="closed"] {
+  animation: dropdownOut 0.15s ease;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dropdownOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+.dropdown-item {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-item:hover {
+  cursor: pointer;
+  transform: translateX(4px);
+  color:rgb(21, 65, 185)
+}

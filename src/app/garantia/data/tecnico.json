@@ -8,5 +8,35 @@
     "cliente": "Mía",
     "ruc": "8513583",
     "fecha": "29/04/2026"
+  },
+  {
+    "id": 101,
+    "codigo": "000005",
+    "equipo": "Equipo",
+    "marca": "LENOVO",
+    "serie": "09",
+    "cliente": "Kiara",
+    "ruc": "8513583",
+    "fecha": "29/04/2026"
+  },
+  {
+    "id": 101,
+    "codigo": "000005",
+    "equipo": "Equipo",
+    "marca": "LENOVO",
+    "serie": "09",
+    "cliente": "María",
+    "ruc": "8513583",
+    "fecha": "29/04/2026"
+  },
+  {
+    "id": 101,
+    "codigo": "000005",
+    "equipo": "Equipo",
+    "marca": "LENOVO",
+    "serie": "09",
+    "cliente": "Leonardo",
+    "ruc": "8513583",
+    "fecha": "29/04/2026"
   }
 ]

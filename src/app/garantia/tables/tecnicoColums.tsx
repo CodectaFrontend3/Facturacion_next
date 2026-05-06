@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Tecnico } from "../../interfaces";
+import { Tecnico } from "../interfaces";
 
 export const tecnicoColumns: ColumnDef<Tecnico>[] = [
     {
@@ -39,7 +39,7 @@ export const tecnicoColumns: ColumnDef<Tecnico>[] = [
         id: "ver",
         cell: ({ row }) => {
             return (
-                <button className="bg-blue-700 text-white p-2 rounded hover:bg-blue-800"><i className="bi bi-eye"></i></button>
+                <button className="view-btn bg-blue-700 text-white p-2 rounded hover:bg-blue-800"><i className="bi bi-eye"></i></button>
             )
         },
     },

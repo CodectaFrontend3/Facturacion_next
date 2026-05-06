@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Egreso } from "../../interfaces";
+import { Egreso } from "../interfaces";
 
 export const egresoColumns: ColumnDef<Egreso>[] = [
     {
@@ -39,7 +39,7 @@ export const egresoColumns: ColumnDef<Egreso>[] = [
         id: "ver",
         cell: ({ row }) => {
             return (
-                <button className="bg-blue-700 text-white p-2 rounded hover:bg-blue-800"><i className="bi bi-eye"></i></button>
+                <button className="view-btn bg-blue-700 text-white p-2 rounded hover:bg-blue-800"><i className="bi bi-eye"></i></button>
             )
         },
     },
@@ -49,8 +49,8 @@ export const egresoColumns: ColumnDef<Egreso>[] = [
         cell: ({ row }) => {
             return (
                 <div className="flex gap-2">
-                    <button className="bg-amber-400 text-white p-2 rounded hover:bg-amber-500"><i className="bi bi-exclamation-lg"></i></button>
-                    <button className="bg-teal-400 text-white p-2 rounded hover:bg-teal-500"><i className="bi bi-box-arrow-in-right"></i></button>
+                    <button className="info-btn bg-amber-400 text-white p-2 rounded hover:bg-amber-500"><i className="bi bi-exclamation-lg"></i></button>
+                    <button className="sign-btn bg-teal-400 text-white p-2 rounded hover:bg-teal-500"><i className="bi bi-box-arrow-in-right"></i></button>
                 </div>
             )
         },

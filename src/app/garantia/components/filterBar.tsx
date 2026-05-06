@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
-import { useDateRangeFilter } from "@/hooks/useDateRangeFilter";
-import { FilterSelect, SelectOption } from "../../filters/FilterSelect";
-import { marcaOptions, estadoIngresoOptions, estadoEgresoOptions } from "../../filters/selectOptions";
-import { FilterSearch } from "../../filters/FilterSearch";
-import { DataFilters } from "../../filters/DataFilters";
-import { FilterDateRange } from "../../filters/FilterDateRange";
+
+import { FilterDateRange } from "../filters/FilterDateRange";
+import { FilterSearch } from "../filters/FilterSearch";
+import { FilterSelect, SelectOption } from "../filters/FilterSelect";
+import { DataFilters } from "../filters/DataFilters";
+
+import { marcaOptions, estadoIngresoOptions, estadoEgresoOptions } from "../filters/selectOptions";
 
 type TableType = "ingreso" | "egreso" | "tecnico";
 
@@ -37,13 +38,25 @@ export default function FilterBar({ type }: { type: TableType }) {
         setAppliedFilters(filters);
     };
 
+    const handleReset = () => {
+        const empty = {
+            fechaInicio: "",
+            fechaFin: "",
+            marca: "",
+            estado: "",
+            search: "",
+        };
+
+        setFilters(empty);
+        setAppliedFilters(empty);
+    };
+
     return (
         <div className="flex flex-col gap-4 text-gray-500 border-t border-l border-r border-gray-200 p-5 mb-0">
             <DataFilters
                 onSearch={handleSearch}
-                onReset={handleSearch}
+                onReset={handleReset}
             >
-
                 <FilterDateRange 
                     nameFrom="fechaInicio"
                     nameTo="fechaFin"
@@ -74,7 +87,6 @@ export default function FilterBar({ type }: { type: TableType }) {
                     value={filters.search}
                     onChange={handleFilterChange}
                 />
-
             </DataFilters>
         </div>
     );

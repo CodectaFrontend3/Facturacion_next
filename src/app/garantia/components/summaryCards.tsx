@@ -1,5 +1,5 @@
 import { SummaryCard } from "../../../components/ui/shared/SummaryCards";
-import { summaryItems } from "./cards/cards-summary";
+import { summaryItems } from "./cards-summary";
 
 export default function SummaryCards() {
     const today = new Date();
