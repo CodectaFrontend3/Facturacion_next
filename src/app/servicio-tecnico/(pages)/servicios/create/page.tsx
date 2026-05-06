@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2, Search, ChevronDown, ArrowLeft } from "lucide-react";
+import { Plus, Trash2, Search, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import ModalNuevoCliente from "@/app/servicio-tecnico/components/NuevoClienteModal";
 
 interface Equipo {
   id: number;
@@ -83,9 +84,7 @@ export default function GenerarServicioTecnico() {
                   </span>
                 </div>
                 {/* Botón plomo integrado al input */}
-                <button className="bg-[#6c757d] text-white px-3 rounded-r-md hover:bg-[#5a6268]">
-                  <Plus size={16} />
-                </button>
+                <ModalNuevoCliente />
 
                 {showClientes && (
                   <div className="absolute top-full left-0 w-full bg-white border border-gray-300 mt-1 z-50 shadow-lg">
