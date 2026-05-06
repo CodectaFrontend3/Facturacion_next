@@ -1,18 +1,19 @@
 "use client";
 
-import ServicioTecnicoTabs from "@/components/servicio-tecnico/ServicioTecnicoTabs";
+import ServicioTecnicoTabs from "@/app/servicio-tecnico/components/ServicioTecnicoTabs";
 import { DataTable } from "@/components/shared/DataTable";
 import { Button } from "@/components/ui/button";
-import { Cotizacion } from "@/types/servicio-tecnico/cotizacion/Cotizacion";
+import { Cotizacion } from "@/app/servicio-tecnico/types/cotizacion/Cotizacion";
 import { ColumnDef } from "@tanstack/react-table";
 import { Clock9, DownloadIcon, EyeIcon, Printer } from "lucide-react";
 
 import CotizacionData from "@/app/servicio-tecnico/data/cotizacionData.json";
-import { useCotizacionTable } from "../hooks/useCotizacionTable";
+import { useCotizacionTable } from "../../hooks/useCotizacionTable";
 import { DataFilters } from "@/components/DataFilters/DataFilters";
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { FilterSelect } from "@/components/DataFilters/FilterSelect";
 import { FilterSearch } from "@/components/DataFilters/FilterSearch";
+import { useRouter } from "next/navigation";
 
 const data: Cotizacion[] = CotizacionData;
 
@@ -34,40 +35,6 @@ const misBotones = (
   </div>
 );
 
-const columns: ColumnDef<Cotizacion>[] = [
-  { accessorKey: "id", header: "ID", size: 200 },
-  { accessorKey: "numero", header: "Nº", size: 220 },
-  { accessorKey: "ruc_dni", header: "RUC-DNI", size: 150 },
-  { accessorKey: "fecha_emision", header: "Emision", size: 160 },
-  { accessorKey: "forma_pago", header: "Forma de Pago", size: 160 },
-  { accessorKey: "importe_total", header: "Importe Total", size: 160 },
-  {
-    id: "actions",
-    header: "Acciones",
-    size: 120,
-    cell: ({ row }) => (
-      <>
-        <Button
-          size="icon-sm"
-          className="bg-blue-600 hover:bg-blue-700 text-white rounded-full"
-          onClick={() =>
-            alert(`Visualizando cotización: ${row.original.numero}`)
-          }
-        >
-          <EyeIcon className="size-4" />
-        </Button>
-        <Button
-          size="icon-sm"
-          className="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full ml-2"
-          onClick={() => alert(`Servicio pendiente: ${row.original.numero}`)}
-        >
-          <Clock9 className="size-4" />
-        </Button>
-      </>
-    ),
-  },
-];
-
 const tipoDocOptions = [
   { label: "Todos los Comprobantes", value: "todos" },
   { label: "Factura", value: "Factura" },
@@ -78,7 +45,6 @@ const tipoDocOptions = [
 function page() {
   const {
     filteredData,
-    totalCount,
     pendingFilters,
     setFilterValue,
     applyFilters,
@@ -86,6 +52,42 @@ function page() {
     pageIndex,
     setPageIndex,
   } = useCotizacionTable(data);
+
+  const router = useRouter();
+
+  const columns: ColumnDef<Cotizacion>[] = [
+    { accessorKey: "id", header: "ID", size: 200 },
+    { accessorKey: "numero", header: "Nº", size: 220 },
+    { accessorKey: "ruc_dni", header: "RUC-DNI", size: 150 },
+    { accessorKey: "fecha_emision", header: "Emision", size: 160 },
+    { accessorKey: "forma_pago", header: "Forma de Pago", size: 160 },
+    { accessorKey: "importe_total", header: "Importe Total", size: 160 },
+    {
+      id: "actions",
+      header: "Acciones",
+      size: 120,
+      cell: ({ row }) => (
+        <>
+          <Button
+            size="icon-sm"
+            className="bg-blue-600 hover:bg-blue-700 text-white rounded-full"
+            onClick={() =>
+              router.push(`/servicio-tecnico/cotizacion/${row.original.id}`)
+            }
+          >
+            <EyeIcon className="size-4" />
+          </Button>
+          <Button
+            size="icon-sm"
+            className="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full ml-2"
+            onClick={() => alert(`Servicio pendiente: ${row.original.id}`)}
+          >
+            <Clock9 className="size-4" />
+          </Button>
+        </>
+      ),
+    },
+  ];
   return (
     <ServicioTecnicoTabs actions={misBotones}>
       {/* Filtros */}

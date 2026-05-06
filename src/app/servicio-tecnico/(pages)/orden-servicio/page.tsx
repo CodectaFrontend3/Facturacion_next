@@ -1,6 +1,6 @@
 "use client";
 
-import ServicioTecnicoTabs from "@/components/servicio-tecnico/ServicioTecnicoTabs";
+import ServicioTecnicoTabs from "@/app/servicio-tecnico/components/ServicioTecnicoTabs";
 
 function page() {
   return (

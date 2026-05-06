@@ -1,6 +1,6 @@
 import { useTableData } from "@/hooks/useTableData";
 import { parse, isValid, isWithinInterval } from "date-fns";
-import { Servicio } from "@/types/servicio-tecnico/servicios/Servicio";
+import { Servicio } from "@/app/servicio-tecnico/types/servicios/Servicio";
 
 /**
  * CONFIGURACION DE FORMATOS DE FECHA

@@ -1,28 +1,19 @@
 "use client";
 
-import ServicioTecnicoTabs from "@/components/servicio-tecnico/ServicioTecnicoTabs";
+import ServicioTecnicoTabs from "@/app/servicio-tecnico/components/ServicioTecnicoTabs";
 import { DataTable } from "@/components/shared/DataTable";
 import { Button } from "@/components/ui/button";
-import { Servicio } from "@/types/servicio-tecnico/servicios/Servicio";
+import { Servicio } from "@/app/servicio-tecnico/types/servicios/Servicio";
 import { ColumnDef } from "@tanstack/react-table";
 import { Clock9, EyeIcon, PlusIcon } from "lucide-react";
 import ServicioTecnicoData from "@/app/servicio-tecnico/data/servicioData.json";
 import { DataFilters } from "@/components/DataFilters/DataFilters";
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { FilterSearch } from "@/components/DataFilters/FilterSearch";
-import { useServicioTecnicoTable } from "../hooks/useServicioTecnicoTable";
+import { useServicioTecnicoTable } from "../../hooks/useServicioTecnicoTable";
+import { useRouter } from "next/navigation";
 
 const data: Servicio[] = ServicioTecnicoData;
-
-// Botones para la parte superior derecha
-const misBotones = (
-  <button
-    onClick={() => alert("Botón de acción presionado")}
-    className="flex items-center justify-center bg-[#1d4ed8] text-white p-2 rounded-md hover:bg-blue-800 transition-all"
-  >
-    <PlusIcon size={20} strokeWidth={2.5} />
-  </button>
-);
 
 const columns: ColumnDef<Servicio>[] = [
   { accessorKey: "cliente", header: "Cliente", size: 200 },
@@ -64,6 +55,18 @@ function page() {
     pageIndex,
     setPageIndex,
   } = useServicioTecnicoTable(data);
+
+  const router = useRouter();
+
+  // Botones para la parte superior derecha
+  const misBotones = (
+    <button
+      onClick={() => router.push("/servicio-tecnico/servicios/create")}
+      className="flex items-center justify-center bg-[#1d4ed8] text-white p-2 rounded-md hover:bg-blue-800 transition-all"
+    >
+      <PlusIcon size={20} strokeWidth={2.5} />
+    </button>
+  );
   return (
     <ServicioTecnicoTabs actions={misBotones}>
       {/* Filtros */}

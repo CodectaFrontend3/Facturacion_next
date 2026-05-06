@@ -1,5 +1,5 @@
 import { useTableData } from "@/hooks/useTableData";
-import { Cotizacion } from "@/types/servicio-tecnico/cotizacion/Cotizacion";
+import { Cotizacion } from "@/app/servicio-tecnico/types/cotizacion/Cotizacion";
 import { parse, isValid, isWithinInterval } from "date-fns";
 
 /**
