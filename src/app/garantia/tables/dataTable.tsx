@@ -11,6 +11,17 @@ import { DataTable as Table } from "@/components/ui/shared/DataTable";
 
 export type TableType = "ingreso" | "egreso" | "tecnico";
 
+type Props = {
+    type: TableType;
+    filters: {
+        fechaInicio: string;
+        fechaFin: string;
+        marca: string;
+        estado: string;
+        search: string;
+    };
+};
+
 type Garantia = {
     id: number;
     codigo?: string;
@@ -23,8 +34,7 @@ type Garantia = {
     fecha?: string;
 };
 
-export default function DataTable({ type }: { type: TableType }) {
-
+export default function DataTable({ type, filters }: Props) {
     const columnsByType = {
         ingreso: ingresoColumns,
         egreso: egresoColumns,
@@ -37,10 +47,38 @@ export default function DataTable({ type }: { type: TableType }) {
         tecnico: tecnicoData as Garantia[],
     };
 
+    const filteredData = dataByType[type].filter((item) => {
+        const matchMarca =
+            !filters.marca ||
+            item.marca?.toLowerCase() === filters.marca.toLowerCase();
+
+        const matchSearch =
+            !filters.search ||
+            Object.values(item)
+                .join(" ")
+                .toLowerCase()
+                .includes(filters.search.toLowerCase());
+
+        const matchFechaInicio = 
+            !filters.fechaInicio ||
+            new Date(item.fecha || "") >= new Date(filters.fechaInicio);
+
+        const matchFechaFin = 
+            !filters.fechaFin ||
+            new Date(item.fecha || "") <= new Date(filters.fechaFin);
+
+        return (
+            matchMarca &&
+            matchSearch &&
+            matchFechaInicio &&
+            matchFechaFin
+        )
+    })
+
     return (
         <Table<any, any>
             columns={columnsByType[type]}
-            data={dataByType[type]}
+            data={filteredData}
             pageSize={5}
         />
     );

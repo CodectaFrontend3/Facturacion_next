@@ -1,11 +1,22 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+
 import SummaryCards from "../components/summaryCards";
 import TabsBar from "@/app/garantia/components/tabsBar";
 import FilterBar from "../components/filterBar";
 import DataTable from "../tables/dataTable";
 
 export default function IngresoPage() {
+    const searchParams = useSearchParams();
+
+    const filters = {
+        fechaInicio: searchParams.get("fechaInicio") || "",
+        fechaFin: searchParams.get("fechaFin") || "",
+        marca: searchParams.get("marca") || "",
+        estado: searchParams.get("estado") || "",
+        search: searchParams.get("search") || "",
+    }
     return (
         <main className="min-h-screen bg-gray-100 space-y-6">
             <div className="pl-5 pr-5 mt-5">
@@ -18,7 +29,10 @@ export default function IngresoPage() {
 
                     <FilterBar type="ingreso" />
 
-                    <DataTable type="ingreso" />
+                    <DataTable
+                        type="ingreso"
+                        filters={filters}
+                    />
 
                 </div>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { FilterDateRange } from "../../../components/DataFilters/FilterDateRange";
 import { FilterSearch } from "../../../components/DataFilters/FilterSearch";
 import { FilterSelect, SelectOption } from "../../../components/DataFilters/FilterSelect";
@@ -11,13 +12,31 @@ import { marcaOptions, estadoIngresoOptions, estadoEgresoOptions } from "./selec
 type TableType = "ingreso" | "egreso" | "tecnico";
 
 export default function FilterBar({ type }: { type: TableType }) {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const handleSearch = () => {
+        const params = new URLSearchParams(searchParams);
+
+        Object.entries(filters).forEach(([Key, value]) => {
+            if (value) {
+                params.set(Key, value);
+            } else {
+                params.delete(Key);
+            }
+        });
+
+        router.push(`${pathname}?${params.toString()}`);
+    };
+
     const [filters, setFilters] = useState<Record<string, string>>({
         fechaInicio: "",
         fechaFin: "",
         marca: "",
         estado: "",
         search: "",
-    }); 
+    });
 
     const [appliedFilters, setAppliedFilters] = useState(filters);
 
@@ -32,10 +51,6 @@ export default function FilterBar({ type }: { type: TableType }) {
             ...prev,
             [name]: value
         }));
-    };
-
-    const handleSearch = () => {
-        setAppliedFilters(filters);
     };
 
     const handleReset = () => {
@@ -57,7 +72,7 @@ export default function FilterBar({ type }: { type: TableType }) {
                 onSearch={handleSearch}
                 onReset={handleReset}
             >
-                <FilterDateRange 
+                <FilterDateRange
                     nameFrom="fechaInicio"
                     nameTo="fechaFin"
                     valueFrom={filters.fechaInicio}
