@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 
-import { FilterDateRange } from "../filters/FilterDateRange";
-import { FilterSearch } from "../filters/FilterSearch";
-import { FilterSelect, SelectOption } from "../filters/FilterSelect";
-import { DataFilters } from "../filters/DataFilters";
+import { FilterDateRange } from "../../../components/DataFilters/FilterDateRange";
+import { FilterSearch } from "../../../components/DataFilters/FilterSearch";
+import { FilterSelect, SelectOption } from "../../../components/DataFilters/FilterSelect";
+import { DataFilters } from "../../../components/DataFilters/DataFilters";
 
-import { marcaOptions, estadoIngresoOptions, estadoEgresoOptions } from "../filters/selectOptions";
+import { marcaOptions, estadoIngresoOptions, estadoEgresoOptions } from "./selectOptions";
 
 type TableType = "ingreso" | "egreso" | "tecnico";
 

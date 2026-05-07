@@ -1,5 +1,5 @@
 "use client";
-import type { SelectOption } from "@/app/garantia/filters/FilterSelect";
+import type { SelectOption } from "@/components/DataFilters/FilterSelect";
 
 type FilterKey = "marca" | "estado";
 

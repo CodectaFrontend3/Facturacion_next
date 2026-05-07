@@ -4,6 +4,7 @@ import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import AppSidebar from "@/components/layout/app-sidebar";
 import AppHeader from "@/components/layout/app-header";
+import AppFooter from "@/components/layout/app-footer";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -23,14 +24,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} h-full antialiased`}
+      className={`${outfit.variable} h-screen antialiased overflown-hidden`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="h-screen flex flex-col font-sans overflown-hidden">
         <AppSidebar>
-          <main className="flex min-w-0 flex-1 flex-col h-full">
+          <main className="h-screen flex min-w-0 flex-1 flex-col h-full overflow-y-auto">
             <AppHeader />
-            <div className="flex-1 flex flex-col bg-white">{children}</div>
+            <div className="flex-1 flex flex-col bg-white overflown-hidden">{children}</div>
           </main>
+          <AppFooter />
         </AppSidebar>
       </body>
     </html>

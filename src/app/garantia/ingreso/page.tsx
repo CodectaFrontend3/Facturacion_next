@@ -1,6 +1,6 @@
 "use client";
 
-import SummaryCards from "@/app/garantia/components/SummaryCards";
+import SummaryCards from "../components/summaryCards";
 import TabsBar from "@/app/garantia/components/tabsBar";
 import FilterBar from "../components/filterBar";
 import DataTable from "../tables/dataTable";

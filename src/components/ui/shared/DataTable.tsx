@@ -9,7 +9,7 @@ import {
     Row,
 } from "@tanstack/react-table"
 
-import { DataTablePagination } from "@/components/ui/shared/DataTablePagination"
+import { DataTablePagination } from "@/components/ui/DataTable/DataTablePagination"
 import {
     Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table"
