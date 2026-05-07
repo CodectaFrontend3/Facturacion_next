@@ -58,7 +58,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
     columns,
     data,
-    pageSize = 3,
+    pageSize = 16,
     showSelection = true,
     showPagination = true,
     isLoading = false,
