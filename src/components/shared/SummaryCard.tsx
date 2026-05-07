@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { type SummaryCardSlide, type SummaryCardProps } from "@/types/summary-card"
+import Autoplay from "embla-carousel-autoplay"
 
 import {
     Carousel,
@@ -100,6 +101,7 @@ export function SummaryCard({ items, size = "lg", className, formatAmount, forma
             <div className="relative w-full">
                 <Carousel
                     opts={{ align: "center", loop: true }}
+                    plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]}
                     className="w-full"
                 >
                     <CarouselContent className="m-0">

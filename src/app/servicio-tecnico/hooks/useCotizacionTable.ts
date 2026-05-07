@@ -77,7 +77,7 @@ const filterFn = (data: Cotizacion[], values: Record<string, string>) => {
  * - Mantener el estado de lo que escribes en los filtros
  */
 export function useCotizacionTable(data: Cotizacion[]) {
-  return useTableData({
+  const table = useTableData({
     data,
     filterFn,
     initialFilters: {
@@ -86,6 +86,24 @@ export function useCotizacionTable(data: Cotizacion[]) {
       fechaDesde: "",
       fechaHasta: "",
     },
-    pageSize: 3, // Cuantos elementos ver por pagina
+    pageSize: 4, // Cuantos elementos ver por pagina
   });
+
+  // Calcular total y totalG a partir de las cotizaciones filtradas
+  const total = table.filteredData.reduce((acc, c) => {
+    // Extrae solo el número, ignorando símbolos y espacios
+    const num = parseFloat((c.importe_total || "0").replace(/[^0-9.-]+/g, ""));
+    return acc + (isNaN(num) ? 0 : num);
+  }, 0);
+
+  // Formatear el total como string con símbolo y dos decimales
+  const totalFormatted = `S/ ${total.toFixed(2)}`;
+  // Si totalG es igual al total, puedes usar la misma variable
+  const totalGFormatted = totalFormatted;
+
+  return {
+    ...table,
+    totalFormatted,
+    totalGFormatted,
+  };
 }

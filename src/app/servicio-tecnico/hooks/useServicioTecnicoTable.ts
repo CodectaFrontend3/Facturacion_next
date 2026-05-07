@@ -74,6 +74,6 @@ export function useServicioTecnicoTable(data: Servicio[]) {
       fechaDesde: "",
       fechaHasta: "",
     },
-    pageSize: 3, // Cuantos elementos ver por pagina
+    pageSize: 4, // Cuantos elementos ver por pagina
   });
 }

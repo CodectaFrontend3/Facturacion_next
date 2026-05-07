@@ -53,6 +53,7 @@ interface DataTableProps<TData, TValue> {
     // Props para modo controlado (con useTableData)
     pageIndex?: number
     onPageChange?: (index: number) => void
+    footerContent?: React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
@@ -66,6 +67,7 @@ export function DataTable<TData, TValue>({
     onRowSelectionChange,
     pageIndex: pageIndexProp,
     onPageChange,
+    footerContent,
 }: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({})
 
@@ -165,6 +167,12 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
+
+            {footerContent && (
+                <div className="w-full">
+                    {footerContent}
+                </div>
+            )}
 
             {showPagination && data.length > 0 && (
                 <DataTablePagination

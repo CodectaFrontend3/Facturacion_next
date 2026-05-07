@@ -53,6 +53,7 @@ function page() {
     applyFilters,
     resetFilters,
     pageIndex,
+    pageSize,
     setPageIndex,
   } = useServicioTecnicoTable(data);
 
@@ -93,6 +94,7 @@ function page() {
         showSelection={false}
         isLoading={false}
         pageIndex={pageIndex}
+        pageSize={pageSize}
         onPageChange={setPageIndex}
       />
     </ServicioTecnicoTabs>
