@@ -1,0 +1,22 @@
+[
+  {
+    "id": 16,
+    "nombre": "SEBASTIAN GABRIEL ZORRILLA QUISPE",
+    "tipoDoc": "DNI",
+    "nroDoc": "60975829",
+    "correo": "sincorreo@gmail.com",
+    "celular": "0000000",
+    "fechaRegistro": "17-09-2025",
+    "acciones": ["eye"]
+  },
+  {
+    "id": 15,
+    "nombre": "EVERARDO PINO ROJAS",
+    "tipoDoc": "DNI",
+    "nroDoc": "08520216",
+    "correo": "rincorreo@gmail.com",
+    "celular": "0000000",
+    "fechaRegistro": "10-06-2025",
+    "acciones": ["eye"]
+  }
+]

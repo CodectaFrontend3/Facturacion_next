@@ -1,0 +1,36 @@
+[
+  {
+    "id": "1",
+    "numero": "NV 001-00000001",
+    "rucDni": "20334455661",
+    "cliente": "Comercializadora Sur S.A.C.",
+    "emision": "18/04/2026",
+    "forma": "Crédito 30 días",
+    "importeT": "S/ 8,900.50",
+    "acciones": [
+      "eye",
+      "clock",
+      "check"
+    ],
+    "compartir": [
+      "envelope"
+    ],
+    "tab": "nota-venta"
+  },
+  {
+    "id": "2",
+    "numero": "NV 001-00000002",
+    "rucDni": "10112233445",
+    "cliente": "Ana Lopez",
+    "emision": "20/04/2026",
+    "forma": "Efectivo",
+    "importeT": "S/ 350.00",
+    "acciones": [
+      "eye"
+    ],
+    "compartir": [
+      "whatsapp"
+    ],
+    "tab": "nota-venta"
+  }
+]

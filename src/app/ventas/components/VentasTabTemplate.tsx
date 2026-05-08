@@ -41,14 +41,15 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
     clientes: <i className="bi bi-person text-[55px] text-black leading-none" />,
   }
 
-  const summaryCards = useMemo(() => getSummaryCards(summaryIcons), [])
-  const columns = useMemo(() => getColumns(), [])
+    const summaryCards = useMemo(() => getSummaryCards(summaryIcons), [])
+  const columns = useMemo(() => getColumns(activeTab), [activeTab])
 
   // Calcular el total de la tabla actual dinámicamente
   const totalAmount = useMemo(() => {
     const sum = tableData.reduce((acc, row) => {
-      // Extrae solo los números y puntos decimales (ej. de "S/ 5,029.48" a "5029.48")
-      const numericString = row.importeT.replace(/[^0-9.-]+/g, "")
+      // Extrae solo los números y puntos decimales
+      const importeStr = row.importeT || "0";
+      const numericString = importeStr.replace(/[^0-9.-]+/g, "")
       const value = parseFloat(numericString)
       return acc + (isNaN(value) ? 0 : value)
     }, 0)
@@ -58,7 +59,7 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
   }, [tableData])
 
   return (
-    <div className="flex flex-col h-[calc(100vh-65px)] bg-[#f5f5f5] overflow-y-auto overflow-x-hidden">
+    <div className={`flex flex-col h-[calc(100vh-65px)] bg-[#f5f5f5] overflow-y-auto overflow-x-hidden tab-${activeTab}`}>
       <main className="flex-1 p-4 space-y-4 shrink-0">
         <style>{`
           .custom-checkbox-table [role="checkbox"] svg {
@@ -76,6 +77,21 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
           .fixed-table table {
             table-layout: fixed !important;
             width: 100% !important;
+          }
+          /* Asegurar que el texto largo en cualquier columna baje a la siguiente línea */
+          .fixed-table td {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+          }
+          /* Ajuste exclusivo del buscador para Cotización y Cotización Manual sin tocar DataFilters */
+          .tab-cotizacion .py-4 > div:nth-child(2),
+          .tab-cotizacion-manual .py-4 > div:nth-child(2) {
+            flex: 0 0 200px !important;
+          }
+          .tab-cotizacion .py-4 > div:nth-child(3),
+          .tab-cotizacion-manual .py-4 > div:nth-child(3) {
+            flex: 1 !important;
           }
         `}</style>
 
@@ -108,6 +124,7 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
                 onFilterChange={handleFilterChange}
                 onSearchSubmit={handleSearch}
                 isLoading={isLoading}
+                activeTab={activeTab}
               />
 
               <div className="bg-white fixed-table custom-checkbox-table">
@@ -118,15 +135,39 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
                   showSelection={true} 
                   showPagination={true} 
                   footerContent={
-                    <div className="flex items-center bg-white border border-gray-200 border-t-0 -mt-4 relative z-10">
-                      <div className="flex-1"></div>
-                      <div className="border-l border-gray-200 px-4 py-3 font-bold text-gray-700 text-[13px] whitespace-nowrap w-[180px]">
-                        Total: {totalAmount}
+                    activeTab !== "clientes" ? (
+                      <div className="flex items-center bg-white border border-gray-200 border-t-0 -mt-4 relative z-10">
+                        <div className="flex-1"></div>
+                        <div 
+                          className={`border-l border-gray-200 px-4 font-bold text-gray-700 text-[13px] whitespace-nowrap flex justify-center ${
+                            activeTab === "renovacion" ? "w-[100px] flex-col py-1.5" : "w-[180px] flex-row gap-1 py-3"
+                          }`}
+                        >
+                          {activeTab === "renovacion" ? (
+                            <>
+                              <span>Total:</span>
+                              <span>{totalAmount}</span>
+                            </>
+                          ) : (
+                            <span>Total: {totalAmount}</span>
+                          )}
+                        </div>
+                        <div 
+                          className={`border-l border-gray-200 px-4 font-bold text-gray-700 text-[13px] whitespace-nowrap flex justify-center ${
+                            activeTab === "renovacion" ? "w-[100px] flex-col py-1.5" : "w-[180px] flex-row gap-1 py-3"
+                          }`}
+                        >
+                          {activeTab === "renovacion" ? (
+                            <>
+                              <span>Total G.:</span>
+                              <span>{totalAmount}</span>
+                            </>
+                          ) : (
+                            <span>Total G.: {totalAmount}</span>
+                          )}
+                        </div>
                       </div>
-                      <div className="border-l border-gray-200 px-4 py-3 font-bold text-gray-700 text-[13px] whitespace-nowrap w-[180px]">
-                        Total G.: {totalAmount}
-                      </div>
-                    </div>
+                    ) : null
                   }
                 />
               </div>

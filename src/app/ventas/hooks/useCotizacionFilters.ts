@@ -7,6 +7,7 @@ export function useCotizacionFilters(activeTab: string) {
   const [filters, setFilters] = useState({
     searchValue: "",
     comprobante: "Todos los comprobantes",
+    estado: "Estados",
     dateFrom: "",
     dateTo: ""
   })
@@ -21,17 +22,17 @@ export function useCotizacionFilters(activeTab: string) {
   }
 
   // Disparar la búsqueda
-  const handleSearch = async () => {
+  const handleSearch = async (currentFilters = filters) => {
     setIsLoading(true)
     try {
-      // Si necesitas convertir las fechas a Date para tu servicio
-      const startDate = filters.dateFrom ? new Date(filters.dateFrom.split("/").reverse().join("-")) : null
-      const endDate = filters.dateTo ? new Date(filters.dateTo.split("/").reverse().join("-")) : null
+      const startDate = currentFilters.dateFrom ? new Date(currentFilters.dateFrom.split("/").reverse().join("-")) : null
+      const endDate = currentFilters.dateTo ? new Date(currentFilters.dateTo.split("/").reverse().join("-")) : null
 
       const result = await fetchCotizaciones({
         tab: activeTab,
-        search: filters.searchValue,
-        comprobante: filters.comprobante,
+        search: currentFilters.searchValue,
+        comprobante: currentFilters.comprobante,
+        estado: currentFilters.estado,
         dateRange: { start: startDate, end: endDate },
       })
       setData(result)
@@ -45,15 +46,28 @@ export function useCotizacionFilters(activeTab: string) {
 
   // Efecto para buscar automáticamente cuando cambia la pestaña
   useEffect(() => {
-    handleSearch()
+    const resetFilters = {
+      ...filters,
+      comprobante: activeTab === "clientes" ? "Todos los Documentos" : "Todos los comprobantes",
+      estado: "Estados",
+      searchValue: ""
+    };
+    setFilters(resetFilters);
+    handleSearch(resetFilters);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab])
+
+  // Efecto para buscar automáticamente cuando cambia un Select
+  useEffect(() => {
+    handleSearch(filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters.comprobante, filters.estado])
 
   return {
     filters,
     data,
     isLoading,
     handleFilterChange,
-    handleSearch,
+    handleSearch: () => handleSearch(filters),
   }
 }
