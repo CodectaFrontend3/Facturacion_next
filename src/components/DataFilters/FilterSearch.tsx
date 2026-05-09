@@ -29,7 +29,7 @@ export function FilterSearch({
                 value={value}
                 onChange={(e) => onChange(name, e.target.value)}
                 placeholder={placeholder}
-                className="h-9 w-full bg-white! border border-gray-300 px-3 text-sm outline-none rounded-none shadow-none focus-visible:ring-0 focus-visible:border-[#1AB394] font-sans text-[#676A6C]"
+                className="h-9 w-full bg-white! border border-gray-300 px-3 text-sm outline-none rounded-none shadow-none focus-visible:ring-0 focus-visible:border-[#18a689] font-sans text-[#676A6C]"
             />
         </div>
     )

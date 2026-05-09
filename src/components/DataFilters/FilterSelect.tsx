@@ -34,7 +34,7 @@ export function FilterSelect({
                 value={value}
                 onChange={(e) => onChange(name, e.target.value)}
                 className="w-full"
-                selectClassName="h-9 rounded-none border-gray-300 text-[#676A6C] font-sans bg-white! focus-visible:ring-0 focus-visible:border-[#1AB394]"
+                selectClassName="h-9 rounded-none border-gray-300 text-[#676A6C] font-sans bg-white! focus-visible:ring-0 focus-visible:border-[#18a689]"
             >
                 {options.map((opt) => (
                     <NativeSelectOption key={opt.value} value={opt.value} className="h-9 rounded-none border-gray-300 text-[#676A6C] font-sans">

@@ -48,7 +48,7 @@ export function CboData({
                     type="button"
                     disabled={disabled}
                     className={cn(
-                        "flex min-h-[36px] w-full items-center cursor-pointer justify-between rounded-sm border border-gray-300 bg-white px-3 py-1.5 text-[13px] text-[#676A6C] outline-none focus:border-[#1AB394] focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
+                        "flex min-h-[36px] w-full items-center cursor-pointer justify-between rounded-sm border border-gray-300 bg-white px-3 py-1.5 text-[13px] text-[#676A6C] outline-none focus:border-[#18a689] focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
                         !selectedItem && "text-gray-500",
                         className
                     )}
