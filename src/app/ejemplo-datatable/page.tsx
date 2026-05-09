@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { DataTable } from "@/components/shared/DataTable"
 import { SummaryCard } from "@/components/shared/SummaryCard"
 import { type SummaryCardSlide } from "@/types/summary-card"
@@ -16,13 +17,14 @@ import {
     FileCheckIcon,
     UsersIcon,
     PlusIcon,
-    DownloadIcon,
-    ReceiptIcon
+    DownloadIcon
 } from "lucide-react"
 
 import { Cliente } from "./_types/cliente"
 import { useClientesTable } from "./_hooks/useClientesTable"
 import mockData from "./_data/clientes.json"
+import { CboData } from "@/components/common/CboData"
+import { ActionButton } from "@/components/common/ActionButton"
 
 // Datos de ejemplo
 const data: Cliente[] = mockData
@@ -46,13 +48,18 @@ const columns: ColumnDef<Cliente>[] = [
         header: "Ver",
         size: 60,
         cell: ({ row }) => (
-            <Button
-                size="icon-sm"
-                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full"
+            /**
+             * EJEMPLO MODO DE USO: ActionButton
+             * Reemplaza al Button genérico para acciones de icono.
+             * Le pasas el icono, el onClick, y le puedes dar className para ajustar color o tamaño.
+             * poner label para la accesibilidad siempre 
+             */
+            <ActionButton
+                icon={<EyeIcon className="size-4" />}
+                className="w-8 h-8"
                 onClick={() => alert(`Visualizando cliente: ${row.original.nombre}`)}
-            >
-                <EyeIcon className="size-4" />
-            </Button>
+                label={`Ver cliente ${row.original.nombre}`}
+            />
         ),
     },
 ]
@@ -60,23 +67,33 @@ const columns: ColumnDef<Cliente>[] = [
 // Configuracion de tarjetas superiores
 const cards: SummaryCardSlide[][] = [
     [
-        { icon: FileTextIcon, label: "Cotizacion", count: "0 Documentos", amount: "S/ 0.00",
-          tone: { ring: "border-green-500", icon: "text-green-600", amount: "text-green-600" } },
-        { icon: FilePenLineIcon, label: "Cotizacion Manual", count: "0 Documentos", amount: "S/ 0.00",
-          tone: { ring: "border-amber-500", icon: "text-amber-600", amount: "text-amber-600" } },
+        {
+            icon: FileTextIcon, label: "Cotizacion", count: "0 Documentos", amount: "S/ 0.00",
+            tone: { ring: "border-green-500", icon: "text-green-600", amount: "text-green-600" }
+        },
+        {
+            icon: FilePenLineIcon, label: "Cotizacion Manual", count: "0 Documentos", amount: "S/ 0.00",
+            tone: { ring: "border-amber-500", icon: "text-amber-600", amount: "text-amber-600" }
+        },
     ],
     [
-        { icon: FileCheckIcon, label: "Nota de Venta", count: "0 Documentos", amount: "S/ 0.00",
-          tone: { ring: "border-red-500", icon: "text-red-600", amount: "text-red-600" } },
+        {
+            icon: FileCheckIcon, label: "Nota de Venta", count: "0 Documentos", amount: "S/ 0.00",
+            tone: { ring: "border-red-500", icon: "text-red-600", amount: "text-red-600" }
+        },
     ],
     [
-        { icon: UsersIcon, label: "Clientes", count: "0 Clientes",
-          tone: { ring: "border-blue-600", icon: "text-blue-600" } },
+        {
+            icon: UsersIcon, label: "Clientes", count: "0 Clientes",
+            tone: { ring: "border-blue-600", icon: "text-blue-600" }
+        },
     ],
     [
-        { icon: UsersIcon, label: "Clientes", count: "0 Clientes",
-          tone: { ring: "border-blue-600", icon: "text-blue-600" },
-          meta: { label: "Ultima actualizacion:", value: "hace 2 dias" } },
+        {
+            icon: UsersIcon, label: "Clientes", count: "0 Clientes",
+            tone: { ring: "border-blue-600", icon: "text-blue-600" },
+            meta: { label: "Ultima actualizacion:", value: "hace 2 dias" }
+        },
     ],
 ]
 // Configuracion de pestañas (Tabs)
@@ -95,6 +112,12 @@ const tipoDocOptions = [
     { label: "RUC", value: "RUC" },
 ]
 
+// Opciones para el combo de clientes
+const clienteOptions = mockData.map(c => ({
+    label: `${c.nombre} | ${c.numDoc}`,
+    value: c.id.toString()
+}))
+
 export default function EjemploDataTablePage() {
     /**
      * USO DEL HOOK CEREBRO
@@ -106,6 +129,18 @@ export default function EjemploDataTablePage() {
      */
     const { filteredData, totalCount, pendingFilters, setFilterValue, applyFilters, resetFilters, pageIndex, setPageIndex } =
         useClientesTable(data)
+
+    // Estado para el ejemplo de formulario
+    const [formClienteId, setFormClienteId] = useState("")
+
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!formClienteId) {
+            alert("Por favor selecciona un cliente primero.")
+            return
+        }
+        alert(`¡Formulario enviado con éxito!\n\nCliente ID seleccionado: ${formClienteId}`)
+    }
 
     return (
         <div className="bg-white min-h-full p-6 space-y-8">
@@ -130,8 +165,17 @@ export default function EjemploDataTablePage() {
                         ))}
                     </div>
                     <div className="flex items-center gap-1.5 pb-1">
-                        <Button size="icon-sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-none"><PlusIcon className="size-4" /></Button>
-                        <Button size="icon-sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-none"><DownloadIcon className="size-4" /></Button>
+                        {/** EJEMPLO MODO DE USO: ActionButton en cabeceras o toolbars */}
+                        <ActionButton
+                            icon={<PlusIcon className="size-4" />}
+                            className=" text-white w-8 h-8"
+                            label="Nuevo"
+                        />
+                        <ActionButton
+                            icon={<DownloadIcon className="size-4" />}
+                            className=" text-white w-8 h-8"
+                            label="Descargar"
+                        />
                     </div>
                 </div>
 
@@ -154,6 +198,13 @@ export default function EjemploDataTablePage() {
                         onChange={setFilterValue}
                         options={tipoDocOptions}
                     />
+                    <CboData
+                        items={clienteOptions}
+                        value={pendingFilters.cliente}
+                        onChange={(val) => setFilterValue("cliente", val)}
+                        placeholder="Seleccionar Cliente"
+                        searchPlaceholder="Searching..."
+                    />
                     <FilterSearch
                         name="search"
                         value={pendingFilters.search}
@@ -174,6 +225,30 @@ export default function EjemploDataTablePage() {
                     pageIndex={pageIndex}
                     onPageChange={setPageIndex}
                 />
+
+                {/**
+                 * EJEMPLO DE FORMULARIO INDEPENDIENTE USANDO CboData
+                 * Modo de uso: Funciona como un input controlado clásico.
+                 * Solo necesitas pasarle un array de objetos { label, value },
+                 * el 'value' actual y la función 'onChange' que actualiza el estado.
+                 */}
+                <div className="mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg">
+                    <h3 className="text-lg font-bold text-[#171717] mb-4">Ejemplo: Uso de CboData en Formularios</h3>
+                    <form onSubmit={handleFormSubmit} className="flex items-end gap-4 max-w-lg">
+                        <div className="flex-1">
+                            <label className="block text-sm font-medium text-[#676A6C] mb-1">Selecciona un cliente para enviar:</label>
+                            <CboData
+                                items={clienteOptions}
+                                value={formClienteId}
+                                onChange={setFormClienteId}
+                                placeholder="Elegir cliente..."
+                            />
+                        </div>
+                        <Button type="submit" className="bg-[#1AB394] hover:bg-[#159a7f] text-white">
+                            Enviar Formulario
+                        </Button>
+                    </form>
+                </div>
             </div>
         </div>
     )

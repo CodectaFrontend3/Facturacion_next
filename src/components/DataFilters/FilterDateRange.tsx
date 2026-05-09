@@ -49,7 +49,7 @@ export function FilterDateRange({
             <div className="flex items-center w-full">
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
-                        <button className="h-9 w-full border border-gray-300 px-3 text-[13px] text-[#676A6C] text-left bg-[#F2F2F2] cursor-pointer font-sans outline-none focus:border-[#2C8F7B] rounded-l">
+                        <button className="h-9 w-full border border-gray-300 px-3 text-[13px] text-[#676A6C] text-left bg-[#F2F2F2] cursor-pointer font-sans outline-none focus:border-[#1AB394] rounded-l">
                             {triggerLabel}
                         </button>
                     </PopoverTrigger>

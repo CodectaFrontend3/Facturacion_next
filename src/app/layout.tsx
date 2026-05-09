@@ -26,13 +26,13 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col">
         <AppSidebar>
           <AppHeader />
           <main className="flex min-w-0 flex-1 flex-col h-full">
             <div className="flex-1 flex flex-col bg-white">{children}</div>
           </main>
-          <AppFooter/>
+          <AppFooter />
         </AppSidebar>
       </body>
     </html>

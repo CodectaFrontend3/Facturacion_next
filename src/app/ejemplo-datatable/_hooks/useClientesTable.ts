@@ -51,8 +51,13 @@ const filterFn = (data: Cliente[], values: Record<string, string>) => {
             }
         }
 
-        // Si cumple las 3 condiciones, el cliente aparece en la tabla
-        return matchSearch && matchTipoDoc && matchFecha
+        // 4. Selector de Cliente
+        const matchCliente =
+            !values.cliente ||
+            c.id.toString() === values.cliente
+
+        // Si cumple las 4 condiciones, el cliente aparece en la tabla
+        return matchSearch && matchTipoDoc && matchFecha && matchCliente
     })
 }
 
@@ -73,6 +78,7 @@ export function useClientesTable(data: Cliente[]) {
             tipoDoc: "todos",
             fechaDesde: "",
             fechaHasta: "",
+            cliente: "",
         },
         pageSize: 3, // Cuantos elementos ver por pagina
     })

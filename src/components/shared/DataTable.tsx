@@ -11,7 +11,7 @@ import {
 
 import { DataTablePagination } from "../DataTable/DataTablePagination"
 import {
-    Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+    Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter
 } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Loader2Icon } from "lucide-react"
@@ -53,6 +53,10 @@ interface DataTableProps<TData, TValue> {
     // Props para modo controlado (con useTableData)
     pageIndex?: number
     onPageChange?: (index: number) => void
+    totals?: {
+        total: string;
+        totalG: string;
+    }
 }
 
 export function DataTable<TData, TValue>({
@@ -66,6 +70,7 @@ export function DataTable<TData, TValue>({
     onRowSelectionChange,
     pageIndex: pageIndexProp,
     onPageChange,
+    totals,
 }: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({})
 
@@ -163,6 +168,25 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         )}
                     </TableBody>
+                    {totals && (
+                        <TableFooter className="bg-white border-t border-gray-200">
+                            <TableRow className="hover:bg-transparent">
+                                <TableCell colSpan={allColumns.length - 2} className="border-r-0 border-b-0 py-0"></TableCell>
+                                <TableCell className="border-l border-gray-200 px-3 py-2 font-bold text-gray-700 text-[13px] border-b-0 text-right">
+                                    <div className="flex flex-col">
+                                        <span className="text-[11px] text-gray-500 uppercase tracking-wider">Total</span>
+                                        <span>{totals.total}</span>
+                                    </div>
+                                </TableCell>
+                                <TableCell className="border-l border-gray-200 px-3 py-2 font-bold text-gray-700 text-[13px] border-b-0 text-right">
+                                    <div className="flex flex-col">
+                                        <span className="text-[11px] text-gray-500 uppercase tracking-wider">Total G.</span>
+                                        <span>{totals.totalG}</span>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        </TableFooter>
+                    )}
                 </Table>
             </div>
 
