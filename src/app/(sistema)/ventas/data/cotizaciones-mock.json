@@ -1,0 +1,123 @@
+[
+  {
+    "id": "1",
+    "numero": "CM-0001",
+    "rucDni": "20123456789",
+    "cliente": "Inversiones del Norte S.A.C.",
+    "emision": "02/04/2026",
+    "forma": "Contado",
+    "importeT": "S/ 5,029.48",
+    "acciones": [
+      "eye",
+      "clock",
+      "check"
+    ],
+    "compartir": [
+      "envelope",
+      "whatsapp"
+    ],
+    "tab": "cotizacion-manual"
+  },
+  {
+    "id": "2",
+    "numero": "CM-0002",
+    "rucDni": "10456789123",
+    "cliente": "Juan Perez Ramos",
+    "emision": "05/04/2026",
+    "forma": "Crédito 15 días",
+    "importeT": "S/ 1,250.00",
+    "acciones": [
+      "eye",
+      "check"
+    ],
+    "compartir": [
+      "whatsapp"
+    ],
+    "tab": "cotizacion-manual"
+  },
+  {
+    "id": "3",
+    "numero": "CM-0003",
+    "rucDni": "20556677889",
+    "cliente": "Constructora Horizonte E.I.R.L.",
+    "emision": "10/04/2026",
+    "forma": "Transferencia",
+    "importeT": "S/ 12,400.00",
+    "acciones": [
+      "eye",
+      "clock"
+    ],
+    "compartir": [
+      "envelope"
+    ],
+    "tab": "cotizacion-manual"
+  },
+  {
+    "id": "4",
+    "numero": "CM-0004",
+    "rucDni": "10112233445",
+    "cliente": "Carlos Ruiz Mendoza",
+    "emision": "20/04/2026",
+    "forma": "Contado",
+    "importeT": "S/ 420.00",
+    "acciones": [
+      "eye"
+    ],
+    "compartir": [
+      "whatsapp"
+    ],
+    "tab": "cotizacion-manual"
+  },
+  {
+    "id": "1",
+    "numero": "C-0001",
+    "rucDni": "20998877665",
+    "cliente": "Tecnología Avanzada S.A.",
+    "emision": "12/04/2026",
+    "forma": "Contado",
+    "importeT": "S/ 3,450.20",
+    "acciones": [
+      "eye",
+      "check"
+    ],
+    "compartir": [
+      "whatsapp"
+    ],
+    "tab": "cotizacion"
+  },
+  {
+    "id": "2",
+    "numero": "C-0002",
+    "rucDni": "10778899445",
+    "cliente": "María Gonzales Diaz",
+    "emision": "14/04/2026",
+    "forma": "Yape/Plin",
+    "importeT": "S/ 85.00",
+    "acciones": [
+      "eye"
+    ],
+    "compartir": [
+      "envelope",
+      "whatsapp"
+    ],
+    "tab": "cotizacion"
+  },
+  {
+    "id": "1",
+    "numero": "NV-0001",
+    "rucDni": "20334455661",
+    "cliente": "Comercializadora Sur S.A.C.",
+    "emision": "18/04/2026",
+    "forma": "Crédito 30 días",
+    "importeT": "S/ 8,900.50",
+    "acciones": [
+      "eye",
+      "clock",
+      "check"
+    ],
+    "compartir": [
+      "envelope"
+    ],
+    "tab": "nota-venta"
+  }
+]

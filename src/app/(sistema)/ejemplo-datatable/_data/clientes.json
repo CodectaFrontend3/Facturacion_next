@@ -1,0 +1,22 @@
+[
+    { "id": 20, "nombre": "ALESSANDRO VILLA CORTA", "tipoDoc": "DNI", "numDoc": "74859612", "correo": "avilla@gmail.com", "celular": "987456123", "fechaRegistro": "05-05-2026" },
+    { "id": 19, "nombre": "CONSTRUCTORA PACIFICO S.A.C.", "tipoDoc": "RUC", "numDoc": "20556677881", "correo": "contacto@cpacifico.pe", "celular": "014455667", "fechaRegistro": "20-04-2026" },
+    { "id": 18, "nombre": "VALERIA MONTES DE OCA", "tipoDoc": "DNI", "numDoc": "45123678", "correo": "valeria.m@outlook.com", "celular": "955123456", "fechaRegistro": "15-02-2026" },
+    { "id": 17, "nombre": "LOGISTICA INTEGRAL PERU", "tipoDoc": "RUC", "numDoc": "20104578962", "correo": "ventas@logintegral.com", "celular": "912345678", "fechaRegistro": "10-11-2025" },
+    { "id": 16, "nombre": "SEBASTIAN GABRIEL ZORRILLA QUISPE", "tipoDoc": "DNI", "numDoc": "60975829", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "17-09-2025" },
+    { "id": 15, "nombre": "EVERARDO PINO ROJAS", "tipoDoc": "DNI", "numDoc": "085202162", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "10-06-2025" },
+    { "id": 14, "nombre": "VOLVO PERU S A", "tipoDoc": "RUC", "numDoc": "20100070031", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "07-02-2025" },
+    { "id": 13, "nombre": "were", "tipoDoc": "RUC", "numDoc": "12322222222", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "17-04-2024" },
+    { "id": 12, "nombre": "luis", "tipoDoc": "RUC", "numDoc": "33322222222", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "17-04-2024" },
+    { "id": 11, "nombre": "EREN", "tipoDoc": "RUC", "numDoc": "1111111111", "correo": "sincorreoE@gmail.com", "celular": "654852347", "fechaRegistro": "27-03-2024" },
+    { "id": 10, "nombre": "GALVAN ALFARO RICHARD EDGAR", "tipoDoc": "RUC", "numDoc": "10099763740", "correo": "sincorreo@gmail.com", "celular": "0000000", "fechaRegistro": "15-08-2023" },
+    { "id": 9, "nombre": "CARLOS ALBERTO MENDOZA", "tipoDoc": "DNI", "numDoc": "40223344", "correo": "c.mendoza@gmail.com", "celular": "966554433", "fechaRegistro": "12-05-2023" },
+    { "id": 8, "nombre": "INVERSIONES JYP S.A.C.", "tipoDoc": "RUC", "numDoc": "20608899112", "correo": "administracion@jyp.com.pe", "celular": "017788990", "fechaRegistro": "03-02-2023" },
+    { "id": 7, "nombre": "MARIA FERNANDA RUIZ", "tipoDoc": "DNI", "numDoc": "70112233", "correo": "mafer.ruiz@hotmail.com", "celular": "922334455", "fechaRegistro": "20-11-2022" },
+    { "id": 6, "nombre": "SOPORTE TECNICO LIMA", "tipoDoc": "RUC", "numDoc": "20445566110", "correo": "soporte@teclima.pe", "celular": "988112233", "fechaRegistro": "15-08-2022" },
+    { "id": 5, "nombre": "ROBERTO CARLOS LUNA", "tipoDoc": "DNI", "numDoc": "10223344", "correo": "rluna@yahoo.com", "celular": "944556677", "fechaRegistro": "30-05-2022" },
+    { "id": 4, "nombre": "DISTRIBUIDORA DE PERIFERICOS", "tipoDoc": "RUC", "numDoc": "20123456789", "correo": "ventas@distperifericos.com", "celular": "012233445", "fechaRegistro": "14-03-2022" },
+    { "id": 3, "nombre": "ANDREA PAOLA TORRES", "tipoDoc": "DNI", "numDoc": "48556677", "correo": "andrea.torres@gmail.com", "celular": "911223344", "fechaRegistro": "10-01-2022" },
+    { "id": 2, "nombre": "IMPORTACIONES GLOBALES", "tipoDoc": "RUC", "numDoc": "20998877665", "correo": "info@globalimp.pe", "celular": "999888777", "fechaRegistro": "05-10-2021" },
+    { "id": 1, "nombre": "SISTEMAS Y SOLUCIONES E.I.R.L.", "tipoDoc": "RUC", "numDoc": "20554433221", "correo": "gerencia@sistemas.pe", "celular": "900112233", "fechaRegistro": "01-09-2021" }
+]
