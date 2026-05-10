@@ -60,7 +60,7 @@ export function MiniCalendar({
     }
 
     return (
-        <div className="border border-gray-200 p-3 min-w-[220px]">
+        <div className="border border-gray-200 p-3 min-w-55">
             {/* Header */}
             <div className="flex items-center justify-between mb-2">
                 {showPrevNav ? (
@@ -115,7 +115,7 @@ export function MiniCalendar({
                             onMouseEnter={() => !disabled && onDayHover(date)}
                             onMouseLeave={onDayLeave}
                             className={cn(
-                                "h-[30px] flex items-center justify-center text-[13px] transition-colors duration-100 select-none",
+                                "h-7.5 flex items-center justify-center text-[13px] transition-colors duration-100 select-none",
                                 disabled ? "cursor-not-allowed text-gray-300 bg-transparent" : "cursor-pointer",
                                 !disabled && isPrimary && "bg-[#1D549F] text-white font-semibold rounded-md",
                                 !disabled && !isPrimary && isSecondary && "bg-[#BAE0FD] text-white",

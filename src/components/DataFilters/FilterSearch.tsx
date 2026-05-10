@@ -13,7 +13,7 @@ interface FilterSearchProps {
 export function FilterSearch({
     name,
     label,
-    placeholder = "Buscar...",
+    placeholder = "Buscar: ",
     value,
     onChange,
 }: FilterSearchProps) {
@@ -29,7 +29,7 @@ export function FilterSearch({
                 value={value}
                 onChange={(e) => onChange(name, e.target.value)}
                 placeholder={placeholder}
-                className="h-9 w-full border border-gray-300 px-3 text-sm outline-none rounded-none shadow-none focus-visible:ring-0 focus-visible:border-[#2C8F7B] font-sans text-[#676A6C] bg-white"
+                className="h-9 w-full bg-white! border border-gray-300 px-3 text-sm outline-none rounded-none shadow-none focus-visible:ring-0 focus-visible:border-[#18a689] font-sans text-[#676A6C]"
             />
         </div>
     )

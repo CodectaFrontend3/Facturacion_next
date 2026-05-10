@@ -24,13 +24,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} h-screen antialiased overflown-hidden`}
+      className={`${outfit.variable} h-full antialiased`}
     >
       <body className="h-screen flex flex-col font-sans overflown-hidden">
         <AppSidebar>
-          <main className="h-screen flex min-w-0 flex-1 flex-col h-full overflow-y-auto">
-            <AppHeader />
-            <div className="flex-1 flex flex-col bg-white overflown-hidden">{children}</div>
+          <AppHeader />
+          <main className="flex min-w-0 flex-1 flex-col h-full">
+            <div className="flex-1 flex flex-col bg-white">{children}</div>
           </main>
           <AppFooter />
         </AppSidebar>

@@ -7,7 +7,7 @@
 	{
 		"label": "Ventas",
 		"path": "/ventas/cotizacion",
-		"icon": "Tag"
+		"icon": "Tags"
 	},
 	{
 		"label": "Tesoreria",
@@ -26,7 +26,7 @@
 	},
 	{
 		"label": "Inventario",
-		"icon": "Boxes",
+		"icon": "Archive",
 		"subPath": [
 			{
 				"label": "Kardex-Productos",
@@ -92,11 +92,11 @@
 	{
 		"label": "Servicio Técnico",
 		"path": "/servicio-tecnico",
-		"icon": "Stethoscope"
+		"icon": "Wrench"
 	},
 	{
 		"label": "Planilla",
-		"icon": "Users",
+		"icon": "Sheet",
 		"subPath": [
 			{
 				"label": "Personal",
@@ -114,7 +114,7 @@
 	},
 	{
 		"label": "Consultas",
-		"icon": "PackageSearch",
+		"icon": "MessageCircle",
 		"subPath": [
 			{
 				"label": "Garantias",
@@ -175,7 +175,7 @@
 	},
 	{
 		"label": "Productos y Servicios",
-		"icon": "ClipboardList",
+		"icon": "Handbag",
 		"subPath": [
 			{
 				"label": "Productos",
@@ -207,7 +207,7 @@
 	},
 	{
 		"label": "Auxiliares",
-		"icon": "FileText",
+		"icon": "Users",
 		"subPath": [
 			{
 				"label": "Clientes",

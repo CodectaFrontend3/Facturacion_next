@@ -38,8 +38,6 @@ export default function FilterBar({ type }: { type: TableType }) {
         search: "",
     });
 
-    const [appliedFilters, setAppliedFilters] = useState(filters);
-
     const estadoOptionsByType: Record<TableType, SelectOption[]> = {
         ingreso: estadoIngresoOptions,
         egreso: estadoEgresoOptions,
@@ -63,7 +61,8 @@ export default function FilterBar({ type }: { type: TableType }) {
         };
 
         setFilters(empty);
-        setAppliedFilters(empty);
+        
+        router.push(pathname);
     };
 
     return (

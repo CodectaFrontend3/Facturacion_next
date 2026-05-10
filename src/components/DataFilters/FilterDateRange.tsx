@@ -49,7 +49,7 @@ export function FilterDateRange({
             <div className="flex items-center w-full">
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
-                        <button className="h-9 w-full border border-gray-300 px-3 text-[13px] text-[#676A6C] text-left bg-[#F2F2F2] cursor-pointer font-sans outline-none focus:border-[#2C8F7B] rounded-l">
+                        <button className="h-9 w-full border border-gray-300 px-3 text-[13px] text-[#676A6C] text-left bg-[#F2F2F2] cursor-pointer font-sans outline-none focus:border-[#18a689] rounded-l">
                             {triggerLabel}
                         </button>
                     </PopoverTrigger>
@@ -60,7 +60,7 @@ export function FilterDateRange({
                     >
                         <div className="flex">
                             {/* Panel izquierdo de inputs y botones */}
-                            <div className="flex flex-col justify-between p-4 border-r border-gray-200 min-w-[160px]">
+                            <div className="flex flex-col justify-between p-4 border-r border-gray-200 min-w-40">
                                 <div className="flex gap-3">
                                     <div>
                                         <div className="text-[11px] font-bold text-[#676A6C] mb-1 uppercase tracking-wider">DESDE</div>
@@ -137,7 +137,7 @@ export function FilterDateRange({
 
                 <button
                     onClick={handleReset}
-                    className="h-9 w-9 border border-[#676A6C] border-l-0 bg-[#676A6C] cursor-pointer flex items-center justify-center text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm rounded-r"
+                    className="h-9 w-9 border border-[#676A6C] border-l-0 bg-[#676A6C] hover:bg-[#5a6268] cursor-pointer flex items-center justify-center text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm rounded-r"
                     title="Limpiar fechas"
                 >
                     <RotateCcwIcon size={13} />

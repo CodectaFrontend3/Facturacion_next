@@ -6,8 +6,9 @@ import SummaryCards from "../components/summaryCards";
 import TabsBar from "@/app/garantia/components/tabsBar";
 import FilterBar from "../components/filterBar";
 import DataTable from "../tables/dataTable";
+import { Suspense } from "react";
 
-export default function IngresoPage() {
+function IngresoContent() {
     const searchParams = useSearchParams();
 
     const filters = {
@@ -38,4 +39,12 @@ export default function IngresoPage() {
             </div>
         </main>
     );
+}
+
+export default function IngresoPage() {
+    return (
+        <Suspense fallback={<div>Cargando</div>}>
+            <IngresoContent />
+        </Suspense>
+    )
 }

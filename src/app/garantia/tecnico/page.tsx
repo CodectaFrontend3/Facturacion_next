@@ -6,8 +6,9 @@ import SummaryCards from "../components/summaryCards";
 import TabsBar from "../components/tabsBar";
 import FilterBar from "../components/filterBar";
 import DataTable from "../tables/dataTable";
+import { Suspense } from "react";
 
-export default function TecnicoPage() {
+function TecnicoContent() {
 
     const searchParams = useSearchParams();
 
@@ -40,4 +41,12 @@ export default function TecnicoPage() {
             </div>
         </main>
     );
+}
+
+export default function TecnicoPage() {
+    return (
+        <Suspense fallback={<div>Cargando</div>}>
+            <TecnicoContent />
+        </Suspense>
+    )
 }

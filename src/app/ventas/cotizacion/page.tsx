@@ -1,7 +1,5 @@
-export default function Page() {
-  return (
-    <main className="min-h-screen bg-white p-6">
-      <h2 className="text-xl font-semibold text-black">Cotización</h2>
-    </main>
-  );
+import { VentasTabTemplate } from "../components/VentasTabTemplate"
+
+export default function CotizacionPage() {
+  return <VentasTabTemplate activeTab="cotizacion" />
 }
