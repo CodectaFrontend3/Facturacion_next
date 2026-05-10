@@ -18,8 +18,4 @@ export interface HeaderData {
     tipoCambio: TipoCambio;
     notificacionesCarousel: NotificacionCarousel[];
     notificacionesMensajes: NotificacionMensajes;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/rodrigo

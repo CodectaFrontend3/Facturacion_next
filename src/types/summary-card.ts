@@ -2,11 +2,7 @@ import { type ElementType } from "react"
 
 export interface SummaryCardTone {
     ring: string
-<<<<<<< HEAD
     icon?: string
-=======
-    icon: string
->>>>>>> origin/rodrigo
     amount?: string
 }
 
@@ -30,8 +26,4 @@ export interface SummaryCardProps {
     className?: string
     formatAmount?: (amount: number | string) => string
     formatCount?: (count: number | string) => string
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/rodrigo
