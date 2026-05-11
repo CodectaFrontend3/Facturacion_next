@@ -5,31 +5,43 @@ import { useMemo } from "react"
 import { FilterBar } from "./FilterBar"
 import { TabsNav } from "./TabsNav"
 
-
 import { DataTable } from "@/components/shared/DataTable"
 import { SummarySection } from "./SummarySection"
 
 import { TabKey } from "../types"
 import { TABS, getSummaryCards } from "../config/constants"
-import { getColumns } from "../config/columns"
+import { getColumnsForTab } from "../config/columns"
 
 import { ActionButton } from "@/components/common/ActionButton"
 import { Plus, Copy, Download, ChevronDown } from "lucide-react"
 
-import { useCotizacionFilters } from "../hooks/useCotizacionFilters"
-
+// Nuevas propiedades que debe recibir la plantilla
 interface VentasTabTemplateProps {
   activeTab: TabKey
+  data: any[] // Recibe los datos ya cargados
+  isLoading: boolean // Recibe el estado de carga
+  filters: any // Recibe los filtros actuales
+  onFilterChange: (name: string, value: string) => void // Función para actualizar filtros
+  onSearch: () => void // Función para ejecutar búsqueda
+  onReset: () => void // Función para limpiar filtros
+  filterSelectConfig?: {
+    name: string
+    options: { label: string; value: string }[]
+  }
 }
 
-export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
-  const {
-    filters,
-    data: tableData,
-    isLoading,
-    handleFilterChange,
-    handleSearch
-  } = useCotizacionFilters(activeTab)
+export function VentasTabTemplate({ 
+  activeTab, 
+  data: tableData, 
+  isLoading, 
+  filters, 
+  onFilterChange, 
+  onSearch,
+  onReset,
+  filterSelectConfig
+}: VentasTabTemplateProps) {
+  // NOTA: Eliminamos la llamada a useCotizacionFilters() aquí adentro.
+  // Ahora la plantilla es completamente agnóstica de dónde vienen los datos.
 
   const summaryIcons = {
     cotizacion: <i className="bi bi-file-earmark-text text-[55px] text-black leading-none" />,
@@ -38,14 +50,22 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
     clientes: <i className="bi bi-person text-[55px] text-black leading-none" />,
   }
 
+  // TODO: Calcular el importe total dinámicamente basado en los documentos filtrados
+  // Cada resumen de tarjeta (Cotización, Cotización Manual, Nota de Venta, Renovación)
+  // debe sumar los importes de todos sus documentos. Ej:
+  // const totalCotizacion = tableData.reduce((sum, row) => sum + parseFloat(row.importeT), 0)
+  // Esto debe aplicarse en getSummaryCards() o pasar los datos como parámetro
   const summaryCards = useMemo(() => getSummaryCards(summaryIcons), [])
-  const columns = useMemo(() => getColumns(), [])
+  const columns = useMemo(() => getColumnsForTab(activeTab), [activeTab])
 
   // Calcular el total de la tabla actual dinámicamente
   const totalAmount = useMemo(() => {
     const sum = tableData.reduce((acc, row) => {
+      // Protección: Si la fila no tiene importeT (ej. Clientes), no suma nada
+      if (!row.importeT) return acc;
+      
       // Extrae solo los números y puntos decimales (ej. de "S/ 5,029.48" a "5029.48")
-      const numericString = row.importeT.replace(/[^0-9.-]+/g, "")
+      const numericString = String(row.importeT).replace(/[^0-9.-]+/g, "")
       const value = parseFloat(numericString)
       return acc + (isNaN(value) ? 0 : value)
     }, 0)
@@ -71,8 +91,8 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
           }
           /* Forzar table-layout fixed para que las columnas respeten sus anchos y el "Cliente" absorba el resto */
           .fixed-table table {
-            table-layout: fixed !important;
-            width: 100% !important;
+            width: max-content;
+            min-width: 100%;
           }
         `}</style>
 
@@ -80,7 +100,7 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
         <SummarySection summaryCards={summaryCards} />
 
         {/* SECCIÓN 2: TABLA Y FILTROS */}
-        <section className="bg-white rounded-md border border-gray-200 shadow-sm mt-4 p-5">
+        <section className="bg-white rounded-md border border-gray-200  shadow-sm mt-4 p-5">
           <div className="w-full">
             {/* Cabecera: Pestañas + Acciones */}
             <div className="flex items-end justify-between border-b border-gray-200">
@@ -88,17 +108,19 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
                 <TabsNav tabs={TABS} />
               </div>
 
-              <div className="flex items-center gap-2 pb-2 pr-4">
+              <div className="flex items-center gap-2 pb-2 pr-4  ">
                 <ActionButton
                   icon={<Plus className="w-4 h-4" strokeWidth={4} />}
                   href={'#'}
                 />
 
-                <ActionButton
-                  icon={<Copy className="w-4 h-4" strokeWidth={3} />}
-                  label="Duplicar cotización"
-                  onClick={() => console.log('Duplicar')}
-                />
+                {activeTab !== "clientes" && (
+                  <ActionButton
+                    icon={<Copy className="w-4 h-4" strokeWidth={3} />}
+                    label="Duplicar"
+                    onClick={() => console.log('Duplicar')}
+                  />
+                )}
 
                 <ActionButton
                   icon={
@@ -121,9 +143,11 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
             <div className="border-x border-b border-gray-200 bg-white p-4 space-y-4 rounded-b-sm">
               <FilterBar
                 filters={filters}
-                onFilterChange={handleFilterChange}
-                onSearchSubmit={handleSearch}
+                onFilterChange={onFilterChange}
+                onSearchSubmit={onSearch}
+                onReset={onReset}
                 isLoading={isLoading}
+                selectConfig={filterSelectConfig}
               />
 
               <div className="bg-white fixed-table custom-checkbox-table">

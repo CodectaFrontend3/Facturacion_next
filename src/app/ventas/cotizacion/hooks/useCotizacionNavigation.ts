@@ -1,6 +1,6 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
-import { TabKey } from "../types"
-import { TABS } from "../config/constants"
+import { TabKey } from "../../types"
+import { TABS } from "../../config/constants"
 
 export function useCotizacionNavigation() {
   const router = useRouter()

@@ -19,7 +19,7 @@ export function TabsNav({ tabs }: TabsNavProps) {
   const pathname = usePathname()
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center ">
       {tabs.map((tab) => {
         const isActive = pathname === tab.href
         return (
