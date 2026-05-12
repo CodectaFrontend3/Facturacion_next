@@ -39,24 +39,24 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
     cotizacionManual: <i className="bi bi-file-earmark-text text-[55px] text-black leading-none" />,
     notaVenta: <i className="bi bi-file-earmark text-[55px] text-black leading-none" />,
     clientes: <i className="bi bi-person text-[55px] text-black leading-none" />,
+    renovacion: <i className="bi bi-arrow-repeat text-[55px] text-black leading-none font-bold" />,
   }
 
-    const summaryCards = useMemo(() => getSummaryCards(summaryIcons), [])
+    const baseSummaryCards = useMemo(() => getSummaryCards(summaryIcons), [])
   const columns = useMemo(() => getColumns(activeTab), [activeTab])
 
-  // Calcular el total de la tabla actual dinámicamente
+  // Calcular el total de la tabla actual dinámicamente (para la tabla principal)
   const totalAmount = useMemo(() => {
     const sum = tableData.reduce((acc, row) => {
-      // Extrae solo los números y puntos decimales
       const importeStr = row.importeT || "0";
       const numericString = importeStr.replace(/[^0-9.-]+/g, "")
       const value = parseFloat(numericString)
       return acc + (isNaN(value) ? 0 : value)
     }, 0)
-
-    // Formatear como moneda ("S/ X,XXX.XX")
     return `S/ ${sum.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   }, [tableData])
+
+  const summaryCards = useMemo(() => baseSummaryCards, [baseSummaryCards])
 
   return (
     <div className={`flex flex-col h-[calc(100vh-65px)] bg-[#f5f5f5] overflow-y-auto overflow-x-hidden tab-${activeTab}`}>

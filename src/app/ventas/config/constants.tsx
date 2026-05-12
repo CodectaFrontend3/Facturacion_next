@@ -1,5 +1,10 @@
 import { Tab, SummaryCard } from "../types"
 import { ReactNode } from "react"
+import cotizacionData from "../data/cotizacion.json"
+import cotizacionManualData from "../data/cotizacion_manual.json"
+import notaVentaData from "../data/nota_venta.json"
+import clientesData from "../data/clientes.json"
+import renovacionData from "../data/renovacion.json"
 
 export const TABS: Tab[] = [
   { key: "cotizacion",        label: "Cotización",        count: 0, color: "#008000", activeColor: "#008000", href: "/ventas/cotizacion" },
@@ -9,37 +14,81 @@ export const TABS: Tab[] = [
   { key: "renovacion",        label: "Renovación",        count: 0, color: "#808080", activeColor: "#808080", href: "/ventas/renovacion" },
 ]
 
-export const getSummaryCards = (icons: Record<string, ReactNode>): SummaryCard[] => [
-  {
-    label: "Cotización",
-    documents: 0,
-    amount: "S/0.00",
-    borderColorClass: "border-[#008000]",
-    amountColorClass: "text-[#008000]",
-    icon: icons.cotizacion,
-  },
-  {
-    label: "Cotización Manual",
-    documents: 2,
-    amount: "S/4,827.95",
-    borderColorClass: "border-[#ffa500]",
-    amountColorClass: "text-[#ffa500]",
-    icon: icons.cotizacionManual,
-  },
-  {
-    label: "Nota de Venta",
-    documents: 0,
-    amount: "S/0.00",
-    borderColorClass: "border-[#ff0000]",
-    amountColorClass: "text-[#ff0000]",
-    icon: icons.notaVenta,
-  },
-  {
-    label: "Clientes",
-    documents: 0,
-    amount: "0",
-    borderColorClass: "border-[#0000ff]",
-    amountColorClass: "text-[#0000ff]",
-    icon: icons.clientes,
-  },
-]
+function calculateTotal(data: any[]) {
+  const sum = data.reduce((acc, row) => {
+    const importeStr = row.importeT || "0";
+    const numericString = String(importeStr).replace(/[^0-9.-]+/g, "")
+    const value = parseFloat(numericString)
+    return acc + (isNaN(value) ? 0 : value)
+  }, 0)
+  return `S/ ${sum.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+}
+
+function filterByCurrentMonth(data: any[]) {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  return data.filter(row => {
+    const dateStr = row.emision || row.fechaRegistro;
+    if (!dateStr) return false;
+    
+    const parts = dateStr.split(/[-/]/);
+    if (parts.length === 3) {
+      const [d, m, y] = parts;
+      return parseInt(m) - 1 === currentMonth && parseInt(y) === currentYear;
+    }
+    return false;
+  });
+}
+
+export const getSummaryCards = (icons: Record<string, ReactNode>): SummaryCard[] => {
+  const currentCotizacion = filterByCurrentMonth(cotizacionData);
+  const currentCotizacionManual = filterByCurrentMonth(cotizacionManualData);
+  const currentNotaVenta = filterByCurrentMonth(notaVentaData);
+  const currentClientes = filterByCurrentMonth(clientesData);
+  const currentRenovacion = filterByCurrentMonth(renovacionData);
+
+  return [
+    {
+      label: "Cotización",
+      documents: currentCotizacion.length,
+      amount: calculateTotal(currentCotizacion),
+      borderColorClass: "border-[#008000]",
+      amountColorClass: "text-[#008000]",
+      icon: icons.cotizacion,
+    },
+    {
+      label: "Cotización Manual",
+      documents: currentCotizacionManual.length,
+      amount: calculateTotal(currentCotizacionManual),
+      borderColorClass: "border-[#ffa500]",
+      amountColorClass: "text-[#ffa500]",
+      icon: icons.cotizacionManual,
+    },
+    {
+      label: "Nota de Venta",
+      documents: currentNotaVenta.length,
+      amount: calculateTotal(currentNotaVenta),
+      borderColorClass: "border-[#ff0000]",
+      amountColorClass: "text-[#ff0000]",
+      icon: icons.notaVenta,
+    },
+    {
+      label: "Clientes",
+      documents: currentClientes.length,
+      amount: "0",
+      borderColorClass: "border-[#0000ff]",
+      amountColorClass: "text-[#0000ff]",
+      icon: icons.clientes,
+    },
+    {
+      label: "Renovación",
+      documents: currentRenovacion.length,
+      amount: calculateTotal(currentRenovacion),
+      borderColorClass: "border-[#808080]",
+      amountColorClass: "text-[#808080]",
+      icon: icons.renovacion,
+    }
+  ];
+}

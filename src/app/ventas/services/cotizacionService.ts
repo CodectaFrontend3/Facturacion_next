@@ -100,5 +100,34 @@ export async function fetchCotizaciones(filters: FetchCotizacionesFilters): Prom
     });
   }
 
+  // Filtrado por Fechas
+  const getRowDate = (row: any): Date | null => {
+    const dateStr = row.emision || row.fechaRegistro;
+    if (!dateStr) return null;
+    
+    const parts = dateStr.split(/[-/]/);
+    if (parts.length === 3) {
+      const [d, m, y] = parts;
+      return new Date(parseInt(y), parseInt(m) - 1, parseInt(d));
+    }
+    return null;
+  };
+
+  if (filters.dateRange.start || filters.dateRange.end) {
+    const start = filters.dateRange.start;
+    const end = filters.dateRange.end;
+    if (start) start.setHours(0, 0, 0, 0);
+    if (end) end.setHours(23, 59, 59, 999);
+
+    dataToReturn = dataToReturn.filter(row => {
+      const rowDate = getRowDate(row);
+      if (!rowDate) return true;
+      
+      if (start && rowDate < start) return false;
+      if (end && rowDate > end) return false;
+      return true;
+    });
+  }
+
   return dataToReturn;
 }

@@ -100,7 +100,7 @@ export const getColumns = (activeTab: TabKey): ColumnDef<CotizacionRow>[] => {
         <div className="flex items-start gap-1.5 whitespace-normal break-words">
           <span>{row.original.numero}</span>
           {activeTab !== "nota-venta" && (
-            <button className="text-gray-400 border border-gray-300 rounded-[2px] min-w-[14px] w-3.5 h-3.5 flex items-center justify-center hover:bg-gray-100 text-[9px] leading-none pb-0.5 shrink-0 mt-0.5">+</button>
+            <button className="text-gray-400 border border-gray-300 rounded-[3px] min-w-[16px] w-4 h-4 flex items-center justify-center text-[11px] font-bold leading-none shrink-0 mt-0.5 transition-all duration-200 hover:border-dashed hover:border-[#1538A0] hover:text-[#1538A0] hover:bg-[#f0f4ff]">+</button>
           )}
         </div>
       )
