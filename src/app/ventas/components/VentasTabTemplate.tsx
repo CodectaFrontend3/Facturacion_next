@@ -24,6 +24,7 @@ interface VentasTabTemplateProps {
   onFilterChange: (name: string, value: string) => void // Función para actualizar filtros
   onSearch: () => void // Función para ejecutar búsqueda
   onReset: () => void // Función para limpiar filtros
+  onAddClick?: () => void // Función para manejar el click en "+"
   filterSelectConfig?: {
     name: string
     options: { label: string; value: string }[]
@@ -38,6 +39,7 @@ export function VentasTabTemplate({
   onFilterChange, 
   onSearch,
   onReset,
+  onAddClick,
   filterSelectConfig
 }: VentasTabTemplateProps) {
   // NOTA: Eliminamos la llamada a useCotizacionFilters() aquí adentro.
@@ -50,12 +52,36 @@ export function VentasTabTemplate({
     clientes: <i className="bi bi-person text-[55px] text-black leading-none" />,
   }
 
-  // TODO: Calcular el importe total dinámicamente basado en los documentos filtrados
-  // Cada resumen de tarjeta (Cotización, Cotización Manual, Nota de Venta, Renovación)
-  // debe sumar los importes de todos sus documentos. Ej:
-  // const totalCotizacion = tableData.reduce((sum, row) => sum + parseFloat(row.importeT), 0)
-  // Esto debe aplicarse en getSummaryCards() o pasar los datos como parámetro
-  const summaryCards = useMemo(() => getSummaryCards(summaryIcons), [])
+  // Calcular dinámicamente los contadores
+  const summaryCards = useMemo(() => {
+    const cards = getSummaryCards(summaryIcons)
+    return cards.map(card => {
+      // Si la tarjeta corresponde a la pestaña activa, actualiza su contador
+      const isCurrentTab = (activeTab === "clientes" && card.label === "Clientes") ||
+                           (activeTab === "cotizacion" && card.label === "Cotización") ||
+                           (activeTab === "cotizacion-manual" && card.label === "Cotización Manual") ||
+                           (activeTab === "nota-venta" && card.label === "Nota de Venta") ||
+                           (activeTab === "renovacion" && card.label === "Renovación")
+      
+      if (isCurrentTab) {
+        return {
+          ...card,
+          documents: tableData.length
+        }
+      }
+      return card
+    })
+  }, [tableData, activeTab])
+
+  const dynamicTabs = useMemo(() => {
+    return TABS.map(tab => {
+      if (tab.key === activeTab) {
+        return { ...tab, count: tableData.length }
+      }
+      return tab
+    })
+  }, [tableData, activeTab])
+
   const columns = useMemo(() => getColumnsForTab(activeTab), [activeTab])
 
   // Calcular el total de la tabla actual dinámicamente
@@ -105,13 +131,14 @@ export function VentasTabTemplate({
             {/* Cabecera: Pestañas + Acciones */}
             <div className="flex items-end justify-between border-b border-gray-200">
               <div className="flex items-center">
-                <TabsNav tabs={TABS} />
+                <TabsNav tabs={dynamicTabs} />
               </div>
 
               <div className="flex items-center gap-2 pb-2 pr-4  ">
                 <ActionButton
                   icon={<Plus className="w-4 h-4" strokeWidth={4} />}
-                  href={'#'}
+                  href={onAddClick ? undefined : '#'}
+                  onClick={onAddClick}
                 />
 
                 {activeTab !== "clientes" && (

@@ -5,6 +5,7 @@
     "numeroDocumento": "20123456789",
     "nombre": "Inversiones del Norte S.A.C.",
     "direccion": "Av. Principal 123, Lima",
+    "distrito": "Lima",
     "correo": "contacto@inversiones-norte.com",
     "telefono": "01-2345678",
     "celular": "987654321",
@@ -19,6 +20,7 @@
     "contactoNombre": "Juan Pérez",
     "contactoCargo": "Gerente",
     "contactoTelefono": "987654321",
+    "contactoCelular": "987654321",
     "contactoCorreo": "juan@inversiones-norte.com"
   },
   {
@@ -27,6 +29,7 @@
     "numeroDocumento": "10456789123",
     "nombre": "Juan Perez Ramos",
     "direccion": "Calle Secundaria 456, Lima",
+    "distrito": "Lima",
     "correo": "juan.perez@email.com",
     "telefono": "01-1234567",
     "celular": "912345678",
@@ -41,6 +44,7 @@
     "contactoNombre": null,
     "contactoCargo": null,
     "contactoTelefono": null,
+    "contactoCelular": null,
     "contactoCorreo": null
   },
   {
@@ -49,6 +53,7 @@
     "numeroDocumento": "20556677889",
     "nombre": "Constructora Horizonte E.I.R.L.",
     "direccion": "Calle Tercera 789, Arequipa",
+    "distrito": "Arequipa",
     "correo": "info@horizonte.com",
     "telefono": "054-234567",
     "celular": "965432109",
@@ -63,6 +68,7 @@
     "contactoNombre": "Carlos López",
     "contactoCargo": "Administrador",
     "contactoTelefono": "965432109",
+    "contactoCelular": "965432109",
     "contactoCorreo": "carlos@horizonte.com"
   },
   {
@@ -71,6 +77,7 @@
     "numeroDocumento": "10112233445",
     "nombre": "Carlos Ruiz Mendoza",
     "direccion": null,
+    "distrito": null,
     "correo": null,
     "telefono": null,
     "celular": "998877665",
@@ -85,6 +92,7 @@
     "contactoNombre": null,
     "contactoCargo": null,
     "contactoTelefono": null,
+    "contactoCelular": null,
     "contactoCorreo": null
   },
   {
@@ -93,6 +101,7 @@
     "numeroDocumento": "20998877665",
     "nombre": "Tecnología Avanzada S.A.",
     "direccion": "Av. Tecnológica 321, Lima",
+    "distrito": "Lima",
     "correo": "ventas@tecavanzada.com",
     "telefono": "01-3214567",
     "celular": "987123456",
@@ -107,6 +116,7 @@
     "contactoNombre": "María García",
     "contactoCargo": "Directora Comercial",
     "contactoTelefono": "987123456",
+    "contactoCelular": "987123456",
     "contactoCorreo": "maria@tecavanzada.com"
   }
 ]

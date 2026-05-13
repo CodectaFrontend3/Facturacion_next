@@ -4,6 +4,7 @@ export interface ClienteFormData {
   numeroDocumento: string
   nombre: string
   direccion?: string | null
+  distrito?: string | null
   correo?: string | null
   telefono?: string | null
   celular?: string | null
@@ -18,6 +19,7 @@ export interface ClienteFormData {
   contactoNombre?: string | null
   contactoCargo?: string | null
   contactoTelefono?: string | null
+  contactoCelular?: string | null
   contactoCorreo?: string | null
 }
 
