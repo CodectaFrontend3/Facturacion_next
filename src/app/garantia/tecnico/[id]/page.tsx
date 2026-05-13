@@ -33,7 +33,7 @@ export default async function TecnicoDetallePage({ params }: TecnicoProps) {
                     />
 
                     <DocumentTitle
-                        title="GUÍA DE INGRESO"
+                        title="INFORME TÉCNICO"
                     />
 
                     <DocumentActions />

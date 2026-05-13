@@ -34,7 +34,7 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                     />
 
                     <DocumentTitle
-                        title="GUÍA DE INGRESO"
+                        title="GUÍA DE EGRESO"
                     />
 
                     <DocumentActions />
