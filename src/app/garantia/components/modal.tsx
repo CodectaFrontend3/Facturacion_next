@@ -1,8 +1,14 @@
 "use client";
 import { useState } from "react";
+import { ReactNode } from "react";
 
 export default function Modal({ onClose }: { onClose: () => void }) {
     const [closing, setClosing] = useState(false);
+
+    const [options, setOptions] = useState([
+        { option: "LENOVO" },
+        { option: "SAMSUNG" },
+    ]);
 
     const handleClose = () => {
         setClosing(true);
@@ -18,7 +24,7 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                 <div className="p-4 border border-gray-300 space-y-3">
                     <div className="flex justify-between items-center">
                         <h3 className="modal-title">Agregar</h3>
-                        <button onClick={handleClose} className="modal-close-btn text-gray-400 hover:text-gray-600 text-xl">✕</button>
+                        <button onClick={handleClose} className="cursor-pointer modal-close-btn text-gray-400 hover:text-gray-600 text-xl">✕</button>
                     </div>
                     <div className="flex gap-20">
                         <p>Selecciona marca a agregar</p>
@@ -27,12 +33,13 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                     <div className="flex items-center gap-4">
                         <label className="w-20">Marca:</label>
                         <select className="flex-1 border border-gray-300 p-2 rounded">
-                            <option>LENOVO</option>
-                            <option>SAMSUNG</option>
+                            {options.map((option, index) => (
+                                <option key={index}>{option.option}</option>
+                            ))}
                         </select>
                     </div>
                     <div className="flex justify-end gap-3">
-                        <button className="modal-add-btn px-4 py-2 bg-blue-700 text-white rounded">Grabar</button>
+                        <button className="modal-add-btn bg-[#1a5eb3] hover:bg-[#1a3bb3]! px-4 py-2 text-white rounded cursor-pointer">Grabar</button>
                     </div>
                 </div>
             </div>

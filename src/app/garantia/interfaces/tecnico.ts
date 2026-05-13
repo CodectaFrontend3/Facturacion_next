@@ -8,3 +8,9 @@ export interface Tecnico {
     ruc: string
     fecha: string
 }
+
+export interface TecnicoProps {
+    params: Promise<{
+        id: string
+    }>
+}

@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Modal from "@/app/garantia/components/modal";
 import { TabsNav } from "./TabsNav";
+import 'font-awesome/css/font-awesome.min.css';
 
 export default function TabsBar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,15 +23,25 @@ export default function TabsBar() {
             <TabsNav tabs={tabs} />
             
             <div className="flex gap-4">
-                <button onClick={() => setIsOpen(true)} className="add-btn bg-blue-700 text-white p-2 px-4 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                     </svg>
+                <button onClick={() => setIsOpen(true)} className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! add-btn text-white p-2 px-4 rounded">
+                    <i className="fa fa-plus" style={{
+                        fontSize: "15px",
+                        textShadow: "0 0 1px currentColor",
+                        translate: "0 1px"
+                    }}></i>
                 </button>
                 
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="bi bi-download download-btn bg-blue-700 text-white p-2 px-4 rounded">
+                        <button className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! download-btn text-white p-2 px-4 rounded flex gap-2">
+                            <i className="fa fa-download" style={{
+                                fontSize: "15px",
+                                textShadow: "0 0 1px currentColor",
+                                translate: "0 2px"
+                            }}></i>
+                            <i className="bi bi-caret-down-fill translate-y-1" style={{
+                                fontSize: "8px",
+                            }}></i>
                         </button>
                     </DropdownMenuTrigger>
 

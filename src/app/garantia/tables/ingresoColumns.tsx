@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Ingreso } from "../interfaces";
+import Link from "next/link";
 
 export const ingresoColumns: ColumnDef<Ingreso>[] = [
     {
@@ -39,7 +40,12 @@ export const ingresoColumns: ColumnDef<Ingreso>[] = [
         id: "ver",
         cell: ({ row }) => {
             return (
-                <button className="view-btn bg-blue-700 text-white p-2 rounded hover:bg-blue-800"><i className="bi bi-eye"></i></button>
+                <Link
+                    href={`/garantia/ingreso/${row.original.id}`}
+                    className="view-btn bg-blue-700 text-white p-2 rounded hover:bg-blue-800"
+                >
+                    <i className="bi bi-eye"></i>
+                </Link>
             )
         },
     },

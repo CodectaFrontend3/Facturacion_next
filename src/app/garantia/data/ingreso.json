@@ -1,6 +1,6 @@
 [
   {
-    "id": 128,
+    "id": 12,
     "codigo": "000001",
     "producto": "Laptop",
     "marca": "LENOVO",
@@ -10,7 +10,7 @@
     "fecha": "01/05/2026"
   },
   {
-    "id": 128,
+    "id": 25,
     "codigo": "000001",
     "producto": "Laptop",
     "marca": "LENOVO",
@@ -20,7 +20,7 @@
     "fecha": "01/05/2026"
   },
   {
-    "id": 128,
+    "id": 18,
     "codigo": "000001",
     "producto": "Laptop",
     "marca": "LENOVO",

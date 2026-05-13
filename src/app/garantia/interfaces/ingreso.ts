@@ -8,3 +8,10 @@ export interface Ingreso {
     ruc: string
     fecha: string
 }
+
+export interface IngresoProps {
+    params: Promise<{
+        id: string
+    }>
+}
+

@@ -199,6 +199,7 @@ body {
 
 .download-btn[data-state="open"] {
   transform: translateY(-5px);
+  background-color: #18a689;
 }
 
 .view-btn,

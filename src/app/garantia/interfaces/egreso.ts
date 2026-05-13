@@ -8,3 +8,9 @@ export interface Egreso {
     ruc: string
     fecha: string
 }
+
+export interface EgresoProps {
+    params: Promise<{
+        id: string
+    }>
+}
