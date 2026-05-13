@@ -5,7 +5,13 @@ import { FilterDateRange } from "@/components/DataFilters/FilterDateRange"
 import { FilterSelect } from "@/components/DataFilters/FilterSelect"
 import { FilterSearch } from "@/components/DataFilters/FilterSearch"
 import { TabKey } from "../types"
+import { CboData } from "@/components/common/CboData"
+import clientesData from "../data/clientes.json"
 
+const clienteOptions = clientesData.map((c: any) => ({
+    label: `${c.nombre} | ${c.nroDoc}`,
+    value: c.id.toString()
+}))
 interface FilterBarProps {
   filters: {
     searchValue: string
@@ -60,13 +66,24 @@ export function FilterBar({
       valueTo={filters.dateTo}
       onChange={onFilterChange}
     />,
-    <FilterSelect
-      key="comprobante"
-      name="comprobante"
-      value={filters.comprobante}
-      onChange={onFilterChange}
-      options={selectOptions}
-    />,
+    activeTab === "nota-venta" ? (
+      <CboData
+        key="cbo-data-cliente"
+        items={clienteOptions}
+        value={filters.comprobante}
+        onChange={(val) => onFilterChange("comprobante", val)}
+        placeholder="Seleccionar Cliente"
+        searchPlaceholder="Buscar cliente..."
+      />
+    ) : (
+      <FilterSelect
+        key="comprobante"
+        name="comprobante"
+        value={filters.comprobante}
+        onChange={onFilterChange}
+        options={selectOptions}
+      />
+    ),
     activeTab === "renovacion" ? (
       <FilterSelect
         key="estado"

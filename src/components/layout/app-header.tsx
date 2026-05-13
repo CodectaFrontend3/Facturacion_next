@@ -21,7 +21,7 @@ export default function AppHeader() {
     const currentNotif = headerData.notificacionesCarousel[notifIndex]
 
     return (
-        <header className="flex h-16 w-full items-center justify-evenly border-b border-gray-200 bg-white px-4 py-2 font-sans">
+        <header className="flex h-16 w-full items-center justify-evenly border-b border-gray-300 bg-white px-4 py-2 font-sans">
             {/* 1. seccion: tipos de cambio */}
             <div className="flex items-center gap-6 xl:gap-10">
                 <div className="flex flex-col items-center leading-tight">

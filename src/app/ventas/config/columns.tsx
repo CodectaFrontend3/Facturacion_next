@@ -1,35 +1,9 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { CotizacionRow, TabKey } from "../types"
+import { CotizacionRow } from "../types"
+import { ActionButton } from "@/components/common/ActionButton"
 
-export const getColumns = (activeTab: TabKey): ColumnDef<CotizacionRow>[] => {
-  if (activeTab === "clientes") {
-    return [
-      { accessorKey: "id", header: "ID", size: 40 },
-      { accessorKey: "nombre", header: "Nombre" },
-      { accessorKey: "tipoDoc", header: "Tipo Doc.", size: 100 },
-      { accessorKey: "nroDoc", header: "N° Doc.", size: 120 },
-      { accessorKey: "correo", header: "Correo", size: 200 },
-      { accessorKey: "celular", header: "Celular", size: 100 },
-      { accessorKey: "fechaRegistro", header: "Fecha de Registro", size: 140 },
-      {
-        id: "acciones",
-        header: "Ver",
-        size: 80,
-        cell: ({ row }) => {
-          const actions = row.original.acciones || [];
-          return (
-            <div className="flex items-center gap-1.5">
-              {actions.includes("eye") && (
-                <button className="flex items-center justify-center w-[26px] h-[26px] bg-[#1538A0] text-white rounded-[3px] hover:bg-[#0f2d8a]"><i className="bi bi-eye"></i></button>
-              )}
-            </div>
-          )
-        }
-      }
-    ]
-  }
-
+export const getColumns = (activeTab?: string): ColumnDef<CotizacionRow>[] => {
   if (activeTab === "renovacion") {
     return [
       { accessorKey: "id", header: "ID", size: 40 },
@@ -83,6 +57,32 @@ export const getColumns = (activeTab: TabKey): ColumnDef<CotizacionRow>[] => {
               )}
               {compartir.includes("whatsapp") && (
                 <button className="flex items-center justify-center w-[26px] h-[26px] bg-[#28a745] text-white rounded-[3px] hover:bg-[#218838]"><i className="bi bi-whatsapp"></i></button>
+              )}
+            </div>
+          )
+        }
+      }
+    ]
+  }
+  if (activeTab === "clientes") {
+    return [
+      { accessorKey: "id", header: "ID", size: 40 },
+      { accessorKey: "nombre", header: "Nombre" },
+      { accessorKey: "tipoDoc", header: "Tipo Doc.", size: 100 },
+      { accessorKey: "nroDoc", header: "N° Doc.", size: 120 },
+      { accessorKey: "correo", header: "Correo" },
+      { accessorKey: "celular", header: "Celular", size: 100 },
+      { accessorKey: "fechaRegistro", header: "Fecha de Registro", size: 150 },
+      {
+        id: "acciones",
+        header: "Ver",
+        size: 80,
+        cell: ({ row }) => {
+          const actions = row.original.acciones || [];
+          return (
+            <div className="flex items-center gap-1.5">
+              {actions.includes("eye") && (
+                <button className="flex items-center justify-center w-[26px] h-[26px] bg-[#1538A0] text-white rounded-[3px] hover:bg-[#0f2d8a]"><i className="bi bi-eye"></i></button>
               )}
             </div>
           )

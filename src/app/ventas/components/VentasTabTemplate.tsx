@@ -1,12 +1,6 @@
 "use client"
 
 import { useMemo } from "react"
-import {
-  Plus,
-  Copy,
-  Download,
-  ChevronDown,
-} from "lucide-react"
 
 import { FilterBar } from "./FilterBar"
 import { TabsNav } from "./TabsNav"
@@ -18,6 +12,9 @@ import { SummarySection } from "./SummarySection"
 import { TabKey } from "../types"
 import { TABS, getSummaryCards } from "../config/constants"
 import { getColumns } from "../config/columns"
+
+import { ActionButton } from "@/components/common/ActionButton"
+import { Plus, Copy, Download, ChevronDown } from "lucide-react"
 
 import { useCotizacionFilters } from "../hooks/useCotizacionFilters"
 
@@ -108,12 +105,31 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
               </div>
 
               <div className="flex items-center gap-2 pb-2 pr-4">
-                <button className="flex items-center justify-center w-8 h-8 rounded bg-[#1a5eb3] text-white hover:bg-[#1a3bb3] transition-colors"><Plus className="w-4 h-4" /></button>
-                <button className="flex items-center justify-center w-8 h-8 rounded bg-[#1a5eb3] text-white hover:bg-[#1a3bb3] transition-colors"><Copy className="w-4 h-4" /></button>
-                <button className="flex items-center gap-1 px-3 h-8 rounded bg-[#1a5eb3] text-white text-xs font-semibold hover:bg-[#1a3bb3] transition-colors">
-                  <Download className="w-3.5 h-3.5" />
-                  <ChevronDown className="w-3 h-3" />
-                </button>
+                <ActionButton
+                  icon={<Plus className="w-4 h-4" strokeWidth={4} />}
+                  href={'#'}
+                />
+
+                <ActionButton
+                  icon={<Copy className="w-4 h-4" strokeWidth={3} />}
+                  label="Duplicar cotización"
+                  onClick={() => console.log('Duplicar')}
+                />
+
+                <ActionButton
+                  icon={
+                    <>
+                      <Download className="w-4 h-4" strokeWidth={3} />
+                      <ChevronDown className="w-2.5 h-2.5" strokeWidth={4} />
+                    </>
+                  }
+                  className="px-3 gap-1"
+                  isPopover={true}
+                  popoverOptions={[
+                    { label: "Exportar Excel", onClick: () => console.log('Exportar Excel') },
+                    { label: "Exportar PDF", onClick: () => console.log('Exportar PDF') }
+                  ]}
+                />
               </div>
             </div>
 
@@ -128,62 +144,22 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
               />
 
               <div className="bg-white fixed-table custom-checkbox-table">
-                <DataTable 
-                  columns={columns} 
-                  data={tableData} 
-                  pageSize={10} 
-                  showSelection={true} 
-                  showPagination={true} 
-                  footerContent={
-                    activeTab !== "clientes" ? (
-                      <div className="flex items-center bg-white border border-gray-200 border-t-0 -mt-4 relative z-10">
-                        <div className="flex-1"></div>
-                        <div 
-                          className={`border-l border-gray-200 px-4 font-bold text-gray-700 text-[13px] whitespace-nowrap flex justify-center ${
-                            activeTab === "renovacion" ? "w-[100px] flex-col py-1.5" : "w-[180px] flex-row gap-1 py-3"
-                          }`}
-                        >
-                          {activeTab === "renovacion" ? (
-                            <>
-                              <span>Total:</span>
-                              <span>{totalAmount}</span>
-                            </>
-                          ) : (
-                            <span>Total: {totalAmount}</span>
-                          )}
-                        </div>
-                        <div 
-                          className={`border-l border-gray-200 px-4 font-bold text-gray-700 text-[13px] whitespace-nowrap flex justify-center ${
-                            activeTab === "renovacion" ? "w-[100px] flex-col py-1.5" : "w-[180px] flex-row gap-1 py-3"
-                          }`}
-                        >
-                          {activeTab === "renovacion" ? (
-                            <>
-                              <span>Total G.:</span>
-                              <span>{totalAmount}</span>
-                            </>
-                          ) : (
-                            <span>Total G.: {totalAmount}</span>
-                          )}
-                        </div>
-                      </div>
-                    ) : null
-                  }
+                <DataTable
+                  columns={columns}
+                  data={tableData}
+                  pageSize={10}
+                  showSelection={true}
+                  showPagination={true}
+                  totals={activeTab !== "clientes" ? {
+                    total: totalAmount,
+                    totalG: totalAmount
+                  } : undefined}
                 />
               </div>
             </div>
           </div>
         </section>
       </main>
-
-      <footer className="flex items-center justify-between px-6 py-3 bg-white border-t border-gray-200 text-xs text-gray-400 shrink-0">
-        <span>Copyright <a href="#" className="text-[#1538A0] hover:underline font-medium">JyP Periféricos</a> © 2019-2026</span>
-        <span className="flex items-center gap-3">
-          Visítanos:
-          <a href="#" className="text-[#1877F2] hover:opacity-80 transition-opacity text-base"><i className="bi bi-facebook"></i></a>
-          <a href="#" className="text-[#25D366] hover:opacity-80 transition-opacity text-base"><i className="bi bi-whatsapp"></i></a>
-        </span>
-      </footer>
     </div>
   )
 }
