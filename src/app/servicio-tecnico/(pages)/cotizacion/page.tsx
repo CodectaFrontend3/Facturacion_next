@@ -22,15 +22,18 @@ const misBotones = (
   <div className="flex gap-2">
     <button
       onClick={() => alert("Imprimiendo...")}
-      className="flex items-center justify-center bg-[#1d4ed8] text-white p-2 rounded-md hover:bg-blue-800 transition-all shadow-sm"
+      className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all"
+      aria-label="Imprimir"
     >
-      <Printer size={20} strokeWidth={2.5} />
+      <Printer size={16} strokeWidth={3} />
     </button>
+
     <button
       onClick={() => alert("Descargando...")}
-      className="flex items-center justify-center bg-[#1d4ed8] text-white p-2 rounded-md hover:bg-blue-800 transition-all shadow-sm"
+      className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all"
+      aria-label="Descargar"
     >
-      <DownloadIcon size={20} strokeWidth={2.5} />
+      <DownloadIcon size={16} strokeWidth={3} />
     </button>
   </div>
 );

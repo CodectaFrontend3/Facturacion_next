@@ -45,7 +45,7 @@ const columns: ColumnDef<Servicio>[] = [
   },
 ];
 
-function page() {
+function ServiciosPage() {
   const {
     filteredData,
     pendingFilters,
@@ -63,9 +63,11 @@ function page() {
   const misBotones = (
     <button
       onClick={() => router.push("/servicio-tecnico/servicios/create")}
-      className="flex items-center justify-center bg-[#1d4ed8] text-white p-2 rounded-md hover:bg-blue-800 transition-all"
+      className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-md hover:bg-[#164e96] transition-all"
+      style={{ fontFamily: "'Outfit', sans-serif", fontSize: "15px" }}
+      aria-label="Agregar servicio"
     >
-      <PlusIcon size={20} strokeWidth={2.5} />
+      <PlusIcon size={16} strokeWidth={5} />
     </button>
   );
   return (
@@ -101,4 +103,4 @@ function page() {
   );
 }
 
-export default page;
+export default ServiciosPage;

@@ -14,7 +14,7 @@ interface Equipo {
 
 export default function GenerarServicioTecnico() {
   const [equipos, setEquipos] = useState<Equipo[]>([
-    { id: Date.now(), nombre: "", serie: "", observacion: "" },
+    { id: 1, nombre: "", serie: "", observacion: "" },
   ]);
 
   const [showClientes, setShowClientes] = useState(false);
@@ -29,9 +29,9 @@ export default function GenerarServicioTecnico() {
   ];
 
   const agregarEquipo = () => {
-    setEquipos([
-      ...equipos,
-      { id: Date.now(), nombre: "", serie: "", observacion: "" },
+    setEquipos((prev) => [
+      ...prev,
+      { id: prev.length + 1, nombre: "", serie: "", observacion: "" },
     ]);
   };
 

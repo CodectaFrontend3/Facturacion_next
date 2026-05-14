@@ -11,7 +11,7 @@ import { Clock9, EyeIcon } from "lucide-react";
 import { useEntregadoTable } from "../../hooks/useEntregadoTable";
 import { Entregados } from "../../types/entregados/Entregados";
 
-function page() {
+function EntregadosPage() {
   const {
     pendingFilters,
     applyFilters,
@@ -86,4 +86,4 @@ function page() {
   );
 }
 
-export default page;
+export default EntregadosPage;

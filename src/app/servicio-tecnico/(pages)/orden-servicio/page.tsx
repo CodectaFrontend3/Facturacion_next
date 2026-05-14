@@ -11,7 +11,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Clock9, EyeIcon } from "lucide-react";
 
-function page() {
+function OrdenServicioPage() {
   const {
     pendingFilters,
     applyFilters,
@@ -86,4 +86,4 @@ function page() {
   );
 }
 
-export default page;
+export default OrdenServicioPage;

@@ -41,12 +41,12 @@ function ServicioTecnicoTabs({ children, actions }: Props) {
                   cursor-pointer select-none
                   ${
                     isActive
-                      ? "bg-white border-gray-300 text-slate-700 font-bold -mb-[1px] z-10 shadow-[0_-2px_5px_rgba(0,0,0,0.02)]"
+                      ? "bg-white border-gray-300 text-slate-700 font-bold -mb-px z-10 shadow-[0_-2px_5px_rgba(0,0,0,0.02)]"
                       : "bg-transparent border-transparent text-slate-400 hover:text-slate-600 hover:bg-gray-50"
                   }
                 `}
               >
-                <span className="bg-[#1d4ed8] text-white text-[10px] px-1.5 py-0.5 rounded mr-2 flex items-center justify-center min-w-[18px] font-bold">
+                <span className="bg-[#1d4ed8] text-white text-[10px] px-1.5 py-0.5 rounded mr-2 flex items-center justify-center min-w-4.5 font-bold">
                   {tab.count}
                 </span>
                 {tab.name}
