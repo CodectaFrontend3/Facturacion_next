@@ -23,13 +23,13 @@ function ProcesoTabs({ children, actions }: Props) {
       count: 0,
     },
     {
-      name: "Informe Técnico",
-      href: `/servicio-tecnico/servicios/proceso/${id}/informe-tecnico`,
+      name: "Egresos",
+      href: `/servicio-tecnico/servicios/proceso/${id}/egresos`,
       count: 0,
     },
     {
-      name: "Egresos",
-      href: `/servicio-tecnico/servicios/proceso/${id}/egresos`,
+      name: "Informe Técnico",
+      href: `/servicio-tecnico/servicios/proceso/${id}/informe-tecnico`,
       count: 0,
     },
   ];
