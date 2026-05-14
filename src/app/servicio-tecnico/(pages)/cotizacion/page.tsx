@@ -75,19 +75,22 @@ function Cotizacionpage() {
         <>
           <Button
             size="icon-sm"
-            className="bg-blue-600 hover:bg-blue-700 text-white rounded-full"
+            className="bg-[#1A5EB3] hover:bg-[#164e96] text-white rounded-sm py-1.5 px-3 h-8.5 w-9"
             onClick={() =>
               router.push(`/servicio-tecnico/cotizacion/${row.original.id}`)
             }
+            aria-label="Ver detalle"
           >
-            <EyeIcon className="size-4" />
+            <EyeIcon size={16} />
           </Button>
+
           <Button
             size="icon-sm"
-            className="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full ml-2"
+            className="bg-[#FBAF5D] hover:bg-[#e89d4d] text-white rounded-sm py-1.5 px-3 h-8.5 w-9"
             onClick={() => alert(`Servicio pendiente: ${row.original.id}`)}
+            aria-label="Tiempo pendiente"
           >
-            <Clock9 className="size-4" />
+            <Clock9 size={16} />
           </Button>
         </>
       ),

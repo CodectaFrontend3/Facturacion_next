@@ -2,26 +2,36 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 interface Props {
   children: React.ReactNode;
   actions?: React.ReactNode;
 }
 
-function ServicioTecnicoTabs({ children, actions }: Props) {
+function ProcesoTabs({ children, actions }: Props) {
   const pathname = usePathname();
+  const params = useParams();
+  const id = params.id;
 
   // Los tabs ahora solo manejan la navegación
   const tabs = [
-    { name: "Servicios", href: "/servicio-tecnico/servicios", count: 0 },
-    { name: "Cotización", href: "/servicio-tecnico/cotizacion", count: 0 },
+    { name: "Servicios", href: `/servicio-tecnico/servicios` },
     {
-      name: "Orden Servicio",
-      href: "/servicio-tecnico/orden-servicio",
+      name: "Ingresos",
+      href: `/servicio-tecnico/servicios/proceso/${id}/ingresos`,
       count: 0,
     },
-    { name: "Entregados", href: "/servicio-tecnico/entregados", count: 0 },
+    {
+      name: "Informe Técnico",
+      href: `/servicio-tecnico/servicios/proceso/${id}/informe-tecnico`,
+      count: 0,
+    },
+    {
+      name: "Egresos",
+      href: `/servicio-tecnico/servicios/proceso/${id}/egresos`,
+      count: 0,
+    },
   ];
 
   return (
@@ -46,9 +56,11 @@ function ServicioTecnicoTabs({ children, actions }: Props) {
                   }
                 `}
               >
-                <span className="bg-[#1A5EB3] text-white text-[10px] px-1.5 py-0.5 rounded mr-2 flex items-center justify-center min-w-4.5 font-bold">
-                  {tab.count}
-                </span>
+                {Object.hasOwn(tab, "count") && (
+                  <span className="bg-[#1A5EB3] text-white text-[10px] px-1.5 py-0.5 rounded-[5px] mr-2 flex items-center justify-center min-w-4.5 font-bold">
+                    {tab.count}
+                  </span>
+                )}
                 {tab.name}
               </Link>
             );
@@ -67,4 +79,4 @@ function ServicioTecnicoTabs({ children, actions }: Props) {
   );
 }
 
-export default ServicioTecnicoTabs;
+export default ProcesoTabs;
