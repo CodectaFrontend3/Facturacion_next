@@ -13,7 +13,7 @@ import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { FilterSearch } from "@/components/DataFilters/FilterSearch";
 import { FilterSelect } from "@/components/DataFilters/FilterSelect";
 import { useRouter } from "next/navigation";
-import { useCotizacionTable } from "../../hooks/useCotizacionTable";
+import { useCotizacionTable } from "@/app/servicio-tecnico/hooks/useCotizacionTable";
 
 const data: Cotizacion[] = CotizacionData;
 
@@ -42,7 +42,7 @@ const tipoDocOptions = [
   { label: "Nota Venta", value: "NotaVenta" },
 ];
 
-function page() {
+function Cotizacionpage() {
   const {
     filteredData,
     pendingFilters,
@@ -123,26 +123,11 @@ function page() {
         showSelection={true}
         isLoading={false}
         pageIndex={pageIndex}
-        footerContent={
-          <div className="flex justify-end bg-white border border-gray-200 border-t-0 -mt-4 relative z-10">
-            <div
-              className="border-l border-gray-200 px-4 py-3 font-bold text-gray-700 text-[13px] whitespace-nowrap text-right"
-              style={{ width: 161.7 }}
-            >
-              Total: {totalFormatted}
-            </div>
-            <div
-              className="border-l border-gray-200 px-4 py-3 font-bold text-gray-700 text-[13px] whitespace-nowrap text-right"
-              style={{ width: 181.86 }}
-            >
-              Total G.: {totalGFormatted}
-            </div>
-          </div>
-        }
+        totals={{ total: totalFormatted, totalG: totalGFormatted }}
         onPageChange={setPageIndex}
       />
     </ServicioTecnicoTabs>
   );
 }
 
-export default page;
+export default Cotizacionpage;

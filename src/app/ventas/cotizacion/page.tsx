@@ -1,5 +1,5 @@
-import { VentasTabTemplate } from "../components/VentasTabTemplate";
+import { VentasTabTemplate } from "../components/VentasTabTemplate"
 
 export default function CotizacionPage() {
-  return <VentasTabTemplate activeTab="cotizacion" />;
+  return <VentasTabTemplate activeTab="cotizacion" />
 }
