@@ -41,22 +41,22 @@ export default async function TecnicoDetallePage({ params }: TecnicoProps) {
                 <GridContent>
                     <InfoCard title="Contacto Cliente">
                         <div>
-                            <p><strong>Empresa: </strong>EMPRESA</p>
+                            <p><strong>Empresa: </strong>{tecnico.empresa}</p>
                             <p><strong>RUC: </strong>{tecnico.ruc}</p>
-                            <p><strong>Teléfono: </strong>TELEFONO</p>
-                            <p><strong>Dirección: </strong>DIRECCION</p>
+                            <p><strong>Teléfono: </strong>{tecnico.telefono}</p>
+                            <p><strong>Dirección: </strong>{tecnico.direccion}</p>
                         </div>
 
                         <div>
                             <p><strong>Contacto: </strong>{tecnico.cliente}</p>
                             <p><strong>Fecha: </strong>{tecnico.fecha}</p>
-                            <p><strong>Correo: </strong>EMAIL</p>
+                            <p><strong>Correo: </strong>{tecnico.correo}</p>
                         </div>
                     </InfoCard>
 
                     <InfoCard title="Condiciones Generales">
                         <div>
-                            <p><strong>Técnico Asignado: </strong>TECNICO</p>
+                            <p><strong>Técnico Asignado: </strong>{tecnico.asignado}</p>
                             <p><strong>Marca: </strong>{tecnico.marca}</p>
                         </div>
                     </InfoCard>
@@ -66,15 +66,15 @@ export default async function TecnicoDetallePage({ params }: TecnicoProps) {
                         className="col-span-6"
                     >
                         <div>
-                            <p><strong>Modelo: </strong>MODELO</p>
+                            <p><strong>Modelo: </strong>{tecnico.modelo}</p>
                             <p><strong>Número de serie: </strong>{tecnico.serie}</p>
-                            <p><strong>Descripcion del Problema: </strong>DESCRIPCIÓN</p>
+                            <p><strong>Descripcion del Problema: </strong>{tecnico.problema}</p>
                         </div>
 
                         <div>
                             <p><strong>Código Interno: </strong>{tecnico.codigo}</p>
                             <p><strong>Fecha de Compra: </strong>{tecnico.fecha}</p>
-                            <p><strong>Revisión y Diagnóstico: </strong>DESCRIPCIÓN</p>
+                            <p><strong>Revisión y Diagnóstico: </strong>{tecnico.revision}</p>
                         </div>
                     </InfoCard>
 
@@ -82,8 +82,8 @@ export default async function TecnicoDetallePage({ params }: TecnicoProps) {
                         title="Estética"
                         className="col-span-3"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{tecnico.estetica}</p>
                         </div>
                     </InfoCard>
 
@@ -91,8 +91,8 @@ export default async function TecnicoDetallePage({ params }: TecnicoProps) {
                         title="Revisión y diagnóstico"
                         className="col-span-3"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{tecnico.revision}</p>
                         </div>
                     </InfoCard>
 
@@ -100,8 +100,8 @@ export default async function TecnicoDetallePage({ params }: TecnicoProps) {
                         title="Causas del Problema"
                         className="col-span-3"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{tecnico.problema}</p>
                         </div>
                     </InfoCard>
 
@@ -109,8 +109,8 @@ export default async function TecnicoDetallePage({ params }: TecnicoProps) {
                         title="Solución"
                         className="col-span-3"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{tecnico.solucion}</p>
                         </div>
                     </InfoCard>
                 </GridContent>

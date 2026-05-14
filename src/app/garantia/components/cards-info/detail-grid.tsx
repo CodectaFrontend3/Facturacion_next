@@ -1,8 +1,4 @@
-import { ReactNode } from "react";
-
-interface GridProps {
-    children: ReactNode
-}
+import { GridProps } from "../../interfaces/info-view"
 
 export function GridContent({
     children

@@ -8,6 +8,8 @@ import egresoData from "../data/egreso.json"
 import tecnicoData from "../data/tecnico.json";
 
 import { DataTable as Table } from "@/components/ui/shared/DataTable";
+import { useState } from "react";
+import { ConfirmModal } from "../components/modals/confirm-modal";
 
 export type TableType = "ingreso" | "egreso" | "tecnico";
 
@@ -32,19 +34,51 @@ type Garantia = {
     cliente?: string;
     ruc?: string;
     fecha?: string;
+    estado?: string;
 };
 
 export default function DataTable({ type, filters }: Props) {
-    const columnsByType = {
-        ingreso: ingresoColumns,
-        egreso: egresoColumns,
-        tecnico: tecnicoColumns,
-    };
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedId, setSelectedId] = useState<number | null>(null);
 
-    const dataByType: Record<TableType, Garantia[]> = {
+    const [dataByType, setDataByType] = useState<Record<TableType, Garantia[]>>({
         ingreso: ingresoData as Garantia[],
         egreso: egresoData as Garantia[],
         tecnico: tecnicoData as Garantia[],
+    });
+
+    const handleOpenModal = (id: number) => {
+        setSelectedId(id);
+        setOpenModal(true);
+    }
+
+    const handleAnular = (id: number) => {
+        setDataByType((prev) => ({
+            ...prev,
+
+            [type]: prev[type].map((item) =>
+                item.id === id
+                    ? { ...item, estado: "anulados" }
+                    : item
+            ),
+        }));
+    };
+
+    const handleEgresar = (id: number) => {
+        setDataByType((prev) => ({
+            ...prev,
+            [type]: prev[type].map((item) =>
+                item.id === id
+                    ? { ...item, estado: "egresados" }
+                    : item
+            ),
+        }));
+    }
+
+    const columnsByType = {
+        ingreso: ingresoColumns(handleAnular, handleEgresar, handleOpenModal),
+        egreso: egresoColumns,
+        tecnico: tecnicoColumns,
     };
 
     const filteredData = dataByType[type].filter((item) => {
@@ -59,27 +93,48 @@ export default function DataTable({ type, filters }: Props) {
                 .toLowerCase()
                 .includes(filters.search.toLowerCase());
 
-        const matchFechaInicio = 
+        const matchFechaInicio =
             !filters.fechaInicio ||
             new Date(item.fecha || "") >= new Date(filters.fechaInicio);
 
-        const matchFechaFin = 
+        const matchFechaFin =
             !filters.fechaFin ||
             new Date(item.fecha || "") <= new Date(filters.fechaFin);
+
+        const matchEstado =
+            !filters.estado ||
+            item.estado?.toLowerCase() === filters.estado.toLowerCase();
 
         return (
             matchMarca &&
             matchSearch &&
             matchFechaInicio &&
-            matchFechaFin
+            matchFechaFin &&
+            matchEstado
         )
     })
 
     return (
-        <Table<any, any>
-            columns={columnsByType[type]}
-            data={filteredData}
-            pageSize={5}
-        />
+        <div>
+            <Table<any, any>
+                columns={columnsByType[type]}
+                data={filteredData}
+                pageSize={5}
+
+
+            />
+
+            {openModal && selectedId !== null && (
+                <ConfirmModal
+                    title={`¿Seguro que desea anular la guía ${selectedId}?`}
+                    description="Esta guía se anulará inmediatamente. Esta acción no se puede deshacer."
+                    onConfirm={() => {
+                        handleAnular(selectedId);
+                        setOpenModal(false);
+                    }}
+                />
+            )}
+        </div>
     );
 }
+

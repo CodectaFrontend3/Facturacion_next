@@ -1,10 +1,5 @@
 import { ReactNode } from "react"
-
-interface ButtonProps {
-    children: ReactNode
-    className: string
-    onClick?: () => void
-}
+import { ButtonProps } from "react-day-picker";
 
 export function Button({
     children,

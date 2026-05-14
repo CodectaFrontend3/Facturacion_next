@@ -65,6 +65,7 @@ body {
     height: var(--radix-collapsible-content-height);
     opacity: 1;
   }
+
   from {
     height: 0;
     opacity: 0;
@@ -86,6 +87,7 @@ body {
     height: 0;
     opacity: 0;
   }
+
   from {
     height: var(--radix-collapsible-content-height);
     opacity: 1;
@@ -167,6 +169,7 @@ body {
     opacity: 0;
     transform: translateY(-45px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -178,6 +181,7 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(-20px);
@@ -185,7 +189,8 @@ body {
 }
 
 .download-btn,
-.add-btn {
+.add-btn,
+.danger-btn {
   transition: transform 0.2s ease-in-out;
 }
 
@@ -197,12 +202,17 @@ body {
   transition: transform 0.3s ease;
 }
 
+.danger-btn:hover {
+  background-color: #EC4758;
+  transform: translateY(-3px);
+  transition: transform 0.3s ease;
+}
+
 .download-btn[data-state="open"] {
   transform: translateY(-5px);
   background-color: #18a689;
 }
 
-.view-btn,
 .trash-btn,
 .sign-btn,
 .info-btn {
@@ -210,12 +220,17 @@ body {
   transition: transform 0.2s ease-in-out;
 }
 
+.view-btn {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out
+}
+
 .view-btn:hover {
   background-color: rgb(21, 65, 185);
   transform: translateY(-2px);
 }
 
-.trash-btn:hover, 
+.trash-btn:hover,
 .info-btn:hover {
   background-color: rgb(236, 177, 28);
   transform: translateY(-2px);
@@ -239,6 +254,7 @@ body {
     opacity: 0;
     transform: scale(0.3);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -250,6 +266,7 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(-5px);
@@ -263,8 +280,9 @@ body {
 .dropdown-item:hover {
   cursor: pointer;
   transform: translateX(4px);
-  color:rgb(21, 65, 185)
+  color: rgb(21, 65, 185)
 }
+
 @keyframes accordion-down {
   from {
     height: 0;

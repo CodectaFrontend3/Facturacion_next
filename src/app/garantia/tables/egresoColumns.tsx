@@ -42,7 +42,7 @@ export const egresoColumns: ColumnDef<Egreso>[] = [
             return (
                 <Link
                     href={`/garantia/egreso/${row.original.id}`}
-                    className="bg-blue-700 text-white p-2 rounded hover:bg-blue-800"
+                    className="bg-[#1a5eb3] text-white p-2 rounded hover:bg-blue-800"
                 >
                     <i className="bi bi-eye"></i>
                 </Link>
@@ -55,8 +55,12 @@ export const egresoColumns: ColumnDef<Egreso>[] = [
         cell: ({ row }) => {
             return (
                 <div className="flex gap-2">
-                    <button className="info-btn bg-amber-400 text-white p-2 rounded hover:bg-amber-500"><i className="bi bi-exclamation-lg"></i></button>
-                    <button className="sign-btn bg-teal-400 text-white p-2 rounded hover:bg-teal-500"><i className="bi bi-box-arrow-in-right"></i></button>
+                    <button className="info-btn bg-amber-400 text-white p-2 rounded hover:bg-amber-500">
+                        <i className="bi bi-exclamation-lg"></i>
+                    </button>
+                    <button className="sign-btn bg-teal-400 text-white p-2 rounded hover:bg-teal-500">
+                        <i className="bi bi-box-arrow-in-right"></i>
+                    </button>
                 </div>
             )
         },

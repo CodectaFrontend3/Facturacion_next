@@ -41,22 +41,22 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                 <GridContent>
                     <InfoCard title="Contacto Cliente">
                         <div>
-                            <p><strong>Empresa: </strong>EMPRESA</p>
+                            <p><strong>Empresa: </strong>{ingreso.empresa}</p>
                             <p><strong>RUC: </strong>{ingreso.ruc}</p>
-                            <p><strong>Teléfono: </strong>TELEFONO</p>
-                            <p><strong>Dirección: </strong>DIRECCION</p>
+                            <p><strong>Teléfono: </strong>{ingreso.telefono}</p>
+                            <p><strong>Dirección: </strong>{ingreso.direccion}</p>
                         </div>
 
                         <div>
                             <p><strong>Contacto: </strong>{ingreso.cliente}</p>
                             <p><strong>Fecha: </strong>{ingreso.fecha}</p>
-                            <p><strong>Correo: </strong>EMAIL</p>
+                            <p><strong>Correo: </strong>{ingreso.correo}</p>
                         </div>
                     </InfoCard>
 
                     <InfoCard title="Condiciones Generales">
                         <div>
-                            <p><strong>Técnico Asignado: </strong>ingreso</p>
+                            <p><strong>Técnico Asignado: </strong>{ingreso.asignado}</p>
                             <p><strong>Marca: </strong>{ingreso.marca}</p>
                         </div>
                     </InfoCard>
@@ -66,7 +66,7 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         className="col-span-6"
                     >
                         <div>
-                            <p><strong>Modelo: </strong>MODELO</p>
+                            <p><strong>Modelo: </strong>{ingreso.modelo}</p>
                             <p><strong>Número de serie: </strong>{ingreso.serie}</p>
                         </div>
 
@@ -80,8 +80,8 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         title="Descripción del Problema"
                         className="col-span-2"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{ingreso.problema}</p>
                         </div>
                     </InfoCard>
 
@@ -89,8 +89,8 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         title="Revisión y diagnóstico"
                         className="col-span-2"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{ingreso.revision}</p>
                         </div>
                     </InfoCard>
 
@@ -98,8 +98,8 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         title="Estética"
                         className="col-span-2"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{ingreso.estetica}</p>
                         </div>
                     </InfoCard>
                 </GridContent>

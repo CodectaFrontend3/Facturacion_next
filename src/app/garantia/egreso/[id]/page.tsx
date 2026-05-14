@@ -42,25 +42,25 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                 <GridContent>
                     <InfoCard title="Contacto Cliente">
                         <div>
-                            <p><strong>Empresa: </strong>EMPRESA</p>
+                            <p><strong>Empresa: </strong>{egreso.empresa}</p>
                             <p><strong>RUC: </strong>{egreso.ruc}</p>
-                            <p><strong>Teléfono: </strong>TELEFONO</p>
-                            <p><strong>Dirección: </strong>DIRECCION</p>
+                            <p><strong>Teléfono: </strong>{egreso.telefono}</p>
+                            <p><strong>Dirección: </strong>{egreso.direccion}</p>
                         </div>
 
                         <div>
                             <p><strong>Contacto: </strong>{egreso.cliente}</p>
                             <p><strong>Fecha: </strong>{egreso.fecha}</p>
-                            <p><strong>Correo: </strong>EMAIL</p>
+                            <p><strong>Correo: </strong>{egreso.correo}</p>
                         </div>
                     </InfoCard>
 
                     <InfoCard title="Condiciones Generales">
                         <div>
-                            <p><strong>Técnico Asignado: </strong>egreso</p>
-                            <p><strong>Motivo: </strong>MOTIVO</p>
+                            <p><strong>Técnico Asignado: </strong>{egreso.asignado}</p>
+                            <p><strong>Motivo: </strong>{egreso.motivo}</p>
                             <p><strong>Marca: </strong>{egreso.marca}</p>
-                            <p><strong>Asunto: </strong>ASUNTO</p>
+                            <p><strong>Asunto: </strong>{egreso.asunto}</p>
                         </div>
                     </InfoCard>
 
@@ -69,7 +69,7 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                         className="col-span-6"
                     >
                         <div>
-                            <p><strong>Modelo: </strong>MODELO</p>
+                            <p><strong>Modelo: </strong>{egreso.modelo}</p>
                             <p><strong>Número de serie: </strong>{egreso.serie}</p>
                         </div>
 
@@ -83,8 +83,8 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                         title="Descripción del Problema"
                         className="col-span-2"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{egreso.problema}</p>
                         </div>
                     </InfoCard>
 
@@ -92,8 +92,8 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                         title="Revisión y diagnóstico"
                         className="col-span-2"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{egreso.revision}</p>
                         </div>
                     </InfoCard>
 
@@ -101,8 +101,8 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                         title="Recomendaciones"
                         className="col-span-2"
                     >
-                        <div>
-                            <p>DESCRIPCIÓN</p>
+                        <div className="col-span-2">
+                            <p>{egreso.recomendaciones}</p>
                         </div>
                     </InfoCard>
                 </GridContent>

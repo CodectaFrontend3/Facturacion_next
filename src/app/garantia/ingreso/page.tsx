@@ -6,7 +6,7 @@ import SummaryCards from "../components/summaryCards";
 import TabsBar from "@/app/garantia/components/tabsBar";
 import FilterBar from "../components/filterBar";
 import DataTable from "../tables/dataTable";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 
 function IngresoContent() {
     const searchParams = useSearchParams();

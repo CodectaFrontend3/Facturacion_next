@@ -1,14 +1,5 @@
-import { ReactNode } from "react"
-
-interface InfoCardProps {
-    title: string
-    children: ReactNode
-    className?: string
-}
-
-interface ContactInfoProps {
-    title: string
-}
+import { InfoCardProps } from "../../interfaces/info-view"
+import { ContactInfoProps } from "../../interfaces/info-view"
 
 export function InfoCard({
     title,

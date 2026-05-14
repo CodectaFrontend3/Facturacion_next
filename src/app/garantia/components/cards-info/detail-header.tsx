@@ -1,21 +1,10 @@
-import { ReactNode } from "react";
-
-interface TopProps {
-    children: ReactNode
-}
-
-interface InfoProps {
-    codigo: string
-    ruc: string
-}
-
-interface DocumentProps {
-    title: string
-}
+import { TopHeaderProps } from "../../interfaces/info-view"
+import { InfoHeaderProps } from "../../interfaces/info-view"
+import { DocumentHeaderProps } from "../../interfaces/info-view"
 
 export function TopHeader({
     children
-}: TopProps) {
+}: TopHeaderProps) {
     return (
         <div className="border-b border-t border-gray-300 flex items-center justify-between">
             {children}
@@ -26,7 +15,7 @@ export function TopHeader({
 export function InfoUser({
     codigo,
     ruc
-}: InfoProps) {
+}: InfoHeaderProps) {
     return (
         <div className="px-8 py-2">
             <h3 className="font-bold text-gray-700">EP-{codigo}</h3>
@@ -37,7 +26,7 @@ export function InfoUser({
 
 export function DocumentTitle({
     title
-}: DocumentProps) {
+}: DocumentHeaderProps) {
     return (
         <h1 className="text-2xl text-gray-500">{title}</h1>
     )

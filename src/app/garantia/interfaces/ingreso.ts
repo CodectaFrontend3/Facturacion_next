@@ -7,6 +7,7 @@ export interface Ingreso {
     cliente: string
     ruc: string
     fecha: string
+    estado: string
 }
 
 export interface IngresoProps {
