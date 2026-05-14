@@ -39,6 +39,7 @@ type Garantia = {
 
 export default function DataTable({ type, filters }: Props) {
     const [openModal, setOpenModal] = useState(false);
+    const [closing, setClosing] = useState(false);
     const [selectedId, setSelectedId] = useState<number | null>(null);
 
     const [dataByType, setDataByType] = useState<Record<TableType, Garantia[]>>({
@@ -129,9 +130,10 @@ export default function DataTable({ type, filters }: Props) {
                     title={`¿Seguro que desea anular la guía ${selectedId}?`}
                     description="Esta guía se anulará inmediatamente. Esta acción no se puede deshacer."
                     onConfirm={() => {
-                        handleAnular(selectedId);
-                        setOpenModal(false);
+                        handleAnular(selectedId)
+                        setOpenModal(false)
                     }}
+                    onClose={() => setOpenModal(false)}
                 />
             )}
         </div>

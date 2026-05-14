@@ -146,7 +146,7 @@ body {
 }
 
 .modal-box.closing {
-  animation: modalExit 0.2s ease forwards;
+  animation: modalExit 0.3s ease forwards;
 }
 
 .modal-content {
