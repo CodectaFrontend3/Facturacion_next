@@ -151,12 +151,12 @@ export function VentasTabTemplate({
 
                 <ActionButton
                   icon={
-                    <>
-                      <Download className="w-4 h-4" strokeWidth={3} />
-                      <ChevronDown className="w-2.5 h-2.5" strokeWidth={4} />
-                    </>
+                    <div className="flex items-center gap-1">
+                      <Download className="w-4 h-4" strokeWidth={2.5} />
+                      <ChevronDown className="w-3 h-3" strokeWidth={3} />
+                    </div>
                   }
-                  className="px-3 gap-1"
+                  className="px-6"
                   isPopover={true}
                   popoverOptions={[
                     { label: "Exportar Excel", onClick: () => console.log('Exportar Excel') },
