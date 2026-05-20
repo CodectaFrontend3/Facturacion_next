@@ -34,12 +34,5 @@
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "pnpm": {
-    "overrides": {
-      "next": "16.2.6",
-      "postcss": "8.5.10",
-      "brace-expansion": "5.0.6"
-    }
   }
 }
