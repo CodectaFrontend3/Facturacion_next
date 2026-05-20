@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useEgresoTable } from "../../hooks/useEgresoTable";
 import { Button } from "@/components/ui/button";
 import { Clock9, Settings } from "lucide-react";
+import RepararModal from "@/app/servicio-tecnico/components/RepararModal";
 
 const egresosData: Egreso[] = [
   {
@@ -20,7 +21,13 @@ const egresosData: Egreso[] = [
 ];
 
 function EgresosPage() {
-  const { data } = useEgresoTable(egresosData);
+  const {
+    data,
+    selectedEgreso,
+    isRepararModalOpen,
+    openRepararModal,
+    closeRepararModal,
+  } = useEgresoTable(egresosData);
 
   const columns: ColumnDef<Egreso>[] = [
     { accessorKey: "equipo", header: "Equipo", size: 180 },
@@ -50,9 +57,7 @@ function EgresosPage() {
           <Button
             size="icon-sm"
             className="bg-[#1A5EB3] hover:bg-[#164e96] text-white rounded-sm py-1.5 px-3 h-8.5 w-9"
-            onClick={() =>
-              alert(`Ver detalle del egreso: ${row.original.equipo}`)
-            }
+            onClick={() => openRepararModal(row.original)}
             aria-label="Ver detalle"
           >
             <Settings size={16} strokeWidth={2.5} />
@@ -71,6 +76,13 @@ function EgresosPage() {
 
   return (
     <ProcesoTabs>
+      <RepararModal
+        open={isRepararModalOpen}
+        onOpenChange={(open) => {
+          if (!open) closeRepararModal();
+        }}
+        egreso={selectedEgreso}
+      />
       <DataTable
         columns={columns}
         data={data}
