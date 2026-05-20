@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactCompiler: true,
+  experimental: {
+    // @ts-expect-error: reactCompiler es experimental y los tipos de TS pueden no estar actualizados
+    reactCompiler: true,
+  },
   images: {
     remotePatterns: [
       {

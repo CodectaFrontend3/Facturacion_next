@@ -11,8 +11,8 @@ export default function InicioPage() {
             {/* Fila 1: Tarjetas de Compra y Ventas */}
             <CompraVentas />
 
-            {/* Fila 2: Tres Columnas con las proporciones exactas que ajustamos (30% - 30% - 40%) */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3fr_3fr_4fr] gap-6">
+            {/* Fila 2: Tres Columnas con items-start para evitar que se estiren */}
+            <div className="grid grid-cols-1 lg:grid-cols-[3fr_3fr_4fr] gap-6 items-start">
                 <Alertas />
                 <ProductosVendidos />
                 <UsuarioActivo />
