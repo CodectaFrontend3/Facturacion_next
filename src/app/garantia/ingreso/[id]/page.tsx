@@ -31,11 +31,9 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         codigo={ingreso.codigo}
                         ruc={ingreso.ruc}
                     />
-
                     <DocumentTitle
                         title="GUÍA DE INGRESO"
                     />
-
                     <DocumentActions />
                 </TopHeader>
                 <GridContent>
@@ -69,7 +67,6 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                             <p><strong>Modelo: </strong>{ingreso.modelo}</p>
                             <p><strong>Número de serie: </strong>{ingreso.serie}</p>
                         </div>
-
                         <div>
                             <p><strong>Código Interno: </strong>{ingreso.codigo}</p>
                             <p><strong>Fecha de Compra: </strong>{ingreso.fecha}</p>

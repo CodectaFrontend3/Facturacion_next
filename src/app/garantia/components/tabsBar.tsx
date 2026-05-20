@@ -30,7 +30,6 @@ export default function TabsBar() {
                         translate: "0 1px"
                     }}></i>
                 </button>
-                
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <button className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! download-btn text-white p-2 px-4 rounded flex gap-2">
