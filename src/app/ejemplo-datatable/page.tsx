@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { DataTable } from "@/components/shared/DataTable"
 import { SummaryCard } from "@/components/shared/SummaryCard"
+import { showToast } from "@/components/shared/custom-toast"
+import { Textarea } from "@/components/shared/TextArea"
 import { type SummaryCardSlide } from "@/types/summary-card"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
@@ -57,7 +59,7 @@ const columns: ColumnDef<Cliente>[] = [
             <ActionButton
                 icon={<EyeIcon className="size-4" />}
                 className="w-8 h-8"
-                onClick={() => alert(`Visualizando cliente: ${row.original.nombre}`)}
+                onClick={() => showToast(`Visualizando cliente: ${row.original.nombre}`, 1)}
                 label={`Ver cliente ${row.original.nombre}`}
             />
         ),
@@ -132,14 +134,15 @@ export default function EjemploDataTablePage() {
 
     // Estado para el ejemplo de formulario
     const [formClienteId, setFormClienteId] = useState("")
+    const [formNotas, setFormNotas] = useState("")
 
     const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (!formClienteId) {
-            alert("Por favor selecciona un cliente primero.")
+            showToast("Por favor selecciona un cliente primero.", 2)
             return
         }
-        alert(`¡Formulario enviado con éxito!\n\nCliente ID seleccionado: ${formClienteId}`)
+        showToast(`¡Formulario enviado con éxito! ID: ${formClienteId}${formNotas ? ` | Notas: ${formNotas}` : ""}`, 1)
     }
 
     return (
@@ -233,9 +236,9 @@ export default function EjemploDataTablePage() {
                  * el 'value' actual y la función 'onChange' que actualiza el estado.
                  */}
                 <div className="mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg">
-                    <h3 className="text-lg font-bold text-[#171717] mb-4">Ejemplo: Uso de CboData en Formularios</h3>
-                    <form onSubmit={handleFormSubmit} className="flex items-end gap-4 max-w-lg">
-                        <div className="flex-1">
+                    <h3 className="text-lg font-bold text-[#171717] mb-4">Ejemplo: Uso de CboData y Textarea en Formularios</h3>
+                    <form onSubmit={handleFormSubmit} className="space-y-4 max-w-lg">
+                        <div>
                             <label className="block text-sm font-medium text-[#676A6C] mb-1">Selecciona un cliente para enviar:</label>
                             <CboData
                                 items={clienteOptions}
@@ -244,10 +247,41 @@ export default function EjemploDataTablePage() {
                                 placeholder="Elegir cliente..."
                             />
                         </div>
-                        <Button type="submit" className="bg-[#1AB394] hover:bg-[#159a7f] text-white">
+                        <div>
+                            <Textarea
+                                label="Notas / Observaciones:"
+                                value={formNotas}
+                                onChange={(e) => setFormNotas(e.target.value)}
+                                placeholder="Escribe aquí observaciones adicionales..."
+                                rows={3}
+                            />
+                        </div>
+                        <Button type="submit" className="bg-[#1AB394] hover:bg-[#159a7f] text-white cursor-pointer">
                             Enviar Formulario
                         </Button>
                     </form>
+                </div>
+
+                {/* EJEMPLO DE PRUEBA DE TOASTS */}
+                <div className="mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg">
+                    <h3 className="text-lg font-bold text-[#171717] mb-2">Ejemplo: Toasts Personalizados</h3>
+                    <p className="text-sm text-gray-500 mb-4">
+                        Prueba el componente reutilizable `showToast` con los estilos de éxito (Tipo 1, `#51A351`) y error (Tipo 2, `#BD362F`).
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                        <Button 
+                            onClick={() => showToast("Creado O filtros correctos", 1, { description: "La operación se realizó con éxito." })}
+                            className="bg-[#51A351] hover:bg-[#438a43] text-white cursor-pointer text-xs"
+                        >
+                            Ver Toast Éxito (Tipo 1)
+                        </Button>
+                        <Button 
+                            onClick={() => showToast("Error llenado de campo", 2, { description: "Por favor verifique los campos del formulario." })}
+                            className="bg-[#BD362F] hover:bg-[#a62f28] text-white cursor-pointer text-xs"
+                        >
+                            Ver Toast Error (Tipo 2)
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

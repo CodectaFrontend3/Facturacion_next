@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from "react"
+import { showToast } from "@/components/shared/custom-toast"
 
 interface UseTableDataOptions<TData> {
     data: TData[]
@@ -28,6 +29,7 @@ export function useTableData<TData>({
     const applyFilters = useCallback(() => {
         setActiveFilters(pendingFilters)
         setPageIndex(0)
+        showToast("Se han aplicado los filtros correctamente", 1) // sonner personalizado
     }, [pendingFilters])
 
     // Limpia todo — pendientes y activos
