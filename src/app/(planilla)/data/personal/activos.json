@@ -1,0 +1,101 @@
+[
+    {
+        "id": 100,
+        "nombres_apellidos": "Leonardo Chavez",
+        "dni": 6037819,
+        "correo": "leonardo.chavez@gmail.com",
+        "celular": "999 888 777",
+        "fecha_vinculacion": "21/05/2026",
+        "cargo": "Vendedor"
+    },
+    {
+        "id": 101,
+        "nombres_apellidos": "María Fernanda Rojas",
+        "dni": 7483921,
+        "correo": "maria.rojas@gmail.com",
+        "celular": "987 654 321",
+        "fecha_vinculacion": "10/03/2025",
+        "cargo": "Asistente Administrativa"
+    },
+    {
+        "id": 102,
+        "nombres_apellidos": "Carlos Enrique Medina",
+        "dni": 8124576,
+        "correo": "carlos.medina@gmail.com",
+        "celular": "956 741 852",
+        "fecha_vinculacion": "15/08/2024",
+        "cargo": "Contador"
+    },
+    {
+        "id": 103,
+        "nombres_apellidos": "Lucía Valeria Torres",
+        "dni": 9348751,
+        "correo": "lucia.torres@gmail.com",
+        "celular": "945 222 111",
+        "fecha_vinculacion": "01/01/2026",
+        "cargo": "Diseñadora Gráfica"
+    },
+    {
+        "id": 104,
+        "nombres_apellidos": "Jorge Luis Paredes",
+        "dni": 6712458,
+        "correo": "jorge.paredes@gmail.com",
+        "celular": "912 345 678",
+        "fecha_vinculacion": "22/11/2023",
+        "cargo": "Supervisor"
+    },
+    {
+        "id": 105,
+        "nombres_apellidos": "Andrea Milagros Salas",
+        "dni": 7593184,
+        "correo": "andrea.salas@gmail.com",
+        "celular": "933 111 444",
+        "fecha_vinculacion": "30/06/2025",
+        "cargo": "Recursos Humanos"
+    },
+    {
+        "id": 106,
+        "nombres_apellidos": "Pedro Antonio Quispe",
+        "dni": 8459123,
+        "correo": "pedro.quispe@gmail.com",
+        "celular": "988 777 666",
+        "fecha_vinculacion": "12/09/2022",
+        "cargo": "Analista de Sistemas"
+    },
+    {
+        "id": 107,
+        "nombres_apellidos": "Sandra Elizabeth Núñez",
+        "dni": 7921456,
+        "correo": "sandra.nunez@gmail.com",
+        "celular": "955 444 222",
+        "fecha_vinculacion": "05/05/2024",
+        "cargo": "Secretaria"
+    },
+    {
+        "id": 108,
+        "nombres_apellidos": "Miguel Ángel Castañeda",
+        "dni": 8845127,
+        "correo": "miguel.castaneda@gmail.com",
+        "celular": "977 888 999",
+        "fecha_vinculacion": "19/02/2026",
+        "cargo": "Jefe de Ventas"
+    },
+    {
+        "id": 109,
+        "nombres_apellidos": "Patricia Gómez Herrera",
+        "dni": 7312645,
+        "correo": "patricia.gomez@gmail.com",
+        "celular": "966 555 333",
+        "fecha_vinculacion": "14/07/2023",
+        "cargo": "Marketing"
+    },
+    {
+        "id": 110,
+        "nombres_apellidos": "Renato Iván Delgado",
+        "dni": 9182736,
+        "correo": "renato.delgado@gmail.com",
+        "celular": "944 123 987",
+        "fecha_vinculacion": "27/12/2025",
+        "cargo": "Operador Logístico"
+    }
+]

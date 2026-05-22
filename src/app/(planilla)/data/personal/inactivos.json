@@ -1,0 +1,47 @@
+[
+    {
+        "id": 111,
+        "nombres_apellidos": "Valeria Andrea Mendoza",
+        "dni": 8456712,
+        "correo": "valeria.mendoza@gmail.com",
+        "celular": "998 112 334",
+        "fecha_inicio": "03/04/2026",
+        "cargo": "Coordinadora Comercial"
+    },
+    {
+        "id": 112,
+        "nombres_apellidos": "Diego Armando Flores",
+        "dni": 7923845,
+        "correo": "diego.flores@gmail.com",
+        "celular": "977 223 445",
+        "fecha_inicio": "18/09/2025",
+        "cargo": "Técnico de Soporte"
+    },
+    {
+        "id": 113,
+        "nombres_apellidos": "Camila Estefanía Ruiz",
+        "dni": 9182734,
+        "correo": "camila.ruiz@gmail.com",
+        "celular": "966 334 556",
+        "fecha_inicio": "25/01/2024",
+        "cargo": "Analista Financiera"
+    },
+    {
+        "id": 114,
+        "nombres_apellidos": "Fernando José Aguilar",
+        "dni": 7348291,
+        "correo": "fernando.aguilar@gmail.com",
+        "celular": "955 445 667",
+        "fecha_inicio": "11/11/2023",
+        "cargo": "Gerente de Operaciones"
+    },
+    {
+        "id": 115,
+        "nombres_apellidos": "Rosa Elena Castillo",
+        "dni": 8674519,
+        "correo": "rosa.castillo@gmail.com",
+        "celular": "944 556 778",
+        "fecha_inicio": "07/07/2026",
+        "cargo": "Asesora de Atención al Cliente"
+    }
+]

@@ -1,0 +1,72 @@
+[
+    {
+        "item": 1,
+        "codigo_c": "VEN-001",
+        "codigo_bf": "BF-784512",
+        "estado": "Activo",
+        "costo": 1500,
+        "comision": 120,
+        "liquidacion": "Pendiente",
+        "observacion": "Sin incidencias"
+    },
+    {
+        "item": 2,
+        "codigo_c": "VEN-002",
+        "codigo_bf": "BF-963214",
+        "estado": "Activo",
+        "costo": 2300,
+        "comision": 180,
+        "liquidacion": "Pagado",
+        "observacion": "Buen desempeño"
+    },
+    {
+        "item": 3,
+        "codigo_c": "VEN-003",
+        "codigo_bf": "BF-741852",
+        "estado": "Inactivo",
+        "costo": 1800,
+        "comision": 140,
+        "liquidacion": "Pendiente",
+        "observacion": "Baja productividad"
+    },
+    {
+        "item": 4,
+        "codigo_c": "VEN-004",
+        "codigo_bf": "BF-159753",
+        "estado": "Activo",
+        "costo": 2750,
+        "comision": 220,
+        "liquidacion": "Pagado",
+        "observacion": "Meta superada"
+    },
+    {
+        "item": 5,
+        "codigo_c": "VEN-005",
+        "codigo_bf": "BF-357951",
+        "estado": "Activo",
+        "costo": 2000,
+        "comision": 160,
+        "liquidacion": "Pendiente",
+        "observacion": "En evaluación"
+    },
+    {
+        "item": 6,
+        "codigo_c": "VEN-006",
+        "codigo_bf": "BF-852963",
+        "estado": "Inactivo",
+        "costo": 1200,
+        "comision": 90,
+        "liquidacion": "Pendiente",
+        "observacion": "Revisión administrativa"
+    },
+    {
+        "item": 7,
+        "codigo_c": "VEN-007",
+        "codigo_bf": "BF-654321",
+        "estado": "Activo",
+        "costo": 3100,
+        "comision": 250,
+        "liquidacion": "Pagado",
+        "observacion": "Top seller del mes"
+    }
+]

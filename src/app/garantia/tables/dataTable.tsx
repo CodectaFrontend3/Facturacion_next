@@ -121,8 +121,6 @@ export default function DataTable({ type, filters }: Props) {
                 columns={columnsByType[type]}
                 data={filteredData}
                 pageSize={5}
-
-
             />
 
             {openModal && selectedId !== null && (

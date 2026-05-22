@@ -1,0 +1,52 @@
+[
+    {
+        "item": 1,
+        "placa": "ABC-123",
+        "marca": "Toyota",
+        "modelo": "Hilux",
+        "tipo": "Camioneta",
+        "año": 2022,
+        "certificado": "CERT-458721",
+        "estado": "Activo"
+    },
+    {
+        "item": 2,
+        "placa": "XYZ-987",
+        "marca": "Hyundai",
+        "modelo": "Accent",
+        "tipo": "Sedán",
+        "año": 2020,
+        "certificado": "CERT-963852",
+        "estado": "Inactivo"
+    },
+    {
+        "item": 3,
+        "placa": "LMN-456",
+        "marca": "Kia",
+        "modelo": "Sportage",
+        "tipo": "SUV",
+        "año": 2021,
+        "certificado": "CERT-741258",
+        "estado": "Activo"
+    },
+    {
+        "item": 4,
+        "placa": "QWE-741",
+        "marca": "Nissan",
+        "modelo": "Frontier",
+        "tipo": "Pickup",
+        "año": 2019,
+        "certificado": "CERT-852369",
+        "estado": "Suspendido"
+    },
+    {
+        "item": 5,
+        "placa": "RTY-852",
+        "marca": "Chevrolet",
+        "modelo": "Tracker",
+        "tipo": "SUV",
+        "año": 2023,
+        "certificado": "CERT-159357",
+        "estado": "Activo"
+    }
+]

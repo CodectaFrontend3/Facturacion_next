@@ -1,0 +1,37 @@
+[
+    {
+        "item": 1,
+        "empresa": "Transportes El Sol SAC",
+        "ruc": "20458796321",
+        "mtc": 458721,
+        "estado": "Activo"
+    },
+    {
+        "item": 2,
+        "empresa": "Movilidad Andina EIRL",
+        "ruc": "20631478952",
+        "mtc": 784512,
+        "estado": "Inactivo"
+    },
+    {
+        "item": 3,
+        "empresa": "Servicios de Transporte Lima Sur SAC",
+        "ruc": "20547896314",
+        "mtc": 963258,
+        "estado": "Activo"
+    },
+    {
+        "item": 4,
+        "empresa": "Expreso Continental Perú SAC",
+        "ruc": "20147852639",
+        "mtc": 357951,
+        "estado": "Inactivo"
+    },
+    {
+        "item": 5,
+        "empresa": "Rutas Nacionales del Perú SAC",
+        "ruc": "20987456321",
+        "mtc": 741852,
+        "estado": "Activo"
+    }
+]
