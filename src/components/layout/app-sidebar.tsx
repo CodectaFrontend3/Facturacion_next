@@ -1,30 +1,9 @@
 "use client"
 
-import { useState, useEffect, useRef, type ComponentType, type CSSProperties, type ReactNode } from "react"
+import { useState, useRef, type CSSProperties, type ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import {
-	BadgeCheck,
-	Archive,
-	CreditCard,
-	FileText,
-	Home,
-	Users,
-	LogOut,
-	Mail,
-	MoreVertical,
-	Settings,
-	ShieldCheck,
-	Tags,
-	Handbag,
-	Wrench,
-	MessageCircle,
-	Sheet,
-	CircleUserRound,
-	Wallet,
-	Landmark
-} from "lucide-react"
 import sidebarData from "@/data/sidebar.json"
 import type { sidebarItem } from "@/types/sidebar/sidebar"
 import {
@@ -50,26 +29,25 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import LeonosoftLogo from "@/assets/img/Leonosoft.png"
 
-type IconComponent = ComponentType<{ className?: string; strokeWidth?: number }>
-
-const iconMap: Record<string, IconComponent> = {
-	Home,
-	Tags,
-	Wallet,
-	MessageCircle,
-	FileText,
-	ShieldCheck,
-	Archive,
-	CreditCard,
-	Wrench,
-	Sheet,
-	Handbag,
-	BadgeCheck,
-	Mail,
-	Users
+const iconMap: Record<string, string> = {
+	Home: "fa fa-fw fa-home",
+	Tags: "fa fa-fw fa-tags",
+	Wallet: "fa fa-fw fa-money",
+	MessageCircle: "fa fa-fw fa-comments",
+	FileText: "fa fa-fw fa-file",
+	ShieldCheck: "fa fa-fw fa-check",
+	Archive: "fa fa-fw fa-archive",
+	CreditCard: "fa fa-fw fa-credit-card",
+	Wrench: "fa fa-fw fa-wrench",
+	Sheet: "fa fa-fw fa-table",
+	Handbag: "fa fa-fw fa-shopping-bag",
+	BadgeCheck: "fa fa-fw fa-registered",
+	Mail: "http://jypsac.dyndns.org:190/facturacion_20522045773/public/archivos/imagenes/layout/correo.svg",
+	Users: "http://jypsac.dyndns.org:190/facturacion_20522045773/public/archivos/imagenes/layout/auxiliar.svg"
 }
+
+const isUrl = (str: string) => /^(https?:\/\/|\/)/.test(str) || str.endsWith(".svg")
 
 const mainItems = sidebarData as sidebarItem[]
 
@@ -81,9 +59,23 @@ function isActiveRoute(pathname: string, href: string) {
 	return pathname === href || pathname.startsWith(href + "/")
 }
 
+function getActiveMenuLabel(pathname: string, items: sidebarItem[]) {
+	const activeItem = items.find(item => {
+		if (item.path) return isActiveRoute(pathname, item.path)
+		if (item.subPath) return item.subPath.some(sub => {
+			if (sub.path) return isActiveRoute(pathname, sub.path)
+			if (sub.kPath) return sub.kPath.some(k => isActiveRoute(pathname, k.path))
+			return false
+		})
+		return false
+	})
+
+	return activeItem && activeItem.subPath ? activeItem.label : null
+}
+
 export default function AppSidebar({ children }: { children?: ReactNode }) {
 	const pathname = usePathname()
-	const [openMenu, setOpenMenu] = useState<string>("")
+	const [openMenuState, setOpenMenuState] = useState<{ pathname: string; label: string | null } | null>(null)
 	const [isHovered, setIsHovered] = useState(false)
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -99,20 +91,10 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 		}, 250)
 	}
 
-	useEffect(() => {
-		const activeItem = mainItems.find(item => {
-			if (item.path) return isActiveRoute(pathname, item.path);
-			if (item.subPath) return item.subPath.some(sub => {
-				if (sub.path) return isActiveRoute(pathname, sub.path)
-				if (sub.kPath) return sub.kPath.some(k => isActiveRoute(pathname, k.path))
-				return false;
-			});
-			return false;
-		});
-		if (activeItem && activeItem.subPath) {
-			setOpenMenu(activeItem.label);
-		}
-	}, [pathname]);
+	const activeMenuLabel = getActiveMenuLabel(pathname, mainItems)
+	const resolvedOpenMenu = openMenuState && openMenuState.pathname === pathname
+		? openMenuState.label
+		: activeMenuLabel
 
 	return (
 		<SidebarProvider
@@ -129,15 +111,17 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 				{/* Header: Logo + Brand */}
 				<SidebarHeader className="relative z-10 flex flex-row items-center justify-center gap-1 py-5 bg-white transition-all duration-500 ease-in-out group-data-[collapsible=icon]:px-0">
 					<Image
-						src={LeonosoftLogo}
+						src={"http://jypsac.dyndns.org:190/facturacion_20522045773/public/archivos/imagenes/layout/Leonosoft.png"}
 						alt="Leonosoft Logo"
-						width={56}
-						height={56}
+						width={60}
+						height={60}
+						style={{ width: "auto", height: "auto" }}
 						className="drop-shadow-sm transition-all duration-500 ease-in-out"
+						priority
 					/>
-					<h1 className="text-[16px] font-extrabold tracking-wide transition-all duration-500 ease-in-out overflow-hidden group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
-						<span className="text-[#3252A4]">LEONO</span>
-						<span className="text-gray-500">SOFT</span>
+					<h1 className="text-[18px] font-bold tracking-wide transition-all duration-500 ease-in-out overflow-hidden group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
+						<span className="text-[#2641F8]">LEONO</span>
+						<span className="text-[#808080]">SOFT</span>
 					</h1>
 				</SidebarHeader>
 
@@ -153,14 +137,14 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 										if (sub.kPath) return sub.kPath.some((k) => isActiveRoute(pathname, k.path))
 										return false
 									})
-								const Icon = iconMap[item.icon] ?? FileText
+								const iconClass = iconMap[item.icon] ?? "fa fa-fw fa-file-text-o"
 
 								if (item.subPath) {
 									return (
 										<Collapsible
 											key={item.label}
-											open={openMenu === item.label}
-											onOpenChange={(isOpen) => setOpenMenu(isOpen ? item.label : "")}
+											open={resolvedOpenMenu === item.label}
+											onOpenChange={(isOpen) => setOpenMenuState({ pathname, label: isOpen ? item.label : null })}
 											className="group/collapsible transition-all duration-200 data-[state=open]:bg-[#143593] group-data-[collapsible=icon]:data-[state=open]:bg-transparent"
 										>
 											<SidebarMenuItem>
@@ -177,7 +161,17 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 															group-data-[collapsible=icon]:data-[active=true]:bg-[#09267B]
 														`}
 													>
-														<Icon className="size-5 shrink-0 transition-all duration-500 ease-in-out group-data-[collapsible=icon]:size-6.5" strokeWidth={2.5} />
+														{isUrl(iconClass) ? (
+															<Image
+																src={iconClass}
+																alt={item.label}
+																width={20}
+																height={22}
+																className="shrink-0 transition-all duration-500 ease-in-out object-contain group-data-[collapsible=icon]:w-5 group-data-[collapsible=icon]:h-5.5"
+															/>
+														) : (
+															<i className={`${iconClass} flex! items-center! justify-center! shrink-0 transition-all duration-500 ease-in-out w-4 h-4.25 text-[17px]! group-data-[collapsible=icon]:w-4.5 group-data-[collapsible=icon]:h-5.25 group-data-[collapsible=icon]:text-[21px]!`} />
+														)}
 														<span className="text-[12px] font-bold tracking-wide text-white truncate transition-all duration-500 ease-in-out overflow-hidden group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
 															{item.label}
 														</span>
@@ -274,7 +268,17 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 											`}
 										>
 											<Link href={item.path!}>
-												<Icon className="size-5 shrink-0 transition-all duration-500 ease-in-out group-data-[collapsible=icon]:size-6.5" strokeWidth={2.5} />
+												{isUrl(iconClass) ? (
+													<Image
+														src={iconClass}
+														alt={item.label}
+														width={16}
+														height={17}
+														className="shrink-0 transition-all duration-500 ease-in-out w-4 h-4.25 object-contain group-data-[collapsible=icon]:w-4.5 group-data-[collapsible=icon]:h-5.25"
+													/>
+												) : (
+													<i className={`${iconClass} flex! items-center! justify-center! shrink-0 transition-all duration-500 ease-in-out w-4 h-4.25 text-[17px]! group-data-[collapsible=icon]:w-4.5 group-data-[collapsible=icon]:h-5.25 group-data-[collapsible=icon]:text-[21px]!`} />
+												)}
 												<span className="text-[12px] font-bold tracking-wide text-white truncate transition-all duration-500 ease-in-out overflow-hidden group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
 													{item.label}
 												</span>
@@ -310,7 +314,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 									type="button"
 									className="rounded-md p-1.5 transition-colors hover:bg-white/10 focus:outline-none"
 								>
-									<MoreVertical className="size-4 shrink-0 text-white" strokeWidth={2.5} />
+									<i className="fa fa-ellipsis-v text-[14px] shrink-0 text-white w-4 h-4 flex items-center justify-center" />
 								</button>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent
@@ -320,19 +324,19 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 								className={`w-38 bg-white text-black border-gray-200 p-1 ${!isHovered ? "hidden" : ""}`}
 							>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<CircleUserRound className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
+									<i className="fa fa-user-circle-o mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
 									Mi Perfil
 								</DropdownMenuItem>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<Landmark className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
+									<i className="fa fa-university mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
 									Mi Empresa
 								</DropdownMenuItem>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<Settings className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
+									<i className="fa fa-cog mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
 									Configuración
 								</DropdownMenuItem>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<LogOut className="mr-2 size-3.5 text-black" strokeWidth={2.5} />
+									<i className="fa fa-sign-out mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
 									Cerrar Sesión
 								</DropdownMenuItem>
 							</DropdownMenuContent>
