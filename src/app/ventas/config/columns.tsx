@@ -48,6 +48,23 @@ function NotaButton({
   )
 }
 
+function CompartirButtons() {
+  return (
+    <div className="flex items-center gap-1.5">
+      <ActionButton
+        icon={<i className="bi bi-envelope"></i>}
+        label="Enviar por mensajería"
+        className="w-9 h-9 bg-[#6c757d] hover:bg-[#5a6268] rounded-[3px]"
+      />
+      <ActionButton
+        icon={<i className="bi bi-whatsapp"></i>}
+        label="Enviar por WhatsApp"
+        className="w-9 h-9 bg-[#28a745] hover:bg-[#218838] rounded-[3px]"
+      />
+    </div>
+  )
+}
+
 // COLUMNAS PARA COTIZACIÃ“N
 const getCotizacionColumns = (
   detailBasePath = "/ventas/cotizacion",
@@ -102,19 +119,7 @@ const getCotizacionColumns = (
     id: "compartir",
     header: "Compartir R.",
     size: 130,
-    cell: ({ row }) => {
-      const compartir = row.original.compartir;
-      return (
-        <div className="flex items-center gap-1.5">
-          {compartir?.includes("envelope") && (
-            <ActionButton icon={<i className="bi bi-envelope"></i>} className="w-9 h-9 bg-[#6c757d] hover:bg-[#5a6268] rounded-[3px]" />
-          )}
-          {compartir?.includes("whatsapp") && (
-            <ActionButton icon={<i className="bi bi-whatsapp"></i>} className="w-9 h-9 bg-[#28a745] hover:bg-[#218838] rounded-[3px]" />
-          )}
-        </div>
-      )
-    }
+    cell: () => <CompartirButtons />
   }
 ]
 
@@ -202,19 +207,7 @@ const getRenovacionColumns = (noteOptions: NoteColumnOptions = {}): ColumnDef<Co
     id: "compartir",
     header: "Compartir R.",
     size: 110,
-    cell: ({ row }) => {
-      const compartir = row.original.compartir;
-      return (
-        <div className="flex items-center gap-1.5">
-          {compartir?.includes("envelope") && (
-            <ActionButton icon={<i className="bi bi-envelope"></i>} className="w-9 h-9 bg-[#6c757d] hover:bg-[#5a6268] rounded-[3px]" />
-          )}
-          {compartir?.includes("whatsapp") && (
-            <ActionButton icon={<i className="bi bi-whatsapp"></i>} className="w-9 h-9 bg-[#28a745] hover:bg-[#218838] rounded-[3px]" />
-          )}
-        </div>
-      )
-    }
+    cell: () => <CompartirButtons />
   }
 ]
 
