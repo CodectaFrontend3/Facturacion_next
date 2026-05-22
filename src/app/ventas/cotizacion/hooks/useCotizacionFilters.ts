@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { CotizacionRow } from "../types"
+import { CotizacionRow } from "../../types/cotizacion.types"
 import { fetchCotizaciones } from "../services/cotizacionService"
 
 export function useCotizacionFilters(activeTab: string) {
@@ -44,6 +44,34 @@ export function useCotizacionFilters(activeTab: string) {
     }
   }
 
+  // Función para limpiar filtros
+  const handleReset = async () => {
+    const defaultFilters = {
+      searchValue: "",
+      comprobante: "Todos los comprobantes",
+      estado: "Estados",
+      dateFrom: "",
+      dateTo: ""
+    }
+    setFilters(defaultFilters)
+    
+    // Disparar búsqueda con los filtros por defecto para ese tab
+    setIsLoading(true)
+    try {
+      const result = await fetchCotizaciones({
+        tab: activeTab,
+        search: "",
+        comprobante: "Todos los comprobantes",
+        dateRange: { start: null, end: null }
+      })
+      setData(result)
+    } catch (error) {
+      console.error("Error resetting data:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   // Efecto para buscar automáticamente cuando cambia la pestaña
   useEffect(() => {
     const resetFilters = {
@@ -68,6 +96,7 @@ export function useCotizacionFilters(activeTab: string) {
     data,
     isLoading,
     handleFilterChange,
-    handleSearch: () => handleSearch(filters),
+    handleSearch,
+    handleReset,
   }
 }

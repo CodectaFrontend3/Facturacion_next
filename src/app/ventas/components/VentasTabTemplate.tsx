@@ -1,59 +1,128 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 
 import { FilterBar } from "./FilterBar"
+import { NotaModal } from "./NotaModal"
 import { TabsNav } from "./TabsNav"
-
 
 import { DataTable } from "@/components/shared/DataTable"
 import { SummarySection } from "./SummarySection"
 
-import { TabKey } from "../types"
+import { ClienteRow, CotizacionRow, TabKey } from "../types"
 import { TABS, getSummaryCards } from "../config/constants"
-import { getColumns } from "../config/columns"
+import { getColumnsForTab } from "../config/columns"
 
 import { ActionButton } from "@/components/common/ActionButton"
 import { Plus, Copy, Download, ChevronDown } from "lucide-react"
 
-import { useCotizacionFilters } from "../hooks/useCotizacionFilters"
+type VentasTableRow = CotizacionRow | ClienteRow
 
-interface VentasTabTemplateProps {
-  activeTab: TabKey
+interface VentasFilters {
+  searchValue: string
+  dateFrom: string
+  dateTo: string
+  comprobante?: string
+  estado?: string
+  documento?: string
 }
 
-export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
-  const {
-    filters,
-    data: tableData,
-    isLoading,
-    handleFilterChange,
-    handleSearch
-  } = useCotizacionFilters(activeTab)
+const cardMatchesActiveTab = (activeTab: TabKey, label: string) => {
+  const normalizedLabel = label.toLowerCase()
 
-  const summaryIcons = {
+  return (activeTab === "clientes" && normalizedLabel === "clientes") ||
+         (activeTab === "cotizacion" && normalizedLabel === "cotización") ||
+         (activeTab === "cotizacion-manual" && normalizedLabel.includes("manual")) ||
+         (activeTab === "nota-venta" && normalizedLabel === "nota de venta") ||
+         (activeTab === "renovacion" && normalizedLabel.startsWith("renovaci"))
+}
+
+// Nuevas propiedades que debe recibir la plantilla
+interface VentasTabTemplateProps {
+  activeTab: TabKey
+  data: VentasTableRow[] // Recibe los datos ya cargados
+  isLoading: boolean // Recibe el estado de carga
+  filters: VentasFilters // Recibe los filtros actuales
+  onFilterChange: (name: string, value: string) => void // Función para actualizar filtros
+  onSearch: () => void // Función para ejecutar búsqueda
+  onReset: () => void // Función para limpiar filtros
+  onAddClick?: () => void // Función para manejar el click en "+"
+  filterSelectConfig?: {
+    name: string
+    options: { label: string; value: string }[]
+  }
+}
+
+export function VentasTabTemplate({ 
+  activeTab, 
+  data: tableData, 
+  isLoading, 
+  filters, 
+  onFilterChange, 
+  onSearch,
+  onReset,
+  onAddClick,
+  filterSelectConfig
+}: VentasTabTemplateProps) {
+  // NOTA: Eliminamos la llamada a useCotizacionFilters() aquí adentro.
+  // Ahora la plantilla es completamente agnóstica de dónde vienen los datos.
+
+  const summaryIcons = useMemo(() => ({
     cotizacion: <i className="bi bi-file-earmark-text text-[55px] text-black leading-none" />,
     cotizacionManual: <i className="bi bi-file-earmark-text text-[55px] text-black leading-none" />,
     notaVenta: <i className="bi bi-file-earmark text-[55px] text-black leading-none" />,
     clientes: <i className="bi bi-person text-[55px] text-black leading-none" />,
     renovacion: <i className="bi bi-arrow-repeat text-[55px] text-black leading-none font-bold" />,
-  }
+  }), [])
 
-    const baseSummaryCards = useMemo(() => getSummaryCards(summaryIcons), [])
-  const columns = useMemo(() => getColumns(activeTab), [activeTab])
+  // Calcular dinámicamente los contadores
+  const summaryCards = useMemo(() => {
+    const cards = getSummaryCards(summaryIcons)
+    return cards.map(card => {
+      // Si la tarjeta corresponde a la pestaña activa, actualiza su contador
+      const isCurrentTab = cardMatchesActiveTab(activeTab, card.label)
+      
+      if (isCurrentTab) {
+        return {
+          ...card,
+          documents: tableData.length
+        }
+      }
+      return card
+    })
+  }, [tableData, activeTab, summaryIcons])
+
+  const dynamicTabs = useMemo(() => {
+    return TABS.map(tab => {
+      if (tab.key === activeTab) {
+        return { ...tab, count: tableData.length }
+      }
+      return tab
+    })
+  }, [tableData, activeTab])
+
+  const [notes, setNotes] = useState<Record<string, string>>({})
+  const [activeNoteRowId, setActiveNoteRowId] = useState<string | number | null>(null)
+  const activeNoteKey = activeNoteRowId === null ? "" : `${activeTab}:${activeNoteRowId}`
+
+  const columns = useMemo(() => getColumnsForTab(activeTab, {
+    getNote: (rowId) => notes[`${activeTab}:${rowId}`] || "",
+    onNoteClick: setActiveNoteRowId,
+  }), [activeTab, notes])
 
   // Calcular el total de la tabla actual dinámicamente (para la tabla principal)
   const totalAmount = useMemo(() => {
     const sum = tableData.reduce((acc, row) => {
-      const importeStr = row.importeT || "0";
-      const numericString = importeStr.replace(/[^0-9.-]+/g, "")
+      // Protección: Si la fila no tiene importeT (ej. Clientes), no suma nada
+      if (!("importeT" in row) || !row.importeT) return acc;
+      
+      // Extrae solo los números y puntos decimales (ej. de "S/ 5,029.48" a "5029.48")
+      const numericString = String(row.importeT).replace(/[^0-9.-]+/g, "")
       const value = parseFloat(numericString)
       return acc + (isNaN(value) ? 0 : value)
     }, 0)
     return `S/ ${sum.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   }, [tableData])
-
-  const summaryCards = useMemo(() => baseSummaryCards, [baseSummaryCards])
 
   return (
     <div className={`flex flex-col h-[calc(100vh-65px)] bg-[#f5f5f5] overflow-y-auto overflow-x-hidden tab-${activeTab}`}>
@@ -72,14 +141,40 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
           }
           /* Forzar table-layout fixed para que las columnas respeten sus anchos y el "Cliente" absorba el resto */
           .fixed-table table {
-            table-layout: fixed !important;
-            width: 100% !important;
+            width: max-content;
+            min-width: 100%;
           }
           /* Asegurar que el texto largo en cualquier columna baje a la siguiente línea */
           .fixed-table td {
             white-space: normal !important;
             word-wrap: break-word !important;
             overflow-wrap: break-word !important;
+          }
+          .tab-renovacion main,
+          .tab-renovacion section,
+          .tab-renovacion .fixed-table {
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+          }
+          .tab-renovacion .fixed-table [data-slot="table-container"] {
+            max-width: 100%;
+            overflow: visible;
+          }
+          .tab-renovacion .fixed-table table {
+            width: 100%;
+            min-width: 100%;
+            table-layout: fixed;
+          }
+          .tab-renovacion .fixed-table th,
+          .tab-renovacion .fixed-table td {
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+          .tab-renovacion .fixed-table th:first-child,
+          .tab-renovacion .fixed-table td:first-child {
+            padding-left: 9px;
+            padding-right: 5px;
           }
           /* Ajuste exclusivo del buscador para Cotización y Cotización Manual sin tocar DataFilters */
           .tab-cotizacion .py-4 > div:nth-child(2),
@@ -96,25 +191,30 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
         <SummarySection summaryCards={summaryCards} />
 
         {/* SECCIÓN 2: TABLA Y FILTROS */}
-        <section className="bg-white rounded-md border border-gray-200 shadow-sm mt-4 p-5">
+        <section className="bg-white rounded-md border border-gray-200  shadow-sm mt-4 p-5">
           <div className="w-full">
             {/* Cabecera: Pestañas + Acciones */}
             <div className="flex items-end justify-between border-b border-gray-200">
               <div className="flex items-center">
-                <TabsNav tabs={TABS} />
+                <TabsNav tabs={dynamicTabs} />
               </div>
 
-              <div className="flex items-center gap-2 pb-2 pr-4">
-                <ActionButton
-                  icon={<Plus className="w-4 h-4" strokeWidth={4} />}
-                  href={'#'}
-                />
+              <div className="flex items-center gap-2 pb-2 pr-4  ">
+                {activeTab !== "renovacion" && (
+                  <ActionButton
+                    icon={<Plus className="w-4 h-4" strokeWidth={4} />}
+                    href={onAddClick ? undefined : '#'}
+                    onClick={onAddClick}
+                  />
+                )}
 
-                <ActionButton
-                  icon={<Copy className="w-4 h-4" strokeWidth={3} />}
-                  label="Duplicar cotización"
-                  onClick={() => console.log('Duplicar')}
-                />
+                {activeTab !== "clientes" && activeTab !== "nota-venta" && activeTab !== "renovacion" && (
+                  <ActionButton
+                    icon={<Copy className="w-4 h-4" strokeWidth={3} />}
+                    label="Duplicar"
+                    onClick={() => console.log('Duplicar')}
+                  />
+                )}
 
                 <ActionButton
                   icon={
@@ -137,10 +237,11 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
             <div className="border-x border-b border-gray-200 bg-white p-4 space-y-4 rounded-b-sm">
               <FilterBar
                 filters={filters}
-                onFilterChange={handleFilterChange}
-                onSearchSubmit={handleSearch}
+                onFilterChange={onFilterChange}
+                onSearchSubmit={onSearch}
+                onReset={onReset}
                 isLoading={isLoading}
-                activeTab={activeTab}
+                selectConfig={filterSelectConfig}
               />
 
               <div className="bg-white fixed-table custom-checkbox-table">
@@ -160,6 +261,34 @@ export function VentasTabTemplate({ activeTab }: VentasTabTemplateProps) {
           </div>
         </section>
       </main>
+
+      <NotaModal
+        key={activeNoteKey || "nota-modal"}
+        isOpen={activeNoteRowId !== null}
+        initialValue={notes[activeNoteKey] || ""}
+        onSave={(text) => {
+          const value = text.trim()
+          setNotes((current) => {
+            const next = { ...current }
+            if (value) {
+              next[activeNoteKey] = value
+            } else {
+              delete next[activeNoteKey]
+            }
+            return next
+          })
+          setActiveNoteRowId(null)
+        }}
+        onDelete={() => {
+          setNotes((current) => {
+            const next = { ...current }
+            delete next[activeNoteKey]
+            return next
+          })
+          setActiveNoteRowId(null)
+        }}
+        onCancel={() => setActiveNoteRowId(null)}
+      />
     </div>
   )
 }

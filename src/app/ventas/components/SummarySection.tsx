@@ -14,13 +14,19 @@ interface SummarySectionProps {
   summaryCards: SummaryCard[]
 }
 
-const MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+
+const isCotizacionManual = (label: string) =>
+  label.toLowerCase().includes("manual")
+
+const isRenovacion = (label: string) =>
+  label.toLowerCase().startsWith("renovaci")
 
 export function SummarySection({ summaryCards }: SummarySectionProps) {
-  const currentDate = new Date();
-  const monthName = MONTHS[currentDate.getMonth()];
-  const year = currentDate.getFullYear();
-  const title = `Resumen de ${monthName} ${year}`;
+  const currentDate = new Date()
+  const monthName = MONTHS[currentDate.getMonth()]
+  const year = currentDate.getFullYear()
+  const title = `Resumen de ${monthName} ${year}`
 
   return (
     <section className="bg-white rounded-md border border-gray-200 shadow-sm">
@@ -35,9 +41,9 @@ export function SummarySection({ summaryCards }: SummarySectionProps) {
           <AccordionContent className="pb-0">
             <div className="relative flex items-center px-4 pt-5 pb-6">
               <div className="flex flex-1 justify-around gap-4 px-8 items-center">
-                {summaryCards.filter(c => c.label !== "Renovación").map((card) => {
-                  if (card.label === "Cotización Manual") {
-                    const renovacionCard = summaryCards.find(c => c.label === "Renovación");
+                {summaryCards.filter(card => !isRenovacion(card.label)).map((card) => {
+                  if (isCotizacionManual(card.label)) {
+                    const renovacionCard = summaryCards.find(card => isRenovacion(card.label))
                     const manualSlides: SummaryCardSlide[] = [
                       {
                         icon: () => <>{card.icon}</>,
@@ -47,8 +53,8 @@ export function SummarySection({ summaryCards }: SummarySectionProps) {
                         tone: {
                           ring: card.borderColorClass,
                           icon: "",
-                          amount: card.amountColorClass
-                        }
+                          amount: card.amountColorClass,
+                        },
                       },
                       {
                         icon: () => <>{renovacionCard?.icon}</>,
@@ -56,13 +62,13 @@ export function SummarySection({ summaryCards }: SummarySectionProps) {
                         count: `${renovacionCard?.documents || 0} Documentos`,
                         amount: renovacionCard?.amount || "S/ 0.00",
                         tone: {
-                          ring: "border-[#6b7280]",
+                          ring: renovacionCard?.borderColorClass || "border-[#6b7280]",
                           icon: "",
-                          amount: "text-[#6b7280]"
-                        }
-                      }
+                          amount: renovacionCard?.amountColorClass || "text-[#6b7280]",
+                        },
+                      },
                     ]
-                    
+
                     return (
                       <div key={card.label} className="min-w-[150px]">
                         <SharedSummaryCard items={manualSlides} size="lg" />
@@ -78,8 +84,8 @@ export function SummarySection({ summaryCards }: SummarySectionProps) {
                     tone: {
                       ring: card.borderColorClass,
                       icon: "",
-                      amount: card.amountColorClass
-                    }
+                      amount: card.amountColorClass,
+                    },
                   }]
 
                   return (
