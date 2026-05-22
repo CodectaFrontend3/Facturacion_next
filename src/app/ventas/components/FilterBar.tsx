@@ -6,25 +6,27 @@ import { FilterSelect } from "@/components/DataFilters/FilterSelect"
 import { FilterSearch } from "@/components/DataFilters/FilterSearch"
 
 interface FilterBarProps {
-  filters: {
-    searchValue: string
-    comprobante: string
-    dateFrom: string
-    dateTo: string
-  }
+  filters: any // Cambiamos a 'any' para soportar filtros dinámicos (comprobante, documento, etc.)
   onFilterChange: (name: string, value: string) => void
   onSearchSubmit: () => void
+  onReset: () => void
   isLoading?: boolean
+  selectConfig?: {
+    name: string
+    options: { label: string; value: string }[]
+  }
 }
 
 export function FilterBar({
   filters,
   onFilterChange,
   onSearchSubmit,
-  isLoading
+  onReset,
+  isLoading,
+  selectConfig
 }: FilterBarProps) {
   return (
-    <DataFilters onSearch={onSearchSubmit} onReset={() => {}}>
+    <DataFilters onSearch={onSearchSubmit} onReset={onReset}>
       <FilterDateRange
         nameFrom="dateFrom"
         nameTo="dateTo"
@@ -32,17 +34,14 @@ export function FilterBar({
         valueTo={filters.dateTo}
         onChange={onFilterChange}
       />
-      <FilterSelect
-        name="comprobante"
-        value={filters.comprobante}
-        onChange={onFilterChange}
-        options={[
-          { label: "Todos los comprobantes", value: "Todos los comprobantes" },
-          { label: "Factura", value: "Factura" },
-          { label: "Boleta", value: "Boleta" },
-          { label: "Nota de Venta", value: "Nota de Venta" }
-        ]}
-      />
+      {selectConfig && (
+        <FilterSelect
+          name={selectConfig.name}
+          value={filters[selectConfig.name]}
+          onChange={onFilterChange}
+          options={selectConfig.options}
+        />
+      )}
       <FilterSearch
         name="searchValue"
         value={filters.searchValue}

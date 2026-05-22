@@ -31,3 +31,19 @@ export interface CotizacionRow {
   acciones: string[]
   compartir: string[]
 }
+
+export interface ClienteRow {
+  id: string | number
+  nombre: string
+  tipoDoc: string
+  nroDoc: string
+  correo: string
+  celular: string
+  fechaRegistro: string
+  acciones: string[]
+}
+
+// Re-exportar tipos de módulos específicos para facilitar importaciones
+export type { CotizacionBaseRow, CotizacionManualRow, NotaVentaRow, RenovacionRow } from "./cotizacion.types"
+export type { ClienteFormData } from "./cliente.types"
+export type { RenovacionFormData } from "./renovacion.types"
