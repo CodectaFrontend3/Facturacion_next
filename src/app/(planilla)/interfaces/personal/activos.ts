@@ -1,6 +1,7 @@
 export interface Activos {
     id: number
-    nombres_apellidos: string
+    nombre: string
+    apellido: string
     dni: number
     correo: string
     celular: string

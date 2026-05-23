@@ -1,10 +1,11 @@
 export interface Inactivos {
     id: number
-    nombres_apellidos: string
+    nombre: string
+    apellido: string
     dni: number
     correo: string
     celular: string
-    fecha_vinculacion: string
+    fecha_inicio: string
     cargo: string
 }
 

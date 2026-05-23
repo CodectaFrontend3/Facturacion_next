@@ -8,11 +8,12 @@ export const inactivoColumns: ColumnDef<Inactivos>[] = [
         header: "ID",
     },
     {
-        accessorKey: "nombres_apellidos",
+        accessorFn: (row) => `${row.nombre} ${row.apellido}`,
+        id: "nombreCompleto",
         header: "Nombres y Apellidos"
     },
     {
-        accessorKey: "dni",
+        accessorKey: "n_documento",
         header: "N° Documento",
     },
     {
