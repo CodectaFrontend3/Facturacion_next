@@ -80,7 +80,6 @@ export function VentaItemsTable({ mode, rows, onUpdate, onRemove, onAddEmpty }: 
               {onAddEmpty && (
                 <ActionButton
                   icon={<Plus className="w-5 h-5" strokeWidth={3} />}
-                  variant="outline"
                   onClick={onAddEmpty}
                   className="w-8 h-8 mx-auto"
                 />
@@ -121,7 +120,6 @@ export function VentaItemsTable({ mode, rows, onUpdate, onRemove, onAddEmpty }: 
                       }}
                       placeholder="Seleccionar Artículo"
                       className="w-full"
-                      hideArrow={false}
                     />
                   </div>
                   <textarea

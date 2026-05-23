@@ -82,7 +82,7 @@ export default function CrearCotizacionPage() {
       <div className="flex flex-col gap-4">
         <FormField label="Cliente:">
           <div className="flex gap-2">
-            <CboData items={clientesOptions} value={selectedCliente} onChange={setSelectedCliente} placeholder="Seleccionar Cliente" className="flex-1" hideArrow={true} />
+            <CboData items={clientesOptions} value={selectedCliente} onChange={setSelectedCliente} placeholder="Seleccionar Cliente" className="flex-1" />
             <button 
               onClick={() => setIsClienteModalOpen(true)}
               className="bg-[#70757a] text-white p-2 rounded-sm hover:bg-gray-600 transition-colors"
@@ -184,7 +184,7 @@ export default function CrearCotizacionPage() {
         title="Generar Cotización"
         onClose={handleClose}
         topForm={topForm}
-        
+        tableHeaders={<></>}
         tableBody={
           <VentaItemsTable 
             mode="cotizacion" 
@@ -199,8 +199,8 @@ export default function CrearCotizacionPage() {
 
         actions={
           <div className="flex gap-3">
-            <ActionButton text="Guardar" variant="outline" icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar", { rows, renovacion })} />
-            <ActionButton text="Guardar y Finalizar" variant="filled" icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar y Finalizar", { rows, renovacion })} />
+            <ActionButton icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar", { rows, renovacion })} />
+            <ActionButton icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar y Finalizar", { rows, renovacion })} />
           </div>
         }
       />

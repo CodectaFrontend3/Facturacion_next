@@ -81,7 +81,7 @@ export default function CrearNotaVentaPage() {
       <div className="flex flex-col gap-4">
         <FormField label="Cliente:">
           <div className="flex gap-2">
-            <CboData items={clientesOptions} value={selectedCliente} onChange={setSelectedCliente} placeholder="Seleccionar Cliente" className="flex-1" hideArrow={true} />
+            <CboData items={clientesOptions} value={selectedCliente} onChange={setSelectedCliente} placeholder="Seleccionar Cliente" className="flex-1" />
             <button 
               type="button"
               onClick={() => setIsClienteModalOpen(true)}
@@ -146,6 +146,7 @@ export default function CrearNotaVentaPage() {
         title="Generar Nota de Venta"
         onClose={handleClose}
         topForm={topForm}
+        tableHeaders={<></>}
         tableBody={
           <VentaItemsTable 
             mode="nota_venta" 
@@ -168,8 +169,8 @@ export default function CrearNotaVentaPage() {
         }
         actions={
           <div className="flex gap-3">
-            <ActionButton text="Guardar" variant="outline" icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar", { rows })} />
-            <ActionButton text="Guardar y Finalizar" variant="filled" icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar y Finalizar", { rows })} />
+            <ActionButton icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar", { rows })} />
+            <ActionButton icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar y Finalizar", { rows })} />
           </div>
         }
       />
