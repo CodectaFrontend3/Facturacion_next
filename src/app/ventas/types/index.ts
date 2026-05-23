@@ -22,30 +22,14 @@ export interface SummaryCard {
 
 export interface CotizacionRow {
   id: string | number
-  numero?: string
-  rucDni?: string
-  cliente?: string
-  emision?: string
-  forma?: string
-  importeT?: string
+  numero: string
+  rucDni: string
+  cliente: string
+  emision: string
+  forma: string
+  importeT: string
   acciones: string[]
-  compartir?: string[]
-  
-  // Clientes
-  nombre?: string
-  tipoDoc?: string
-  nroDoc?: string
-  correo?: string
-  celular?: string
-  fechaRegistro?: string
-  
-  // Renovacion
-  vencimiento?: string
-  dias?: string
-  
-  // Filtros
-  comprobante?: string
-  estado?: string
+  compartir: string[]
 }
 
 export interface ClienteRow {
