@@ -1,8 +1,12 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
 import notaVentaData from "../../data/nota_venta.json"
+import bbvaLogo from "@/assets/img/bancos/BBVA.png"
+import interbankLogo from "@/assets/img/bancos/Interbank.png"
+import scotiabankLogo from "@/assets/img/bancos/Scotiabank.png"
 import {
   Accordion,
   AccordionContent,
@@ -217,13 +221,13 @@ export default function NotaVentaDetailPage() {
 
             <div className={`grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1fr_430px] ${showDocumentHeader ? "mt-16" : "mt-8"}`}>
               <div className="flex flex-wrap items-center gap-4">
-                <div className="flex h-[88px] w-[88px] shrink-0 items-center justify-center rounded-full bg-[#1558ed] text-[56px] font-light leading-none text-white sm:h-[112px] sm:w-[112px] sm:text-[72px]">
-                  G
-                </div>
-                <div className="leading-none text-[#1558ed]">
-                  <p className="text-[38px] font-light tracking-[0.07em] sm:text-[58px]">ESENER</p>
-                  <p className="mt-2 text-[14px] tracking-[0.45em] sm:text-[20px] sm:tracking-[0.65em]">SMART ENERGY</p>
-                </div>
+                <Image
+                  src="http://jypsac.dyndns.org:190/facturacion_20522045773/public/img/logos/logooooooooooo.png"
+                  alt="Logo de la empresa"
+                  width={420}
+                  height={158}
+                  className="max-h-[158px] w-auto max-w-full object-contain"
+                />
               </div>
 
               <div className="text-center leading-snug">
@@ -333,30 +337,26 @@ function BankCard({ banco, moneda }: { banco: any; moneda: string }) {
     .replace(/Cta\s*/i, "")
     .trim()
 
-  let logo = (
-    <div className="text-center">
-      <p className="text-[18px] font-extrabold text-[#004481]">BBVA</p>
-      <p className="text-[11px] text-[#004481]">Continental</p>
-    </div>
-  )
+  let logoSrc = bbvaLogo
+  let logoAlt = "BBVA"
 
   if (bankName.includes("interbank")) {
-    logo = (
-      <div className="rounded-[3px] bg-[#00a859] px-4 py-1.5 text-[16px] font-bold tracking-wide text-white">
-        Interbank
-      </div>
-    )
+    logoSrc = interbankLogo
+    logoAlt = "Interbank"
   } else if (bankName.includes("scotiabank")) {
-    logo = (
-      <div className="text-[16px] font-bold text-[#ec1c24]">
-        Scotiabank
-      </div>
-    )
+    logoSrc = scotiabankLogo
+    logoAlt = "Scotiabank"
   }
 
   return (
     <div className="flex min-h-[95px] flex-col items-center justify-between rounded-[8px] border border-gray-200 bg-white p-5 text-center">
-      <div className="flex flex-1 items-center justify-center">{logo}</div>
+      <div className="flex flex-1 items-center justify-center">
+        <Image
+          src={logoSrc}
+          alt={logoAlt}
+          className="max-h-[24px] w-auto object-contain"
+        />
+      </div>
       <p className="mt-4 font-bold tracking-wide">
         Cta C. {symbolPrefix}{accountNumber}
       </p>

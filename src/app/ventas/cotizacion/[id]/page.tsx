@@ -1,8 +1,12 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
 import cotizacionData from "../../data/cotizacion.json"
+import bbvaLogo from "@/assets/img/bancos/BBVA.png"
+import interbankLogo from "@/assets/img/bancos/Interbank.png"
+import scotiabankLogo from "@/assets/img/bancos/Scotiabank.png"
 import {
   Accordion,
   AccordionContent,
@@ -397,33 +401,15 @@ function ActionBtn({ icon, color }: { icon: string; color: string }) {
 
 function BankCard({ banco, currency }: { banco: any; currency: string }) {
   const bankName = banco.nombre?.toLowerCase() || ""
-  let logoSvg = null
+  let logoSrc = bbvaLogo
+  let logoAlt = "BBVA"
 
   if (bankName.includes("interbank")) {
-    logoSvg = (
-      <svg className="h-7 object-contain mx-auto" viewBox="0 0 120 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="120" height="30" rx="3" fill="#00A859"/>
-        <rect x="8" y="7" width="16" height="16" rx="1.5" fill="#00A859" stroke="#ffffff" strokeWidth="1.5"/>
-        <rect x="11" y="10" width="10" height="10" rx="1" fill="#00A859" stroke="#00D1E6" strokeWidth="1.5"/>
-        <text x="30" y="21" fill="#ffffff" fontFamily="system-ui, -apple-system, sans-serif" fontSize="13" fontWeight="bold" letterSpacing="0.05em">Interbank</text>
-      </svg>
-    )
+    logoSrc = interbankLogo
+    logoAlt = "Interbank"
   } else if (bankName.includes("scotiabank")) {
-    logoSvg = (
-      <svg className="h-7 object-contain mx-auto" viewBox="0 0 120 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="15" cy="15" r="9" fill="#EC1C24" />
-        <path d="M15 8C13 8 11.5 10 11.5 12.5C11.5 15 14 15 14 17C14 18.5 12.5 19.5 11 19.5M15 8C17 8 18.5 10 18.5 12.5C18.5 15 16 15 16 17C16 18.5 17.5 19.5 19 19.5" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
-        <text x="30" y="20" fill="#EC1C24" fontFamily="system-ui, -apple-system, sans-serif" fontSize="12" fontWeight="bold" letterSpacing="0.02em">Scotiabank</text>
-      </svg>
-    )
-  } else {
-    logoSvg = (
-      <svg className="h-7 object-contain mx-auto" viewBox="0 0 120 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 8V22H8V13.5L14.5 22H17V8H14V16.5L7.5 8H5Z" fill="#004481" />
-        <text x="21" y="19" fill="#004481" fontFamily="system-ui, -apple-system, sans-serif" fontSize="13" fontWeight="bold">BBVA</text>
-        <text x="58" y="19" fill="#004481" fontFamily="system-ui, -apple-system, sans-serif" fontSize="9" fontWeight="normal">Continental</text>
-      </svg>
-    )
+    logoSrc = scotiabankLogo
+    logoAlt = "Scotiabank"
   }
 
   const cleanAccount = banco.cuenta || ""
@@ -445,7 +431,11 @@ function BankCard({ banco, currency }: { banco: any; currency: string }) {
   return (
     <div className="bg-white border border-gray-200 rounded-[12px] p-5 shadow-sm text-center flex flex-col justify-between min-h-[95px]">
       <div className="flex-1 flex items-center justify-center">
-        {logoSvg}
+        <Image
+          src={logoSrc}
+          alt={logoAlt}
+          className="max-h-[24px] w-auto object-contain"
+        />
       </div>
       <p className="font-bold mt-4 tracking-wide">
         Cta C. {symbolPrefix}{rawNumber}
