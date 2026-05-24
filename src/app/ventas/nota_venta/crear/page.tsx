@@ -147,6 +147,7 @@ export default function CrearNotaVentaPage() {
         onClose={handleClose}
         topForm={topForm}
         tableHeaders={<></>}
+        fullTable={true}
         tableBody={
           <VentaItemsTable 
             mode="nota_venta" 

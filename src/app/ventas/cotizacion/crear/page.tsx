@@ -185,6 +185,7 @@ export default function CrearCotizacionPage() {
         onClose={handleClose}
         topForm={topForm}
         tableHeaders={<></>}
+        fullTable={true}
         tableBody={
           <VentaItemsTable 
             mode="cotizacion" 

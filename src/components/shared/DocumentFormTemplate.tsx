@@ -4,10 +4,11 @@ interface DocumentFormTemplateProps {
   title: string
   onClose?: () => void
   topForm: React.ReactNode
-  tableHeaders: React.ReactNode
+  tableHeaders?: React.ReactNode
   tableBody: React.ReactNode
   summarySection?: React.ReactNode
   actions: React.ReactNode
+  fullTable?: boolean // Nueva prop para indicar que tableBody es una tabla completa
 }
 
 export function DocumentFormTemplate({
@@ -17,7 +18,8 @@ export function DocumentFormTemplate({
   tableHeaders,
   tableBody,
   summarySection,
-  actions
+  actions,
+  fullTable = false
 }: DocumentFormTemplateProps) {
   return (
     <div className="flex flex-col bg-white w-full rounded-md shadow-sm border border-gray-200 my-4">
@@ -45,18 +47,24 @@ export function DocumentFormTemplate({
         </div>
 
         {/* Tabla de Detalle */}
-        <div className="w-full mb-10 overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[1000px]">
-            <thead>
-              <tr className="border-y border-gray-200 bg-white">
-                {tableHeaders}
-              </tr>
-            </thead>
-            <tbody>
-              {tableBody}
-            </tbody>
-          </table>
-        </div>
+        {fullTable ? (
+          <div className="w-full mb-10 overflow-x-auto">
+            {tableBody}
+          </div>
+        ) : (
+          <div className="w-full mb-10 overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-[1000px]">
+              <thead>
+                <tr className="border-y border-gray-200 bg-white">
+                  {tableHeaders}
+                </tr>
+              </thead>
+              <tbody>
+                {tableBody}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {/* Sección de Resumen y Acciones */}
         <div className="mt-auto flex flex-col items-end border-t border-gray-100 pt-8">

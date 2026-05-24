@@ -188,6 +188,7 @@ export default function CrearCotizacionManualPage() {
         onClose={handleClose}
         topForm={topForm}
         tableHeaders={<></>}
+        fullTable={true}
         tableBody={
           <VentaItemsTable
             mode="manual"
