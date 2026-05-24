@@ -1,95 +1,123 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
+import { VentasFilters } from "../../components/VentasTabTemplate"
 import { CotizacionRow } from "../../types/cotizacion.types"
 import { fetchCotizaciones } from "../services/cotizacionService"
 
-export function useCotizacionFilters(activeTab: string) {
-  // Estado de los filtros unificado
-  const [filters, setFilters] = useState({
+export type CotizacionFiltersState = {
+  searchValue: string
+  comprobante: string
+  estado: string
+  dateFrom: string
+  dateTo: string
+  clienteId: string
+}
+
+function getDefaultFilters(activeTab: string): CotizacionFiltersState {
+  const comprobanteDefault =
+    activeTab === "clientes"
+      ? "Todos los Documentos"
+      : activeTab === "renovacion"
+        ? "Comprobantes"
+        : "Todos los comprobantes"
+
+  return {
     searchValue: "",
-    comprobante: "Todos los comprobantes",
+    comprobante: comprobanteDefault,
     estado: "Estados",
     dateFrom: "",
-    dateTo: ""
-  })
+    dateTo: "",
+    clienteId: "",
+  }
+}
 
-  // Estado de los datos y carga
+function parseFilterDate(value: string): Date | null {
+  if (!value.trim()) return null
+  const separator = value.includes("/") ? "/" : value.includes("-") ? "-" : null
+  if (!separator) return null
+  const parts = value.split(separator)
+  if (parts.length !== 3) return null
+  const [day, month, year] = parts
+  const date = new Date(`${year}-${month}-${day}`)
+  return Number.isNaN(date.getTime()) ? null : date
+}
+
+export function useCotizacionFilters(activeTab: string) {
+  const [filters, setFilters] = useState<CotizacionFiltersState>(() =>
+    getDefaultFilters(activeTab)
+  )
   const [data, setData] = useState<CotizacionRow[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
-  // Función genérica para actualizar cualquier filtro
+  const filtersRef = useRef(filters)
+  filtersRef.current = filters
+
+  const searchRequestIdRef = useRef(0)
+
   const handleFilterChange = (name: string, value: string) => {
-    setFilters(prev => ({ ...prev, [name]: value }))
+    setFilters((prev) => ({ ...prev, [name]: value }))
   }
 
-  // Disparar la búsqueda
-  const handleSearch = async (currentFilters = filters) => {
-    setIsLoading(true)
-    try {
-      const startDate = currentFilters.dateFrom ? new Date(currentFilters.dateFrom.split("/").reverse().join("-")) : null
-      const endDate = currentFilters.dateTo ? new Date(currentFilters.dateTo.split("/").reverse().join("-")) : null
+  const runSearch = useCallback(
+    async (currentFilters: CotizacionFiltersState) => {
+      const requestId = ++searchRequestIdRef.current
 
-      const result = await fetchCotizaciones({
-        tab: activeTab,
-        search: currentFilters.searchValue,
-        comprobante: currentFilters.comprobante,
-        estado: currentFilters.estado,
-        dateRange: { start: startDate, end: endDate },
-      })
-      setData(result)
-    } catch (error) {
-      console.error("Error fetching data:", error)
-      setData([])
-    } finally {
-      setIsLoading(false)
-    }
-  }
+      setIsLoading(true)
+      try {
+        const startDate = parseFilterDate(currentFilters.dateFrom)
+        const endDate = parseFilterDate(currentFilters.dateTo)
 
-  // Función para limpiar filtros
-  const handleReset = async () => {
-    const defaultFilters = {
-      searchValue: "",
-      comprobante: "Todos los comprobantes",
-      estado: "Estados",
-      dateFrom: "",
-      dateTo: ""
-    }
+        const result = await fetchCotizaciones({
+          tab: activeTab,
+          search: currentFilters.searchValue,
+          comprobante: currentFilters.comprobante,
+          estado: currentFilters.estado,
+          clienteId: currentFilters.clienteId || undefined,
+          dateRange: { start: startDate, end: endDate },
+        })
+
+        if (requestId !== searchRequestIdRef.current) return
+        setData(result)
+      } catch (error) {
+        if (requestId !== searchRequestIdRef.current) return
+        console.error("Error fetching data:", error)
+        setData([])
+      } finally {
+        if (requestId === searchRequestIdRef.current) {
+          setIsLoading(false)
+        }
+      }
+    },
+    [activeTab]
+  )
+
+  const handleSearch = useCallback(
+    (currentFilters?: VentasFilters) => {
+      const filtersToUse: CotizacionFiltersState = {
+        ...getDefaultFilters(activeTab),
+        ...(currentFilters ?? filtersRef.current),
+        searchValue: currentFilters?.searchValue ?? filtersRef.current.searchValue,
+        comprobante: currentFilters?.comprobante ?? filtersRef.current.comprobante,
+        estado: currentFilters?.estado ?? filtersRef.current.estado,
+        dateFrom: currentFilters?.dateFrom ?? filtersRef.current.dateFrom,
+        dateTo: currentFilters?.dateTo ?? filtersRef.current.dateTo,
+        clienteId: currentFilters?.clienteId ?? filtersRef.current.clienteId,
+      }
+      return runSearch(filtersToUse)
+    },
+    [activeTab, runSearch]
+  )
+
+  const handleReset = useCallback(async () => {
+    const defaultFilters = getDefaultFilters(activeTab)
     setFilters(defaultFilters)
-    
-    // Disparar búsqueda con los filtros por defecto para ese tab
-    setIsLoading(true)
-    try {
-      const result = await fetchCotizaciones({
-        tab: activeTab,
-        search: "",
-        comprobante: "Todos los comprobantes",
-        dateRange: { start: null, end: null }
-      })
-      setData(result)
-    } catch (error) {
-      console.error("Error resetting data:", error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    await runSearch(defaultFilters)
+  }, [activeTab, runSearch])
 
-  // Efecto para buscar automáticamente cuando cambia la pestaña
   useEffect(() => {
-    const resetFilters = {
-      ...filters,
-      comprobante: activeTab === "clientes" ? "Todos los Documentos" : "Todos los comprobantes",
-      estado: "Estados",
-      searchValue: ""
-    };
-    setFilters(resetFilters);
-    handleSearch(resetFilters);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab])
-
-  // Efecto para buscar automáticamente cuando cambia un Select
-  useEffect(() => {
-    handleSearch(filters);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.comprobante, filters.estado])
+    const resetFilters = getDefaultFilters(activeTab)
+    setFilters(resetFilters)
+    runSearch(resetFilters)
+  }, [activeTab, runSearch])
 
   return {
     filters,

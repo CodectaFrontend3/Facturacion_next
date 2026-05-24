@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { VentasFilters } from "../../components/VentasTabTemplate"
 import { ClienteRow } from "../../types/cliente.types"
 import { fetchClientes } from "../services/clienteService"
 
@@ -21,16 +22,22 @@ export function useClienteFilters() {
   }
 
   // Disparar la búsqueda
-  const handleSearch = async () => {
+  const handleSearch = async (searchFilters?: VentasFilters) => {
+    const current = {
+      searchValue: searchFilters?.searchValue ?? filters.searchValue,
+      documento: searchFilters?.documento ?? filters.documento,
+      dateFrom: searchFilters?.dateFrom ?? filters.dateFrom,
+      dateTo: searchFilters?.dateTo ?? filters.dateTo,
+    }
     setIsLoading(true)
     try {
       // Convertir fechas (ej. "10/05/2026" -> Date)
-      const startDate = filters.dateFrom ? new Date(filters.dateFrom.split("/").reverse().join("-")) : null
-      const endDate = filters.dateTo ? new Date(filters.dateTo.split("/").reverse().join("-")) : null
+      const startDate = current.dateFrom ? new Date(current.dateFrom.split("/").reverse().join("-")) : null
+      const endDate = current.dateTo ? new Date(current.dateTo.split("/").reverse().join("-")) : null
 
       const result = await fetchClientes({
-        search: filters.searchValue,
-        documento: filters.documento,
+        search: current.searchValue,
+        documento: current.documento,
         dateRange: { start: startDate, end: endDate }
       })
       setData(result)

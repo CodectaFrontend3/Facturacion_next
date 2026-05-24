@@ -16,12 +16,7 @@ import { RenovacionFields } from "../../components/shared/RenovacionFields"
 import { ArticuloSelectorModal } from "../../components/shared/ArticuloSelectorModal"
 
 // Mocks
-import clientesMock from "../../data/cliente-mock.json"
-
-const clientesOptions = clientesMock.map(c => ({
-  value: String(c.id),
-  label: `${c.nombre} | ${c.numeroDocumento}`
-}))
+import { clientesOptions } from "../../utils/clientesOptions"
 
 const FormField = ({ label, children, multiline }: { label: string; children: React.ReactNode; multiline?: boolean }) => (
   <div className={`flex gap-4 ${multiline ? "items-start" : "items-center"}`}>
@@ -31,8 +26,8 @@ const FormField = ({ label, children, multiline }: { label: string; children: Re
 )
 
 // Estilo unificado para que todos los casilleros sean iguales
-const inputStyle = "w-full border border-gray-300 rounded-sm px-3 h-9 text-[13px] outline-none focus:border-blue-400 transition-colors"
-const readOnlyStyle = "w-full border border-gray-300 rounded-sm px-3 h-9 text-[13px] bg-[#f1f5f9] text-gray-500 outline-none"
+const inputStyle = "w-full border border-gray-300 rounded-none px-3 h-9 text-[13px] outline-none focus:border-blue-400 transition-colors"
+const readOnlyStyle = "w-full border border-gray-300 rounded-none px-3 h-9 text-[13px] bg-[#e9ecef] text-gray-500 outline-none"
 
 // Componente Select personalizado con flecha limpia
 const CustomSelect = ({ children, className, ...props }: React.SelectHTMLAttributes<HTMLSelectElement>) => (
@@ -117,7 +112,7 @@ export default function CrearCotizacionPage() {
 
         <FormField label="Observación:" multiline>
           <textarea 
-            className="w-full border border-gray-300 rounded-sm px-3 py-2 text-[13px] text-gray-600 focus:outline-none focus:border-blue-400 h-20 resize-y"
+            className="w-full border border-gray-300 rounded-sm px-3 py-2 text-[13px] text-gray-600 focus:outline-none focus:border-blue-400 h-9 resize-y"
             defaultValue="Emitimos la siguiente Cotizacion a vuestra solicitud"
           />
         </FormField>
@@ -179,7 +174,7 @@ export default function CrearCotizacionPage() {
   )
 
   return (
-    <div className="p-4 bg-[#f4f7fb]">
+    <div className="p-4 bg-[#f5f5f5]">
       <DocumentFormTemplate
         title="Generar Cotización"
         onClose={handleClose}
@@ -200,8 +195,18 @@ export default function CrearCotizacionPage() {
 
         actions={
           <div className="flex gap-3">
-            <ActionButton icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar", { rows, renovacion })} />
-            <ActionButton icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar y Finalizar", { rows, renovacion })} />
+            <button 
+              onClick={() => console.log("Guardar", { rows, renovacion })}
+              className="px-6 py-2 bg-white text-[#1a56db] border border-[#1a56db] rounded-sm font-medium text-[14px] hover:bg-blue-50 transition-colors"
+            >
+              Guardar
+            </button>
+            <button 
+              onClick={() => console.log("Guardar y Finalizar", { rows, renovacion })}
+              className="px-6 py-2 bg-[#1a56db] text-white border border-[#1a56db] rounded-sm font-medium text-[14px] hover:bg-blue-700 transition-colors"
+            >
+              Guardar y Finalizar
+            </button>
           </div>
         }
       />

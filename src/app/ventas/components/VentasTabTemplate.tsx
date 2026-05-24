@@ -18,13 +18,14 @@ import { Plus, Copy, Download, ChevronDown } from "lucide-react"
 
 type VentasTableRow = CotizacionRow | ClienteRow
 
-interface VentasFilters {
+export interface VentasFilters {
   searchValue: string
   dateFrom: string
   dateTo: string
   comprobante?: string
   estado?: string
   documento?: string
+  [key: string]: string | undefined
 }
 
 const cardMatchesActiveTab = (activeTab: TabKey, label: string) => {
@@ -44,12 +45,22 @@ interface VentasTabTemplateProps {
   isLoading: boolean // Recibe el estado de carga
   filters: VentasFilters // Recibe los filtros actuales
   onFilterChange: (name: string, value: string) => void // Función para actualizar filtros
-  onSearch: () => void // Función para ejecutar búsqueda
+  onSearch: (filters: VentasFilters) => void // Función para ejecutar búsqueda
   onReset: () => void // Función para limpiar filtros
   onAddClick?: () => void // Función para manejar el click en "+"
   filterSelectConfig?: {
     name: string
     options: { label: string; value: string }[]
+  }
+  filterEstadoConfig?: {
+    name: string
+    options: { label: string; value: string }[]
+  }
+  showFilterDateRange?: boolean
+  filterClienteConfig?: {
+    name: string
+    items: { value: string; label: string }[]
+    placeholder?: string
   }
 }
 
@@ -62,7 +73,10 @@ export function VentasTabTemplate({
   onSearch,
   onReset,
   onAddClick,
-  filterSelectConfig
+  filterSelectConfig,
+  filterEstadoConfig,
+  showFilterDateRange = true,
+  filterClienteConfig,
 }: VentasTabTemplateProps) {
   // NOTA: Eliminamos la llamada a useCotizacionFilters() aquí adentro.
   // Ahora la plantilla es completamente agnóstica de dónde vienen los datos.
@@ -125,7 +139,7 @@ export function VentasTabTemplate({
   }, [tableData])
 
   return (
-    <div className={`flex flex-col h-[calc(100vh-65px)] bg-[#f5f5f5] overflow-y-auto overflow-x-hidden tab-${activeTab}`}>
+    <div className={`flex flex-col min-h-screen bg-[#f5f5f5] tab-${activeTab}`}>
       <main className="flex-1 p-4 space-y-4 shrink-0">
         <style>{`
           .custom-checkbox-table [role="checkbox"] svg {
@@ -175,15 +189,6 @@ export function VentasTabTemplate({
           .tab-renovacion .fixed-table td:first-child {
             padding-left: 9px;
             padding-right: 5px;
-          }
-          /* Ajuste exclusivo del buscador para Cotización y Cotización Manual sin tocar DataFilters */
-          .tab-cotizacion .py-4 > div:nth-child(2),
-          .tab-cotizacion-manual .py-4 > div:nth-child(2) {
-            flex: 0 0 200px !important;
-          }
-          .tab-cotizacion .py-4 > div:nth-child(3),
-          .tab-cotizacion-manual .py-4 > div:nth-child(3) {
-            flex: 1 !important;
           }
         `}</style>
 
@@ -242,6 +247,9 @@ export function VentasTabTemplate({
                 onReset={onReset}
                 isLoading={isLoading}
                 selectConfig={filterSelectConfig}
+                estadoSelectConfig={filterEstadoConfig}
+                showDateRange={showFilterDateRange}
+                clienteFilter={filterClienteConfig}
               />
 
               <div className="bg-white fixed-table custom-checkbox-table">

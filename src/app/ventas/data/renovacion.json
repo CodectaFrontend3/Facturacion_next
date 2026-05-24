@@ -12,7 +12,7 @@
     "acciones": ["eye", "clock"],
     "compartir": ["envelope", "whatsapp"],
     "tab": "renovacion",
-    "estado": "Activa"
+    "estado": "Por vencer"
   },
   {
     "id": 18,
@@ -42,6 +42,6 @@
     "acciones": ["eye", "clock"],
     "compartir": ["envelope"],
     "tab": "renovacion",
-    "estado": "Activa"
+    "estado": "Vencida"
   }
 ]

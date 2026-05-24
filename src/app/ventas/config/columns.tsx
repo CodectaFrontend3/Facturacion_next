@@ -86,7 +86,7 @@ const getCotizacionColumns = (
   },
   { accessorKey: "rucDni", header: "RUC-DNI", size: 120 },
   { accessorKey: "cliente", header: "Cliente" },
-  { accessorKey: "emision", header: "EmisiÃ³n", size: 100 },
+  { accessorKey: "emision", header: "Emisión", size: 100 },
   { accessorKey: "forma", header: "Forma", size: 100 },
   { accessorKey: "importeT", header: "Importe T.", size: 120 },
   {
