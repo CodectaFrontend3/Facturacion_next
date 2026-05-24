@@ -1,4 +1,4 @@
-import { DocumentoBase , VentaBaseRow} from "./documento.types"
+import { DocumentoBase , VentaBaseRow, RenovacionState} from "./documento.types"
 import { ClienteFormData } from "./cliente.types" 
 
 
@@ -29,6 +29,7 @@ export interface CotizacionDetail extends CotizacionCreateInput {
   total: number
   cliente: ClienteFormData  // Objeto completo resuelto para la plantilla
   estado: "Pendiente" | "Aceptada" | "Rechazada" | "Facturada"
+  diasRestantes?: number    // Atributo dinámico calculado por el servidor si tiene renovación activa
 }
 
 export interface CotizacionManualDetail extends CotizacionManualCreateInput {
@@ -39,6 +40,7 @@ export interface CotizacionManualDetail extends CotizacionManualCreateInput {
   igv: number
   total: number
   cliente: ClienteFormData  //
+  diasRestantes?: number    // Atributo dinámico calculado por el servidor si tiene renovación activa
 }
 
 

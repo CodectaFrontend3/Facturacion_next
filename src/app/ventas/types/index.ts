@@ -40,12 +40,6 @@ export type {
   ClienteRow 
 } from "./cliente.types" //
 
-export type { 
-  RenovacionCreateInput, 
-  RenovacionDetail, 
-  RenovacionRow 
-} from "./renovacion.types" //
-
 export type {
   NotaVentaCreateInput,
   NotaVentaDetail,
