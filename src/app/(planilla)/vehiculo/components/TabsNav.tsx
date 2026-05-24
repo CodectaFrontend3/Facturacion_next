@@ -26,16 +26,11 @@ export function VehiculoTabsNav({
                     <Link
                         key={tab.key}
                         href={tab.href}
-                        className={`
-                            flex items-center gap-2
-                            px-4 py-2
-                            text-xs font-bold
-                            transition-all relative top-[1px]
+                        className={`flex items-center gap-2 px-4 py-2 text-xs font-bold transition-all relative top-[1px]
                             ${isActive
                                 ? "bg-white border-x border-t border-gray-200 text-gray-800 rounded-t-sm"
                                 : "text-gray-500 border-x border-t border-transparent"
-                            }
-                        `}
+                            }`}
                     >
                         {tab.label}
                     </Link>

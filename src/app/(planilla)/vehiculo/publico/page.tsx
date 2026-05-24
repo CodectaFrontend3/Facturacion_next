@@ -1,11 +1,11 @@
 "use client";
+import { useSearchParams } from "next/navigation"
 
-import { useSearchParams } from "next/navigation";
+import TabsBar from "../components/tabsBar"
+import VehiculoFilterBar from "../components/filterBar"
+import VehiculoTable from "../../tables/vehiculo/VehiculoTable"
 
-import TabsBar from "../components/tabsBar";
-import VehiculoFilterBar from "../components/filterBar";
-import VehiculoTable from "../../tables/vehiculo/VehiculoTable";
-import { Suspense } from "react";
+import { Suspense } from "react"
 
 function VehiculoPublicoContent() {
     const searchParams = useSearchParams();

@@ -1,16 +1,17 @@
 "use client";
+import { useState } from "react"
+import { usePathname } from "next/navigation";
 
-import { useState } from "react";
-import Modal from "@/app/garantia/components/modal";
-import {
-    VehiculoTabsNav,
-    VehiculoTab,
-} from "./TabsNav";
+import { VehiculoTabsNav, VehiculoTab } from "./TabsNav"
 
-import "font-awesome/css/font-awesome.min.css";
+import VehiculoPublicoModal from "./VehiculoModal/VehiculoPublicoModal"
+import VehiculoPrivadoModal from "./VehiculoModal/VehiculoPrivadoModal"
+
+import "font-awesome/css/font-awesome.min.css"
 
 export default function VehiculoTabsBar() {
-    const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
+    const [modalType, setModalType] = useState<"publico" | "privado" | null>(null);
 
     const vehiculoTabs: VehiculoTab[] = [
         { key: "publico", label: "Transporte Público", href: "/vehiculo/publico" },
@@ -23,14 +24,33 @@ export default function VehiculoTabsBar() {
                 <VehiculoTabsNav tabs={vehiculoTabs} />
                 <div className="flex gap-4">
                     <button
-                        onClick={() => setIsOpen(true)}
-                        className="bg-[#1a5eb3] hover:bg-[#1a3bb3] add-btn text-white p-2 px-4 rounded"
+                        onClick={() => {
+                            if (pathname.includes("publico")) {
+                                setModalType("publico");
+                            }
+
+                            if (pathname.includes("privado")) {
+                                setModalType("privado");
+                            }
+                        }}
+                        className="bg-[#1a5eb3] hover:bg-[#1a3bb3] text-white p-2 px-4 rounded cursor-pointer hover:translate-y-[-2px] transition duration-200"
                     >
                         Agregar
                     </button>
                 </div>
-                {isOpen && (
-                    <Modal onClose={() => setIsOpen(false)} />
+                {modalType === "publico" && (
+                    <VehiculoPublicoModal
+                        onClose={() =>
+                            setModalType(null)
+                        }
+                    />
+                )}
+                {modalType === "privado" && (
+                    <VehiculoPrivadoModal
+                        onClose={() =>
+                            setModalType(null)
+                        }
+                    />
                 )}
             </div>
         </>
