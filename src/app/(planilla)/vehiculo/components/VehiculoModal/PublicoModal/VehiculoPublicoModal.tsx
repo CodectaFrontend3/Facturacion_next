@@ -1,9 +1,9 @@
-import VehiculoModal from "./Modal"
+import VehiculoModal from "../Modal"
 
-import SearchItem from "./SearchItem"
-import SelectItem from "./SelectItem"
-import InputItem from "./InputItem"
-import ButtonItem from "./ButtonItem"
+import SearchItem from "../SearchItem"
+import SelectItem from "../SelectItem"
+import InputItem from "../InputItem"
+import ButtonItem from "../ButtonItem"
 
 type Props = {
     onClose: () => void

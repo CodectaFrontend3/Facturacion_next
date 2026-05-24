@@ -9,44 +9,75 @@ import { privadoColumns } from "./privadoColumns"
 import publicoData from "../../data/vehiculo/publico.json"
 import privadoData from "../../data/vehiculo/privado.json"
 
+import VehiculoPrivadoEditModal from "../../vehiculo/components/VehiculoModal/PrivadoModal/VehiculoPrivadoEditModal"
+import VehiculoPublicoEditModal from "../../vehiculo/components/VehiculoModal/PublicoModal/VehiculoPublicoEditModal"
+
+import { Privado } from "../../interfaces/vehiculo/privado"
+import { Publico } from "../../interfaces/vehiculo/publico"
+
 export type VehiculoType = "publico" | "privado"
 
 type Props = {
-    type: VehiculoType;
+    type: VehiculoType
     filters: {
-        search: string;
+        search: string
     };
 };
 
 type Vehiculo = {
-    item: number;
-    empresa?: string;
-    ruc?: string;
-    mtc?: number;
-    estado?: string;
-    placa?: string;
-    marca?: string;
-    modelo?: string;
-    tipo?: string;
-    certificado?: string;
+    item: number
+    empresa?: string
+    ruc?: string
+    mtc?: number
+    estado?: string
+    placa?: string
+    marca?: string
+    modelo?: string
+    tipo?: string
+    año?: number
+    certificado?: string
 };
 
 type PageSize = 10 | 25 | 50 | 100;
 
 export default function VehiculoTable({ type, filters }: Props) {
     const [pageSize, setPageSize] = useState<PageSize>(10);
+    const [editingVehiculo, setEditingVehiculo] = useState<Vehiculo | null>(null);
+    const [vehiculoData, setVehiculoData] = useState<Vehiculo[]>(
+        type === "publico"
+            ? publicoData
+            : privadoData
+    );
+
+    const handleSave = (updatedVehiculo: Vehiculo) => {
+        setVehiculoData((prev: Vehiculo[]) =>
+            prev.map((item) =>
+                item.item === updatedVehiculo.item
+                    ? updatedVehiculo
+                    : item
+            )
+        );
+
+        setEditingVehiculo(null);
+    };
 
     const dataByType = {
         publico: publicoData as Vehiculo[],
         privado: privadoData as Vehiculo[],
     };
 
-    const columnsByType = {
-        publico: publicoColumns,
-        privado: privadoColumns,
-    };
+    const columns =
+        type === "publico"
+            ? publicoColumns({
+                onEdit: (vehiculo) =>
+                    setEditingVehiculo(vehiculo)
+            })
+            : privadoColumns({
+                onEdit: (vehiculo) =>
+                    setEditingVehiculo(vehiculo)
+            });
 
-    const filteredData = dataByType[type].filter((item) => {
+    const filteredData = vehiculoData.filter((item) => {
         const matchSearch =
             !filters.search ||
             Object.values(item)
@@ -54,7 +85,7 @@ export default function VehiculoTable({ type, filters }: Props) {
                 .toLowerCase()
                 .includes(filters.search.toLowerCase());
 
-        return matchSearch
+        return matchSearch;
     });
 
     return (
@@ -75,10 +106,26 @@ export default function VehiculoTable({ type, filters }: Props) {
                 </select>
             </div>
             <Table<any, any>
-                columns={columnsByType[type]}
+                columns={columns}
                 data={filteredData}
                 pageSize={pageSize}
             />
+
+            {editingVehiculo && type === "publico" && (
+                <VehiculoPublicoEditModal
+                    vehiculo={editingVehiculo as Publico}
+                    onSave={handleSave}
+                    onClose={() => setEditingVehiculo(null)}
+                />
+            )}
+
+            {editingVehiculo && type === "privado" && (
+                <VehiculoPrivadoEditModal
+                    vehiculo={editingVehiculo as Privado}
+                    onSave={handleSave}
+                    onClose={() => setEditingVehiculo(null)}
+                />
+            )}
         </div>
     );
 }

@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 
 import { VehiculoTabsNav, VehiculoTab } from "./TabsNav"
 
-import VehiculoPublicoModal from "./VehiculoModal/VehiculoPublicoModal"
-import VehiculoPrivadoModal from "./VehiculoModal/VehiculoPrivadoModal"
+import VehiculoPublicoModal from "./VehiculoModal/PublicoModal/VehiculoPublicoModal"
+import VehiculoPrivadoModal from "./VehiculoModal/PrivadoModal/VehiculoPrivadoModal"
 
 import "font-awesome/css/font-awesome.min.css"
 

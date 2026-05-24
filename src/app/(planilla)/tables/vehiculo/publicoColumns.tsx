@@ -2,7 +2,13 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Publico } from "../../interfaces/vehiculo/publico";
 import Link from "next/link";
 
-export const publicoColumns: ColumnDef<Publico>[] = [
+type Props = {
+    onEdit: (vehiculo: Publico) => void
+}
+
+export const publicoColumns = ({
+    onEdit
+}: Props): ColumnDef<Publico>[] => [
     {
         accessorKey: "item",
         header: "ITEM",
@@ -28,12 +34,12 @@ export const publicoColumns: ColumnDef<Publico>[] = [
         id: "editar",
         cell: ({ row }) => {
             return (
-                <Link
-                    href={`/vehiculo/publico/${row.original.item}`}
-                    className="bg-[#23c6c8] text-white px-3 py-1.5 rounded"
+                <button
+                    onClick={() => onEdit(row.original)}
+                    className="bg-[#23c6c8] text-white px-3 py-1.5 cursor-pointer hover:translate-y-[-2px] transition duration-200 rounded hover:bg-teal-500"
                 >
                     Editar
-                </Link>
+                </button>
             )
         },
     },
