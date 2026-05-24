@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "numero": "NV-0001",
+    "clienteId": "custom-comercializadora-sur",
+    "clienteNombre": "Comercializadora Sur S.A.C.",
+    "rucDni": "20334455661",
+    "cliente": "Comercializadora Sur S.A.C.",
+    "fechaEmision": "2026-04-18",
+    "emision": "18/04/2026",
+    "moneda": "Soles",
+    "almacen": "2",
+    "formaPago": "Crédito",
+    "forma": "Crédito 30 días",
+    "garantia": "6 MESES",
+    "observacion": "Emitimos la siguiente Nota de Venta a vuestra solicitud",
+    "items": [
+      {
+        "articleId": "9",
+        "detalle": "DEPILACION LASER SOPRANO",
+        "cantidad": 3,
+        "precioUnitario": 120,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 120,
+        "subtotal": 360,
+        "igv": 64.8,
+        "total": 424.8
+      },
+      {
+        "articleId": "13",
+        "detalle": "RECUPERACION DE INFORMACION HDD/SSD",
+        "cantidad": 4,
+        "precioUnitario": 95,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 95,
+        "subtotal": 380,
+        "igv": 68.4,
+        "total": 448.4
+      }
+    ],
+    "totales": {
+      "subtotal": 740,
+      "igv": 133.2,
+      "total": 873.2
+    },
+    "importeT": "S/ 873.20",
+    "acciones": [
+      "eye",
+      "clock",
+      "check"
+    ],
+    "compartir": [
+      "envelope"
+    ],
+    "tab": "nota-venta"
+  }
+]

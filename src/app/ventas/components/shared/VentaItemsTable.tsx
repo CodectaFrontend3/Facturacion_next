@@ -5,7 +5,7 @@ import { Trash2, Plus } from "lucide-react"
 import { ActionButton } from "@/components/common/ActionButton"
 import { CboData } from "@/components/common/CboData"
 import { RowData } from "../../types/documento.types"
-import articulosMock from "../../cotizacion/crear/articulo.json"
+import articulosMock from "../../data/articulo-mock.json"
 
 type TableMode = "cotizacion" | "manual" | "nota_venta"
 

@@ -20,30 +20,34 @@ export interface SummaryCard {
   icon: ReactNode
 }
 
-export interface CotizacionRow {
-  id: string | number
-  numero: string
-  rucDni: string
-  cliente: string
-  emision: string
-  forma: string
-  importeT: string
-  acciones: string[]
-  compartir: string[]
-}
+// --- RE-EXPORTACIONES LIMPIAS Y CENTRALIZADAS ---
+export type { 
+  RowData, 
+  VentaTotals, 
+  RenovacionState, 
+  DocumentoBase,
+  VentaBaseRow
+} from "./documento.types"
 
-export interface ClienteRow {
-  id: string | number
-  nombre: string
-  tipoDoc: string
-  nroDoc: string
-  correo: string
-  celular: string
-  fechaRegistro: string
-  acciones: string[]
-}
+export type { 
+  CotizacionRow, CotizacionManualRow, 
+  CotizacionCreateInput, CotizacionManualCreateInput, 
+  CotizacionDetail, CotizacionManualDetail
+} from "./cotizacion.types" //
 
-// Re-exportar tipos de módulos específicos para facilitar importaciones
-export type { CotizacionBaseRow, CotizacionManualRow, NotaVentaRow, RenovacionRow } from "./cotizacion.types"
-export type { ClienteFormData } from "./cliente.types"
-export type { RenovacionFormData } from "./renovacion.types"
+export type { 
+  ClienteFormData, 
+  ClienteRow 
+} from "./cliente.types" //
+
+export type { 
+  RenovacionCreateInput, 
+  RenovacionDetail, 
+  RenovacionRow 
+} from "./renovacion.types" //
+
+export type {
+  NotaVentaCreateInput,
+  NotaVentaDetail,
+  NotaVentaRow
+} from "./nota_venta.types" //

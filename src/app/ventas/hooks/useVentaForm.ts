@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react"
 import { RowData, RenovacionState } from "../types/documento.types"
-import articulosMock from "../cotizacion/crear/articulo.json"
+import articulosMock from "../data/articulo-mock.json"
 
 export function useVentaForm() {
   // Inicializamos con una fila vacía para que no se vea el hueco al cargar
