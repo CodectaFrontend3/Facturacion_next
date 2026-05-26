@@ -1,13 +1,13 @@
 import { useState } from "react"
 
 type Props = {
-    title: string
-    header: string
+    title?: string
+    header?: string
     children: React.ReactNode
     onClose: () => void
 }
 
-export default function VehiculoModal({
+export default function Modal({
     title,
     header,
     children,
@@ -36,11 +36,6 @@ export default function VehiculoModal({
                 </div>
                 <div className="px-10 py-4">
                     <h2 className="text-3xl font-light text-center text-gray-600 mb-10">{header}</h2>
-                    <div className="flex justify-center mb-10">
-                        <div className="w-32 h-32 rounded-full flex items-center justify-center">
-                            <i className="fa fa-truck text-[#1a5eb3]" style={{ fontSize: "150px" }}></i>
-                        </div>
-                    </div>
                     {children}
                 </div>
             </div>

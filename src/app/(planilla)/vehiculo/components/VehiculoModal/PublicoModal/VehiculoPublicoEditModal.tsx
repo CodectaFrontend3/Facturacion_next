@@ -1,9 +1,9 @@
-import VehiculoModal from "../Modal"
+import Modal from "../../../../components/Modal/Modal"
 
-import SearchItem from "../SearchItem"
-import SelectItem from "../SelectItem"
-import InputItem from "../InputItem"
-import ButtonItem from "../ButtonItem"
+import SearchItem from "../../../../components/Modal/SearchItem"
+import SelectItem from "../../../../components/Modal/SelectItem"
+import InputItem from "../../../../components/Modal/InputItem"
+import ButtonItem from "../../../../components/Modal/ButtonItem"
 
 import { Publico } from "@/app/(planilla)/interfaces/vehiculo/publico"
 import { useState } from "react"
@@ -22,12 +22,17 @@ export default function VehiculoPublicoEditModal({
     const [formData, setFormData] = useState(vehiculo);
 
     return (
-        <VehiculoModal
+        <Modal
             title="Vehículo Público"
             header="Editar Vehículo Público"
             onClose={onClose}
         >
             <div className="space-y-6">
+                <div className="flex justify-center mb-10">
+                    <div className="w-32 h-32 rounded-full flex items-center justify-center">
+                        <i className="fa fa-truck text-[#1a5eb3]" style={{ fontSize: "150px" }}></i>
+                    </div>
+                </div>
                 <SearchItem
                     label="Ruc"
                     value={formData.ruc}
@@ -64,6 +69,6 @@ export default function VehiculoPublicoEditModal({
                     </div>
                 </div>
             </div>
-        </VehiculoModal>
+        </Modal>
     )
 }

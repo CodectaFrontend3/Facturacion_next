@@ -1,14 +1,17 @@
 "use client";
 
 import { useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 
 import VendedoresFilterBar from "./components/filterBar"
 import VendedoresTable from "../tables/vendedor/VendedorTable"
-import VendedorCard from "./components/vendedorCard";
+import VendedorCard from "./components/vendedorCard"
+
+import vendedoresData from "../data/vendedor/vendedores.json"
 
 function VendedorContent() {
   const searchParams = useSearchParams();
+  const [vendedores, setVendedores] = useState(vendedoresData);
 
   const filters = {
     search: searchParams.get("search") || "",
@@ -17,22 +20,17 @@ function VendedorContent() {
   return (
     <main className="min-h-screen bg-gray-100">
       <div className="pl-5 pr-5 mt-5 flex gap-5">
-        <div className="inline">
-          <VendedorCard
-            header="VE001-Demo Demo"
-            document="0000000"
-            correo="abc@gmail.com"
-            tipo="Interno"
-            porcentaje={100}
-          />
-
-          <VendedorCard
-            header="VE001-Demo Demo"
-            document="0000000"
-            correo="abc@gmail.com"
-            tipo="Interno"
-            porcentaje={100}
-          />
+        <div className="w-[240px] border-r border-gray-200 bg-white">
+          {vendedores.map((vendedor) => (
+            <VendedorCard
+              key={vendedor.item}
+              header={vendedor.codigo_c}
+              correo={vendedor.codigo_bf}
+              document={String(vendedor.item)}
+              tipo={vendedor.tipo}
+              porcentaje={vendedor.comision}
+            />
+          ))}
         </div>
         <div className="flex-1">
           <div className="bg-white p-6 rounded shadow space-y-4">

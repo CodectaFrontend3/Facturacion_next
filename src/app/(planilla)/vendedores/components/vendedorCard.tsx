@@ -16,20 +16,16 @@ export default function VendedorCard({
     porcentaje
 }: VendedorCardProps) {
     return (
-        <div className="w-[220px] space-y-4">
-            <div className="bg-white border border-gray-200 p-4" style={{ fontSize: "10px"}}>
-                <p className="font-semibold text-gray-700">{header}</p>
-                <div className="mt-2 space-y-1 text-gray-600">
-                    <p className="text-xs" style={{ fontSize: "10px"}}>DNI: {document}</p>
-                    <p className="text-xs" style={{ fontSize: "10px"}}>Correo: {correo}</p>
-                    <div className="flex justify-between items-center">
-                        <div className='flex items-center gap-2'>
-                            <i className="fa fa-user"></i>
-                            <p>{tipo}</p>
-                        </div>
-                        <p>Porcentaje de Venta: {porcentaje}</p>
-                    </div>
+        <div className="border-b border-gray-200 px-3 py-2 text-[11px] text-gray-600 bg-white cursor-pointer hover:bg-gray-100">
+            <p className="font-semibold text-[#1c84c6]">{header}</p>
+            <p>DNI: {document}</p>
+            <p className="truncate">Correo: {correo}</p>
+            <div className="flex items-center justify-between mt-1">
+                <div className="flex items-center gap-1">
+                    <i className="fa fa-user text-gray-500"></i>
+                    <span>{tipo}</span>
                 </div>
+                <span>Porcentaje de Venta:{porcentaje}</span>
             </div>
         </div>
     )
