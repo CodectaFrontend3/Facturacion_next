@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useFacturacionFilters } from "../hooks/useFacturacionFilters"
-import { TabsNav } from "@/app/ventas/components/TabsNav"
+import { TabsNav } from "@/app/(sistema)/ventas/components/TabsNav"
 import { CardLayout } from "./CardLayout"
 import { DataFilters } from "@/components/DataFilters/DataFilters"
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange"
