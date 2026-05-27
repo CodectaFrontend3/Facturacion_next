@@ -1,0 +1,47 @@
+[
+  {
+    "id": 17,
+    "numero": "CMB 001-00000017",
+    "rucDni": "12322222222",
+    "cliente": "were",
+    "emision": "04-05-2026",
+    "vencimiento": "18-05-2026",
+    "dias": "11 días",
+    "forma": "Credito",
+    "importeT": "S/118.00",
+    "acciones": ["eye", "clock"],
+    "compartir": ["envelope", "whatsapp"],
+    "tab": "renovacion",
+    "estado": "Por vencer"
+  },
+  {
+    "id": 18,
+    "numero": "CMF 001-00000018",
+    "rucDni": "20123456789",
+    "cliente": "Empresa ABC S.A.C.",
+    "emision": "05-05-2026",
+    "vencimiento": "20-05-2026",
+    "dias": "15 días",
+    "forma": "Credito",
+    "importeT": "S/ 3,500.00",
+    "acciones": ["eye"],
+    "compartir": ["whatsapp"],
+    "tab": "renovacion",
+    "estado": "Activa"
+  },
+  {
+    "id": 19,
+    "numero": "CMV 001-00000019",
+    "rucDni": "10987654321",
+    "cliente": "Pedro Perez",
+    "emision": "06-05-2026",
+    "vencimiento": "16-05-2026",
+    "dias": "10 días",
+    "forma": "Contado",
+    "importeT": "S/ 450.00",
+    "acciones": ["eye", "clock"],
+    "compartir": ["envelope"],
+    "tab": "renovacion",
+    "estado": "Vencida"
+  }
+]

@@ -123,7 +123,7 @@ export function DataTable<TData, TValue>({
                 <Table aria-label="Tabla de datos principal">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id} className="bg-white hover:bg-white">
+                            <TableRow key={headerGroup.id} className="bg-white hover:bg-white border-gray-200">
                                 {headerGroup.headers.map((header) => (
                                     <TableHead
                                         key={header.id}

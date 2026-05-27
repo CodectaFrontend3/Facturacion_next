@@ -12,38 +12,81 @@ interface DataFiltersProps {
     childClassNames?: string[]
 }
 
-export function DataFilters({ onSearch, onReset, children, childClassNames }: DataFiltersProps) {
+/**
+ * - Fechas: 30%
+ * - Select(s): 25% total (repartido si hay más de uno)
+ * - Buscar (input): 30%
+ * - Acciones (Buscar + limpiar): 15%
+ */
+function buildGridTemplate(total: number): string {
+    const actionsCol = "minmax(120px, 15%)"
+
+    if (total <= 1) {
+        return `30% minmax(0, 1fr) ${actionsCol}`
+    }
+
+    const middleCount = Math.max(0, total - 2)
+
+    if (total === 2) {
+        return `30% 55% ${actionsCol}`
+    }
+
+    if (total === 3) {
+        return `30% 25% 30% ${actionsCol}`
+    }
+
+    if (middleCount === 2) {
+        return `30% 15% 15% 25% ${actionsCol}`
+    }
+
+    const middleShare = `${25 / middleCount}%`
+    const middleCols = Array(middleCount).fill(middleShare).join(" ")
+    return `30% ${middleCols} 30% ${actionsCol}`
+}
+
+export function DataFilters({ onSearch, onReset, children }: DataFiltersProps) {
     return (
         <div className="flex items-center gap-7 py-4 flex-wrap w-full">
             {/* Filtros dinámicos */}
-            {React.Children.map(children, (child, index) => {
-                const defaultClass = index === 0 ? "flex-[0_0_25%]" : "flex-1"
-                const customClass = childClassNames?.[index] || defaultClass
-                return (
-                    <div
-                        key={index}
-                        className={`${customClass} min-w-0`}
-                    >
-                        {child}
-                    </div>
-                )
-            })}
-
-            {/* Acciones */}
-            <div className="flex-[0_0_16%] flex gap-2">
-                <Button
-                    onClick={onSearch}
-                    className="focus:bg-[#18a689] bg-[#1a5eb3] hover:bg-[#1a3bb3]! cursor-pointer text-white rounded h-9 flex-1 shrink-0 font-sans transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md "
+            {React.Children.map(children, (child, index) => (
+                <div
+                    key={index}
+                    className={`${index === 0 ? "flex-[0_0_25%]" : "flex-1"} min-w-0`}
                 >
-                    Buscar
-                </Button>
-                <ActionButton
-                    icon={<Eraser className="w-4 h-4 " strokeWidth={2.5} />}
-                    label="Limpiar filtros"
-                    onClick={onReset}
-                    className="w-9 p-0 shrink-0 bg-[#676A6C] hover:bg-[#5a6268]"
-                />
+                    {child}
+                </div>
+            ))}
+
+            <div className="min-w-0 w-full h-9 [&_input]:h-9 [&_input]:w-full">
+                {searchChild}
             </div>
+
+            <FilterActions onSearch={onSearch} onReset={onReset} />
+        </div>
+    )
+}
+
+function FilterActions({
+    onSearch,
+    onReset,
+}: {
+    onSearch: () => void
+    onReset: () => void
+}) {
+    return (
+        <div className="flex h-9 w-full min-w-0 items-center justify-end gap-2">
+            <Button
+                onClick={onSearch}
+                className="focus:bg-[#18a689] h-9 min-w-0 flex-1 bg-[#1a5eb3] hover:bg-[#1a3bb3]! cursor-pointer rounded px-0 font-sans text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+            >
+                Buscar
+            </Button>
+            <ActionButton
+                icon={<Eraser className="h-4 w-4" strokeWidth={2.5} />}
+                label="Limpiar filtros"
+                onClick={onReset}
+                className="h-9 w-9 shrink-0 bg-[#676A6C] p-0 hover:bg-[#5a6268]"
+            />
         </div>
     )
 }
