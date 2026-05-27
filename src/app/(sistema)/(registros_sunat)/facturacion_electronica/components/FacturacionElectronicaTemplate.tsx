@@ -83,7 +83,6 @@ export default function FacturacionElectronicaTemplate({
           <DataFilters
             onSearch={applyFilters}
             onReset={resetFilters}
-            childClassNames={["flex-[0_0_40%]", "flex-1"]}
           >
             <FilterDateRange
               label="Fecha: "

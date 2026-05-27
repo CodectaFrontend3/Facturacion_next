@@ -1,0 +1,96 @@
+[
+  {
+    "id": 1,
+    "numero": "NV 001-00000018",
+    "tab": "nota-venta",
+    "clienteId": 1,
+    "clienteNombre": "Comercializadora Sur S.A.C.",
+    "rucDni": "20334455661",
+    "fechaEmision": "2026-04-18",
+    "fechaVencimiento": "2026-05-18",
+    "validezDias": 30,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Nota de Venta",
+    "moneda": "PEN",
+    "estado": "Emitida",
+    "formaPago": "Crédito 30 días",
+    "garantia": "6 MESES",
+    "almacenId": 2,
+    "vendedor": "Vendedor B",
+    "observacion": "Emitimos la siguiente Nota de Venta a vuestra solicitud. Nota de venta para despacho inmediato. Dejar en almacén principal.",
+    "items": [
+      {
+        "id": 1,
+        "articleId": 9,
+        "codigo": "SRV-02",
+        "detalle": "MANTENIMIENTO PREVENTIVO SERVIDORES",
+        "cantidad": 1,
+        "precioUnitario": 8900.50,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 8900.50,
+        "subtotal": 8900.50,
+        "igv": 0.00,
+        "total": 8900.50
+      }
+    ],
+    "totales": {
+      "subtotal": 8900.50,
+      "igv": 0.00,
+      "total": 8900.50
+    },
+    "acciones": [
+      "eye",
+      "clock",
+      "check"
+    ],
+    "compartir": [
+      "envelope"
+    ]
+  },
+  {
+    "id": 2,
+    "numero": "NV-0002",
+    "tab": "nota-venta",
+    "clienteId": 2,
+    "clienteNombre": "Juan Perez Ramos",
+    "rucDni": "10456789123",
+    "fechaEmision": "2026-04-20",
+    "fechaVencimiento": "2026-04-20",
+    "validezDias": 1,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Nota de Venta",
+    "moneda": "PEN",
+    "estado": "Pagada",
+    "formaPago": "Efectivo",
+    "garantia": "Sin Garantía",
+    "almacenId": 2,
+    "vendedor": "Vendedor C",
+    "observacion": "Cliente recogió en tienda.",
+    "items": [
+      {
+        "id": 2,
+        "articleId": 13,
+        "codigo": "TEC-01",
+        "detalle": "TECLADO MECANICO",
+        "cantidad": 2,
+        "precioUnitario": 175.00,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 175.00,
+        "subtotal": 350.00,
+        "igv": 0.00,
+        "total": 350.00
+      }
+    ],
+    "totales": {
+      "subtotal": 350.00,
+      "igv": 0.00,
+      "total": 350.00
+    },
+    "acciones": [
+      "eye"
+    ],
+    "compartir": [
+      "whatsapp"
+    ]
+  }
+]

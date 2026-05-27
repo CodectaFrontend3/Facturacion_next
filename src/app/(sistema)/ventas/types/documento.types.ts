@@ -42,4 +42,5 @@ export interface VentaBaseRow {
    // Campos opcionales: presentes solo cuando la fila viene del filtro de renovación
   vencimientoDisplay?: string
   dias?: string
+  tab?:string
 }

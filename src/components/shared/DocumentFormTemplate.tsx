@@ -10,6 +10,7 @@ interface DocumentFormTemplateProps {
   tableBody: React.ReactNode    // Aquí puede ir la tabla entera o solo las filas
   summarySection?: React.ReactNode
   actions: React.ReactNode
+  fullTable?: boolean // Mantengo la prop por si otros archivos la usan, aunque no hace falta en la nueva lógica
 }
 
 export function DocumentFormTemplate({
@@ -19,7 +20,8 @@ export function DocumentFormTemplate({
   tableHeaders,
   tableBody,
   summarySection,
-  actions
+  actions,
+  fullTable = false
 }: DocumentFormTemplateProps) {
   return (
     <div className="flex flex-col bg-white w-full rounded-md shadow-sm border border-gray-200 my-2">
@@ -40,7 +42,7 @@ export function DocumentFormTemplate({
 
       {/* Contenido Principal con padding reducido p-3 */}
       <div className="p-3 flex flex-col flex-1">
-        
+
         {/* Formulario Superior */}
         <div className="mb-4 w-full">
           {topForm}
