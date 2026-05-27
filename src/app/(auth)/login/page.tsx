@@ -34,7 +34,7 @@ export default function LoginPage() {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        if (username === 'desarrollo@jypsac.com' && password === '@G^e^Fet&VGTsUBqLekW') {
+        if (username === '1' && password === '1') {
             setErrorMsg(false);
             router.push('/inicio');
         } else {
