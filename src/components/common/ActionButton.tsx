@@ -33,7 +33,7 @@ export function ActionButton({
 }: ActionButtonProps) {
 
   const btnClass = cn(
-    "flex items-center justify-center h-9 rounded text-white! bg-[#1a5eb3] hover:bg-[#1a3bb3] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md border-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer",
+    "flex items-center justify-center h-9 rounded text-white! bg-[#1a5eb3] hover:bg-[#1a3bb3] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md border-[#1a5eb3] focus-visible:ring-2 focus-visible:ring-ring cursor-pointer",
     className || "w-9 p-0"
   )
 
@@ -65,7 +65,7 @@ export function ActionButton({
         <PopoverTrigger asChild>
           {renderButton()}
         </PopoverTrigger>
-        <PopoverContent className="w-fit min-w-[144px] p-2" align="end">
+        <PopoverContent className="w-fit min-w-[144px] rounded-none p-2" align="end">
           {popoverContent ? (
             popoverContent
           ) : (
@@ -74,7 +74,7 @@ export function ActionButton({
                 <Button
                   key={idx}
                   variant="ghost"
-                  className="w-full justify-start font-normal h-8 px-2"
+                  className="w-full justify-start font-normal rounded-none h-8 px-2 hover:pl-4 transition-all duration-175 cursor-pointer"
                   asChild={!!option.href}
                   onClick={option.onClick}
                 >

@@ -1,0 +1,23 @@
+[
+  {
+    "key": "facturas",
+    "iconClass": "fa fa-envelope-open",
+    "label": "Facturas",
+    "ringColorClass": "bg-[#1ab394]! border-[#1ab394]!",
+    "metaLabel": "Ultima actualización hace 9 meses"
+  },
+  {
+    "key": "facturacionManual",
+    "iconClass": "fa fa-file-archive-o",
+    "label": "Facturación Manual",
+    "ringColorClass": "bg-[#1c84c6]! border-[#1c84c6]!",
+    "metaLabel": "Ultima actualización hace 9 meses"
+  },
+  {
+    "key": "detracciones",
+    "iconClass": "fa fa-joomla",
+    "label": "Detracciones",
+    "ringColorClass": "bg-[#f8ac59]! border-[#f8ac59]!",
+    "metaLabel": "Ultima actualización hace 0 segundos"
+  }
+]

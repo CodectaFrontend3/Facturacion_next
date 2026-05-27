@@ -1,0 +1,32 @@
+[
+  {
+    "key": "facturas",
+    "label": "Facturas",
+    "color": "#28a745",
+    "href": "/facturacion_electronica"
+  },
+  {
+    "key": "enviados_facturas",
+    "label": "Enviados",
+    "color": "#ffa500",
+    "href": "/facturacion_electronica/enviados_facturas"
+  },
+  {
+    "key": "factura_manual",
+    "label": "Factura Manual",
+    "color": "#28a745",
+    "href": "/facturacion_electronica/factura_manual"
+  },
+  {
+    "key": "enviados_manual",
+    "label": "Enviados",
+    "color": "#dc3545",
+    "href": "/facturacion_electronica/enviados_manual"
+  },
+  {
+    "key": "detracciones",
+    "label": "Detracciones",
+    "color": "#007bff",
+    "href": "/facturacion_electronica/detracciones"
+  }
+]
