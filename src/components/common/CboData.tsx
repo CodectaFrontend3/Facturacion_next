@@ -17,6 +17,7 @@ export interface CboDataProps {
     searchPlaceholder?: string
     className?: string
     disabled?: boolean
+    hideArrow?: boolean;
 }
 
 export function CboData({
@@ -26,7 +27,8 @@ export function CboData({
     placeholder = "Seleccionar",
     searchPlaceholder = "Buscar...",
     className,
-    disabled
+    disabled,
+    hideArrow
 }: CboDataProps) {
     const [open, setOpen] = React.useState(false)
     const [searchQuery, setSearchQuery] = React.useState("")
@@ -56,18 +58,20 @@ export function CboData({
                     <span className="truncate flex-1 text-left mr-2 min-w-0">
                         {selectedItem ? selectedItem.label : placeholder}
                     </span>
-                    <svg
-                        className="h-4 w-4 opacity-50 shrink-0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    >
-                        <path d="m6 9 6 6 6-6" />
-                    </svg>
+                    {!hideArrow && (
+                        <svg
+                            className="h-4 w-4 opacity-50 shrink-0"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                    )}
                 </button>
             </PopoverTrigger>
             <PopoverContent className="w-(--radix-popover-trigger-width) p-0 rounded-sm border border-[#aaa] shadow-md" align="start">

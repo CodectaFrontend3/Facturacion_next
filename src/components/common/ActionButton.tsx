@@ -11,8 +11,11 @@ export interface ActionPopoverOption {
 }
 
 export interface ActionButtonProps {
-  icon: React.ReactNode
-  label?: string // Añadido para accesibilidad
+  icon?: React.ReactNode
+  label?: string           // Texto accesible (aria-label / title)
+  text?: string            // Texto visible junto al ícono
+  variant?: "filled" | "outline" // Estilo del botón (por defecto: filled)
+  size?: "sm" | "md"       // Tamaño (por defecto: md)
   onClick?: () => void
   href?: string
   isPopover?: boolean
@@ -24,6 +27,9 @@ export interface ActionButtonProps {
 export function ActionButton({
   icon,
   label,
+  text,
+  variant = "filled",
+  size = "md",
   onClick,
   href,
   isPopover,
@@ -32,16 +38,26 @@ export function ActionButton({
   className
 }: ActionButtonProps) {
 
-  const btnClass = cn(
-    "flex items-center justify-center h-9 rounded text-white! bg-[#1a5eb3] hover:bg-[#1a3bb3] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md border-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer",
-    className || "w-9 p-0"
-  )
+  const base = "inline-flex items-center justify-center gap-2 rounded font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring cursor-pointer border"
+
+  const variants = {
+    filled:  "bg-[#1a5eb3] hover:bg-[#1a3bb3] text-white border-[#1a5eb3] hover:border-[#1a3bb3]",
+    outline: "bg-white hover:bg-blue-50 text-[#1a5eb3] border-[#1a5eb3]",
+  }
+
+  const sizes = {
+    sm: text ? "h-7 px-3 text-[12px]" : "h-7 w-7 p-0",
+    md: text ? "h-9 px-4 text-[13px]" : "h-9 w-9 p-0",
+  }
+
+  const btnClass = cn(base, variants[variant], sizes[size], className)
 
   const renderButton = () => {
     if (href && !isPopover) {
       return (
         <Link href={href} className={btnClass} aria-label={label} title={label}>
           {icon}
+          {text && <span>{text}</span>}
         </Link>
       )
     }
@@ -51,10 +67,11 @@ export function ActionButton({
         type="button"
         className={btnClass}
         onClick={!isPopover ? onClick : undefined}
-        aria-label={label}
-        title={label}
+        aria-label={label ?? text}
+        title={label ?? text}
       >
         {icon}
+        {text && <span>{text}</span>}
       </button>
     )
   }

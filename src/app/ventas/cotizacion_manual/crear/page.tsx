@@ -16,7 +16,12 @@ import { RenovacionFields } from "../../components/shared/RenovacionFields"
 import { ArticuloSelectorModal } from "../../components/shared/ArticuloSelectorModal"
 
 // Mocks
-import { clientesOptions } from "../../utils/clientesOptions"
+import clientesMock from "../../data/cliente-mock.json"
+
+const clientesOptions = clientesMock.map(c => ({
+  value: String(c.id),
+  label: `${c.nombre} | ${c.numeroDocumento}`
+}))
 
 const FormField = ({ label, children, multiline }: { label: string; children: React.ReactNode; multiline?: boolean }) => (
   <div className={`flex gap-4 ${multiline ? "items-start" : "items-center"}`}>
@@ -78,7 +83,7 @@ export default function CrearCotizacionManualPage() {
       <div className="flex flex-col gap-4">
         <FormField label="Cliente:">
           <div className="flex gap-2">
-            <CboData items={clientesOptions} value={selectedCliente} onChange={setSelectedCliente} placeholder="Seleccionar Cliente" className="flex-1" />
+            <CboData items={clientesOptions} value={selectedCliente} onChange={setSelectedCliente} placeholder="Seleccionar Cliente" className="flex-1" hideArrow={true} />
             <button
               onClick={() => setIsClienteModalOpen(true)}
               className="bg-[#70757a] text-white p-2 rounded-sm hover:bg-gray-600 transition-colors"
@@ -113,7 +118,7 @@ export default function CrearCotizacionManualPage() {
 
         <FormField label="Observación:" multiline>
           <textarea
-            className="w-full border border-gray-300 rounded-sm px-3 py-2 text-[13px] text-gray-600 focus:outline-none focus:border-blue-400 h-9 resize-y"
+            className="w-full border border-gray-300 rounded-sm px-3 py-2 text-[13px] text-gray-600 focus:outline-none focus:border-blue-400 h-20 resize-y"
             defaultValue="Emitimos la siguiente Cotizacion a vuestra solicitud"
           />
         </FormField>
@@ -182,8 +187,6 @@ export default function CrearCotizacionManualPage() {
         title="Generar Cotización Manual"
         onClose={handleClose}
         topForm={topForm}
-        tableHeaders={<></>}
-        fullTable={true}
         tableBody={
           <VentaItemsTable
             mode="manual"
@@ -198,18 +201,8 @@ export default function CrearCotizacionManualPage() {
 
         actions={
           <div className="flex gap-3">
-            <button 
-              onClick={() => console.log("Guardar", { rows, renovacion })}
-              className="px-6 py-2 bg-white text-[#1a56db] border border-[#1a56db] rounded-sm font-medium text-[14px] hover:bg-blue-50 transition-colors"
-            >
-              Guardar
-            </button>
-            <button 
-              onClick={() => console.log("Guardar y Finalizar", { rows, renovacion })}
-              className="px-6 py-2 bg-[#1a56db] text-white border border-[#1a56db] rounded-sm font-medium text-[14px] hover:bg-blue-700 transition-colors"
-            >
-              Guardar y Finalizar
-            </button>
+            <ActionButton text="Guardar" variant="outline" icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar", { rows, renovacion })} />
+            <ActionButton text="Guardar y Finalizar" variant="filled" icon={<Save className="w-4 h-4" />} onClick={() => console.log("Guardar y Finalizar", { rows, renovacion })} />
           </div>
         }
       />
