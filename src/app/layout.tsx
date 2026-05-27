@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import AppSidebar from "@/components/layout/app-sidebar";
-import AppHeader from "@/components/layout/app-header";
-import AppFooter from "@/components/layout/app-footer";
+import "font-awesome/css/font-awesome.min.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -12,28 +11,25 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Sistema de facturacion Leonosoft",
-  description: "Sistema de facturacion Leonosoft",
+  title: "Sistema de facturación LeonoSoft",
+  description: "Sistema de facturación electrónica",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html
-      lang="en"
-      className={`${outfit.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        <AppSidebar>
-          <AppHeader />
-          <main className="flex min-w-0 flex-1 flex-col h-full">
-            <div className="flex-1 flex flex-col bg-white">{children}</div>
-          </main>
-          <AppFooter />
-        </AppSidebar>
+    <html lang="es" className={`${outfit.variable} h-full antialiased`}>
+      {/* Todo el diseño de Tailwind Base */}
+      {/* AÑADIMOS suppressHydrationWarning AQUÍ 👇 */}
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col font-sans bg-white text-gray-800"
+      >
+        {children}
+        <Toaster />
       </body>
     </html>
   );
