@@ -37,8 +37,8 @@ const readOnlyStyle = "w-full border border-gray-300 rounded-sm px-3 h-9 text-[1
 // Componente Select personalizado con flecha limpia
 const CustomSelect = ({ children, className, ...props }: React.SelectHTMLAttributes<HTMLSelectElement>) => (
   <div className="relative w-full">
-    <select 
-      className={`${className} appearance-none pr-8 cursor-pointer`} 
+    <select
+      className={`${className} appearance-none pr-8 cursor-pointer`}
       {...props}
     >
       {children}
@@ -47,15 +47,16 @@ const CustomSelect = ({ children, className, ...props }: React.SelectHTMLAttribu
   </div>
 )
 
-export default function CrearCotizacionPage() {
+
+export default function CrearCotizacionManualPage() {
   const router = useRouter()
   const { rows, totals, renovacion, actions } = useVentaForm()
   const [selectedCliente, setSelectedCliente] = useState("");
-  
-  const [isClienteModalOpen, setIsClienteModalOpen] = useState(false)
-  const [isArticuloModalOpen, setIsArticuloModalOpen] = useState(false)
 
-  const handleClose = () => router.push("/ventas/cotizacion")
+  const [isClienteModalOpen, setIsClienteModalOpen] = useState(false)
+  const [isArticuloModalOpen, setIsArticuloModalOpen] = useState(false) // Estado para el modal de artículos
+
+  const handleClose = () => router.push("/ventas/cotizacion_manual")
 
   // Obtener fecha actual en formato DD-MM-YYYY
   const fechaHoy = new Date().toLocaleDateString('es-PE', {
@@ -66,7 +67,7 @@ export default function CrearCotizacionPage() {
 
   const handleAddArticulo = (id: string, qty: number) => {
     const emptyRowIndex = rows.findIndex(row => !row.articleId || row.articleId === "")
-    
+
     if (emptyRowIndex !== -1) {
       const targetRow = rows[emptyRowIndex]
       actions.updateRow(targetRow.id, "articleId", id)
@@ -83,7 +84,7 @@ export default function CrearCotizacionPage() {
         <FormField label="Cliente:">
           <div className="flex gap-2">
             <CboData items={clientesOptions} value={selectedCliente} onChange={setSelectedCliente} placeholder="Seleccionar Cliente" className="flex-1" hideArrow={true} />
-            <button 
+            <button
               onClick={() => setIsClienteModalOpen(true)}
               className="bg-[#70757a] text-white p-2 rounded-sm hover:bg-gray-600 transition-colors"
             >
@@ -91,7 +92,7 @@ export default function CrearCotizacionPage() {
             </button>
           </div>
         </FormField>
-        
+
         <div className="flex gap-4">
           <div className="flex-1">
             <FormField label="Fecha Emisión:">
@@ -104,19 +105,19 @@ export default function CrearCotizacionPage() {
                 <option>1 DIAS</option>
                 <option>7 DIAS</option>
                 <option>15 DIAS</option>
-              </CustomSelect>              
+              </CustomSelect>
             </FormField>
           </div>
         </div>
 
-        <FormField label="T. Operación:">
+        <FormField label="Almacen:">
           <CustomSelect className={inputStyle}>
-            <option>0101 - Venta Interna</option>
+            <option>2- ALM2</option>
           </CustomSelect>
         </FormField>
 
         <FormField label="Observación:" multiline>
-          <textarea 
+          <textarea
             className="w-full border border-gray-300 rounded-sm px-3 py-2 text-[13px] text-gray-600 focus:outline-none focus:border-blue-400 h-20 resize-y"
             defaultValue="Emitimos la siguiente Cotizacion a vuestra solicitud"
           />
@@ -125,9 +126,10 @@ export default function CrearCotizacionPage() {
 
       {/* Columna Derecha */}
       <div className="flex flex-col gap-4">
-        <FormField label="Comisionista:">
+        <FormField label="T. Operación">
           <CustomSelect className={inputStyle}>
-            <option>Sin Comisión - 0%</option>
+            <option>0101 - Venta Interna</option>
+            <option>1203 - Venta con Emisión de Comprobante por Internet (BOE)</option>
           </CustomSelect>
         </FormField>
 
@@ -152,14 +154,6 @@ export default function CrearCotizacionPage() {
 
         <div className="flex gap-4">
           <div className="flex-1">
-            <FormField label="Garantía:">
-              <CustomSelect className={inputStyle}>
-                <option>6 MESES</option>
-                <option>1 AÑO</option>
-              </CustomSelect>
-            </FormField>
-          </div>
-          <div className="flex-1">
             <FormField label="Forma Pago:">
               <CustomSelect className={inputStyle}>
                 <option>Contado</option>
@@ -167,9 +161,18 @@ export default function CrearCotizacionPage() {
               </CustomSelect>
             </FormField>
           </div>
+
+          <div className="flex-1">
+            <FormField label="Garantía:">
+              <CustomSelect className={inputStyle}>
+                <option>6 MESES</option>
+                <option>1 AÑO</option>
+              </CustomSelect>
+            </FormField>
+          </div>
         </div>
 
-        <RenovacionFields 
+        <RenovacionFields
           isActive={renovacion.isActive}
           fechaRenovacion={renovacion.fechaRenovacion}
           onChange={actions.setRenovacion}
@@ -181,17 +184,17 @@ export default function CrearCotizacionPage() {
   return (
     <div className="p-4 bg-[#f4f7fb]">
       <DocumentFormTemplate
-        title="Generar Cotización"
+        title="Generar Cotización Manual"
         onClose={handleClose}
         topForm={topForm}
-        
+
         tableBody={
-          <VentaItemsTable 
-            mode="cotizacion" 
-            rows={rows} 
-            onUpdate={actions.updateRow} 
-            onRemove={actions.removeRow} 
-            onAddEmpty={() => setIsArticuloModalOpen(true)}
+          <VentaItemsTable
+            mode="manual"
+            rows={rows}
+            onUpdate={actions.updateRow}
+            onRemove={actions.removeRow}
+            onAddEmpty={() => setIsArticuloModalOpen(true)} // Activa el modal al hacer clic en +
           />
         }
 
@@ -206,8 +209,8 @@ export default function CrearCotizacionPage() {
       />
 
       {/* Modales */}
-      <ClienteModal isOpen={isClienteModalOpen} onClose={() => setIsClienteModalOpen(false)} onSave={() => {}} />
-      <ArticuloSelectorModal 
+      <ClienteModal isOpen={isClienteModalOpen} onClose={() => setIsClienteModalOpen(false)} onSave={() => { }} />
+      <ArticuloSelectorModal
         isOpen={isArticuloModalOpen}
         onClose={() => setIsArticuloModalOpen(false)}
         onAdd={handleAddArticulo}

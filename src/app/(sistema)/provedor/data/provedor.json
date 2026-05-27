@@ -1,0 +1,47 @@
+[
+  {
+    "proveedor": {
+      "ruc": "45456454464541231",
+      "empresa": "Loco",
+      "direccion": "casa",
+      "telefono": "123456789",
+      "correo_empresa": "char@gmail.com"
+    },
+    "contacto": {
+      "nombre": "MicausaBoomer",
+      "celular": "421423467",
+      "correo_contacto": "Boomer@loco.com"
+    },
+    "observacion": "Radean server"
+  },
+  {
+    "proveedor": {
+      "ruc": "20123456789",
+      "empresa": "Tecnología Avanzada S.A.C.",
+      "direccion": "Av. Larco 456, Miraflores",
+      "telefono": "014445555",
+      "correo_empresa": "ventas@tecavanzada.com"
+    },
+    "contacto": {
+      "nombre": "Carlos Mendoza",
+      "celular": "987654321",
+      "correo_contacto": "cmendoza@tecavanzada.com"
+    },
+    "observacion": "Proveedor principal de servidores y licencias"
+  },
+  {
+    "proveedor": {
+      "ruc": "20987654321",
+      "empresa": "Distribuidora Logística del Perú",
+      "direccion": "Jr. Carabaya 789, Lima Centro",
+      "telefono": "013332222",
+      "correo_empresa": "contacto@dislogperu.pe"
+    },
+    "contacto": {
+      "nombre": "Ana Torres",
+      "celular": "912345678",
+      "correo_contacto": "atorres@dislogperu.pe"
+    },
+    "observacion": "Entrega de hardware suspendida temporalmente"
+  }
+]
