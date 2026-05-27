@@ -21,7 +21,7 @@ export default function AppHeader() {
     const currentNotif = headerData.notificacionesCarousel[notifIndex]
 
     return (
-        <header className="flex h-16 w-full items-center justify-evenly border-b border-gray-300 bg-white px-4 py-2 font-sans">
+        <header className="flex h-16 w-full items-center justify-evenly border-b border-[#e7eaec] bg-white px-4 py-2 font-sans">
             {/* 1. seccion: tipos de cambio */}
             <div className="flex items-center gap-6 xl:gap-10">
                 <div className="flex flex-col items-center leading-tight">
@@ -41,7 +41,7 @@ export default function AppHeader() {
             {/* 2. seccion: indicador de notificaciones (carrusel) */}
             <div className="flex h-11.5 items-center overflow-hidden rounded-xl border-3 border-[#1A3BB3] shadow-sm">
                 <div className="flex h-full w-40 justify-center items-center gap-4 bg-[#1A3BB3] px-2 text-white transition-all duration-300">
-                    <i className="bi bi-bell-fill text-[24px] animate-breathe shrink-0"></i>
+                    <i className="fa fa-bell text-[19px]! animate-breathe shrink-0 w-[22.29px] h-[26.4px] flex! items-center! justify-center!"></i>
                     <div className="flex w-19 gap-1 text-left">
                         <span className="text-[13px]">{currentNotif.count}</span>
                         <span className="text-[13px]">{currentNotif.label}</span>
@@ -58,7 +58,7 @@ export default function AppHeader() {
             {/* 3. seccion: indicador de mensajes */}
             <div className="flex h-11.5 items-center overflow-hidden rounded-xl border-3 border-[#1A3BB3] shadow-sm">
                 <div className="flex h-full w-40 justify-center items-center gap-2 bg-[#1A3BB3] px-2 text-white">
-                    <i className="bi bi-exclamation-circle-fill text-[28px] font-extrabold"></i>
+                    <i className="fa fa-exclamation-circle text-[26px]! w-[22.29px] h-[26.4px] flex! items-center! justify-center!"></i>
                     <span className="text-[13px]">{headerData.notificacionesMensajes.count} de {headerData.notificacionesMensajes.total}</span>
                 </div>
                 <Link
@@ -70,16 +70,16 @@ export default function AppHeader() {
             </div>
 
             {/* 4. seccion: calendario con badge */}
-            <div className="relative cursor-pointer transition-transform hover:scale-105">
-                <i className="bi bi-calendar-event text-[34px] text-[#1538A0]"></i>
-                <Badge className="absolute -right-3 top-2 flex h-4.5 w-4.5 items-center justify-center rounded-sm bg-[#F9AC55] text-[10px] font-black text-white hover:bg-[#F9AC55] p-0 border-none shadow-none">
+            <div className="relative cursor-pointer transition-transform hover:scale-105 w-9 h-9.75 flex! items-center! justify-center!">
+                <i className="fa fa-calendar text-[39px]! text-[#1538A0]"></i>
+                <Badge className="absolute -top-1 -right-3.5 flex h-6 w-4.5 items-center justify-center rounded-sm bg-[#F9AC55] text-[10px] font-black text-white hover:bg-[#F9AC55] p-0 border-none shadow-none">
                     0
                 </Badge>
             </div>
 
             {/* 5. seccion: sobre de correo */}
-            <div className="cursor-pointer transition-transform hover:scale-105">
-                <i className="bi bi-envelope-fill text-[40px] text-[#1538A0]"></i>
+            <div className="cursor-pointer transition-transform hover:scale-105 w-9 h-9.75 flex! items-center! justify-center!">
+                <i className="fa fa-envelope text-[39px]! text-[#1538A0]"></i>
             </div>
         </header>
     )

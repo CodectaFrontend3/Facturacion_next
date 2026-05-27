@@ -9,20 +9,25 @@ interface DataFiltersProps {
     onSearch: () => void
     onReset: () => void
     children: React.ReactNode
+    childClassNames?: string[]
 }
 
-export function DataFilters({ onSearch, onReset, children }: DataFiltersProps) {
+export function DataFilters({ onSearch, onReset, children, childClassNames }: DataFiltersProps) {
     return (
         <div className="flex items-center gap-7 py-4 flex-wrap w-full">
             {/* Filtros dinámicos */}
-            {React.Children.map(children, (child, index) => (
-                <div
-                    key={index}
-                    className={`${index === 0 ? "flex-[0_0_25%]" : "flex-1"} min-w-0`}
-                >
-                    {child}
-                </div>
-            ))}
+            {React.Children.map(children, (child, index) => {
+                const defaultClass = index === 0 ? "flex-[0_0_25%]" : "flex-1"
+                const customClass = childClassNames?.[index] || defaultClass
+                return (
+                    <div
+                        key={index}
+                        className={`${customClass} min-w-0`}
+                    >
+                        {child}
+                    </div>
+                )
+            })}
 
             {/* Acciones */}
             <div className="flex-[0_0_16%] flex gap-2">

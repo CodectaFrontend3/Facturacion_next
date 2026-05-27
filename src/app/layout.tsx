@@ -15,21 +15,14 @@ export const metadata: Metadata = {
   description: "Sistema de facturación electrónica",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${outfit.variable} h-full antialiased`}>
       {/* Todo el diseño de Tailwind Base */}
       {/* AÑADIMOS suppressHydrationWarning AQUÍ 👇 */}
-      <body
-        suppressHydrationWarning
-        className="min-h-full flex flex-col font-sans bg-white text-gray-800"
-      >
+      <body suppressHydrationWarning className="min-h-full flex flex-col font-sans bg-white text-gray-800">
         {children}
-        <Toaster />
+        <Toaster/>
       </body>
     </html>
   );

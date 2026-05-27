@@ -1,4 +1,5 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react"
+import { showToast } from "@/components/shared/custom-toast"
 
 interface UseTableDataOptions<TData> {
   data: TData[];
@@ -26,11 +27,12 @@ export function useTableData<TData>({
     setPendingFilters((prev) => ({ ...prev, [name]: value }));
   }, []);
 
-  // Aplica los filtros pendientes a la tabla y resetea la página
-  const applyFilters = useCallback(() => {
-    setActiveFilters(pendingFilters);
-    setPageIndex(0);
-  }, [pendingFilters]);
+    // Aplica los filtros pendientes a la tabla y resetea la página
+    const applyFilters = useCallback(() => {
+        setActiveFilters(pendingFilters)
+        setPageIndex(0)
+        showToast("Se han aplicado los filtros correctamente", 1) // sonner personalizado
+    }, [pendingFilters])
 
   // Limpia todo — pendientes y activos
   const resetFilters = useCallback(() => {

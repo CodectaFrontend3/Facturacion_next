@@ -2,11 +2,75 @@
   {
     "id": "1",
     "numero": "CM-0001",
+<<<<<<< HEAD
     "rucDni": "20123456789",
     "cliente": "Inversiones del Norte S.A.C.",
     "emision": "02/04/2026",
     "forma": "Contado",
     "importeT": "S/ 5,029.48",
+=======
+    "clienteId": "1",
+    "clienteNombre": "Inversiones del Norte S.A.C.",
+    "rucDni": "20123456789",
+    "cliente": "Inversiones del Norte S.A.C.",
+    "fechaEmision": "2026-04-02",
+    "emision": "02/04/2026",
+    "validez": "1 DIAS",
+    "tipoOperacion": "0101 - Venta Interna",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "comisionista": "Sin Comisión - 0%",
+    "tipoDocumento": "Factura",
+    "moneda": "Soles",
+    "garantia": "6 MESES",
+    "formaPago": "Contado",
+    "forma": "Contado",
+    "almacen": "2 - ALM2",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": ""
+    },
+    "items": [
+      {
+        "articleId": "1",
+        "detalle": "REPARACION DE MOUSE LENOVO",
+        "cantidad": 4,
+        "precioUnitario": 11,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 11,
+        "subtotal": 44,
+        "igv": 7.92,
+        "total": 51.92
+      },
+      {
+        "articleId": "2",
+        "detalle": "TECLADO INALAMBRICO LENOVO",
+        "cantidad": 3,
+        "precioUnitario": 85,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 85,
+        "subtotal": 255,
+        "igv": 45.9,
+        "total": 300.9
+      },
+      {
+        "articleId": "5",
+        "detalle": "MONITOR GAMER LENOVO 24 PULGADAS",
+        "cantidad": 2,
+        "precioUnitario": 189.99,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 189.99,
+        "subtotal": 379.98,
+        "igv": 68.3964,
+        "total": 448.3764
+      }
+    ],
+    "totales": {
+      "subtotal": 678.98,
+      "igv": 121.3164,
+      "total": 800.2964
+    },
+    "importeT": "S/ 800.30",
+>>>>>>> origin/rodrigo
     "acciones": [
       "eye",
       "clock",
@@ -21,11 +85,64 @@
   {
     "id": "2",
     "numero": "CM-0002",
+<<<<<<< HEAD
     "rucDni": "10456789123",
     "cliente": "Juan Perez Ramos",
     "emision": "05/04/2026",
     "forma": "Crédito 15 días",
     "importeT": "S/ 1,250.00",
+=======
+    "clienteId": "2",
+    "clienteNombre": "Juan Perez Ramos",
+    "rucDni": "10456789123",
+    "cliente": "Juan Perez Ramos",
+    "fechaEmision": "2026-04-05",
+    "emision": "05/04/2026",
+    "validez": "7 DIAS",
+    "tipoOperacion": "0101 - Venta Interna",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "comisionista": "Sin Comisión - 0%",
+    "tipoDocumento": "Factura",
+    "moneda": "Soles",
+    "garantia": "6 MESES",
+    "formaPago": "Crédito",
+    "forma": "Crédito 15 días",
+    "almacen": "2 - ALM2",
+    "renovacion": {
+      "isActive": true,
+      "fechaRenovacion": "2026-04-12"
+    },
+    "items": [
+      {
+        "articleId": "4",
+        "detalle": "MANTENIMIENTO PREVENTIVO DE PC",
+        "cantidad": 4,
+        "precioUnitario": 45,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 45,
+        "subtotal": 180,
+        "igv": 32.4,
+        "total": 212.4
+      },
+      {
+        "articleId": "8",
+        "detalle": "MOUSE OPTICO ALAMBRICO LENOVO",
+        "cantidad": 6,
+        "precioUnitario": 12.5,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 12.5,
+        "subtotal": 75,
+        "igv": 13.5,
+        "total": 88.5
+      }
+    ],
+    "totales": {
+      "subtotal": 255,
+      "igv": 45.9,
+      "total": 300.9
+    },
+    "importeT": "S/ 300.90",
+>>>>>>> origin/rodrigo
     "acciones": [
       "eye",
       "check"
@@ -38,11 +155,64 @@
   {
     "id": "3",
     "numero": "CM-0003",
+<<<<<<< HEAD
     "rucDni": "20556677889",
     "cliente": "Constructora Horizonte E.I.R.L.",
     "emision": "10/04/2026",
     "forma": "Transferencia",
     "importeT": "S/ 12,400.00",
+=======
+    "clienteId": "3",
+    "clienteNombre": "Constructora Horizonte E.I.R.L.",
+    "rucDni": "20556677889",
+    "cliente": "Constructora Horizonte E.I.R.L.",
+    "fechaEmision": "2026-04-10",
+    "emision": "10/04/2026",
+    "validez": "15 DIAS",
+    "tipoOperacion": "0101 - Venta Interna",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "comisionista": "Sin Comisión - 0%",
+    "tipoDocumento": "Boleta",
+    "moneda": "Soles",
+    "garantia": "6 MESES",
+    "formaPago": "Transferencia",
+    "forma": "Transferencia",
+    "almacen": "2 - ALM2",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": ""
+    },
+    "items": [
+      {
+        "articleId": "3",
+        "detalle": "carboxiterapia",
+        "cantidad": 6,
+        "precioUnitario": 75.42,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 75.42,
+        "subtotal": 452.52,
+        "igv": 81.4536,
+        "total": 533.9736
+      },
+      {
+        "articleId": "6",
+        "detalle": "LIMPIEZA FACIAL PROFUNDA",
+        "cantidad": 8,
+        "precioUnitario": 35.5,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 35.5,
+        "subtotal": 284,
+        "igv": 51.12,
+        "total": 335.12
+      }
+    ],
+    "totales": {
+      "subtotal": 736.52,
+      "igv": 132.5736,
+      "total": 869.0936
+    },
+    "importeT": "S/ 869.09",
+>>>>>>> origin/rodrigo
     "acciones": [
       "eye",
       "clock"
@@ -55,11 +225,64 @@
   {
     "id": "4",
     "numero": "CM-0004",
+<<<<<<< HEAD
     "rucDni": "10112233445",
     "cliente": "Carlos Ruiz Mendoza",
     "emision": "20/04/2026",
     "forma": "Contado",
     "importeT": "S/ 420.00",
+=======
+    "clienteId": "4",
+    "clienteNombre": "Carlos Ruiz Mendoza",
+    "rucDni": "10112233445",
+    "cliente": "Carlos Ruiz Mendoza",
+    "fechaEmision": "2026-04-20",
+    "emision": "20/04/2026",
+    "validez": "1 DIAS",
+    "tipoOperacion": "0101 - Venta Interna",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "comisionista": "Sin Comisión - 0%",
+    "tipoDocumento": "Factura",
+    "moneda": "Soles",
+    "garantia": "6 MESES",
+    "formaPago": "Contado",
+    "forma": "Contado",
+    "almacen": "2 - ALM2",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": ""
+    },
+    "items": [
+      {
+        "articleId": "7",
+        "detalle": "INSTALACION DE SISTEMA OPERATIVO",
+        "cantidad": 6,
+        "precioUnitario": 25,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 25,
+        "subtotal": 150,
+        "igv": 27,
+        "total": 177
+      },
+      {
+        "articleId": "11",
+        "detalle": "AURICULARES BLUETOOTH LENOVO",
+        "cantidad": 2,
+        "precioUnitario": 39.9,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 39.9,
+        "subtotal": 79.8,
+        "igv": 14.364,
+        "total": 94.164
+      }
+    ],
+    "totales": {
+      "subtotal": 229.8,
+      "igv": 41.364,
+      "total": 271.164
+    },
+    "importeT": "S/ 271.16",
+>>>>>>> origin/rodrigo
     "acciones": [
       "eye"
     ],
@@ -71,11 +294,64 @@
   {
     "id": "1",
     "numero": "C-0001",
+<<<<<<< HEAD
     "rucDni": "20998877665",
     "cliente": "Tecnología Avanzada S.A.",
     "emision": "12/04/2026",
     "forma": "Contado",
     "importeT": "S/ 3,450.20",
+=======
+    "clienteId": "5",
+    "clienteNombre": "Tecnología Avanzada S.A.",
+    "rucDni": "20998877665",
+    "cliente": "Tecnología Avanzada S.A.",
+    "fechaEmision": "2026-04-12",
+    "emision": "12/04/2026",
+    "validez": "1 DIAS",
+    "tipoOperacion": "0101 - Venta Interna",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "comisionista": "Sin Comisión - 0%",
+    "tipoDocumento": "Factura",
+    "moneda": "Soles",
+    "garantia": "6 MESES",
+    "formaPago": "Contado",
+    "forma": "Contado",
+    "almacen": "2 - ALM2",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": ""
+    },
+    "items": [
+      {
+        "articleId": "5",
+        "detalle": "MONITOR GAMER LENOVO 24 PULGADAS",
+        "cantidad": 3,
+        "precioUnitario": 189.99,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 189.99,
+        "subtotal": 569.97,
+        "igv": 102.5946,
+        "total": 672.5646
+      },
+      {
+        "articleId": "8",
+        "detalle": "MOUSE OPTICO ALAMBRICO LENOVO",
+        "cantidad": 8,
+        "precioUnitario": 12.5,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 12.5,
+        "subtotal": 100,
+        "igv": 18,
+        "total": 118
+      }
+    ],
+    "totales": {
+      "subtotal": 669.97,
+      "igv": 120.5946,
+      "total": 790.5646
+    },
+    "importeT": "S/ 790.56",
+>>>>>>> origin/rodrigo
     "acciones": [
       "eye",
       "check"
@@ -88,11 +364,64 @@
   {
     "id": "2",
     "numero": "C-0002",
+<<<<<<< HEAD
     "rucDni": "10778899445",
     "cliente": "María Gonzales Diaz",
     "emision": "14/04/2026",
     "forma": "Yape/Plin",
     "importeT": "S/ 85.00",
+=======
+    "clienteId": "custom-maria-gonzales",
+    "clienteNombre": "María Gonzales Diaz",
+    "rucDni": "10778899445",
+    "cliente": "María Gonzales Diaz",
+    "fechaEmision": "2026-04-14",
+    "emision": "14/04/2026",
+    "validez": "7 DIAS",
+    "tipoOperacion": "0101 - Venta Interna",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "comisionista": "Sin Comisión - 0%",
+    "tipoDocumento": "Boleta",
+    "moneda": "Soles",
+    "garantia": "6 MESES",
+    "formaPago": "Yape/Plin",
+    "forma": "Yape/Plin",
+    "almacen": "2 - ALM2",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": ""
+    },
+    "items": [
+      {
+        "articleId": "7",
+        "detalle": "INSTALACION DE SISTEMA OPERATIVO",
+        "cantidad": 1,
+        "precioUnitario": 25,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 25,
+        "subtotal": 25,
+        "igv": 4.5,
+        "total": 29.5
+      },
+      {
+        "articleId": "12",
+        "detalle": "SESION DE MASAJES DESCONTRACTURANTES",
+        "cantidad": 1,
+        "precioUnitario": 50,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 50,
+        "subtotal": 50,
+        "igv": 9,
+        "total": 59
+      }
+    ],
+    "totales": {
+      "subtotal": 75,
+      "igv": 13.5,
+      "total": 88.5
+    },
+    "importeT": "S/ 88.50",
+>>>>>>> origin/rodrigo
     "acciones": [
       "eye"
     ],
@@ -101,6 +430,7 @@
       "whatsapp"
     ],
     "tab": "cotizacion"
+<<<<<<< HEAD
   },
   {
     "id": "1",
@@ -119,5 +449,7 @@
       "envelope"
     ],
     "tab": "nota-venta"
+=======
+>>>>>>> origin/rodrigo
   }
 ]

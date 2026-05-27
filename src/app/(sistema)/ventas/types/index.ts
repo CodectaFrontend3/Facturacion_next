@@ -20,6 +20,7 @@ export interface SummaryCard {
   icon: ReactNode
 }
 
+<<<<<<< HEAD
 export interface CotizacionRow {
   id: string | number
   numero: string
@@ -31,3 +32,36 @@ export interface CotizacionRow {
   acciones: string[]
   compartir: string[]
 }
+=======
+// --- RE-EXPORTACIONES LIMPIAS Y CENTRALIZADAS ---
+export type {
+  RowData,
+  VentaTotals,
+  RenovacionState,
+  DocumentoBase,
+  VentaBaseRow
+} from "./documento.types"
+
+export type {
+  CotizacionRow, CotizacionManualRow,
+  CotizacionCreateInput, CotizacionManualCreateInput,
+  CotizacionDetail, CotizacionManualDetail
+} from "./cotizacion.types"
+
+export type {
+  ClienteFormData,
+  ClienteRow
+} from "./cliente.types"
+
+export type {
+  NotaVentaCreateInput,
+  NotaVentaDetail,
+  NotaVentaRow
+} from "./nota_venta.types"
+
+export type {
+  RenovacionCreateInput,
+  RenovacionDetail,
+  RenovacionRow
+} from "./renovacion.types"
+>>>>>>> origin/rodrigo

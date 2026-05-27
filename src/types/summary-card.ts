@@ -2,7 +2,7 @@ import { type ElementType } from "react"
 
 export interface SummaryCardTone {
     ring: string
-    icon: string
+    icon?: string
     amount?: string
 }
 
