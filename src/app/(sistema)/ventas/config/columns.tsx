@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { Checkbox } from "@/components/ui/checkbox"
 import { CotizacionRow, ClienteRow } from "../types"
+import { RenovacionRow } from "../types"          
 import { ActionButton } from "@/components/common/ActionButton"
 
 // COLUMNAS PARA COTIZACIÓN
@@ -168,6 +168,3 @@ export const getColumnsForTab = (tab: string): ColumnDef<any>[] => {
       return []
   }
 }
-
-// Mantener getColumns() para compatibilidad con código existente
-export const getColumns = (): ColumnDef<CotizacionRow>[] => getCotizacionColumns()

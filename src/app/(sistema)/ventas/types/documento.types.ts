@@ -39,4 +39,7 @@ export interface VentaBaseRow {
   importeT: string //
   acciones: string[] //
   compartir: string[] //
+   // Campos opcionales: presentes solo cuando la fila viene del filtro de renovación
+  vencimientoDisplay?: string
+  dias?: string
 }

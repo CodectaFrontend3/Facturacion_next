@@ -15,15 +15,17 @@ export default function RenovacionPage() {
       onFilterChange={handleFilterChange}
       onSearch={handleSearch}
       onReset={handleReset}
-      filterSelectConfig={{
-        name: "comprobante",
-        options: [
-          { label: "Todos los comprobantes", value: "Todos los comprobantes" },
-          { label: "Factura", value: "Factura" },
-          { label: "Boleta", value: "Boleta" },
-          { label: "Nota de Venta", value: "Nota de Venta" }
-        ]
-      }}
+      filterSelectConfig={
+        {
+          name: "comprobante",
+          options: [
+            { label: "Todos los comprobantes", value: "Todos los comprobantes" },
+            { label: "Factura", value: "Factura" },
+            { label: "Boleta", value: "Boleta" },
+            { label: "Nota de Venta", value: "Nota de Venta" }
+          ]
+        }
+      }
     />
   )
 }

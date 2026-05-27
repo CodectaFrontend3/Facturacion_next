@@ -21,27 +21,33 @@ export interface SummaryCard {
 }
 
 // --- RE-EXPORTACIONES LIMPIAS Y CENTRALIZADAS ---
-export type { 
-  RowData, 
-  VentaTotals, 
-  RenovacionState, 
+export type {
+  RowData,
+  VentaTotals,
+  RenovacionState,
   DocumentoBase,
   VentaBaseRow
 } from "./documento.types"
 
-export type { 
-  CotizacionRow, CotizacionManualRow, 
-  CotizacionCreateInput, CotizacionManualCreateInput, 
+export type {
+  CotizacionRow, CotizacionManualRow,
+  CotizacionCreateInput, CotizacionManualCreateInput,
   CotizacionDetail, CotizacionManualDetail
-} from "./cotizacion.types" //
+} from "./cotizacion.types"
 
-export type { 
-  ClienteFormData, 
-  ClienteRow 
-} from "./cliente.types" //
+export type {
+  ClienteFormData,
+  ClienteRow
+} from "./cliente.types"
 
 export type {
   NotaVentaCreateInput,
   NotaVentaDetail,
   NotaVentaRow
-} from "./nota_venta.types" //
+} from "./nota_venta.types"
+
+export type {
+  RenovacionCreateInput,
+  RenovacionDetail,
+  RenovacionRow
+} from "./renovacion.types"
