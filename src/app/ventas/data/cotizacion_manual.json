@@ -2,70 +2,137 @@
   {
     "id": "1",
     "numero": "CMF 001-00000001",
+    "clienteId": "1",
     "rucDni": "20123456789",
     "cliente": "Inversiones del Norte S.A.C.",
     "emision": "02/04/2026",
+    "vencimiento": "17/04/2026",
     "forma": "Contado",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "vendedor": "Sin Vendedor",
+    "notas": "",
+    "condiciones": "",
+    "observaciones": "Sujeto a stock.",
+    "productos": [
+      {
+        "id": "p1",
+        "codigo": "SRV-01",
+        "descripcion": "Servidor de Base de Datos",
+        "cantidad": 1,
+        "precioUnitario": 5029.48,
+        "descuento": 0,
+        "subtotal": 5029.48
+      }
+    ],
+    "subtotal": 4262.27,
+    "igv": 767.21,
+    "total": 5029.48,
     "importeT": "S/ 5,029.48",
-    "acciones": [
-      "eye",
-      "clock",
-      "check"
-    ],
-    "compartir": [
-      "envelope",
-      "whatsapp"
-    ],
+    "acciones": ["eye", "clock", "check"],
+    "compartir": ["envelope", "whatsapp"],
     "tab": "cotizacion-manual"
   },
   {
     "id": "2",
     "numero": "CMB 001-00000002",
+    "clienteId": "2",
     "rucDni": "10456789123",
     "cliente": "Juan Perez Ramos",
     "emision": "05/04/2026",
+    "vencimiento": "20/04/2026",
     "forma": "Crédito 15 días",
+    "moneda": "PEN",
+    "estado": "Aprobado",
+    "vendedor": "Vendedor A",
+    "notas": "",
+    "condiciones": "",
+    "observaciones": "Se debe enviar factura adjunta al correo.",
+    "productos": [
+      {
+        "id": "p2",
+        "codigo": "IMP-01",
+        "descripcion": "Impresora Multifuncional",
+        "cantidad": 1,
+        "precioUnitario": 1250.00,
+        "descuento": 0,
+        "subtotal": 1250.00
+      }
+    ],
+    "subtotal": 1059.32,
+    "igv": 190.68,
+    "total": 1250.00,
     "importeT": "S/ 1,250.00",
-    "acciones": [
-      "eye",
-      "check"
-    ],
-    "compartir": [
-      "whatsapp"
-    ],
+    "acciones": ["eye", "check"],
+    "compartir": ["whatsapp"],
     "tab": "cotizacion-manual"
   },
   {
     "id": "3",
     "numero": "CMV 001-00000003",
+    "clienteId": "3",
     "rucDni": "20556677889",
     "cliente": "Constructora Horizonte E.I.R.L.",
     "emision": "10/04/2026",
+    "vencimiento": "25/04/2026",
     "forma": "Transferencia",
+    "moneda": "PEN",
+    "estado": "Facturado",
+    "vendedor": "Vendedor B",
+    "notas": "",
+    "condiciones": "",
+    "observaciones": "Incluir instalación en obra.",
+    "productos": [
+      {
+        "id": "p3",
+        "codigo": "MAT-100",
+        "descripcion": "Lote de Materiales Eléctricos",
+        "cantidad": 1,
+        "precioUnitario": 12400.00,
+        "descuento": 0,
+        "subtotal": 12400.00
+      }
+    ],
+    "subtotal": 10508.47,
+    "igv": 1891.53,
+    "total": 12400.00,
     "importeT": "S/ 12,400.00",
-    "acciones": [
-      "eye",
-      "clock"
-    ],
-    "compartir": [
-      "envelope"
-    ],
+    "acciones": ["eye", "clock"],
+    "compartir": ["envelope"],
     "tab": "cotizacion-manual"
   },
   {
     "id": "4",
     "numero": "CMF 001-00000004",
+    "clienteId": "4",
     "rucDni": "10112233445",
     "cliente": "Carlos Ruiz Mendoza",
     "emision": "20/04/2026",
+    "vencimiento": "05/05/2026",
     "forma": "Contado",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "vendedor": "Vendedor A",
+    "notas": "",
+    "condiciones": "",
+    "observaciones": "",
+    "productos": [
+      {
+        "id": "p4",
+        "codigo": "CAB-02",
+        "descripcion": "Cable de Red Cat6 100m",
+        "cantidad": 1,
+        "precioUnitario": 420.00,
+        "descuento": 0,
+        "subtotal": 420.00
+      }
+    ],
+    "subtotal": 355.93,
+    "igv": 64.07,
+    "total": 420.00,
     "importeT": "S/ 420.00",
-    "acciones": [
-      "eye"
-    ],
-    "compartir": [
-      "whatsapp"
-    ],
+    "acciones": ["eye"],
+    "compartir": ["whatsapp"],
     "tab": "cotizacion-manual"
   }
 ]
