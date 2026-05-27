@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { VentasTabTemplate } from "../components/VentasTabTemplate"
-
-export default function NotaVentaPage() {
-  return <VentasTabTemplate activeTab="nota-venta" />
-=======
 "use client"
 
 import { useRouter } from "next/navigation"
@@ -35,5 +29,4 @@ export default function NotaVentaPage() {
       }}
     />
   )
->>>>>>> origin/rodrigo
 }

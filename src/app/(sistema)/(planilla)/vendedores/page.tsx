@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-export default function Page() {
-  return (
-    <main className="min-h-screen bg-white p-6">
-      <h2 className="text-xl font-semibold text-black">Vendedores</h2>
-    </main>
-  );
-}
-=======
 "use client";
 
 import { useSearchParams } from "next/navigation"
@@ -62,4 +53,3 @@ export default function VendedorPage() {
     </Suspense>
   );
 }
->>>>>>> origin/rodrigo

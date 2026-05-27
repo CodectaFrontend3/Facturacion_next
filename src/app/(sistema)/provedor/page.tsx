@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-export default function Page() {
-  return (
-    <main className="flex-1 bg-white p-6">
-      <h2 className="text-xl font-semibold text-black">Proveedores</h2>
-    </main>
-  );
-=======
 "use client"
 
 import { useState } from "react"
@@ -55,5 +47,4 @@ export default function Page() {
       />
     </>
   )
->>>>>>> origin/rodrigo
 }

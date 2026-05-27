@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-export default function Page() {
-  return (
-    <main className="min-h-screen bg-white p-6">
-      <h2 className="text-xl font-semibold text-black">Bandeja de Entrada</h2>
-    </main>
-=======
 "use client";
 
 import { useState, useEffect } from "react";
@@ -238,6 +231,5 @@ export default function EmailPage() {
         )}
       </div>
     </div>
->>>>>>> origin/rodrigo
   );
 }

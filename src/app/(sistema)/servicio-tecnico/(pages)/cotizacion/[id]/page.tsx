@@ -2,7 +2,7 @@
 
 import { useState, use } from "react";
 import { useRouter } from "next/navigation";
-import cotizacionData from "@/app/servicio-tecnico/data/cotizacionData.json";
+import cotizacionData from "@/app/(sistema)/servicio-tecnico/data/cotizacionData.json";
 import {
   ArrowLeft,
   Share2,

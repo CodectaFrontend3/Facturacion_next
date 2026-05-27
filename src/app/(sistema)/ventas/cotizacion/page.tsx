@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { VentasTabTemplate } from "../components/VentasTabTemplate"
-
-export default function CotizacionPage() {
-  return <VentasTabTemplate activeTab="cotizacion" />
-=======
 "use client"
 
 import { useRouter } from "next/navigation"
@@ -35,5 +29,4 @@ export default function CotizacionPage() {
       }}
     />
   )
->>>>>>> origin/rodrigo
 }

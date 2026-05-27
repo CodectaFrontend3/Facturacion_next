@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-export default function Page() {
-  return (
-    <main className="min-h-screen bg-white p-6">
-      <h2 className="text-xl font-semibold text-black">Configuración Email</h2>
-    </main>
-=======
 "use client";
 
 import { useState } from "react";
@@ -182,6 +175,5 @@ export default function ConfiguracionEmailPage() {
         
       </div>
     </div>
->>>>>>> origin/rodrigo
   );
 }

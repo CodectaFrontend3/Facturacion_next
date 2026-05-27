@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-export default function Page() {
-  return (
-    <main className="min-h-screen bg-white p-6">
-      <h2 className="text-xl font-semibold text-black">Papelera</h2>
-    </main>
-=======
 "use client";
 
 import { useState, useEffect } from "react";
@@ -220,6 +213,5 @@ export default function TrashPage() {
         )}
       </div>
     </div>
->>>>>>> origin/rodrigo
   );
 }

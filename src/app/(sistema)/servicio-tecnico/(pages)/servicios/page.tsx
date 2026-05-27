@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Servicio } from "@/app/(sistema)/servicio-tecnico/types/servicios/Servicio";
 import { ColumnDef } from "@tanstack/react-table";
 import { Clock9, ExternalLink, PlusIcon } from "lucide-react";
-import ServicioTecnicoData from "@/app/servicio-tecnico/data/servicioData.json";
+import ServicioTecnicoData from "@/app/(sistema)/servicio-tecnico/data/servicioData.json";
 import { DataFilters } from "@/components/DataFilters/DataFilters";
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { FilterSearch } from "@/components/DataFilters/FilterSearch";

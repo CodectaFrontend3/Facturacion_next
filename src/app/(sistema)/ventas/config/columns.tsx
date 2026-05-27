@@ -1,18 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table"
-<<<<<<< HEAD
-import { Checkbox } from "@/components/ui/checkbox"
-import { CotizacionRow } from "../types"
-import { ActionButton } from "@/components/common/ActionButton"
-
-export const getColumns = (): ColumnDef<CotizacionRow>[] => [
-=======
 import { CotizacionRow, ClienteRow } from "../types"
 import { RenovacionRow } from "../types"          
 import { ActionButton } from "@/components/common/ActionButton"
 
 // COLUMNAS PARA COTIZACIÓN
 const getCotizacionColumns = (): ColumnDef<CotizacionRow>[] => [
->>>>>>> origin/rodrigo
   { accessorKey: "id", header: "ID", size: 40 },
   {
     accessorKey: "numero",
@@ -69,8 +61,6 @@ const getCotizacionColumns = (): ColumnDef<CotizacionRow>[] => [
     }
   }
 ]
-<<<<<<< HEAD
-=======
 
 // COLUMNAS PARA COTIZACIÓN MANUAL
 const getCotizacionManualColumns = (): ColumnDef<CotizacionRow>[] => getCotizacionColumns()
@@ -178,4 +168,3 @@ export const getColumnsForTab = (tab: string): ColumnDef<any>[] => {
       return []
   }
 }
->>>>>>> origin/rodrigo

@@ -20,19 +20,6 @@ export interface SummaryCard {
   icon: ReactNode
 }
 
-<<<<<<< HEAD
-export interface CotizacionRow {
-  id: string | number
-  numero: string
-  rucDni: string
-  cliente: string
-  emision: string
-  forma: string
-  importeT: string
-  acciones: string[]
-  compartir: string[]
-}
-=======
 // --- RE-EXPORTACIONES LIMPIAS Y CENTRALIZADAS ---
 export type {
   RowData,
@@ -64,4 +51,3 @@ export type {
   RenovacionDetail,
   RenovacionRow
 } from "./renovacion.types"
->>>>>>> origin/rodrigo

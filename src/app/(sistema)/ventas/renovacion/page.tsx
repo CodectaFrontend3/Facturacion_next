@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { VentasTabTemplate } from "../components/VentasTabTemplate"
-
-export default function RenovacionPage() {
-  return <VentasTabTemplate activeTab="renovacion" />
-=======
 "use client"
 
 import { VentasTabTemplate } from "../components/VentasTabTemplate"
@@ -34,5 +28,4 @@ export default function RenovacionPage() {
       }
     />
   )
->>>>>>> origin/rodrigo
 }
