@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { Clock9, DownloadIcon, EyeIcon, Printer } from "lucide-react";
 
-import CotizacionData from "@/app/servicio-tecnico/data/cotizacionData.json";
+import CotizacionData from "@/app/(sistema)/servicio-tecnico/data/cotizacionData.json";
 import { DataFilters } from "@/components/DataFilters/DataFilters";
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { FilterSearch } from "@/components/DataFilters/FilterSearch";
