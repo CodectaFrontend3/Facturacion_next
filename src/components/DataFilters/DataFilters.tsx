@@ -27,7 +27,7 @@ function buildGridTemplate(total: number): string {
     const middleCount = Math.max(0, total - 2)
 
     if (total === 2) {
-        return `30% 55% ${actionsCol}`
+        return `40% 45% ${actionsCol}`
     }
 
     if (total === 3) {

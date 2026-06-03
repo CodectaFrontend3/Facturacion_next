@@ -20,7 +20,7 @@ export function FilterSearch({
     return (
         <div className="flex items-center gap-2">
             {label && (
-                <label className="text-sm text-[#676A6C] whitespace-nowrap font-sans">
+                <label className="text-[13px] font-bold text-[#676A6C] whitespace-nowrap">
                     {label}
                 </label>
             )}

@@ -43,7 +43,10 @@ function NotificationCarousel() {
 export default function AppHeader() {
     return (
         <header className="flex h-16 w-full items-center border-b border-[#e7eaec] bg-white px-4 py-2 font-sans">
-            <div className="flex items-center gap-2 pr-6">
+            <Link
+                href={'/inicio'}
+                className="flex items-center gap-2 pr-6"
+            >
                 <Image
                     src={"http://jypsac.dyndns.org:190/facturacion_20522045773/public/archivos/imagenes/layout/Leonosoft.png"}
                     alt="Leonosoft Logo"
@@ -56,7 +59,7 @@ export default function AppHeader() {
                     <span className="text-[#2641F8]">LEONO</span>
                     <span className="text-[#808080]">SOFT</span>
                 </h1>
-            </div>
+            </Link>
 
             <div className="flex flex-1 items-center justify-evenly">
                 {/* 1. seccion: tipos de cambio */}
