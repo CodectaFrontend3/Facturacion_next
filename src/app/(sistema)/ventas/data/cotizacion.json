@@ -1,0 +1,522 @@
+[
+  {
+    "id": 1,
+    "numero": "COTF 001-00000001",
+    "tab": "cotizacion",
+    "clienteId": 5,
+    "clienteNombre": "Tecnología Avanzada S.A.",
+    "rucDni": "20998877665",
+    "fechaEmision": "2026-04-12",
+    "fechaVencimiento": "2026-04-27",
+    "validezDias": 15,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Factura",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "formaPago": "Contado",
+    "garantia": "6 MESES",
+    "almacenId": 2,
+    "comisionistaId": null,
+    "vendedor": "Vendedor B",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud. Validez de 15 días. Pago contra entrega. Cliente solicitó descuento especial por volumen.",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+    "items": [
+      {
+        "id": 1,
+        "articleId": 5,
+        "codigo": "MON-001",
+        "detalle": "MONITOR GAMER LENOVO 24 PULGADAS",
+        "cantidad": 3,
+        "precioUnitario": 189.99,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 189.99,
+        "subtotal": 569.97,
+        "igv": 102.59,
+        "total": 672.56
+      },
+      {
+        "id": 2,
+        "articleId": 8,
+        "codigo": "MOU-002",
+        "detalle": "MOUSE OPTICO ALAMBRICO LENOVO",
+        "cantidad": 8,
+        "precioUnitario": 12.5,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 12.5,
+        "subtotal": 100.0,
+        "igv": 18.0,
+        "total": 118.0
+      }
+    ],
+    "totales": {
+      "subtotal": 669.97,
+      "igv": 120.59,
+      "total": 790.56
+    },
+    "acciones": [
+      "eye",
+      "check"
+    ],
+    "compartir": [
+      "whatsapp"
+    ]
+  },
+  {
+    "id": 2,
+    "numero": "COTB 001-00000002",
+    "tab": "cotizacion",
+    "clienteId": null,
+    "clienteNombre": "María Gonzales Diaz",
+    "rucDni": "10778899445",
+    "fechaEmision": "2026-04-14",
+    "fechaVencimiento": "2026-04-21",
+    "validezDias": 7,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Boleta",
+    "moneda": "PEN",
+    "estado": "Aprobado",
+    "formaPago": "Yape/Plin",
+    "garantia": "6 MESES",
+    "almacenId": 2,
+    "comisionistaId": null,
+    "vendedor": "Vendedor A",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud. Pago anticipado 100%. Requiere factura electrónica.",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+    "items": [
+      {
+        "id": 3,
+        "articleId": 7,
+        "codigo": "SIS-001",
+        "detalle": "INSTALACION DE SISTEMA OPERATIVO",
+        "cantidad": 1,
+        "precioUnitario": 25.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 25.0,
+        "subtotal": 25.0,
+        "igv": 4.5,
+        "total": 29.5
+      },
+      {
+        "id": 4,
+        "articleId": 12,
+        "codigo": "MAS-001",
+        "detalle": "SESION DE MASAJES DESCONTRACTURANTES",
+        "cantidad": 1,
+        "precioUnitario": 50.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 50.0,
+        "subtotal": 50.0,
+        "igv": 9.0,
+        "total": 59.0
+      }
+    ],
+    "totales": {
+      "subtotal": 75.0,
+      "igv": 13.5,
+      "total": 88.5
+    },
+    "acciones": [
+      "eye"
+    ],
+    "compartir": [
+      "envelope",
+      "whatsapp"
+    ]
+  },
+  {
+    "id": 3,
+    "numero": "COTV 001-00000003",
+    "tab": "cotizacion",
+    "clienteId": 4,
+    "clienteNombre": "Luis Garcia Mendoza",
+    "rucDni": "10445566778",
+    "fechaEmision": "2026-04-16",
+    "fechaVencimiento": "2026-05-01",
+    "validezDias": 15,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Nota de Venta",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "formaPago": "Contado",
+    "garantia": "1 AÑO",
+    "almacenId": 2,
+    "comisionistaId": null,
+    "vendedor": "Vendedor C",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud. Garantía de 1 año. Entrega a domicilio.",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+    "items": [
+      {
+        "id": 5,
+        "articleId": 9,
+        "codigo": "MON-002",
+        "detalle": "MONITOR LG 24 PULGADAS",
+        "cantidad": 2,
+        "precioUnitario": 600.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 600.0,
+        "subtotal": 1200.0,
+        "igv": 216.0,
+        "total": 1416.0
+      }
+    ],
+    "totales": {
+      "subtotal": 1200.0,
+      "igv": 216.0,
+      "total": 1416.0
+    },
+    "acciones": [
+      "eye"
+    ],
+    "compartir": [
+      "whatsapp"
+    ]
+  },
+  {
+    "id": 4,
+    "numero": "CMF 001-00000001",
+    "tab": "cotizacion-manual",
+    "clienteId": 1,
+    "clienteNombre": "Inversiones del Norte S.A.C.",
+    "rucDni": "20123456789",
+    "fechaEmision": "2026-04-02",
+    "fechaVencimiento": "2026-04-03",
+    "validezDias": 1,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Factura",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "formaPago": "Contado",
+    "garantia": "6 MESES",
+    "almacenId": 2,
+    "comisionistaId": null,
+    "vendedor": "",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+    "items": [
+      {
+        "id": 6,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "REPARACION DE MOUSE LENOVO",
+        "cantidad": 4,
+        "precioUnitario": 11.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 11.0,
+        "subtotal": 44.0,
+        "igv": 7.92,
+        "total": 51.92
+      },
+      {
+        "id": 7,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "TECLADO INALAMBRICO LENOVO",
+        "cantidad": 3,
+        "precioUnitario": 85.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 85.0,
+        "subtotal": 255.0,
+        "igv": 45.9,
+        "total": 300.9
+      },
+      {
+        "id": 8,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "MONITOR GAMER LENOVO 24 PULGADAS",
+        "cantidad": 2,
+        "precioUnitario": 189.99,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 189.99,
+        "subtotal": 379.98,
+        "igv": 68.4,
+        "total": 448.38
+      }
+    ],
+    "totales": {
+      "subtotal": 678.98,
+      "igv": 122.22,
+      "total": 801.2
+    },
+    "acciones": [
+      "eye",
+      "clock",
+      "check"
+    ],
+    "compartir": [
+      "envelope",
+      "whatsapp"
+    ]
+  },
+  {
+    "id": 5,
+    "numero": "CMF 001-00000002",
+    "tab": "cotizacion-manual",
+    "clienteId": 2,
+    "clienteNombre": "Juan Perez Ramos",
+    "rucDni": "10456789123",
+    "fechaEmision": "2026-04-05",
+    "fechaVencimiento": "2026-04-12",
+    "validezDias": 7,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Factura",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "formaPago": "Crédito 15 días",
+    "garantia": "6 MESES",
+    "almacenId": 2,
+    "comisionistaId": null,
+    "vendedor": "",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "renovacion": {
+      "isActive": true,
+      "fechaRenovacion": "2026-04-12"
+    },
+    "items": [
+      {
+        "id": 9,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "MANTENIMIENTO PREVENTIVO DE PC",
+        "cantidad": 4,
+        "precioUnitario": 45.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 45.0,
+        "subtotal": 180.0,
+        "igv": 32.4,
+        "total": 212.4
+      },
+      {
+        "id": 10,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "MOUSE OPTICO ALAMBRICO LENOVO",
+        "cantidad": 6,
+        "precioUnitario": 12.5,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 12.5,
+        "subtotal": 75.0,
+        "igv": 13.5,
+        "total": 88.5
+      }
+    ],
+    "totales": {
+      "subtotal": 255.0,
+      "igv": 45.9,
+      "total": 300.9
+    },
+    "acciones": [
+      "eye",
+      "check"
+    ],
+    "compartir": [
+      "whatsapp"
+    ]
+  },
+  {
+    "id": 6,
+    "numero": "CMB 001-00000001",
+    "tab": "cotizacion-manual",
+    "clienteId": 3,
+    "clienteNombre": "Constructora Horizonte E.I.R.L.",
+    "rucDni": "20556677889",
+    "fechaEmision": "2026-04-10",
+    "fechaVencimiento": "2026-04-25",
+    "validezDias": 15,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Boleta",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "formaPago": "Transferencia",
+    "garantia": "6 MESES",
+    "almacenId": 2,
+    "comisionistaId": null,
+    "vendedor": "",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+    "items": [
+      {
+        "id": 11,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "CARBOXITERAPIA",
+        "cantidad": 6,
+        "precioUnitario": 75.42,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 75.42,
+        "subtotal": 452.52,
+        "igv": 81.45,
+        "total": 533.97
+      },
+      {
+        "id": 12,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "LIMPIEZA FACIAL PROFUNDA",
+        "cantidad": 8,
+        "precioUnitario": 35.5,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 35.5,
+        "subtotal": 284.0,
+        "igv": 51.12,
+        "total": 335.12
+      }
+    ],
+    "totales": {
+      "subtotal": 736.52,
+      "igv": 132.57,
+      "total": 869.09
+    },
+    "acciones": [
+      "eye",
+      "clock"
+    ],
+    "compartir": [
+      "envelope"
+    ]
+  },
+  {
+    "id": 7,
+    "numero": "CMF 001-00000003",
+    "tab": "cotizacion-manual",
+    "clienteId": 4,
+    "clienteNombre": "Carlos Ruiz Mendoza",
+    "rucDni": "10112233445",
+    "fechaEmision": "2026-04-20",
+    "fechaVencimiento": "2026-04-21",
+    "validezDias": 1,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Factura",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "formaPago": "Contado",
+    "garantia": "6 MESES",
+    "almacenId": 2,
+    "comisionistaId": null,
+    "vendedor": "",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+    "items": [
+      {
+        "id": 13,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "INSTALACION DE SISTEMA OPERATIVO",
+        "cantidad": 6,
+        "precioUnitario": 25.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 25.0,
+        "subtotal": 150.0,
+        "igv": 27.0,
+        "total": 177.0
+      },
+      {
+        "id": 14,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "AURICULARES BLUETOOTH LENOVO",
+        "cantidad": 2,
+        "precioUnitario": 39.9,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 39.9,
+        "subtotal": 79.8,
+        "igv": 14.36,
+        "total": 94.16
+      }
+    ],
+    "totales": {
+      "subtotal": 229.8,
+      "igv": 41.36,
+      "total": 271.16
+    },
+    "acciones": [
+      "eye"
+    ],
+    "compartir": [
+      "whatsapp"
+    ]
+  },
+  {
+    "id": 8,
+    "numero": "CMV 001-00000001",
+    "tab": "cotizacion-manual",
+    "clienteId": 3,
+    "clienteNombre": "Constructora Horizonte E.I.R.L.",
+    "rucDni": "20556677889",
+    "fechaEmision": "2026-04-22",
+    "fechaVencimiento": "2026-04-29",
+    "validezDias": 7,
+    "tipoOperacion": "0101",
+    "tipoDocumento": "Nota de Venta",
+    "moneda": "PEN",
+    "estado": "Pendiente",
+    "formaPago": "Contado",
+    "garantia": "6 MESES",
+    "almacenId": 2,
+    "comisionistaId": null,
+    "vendedor": "",
+    "observacion": "Emitimos la siguiente Cotización a vuestra solicitud",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+    "items": [
+      {
+        "id": 15,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "MANTENIMIENTO PREVENTIVO DE PC",
+        "cantidad": 2,
+        "precioUnitario": 45.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 45.0,
+        "subtotal": 90.0,
+        "igv": 16.2,
+        "total": 106.2
+      },
+      {
+        "id": 16,
+        "articleId": null,
+        "codigo": "",
+        "detalle": "TECLADO INALAMBRICO LENOVO",
+        "cantidad": 2,
+        "precioUnitario": 85.0,
+        "descuentoPorcentaje": 0,
+        "precioConDescuento": 85.0,
+        "subtotal": 170.0,
+        "igv": 30.6,
+        "total": 200.6
+      }
+    ],
+    "totales": {
+      "subtotal": 260.0,
+      "igv": 46.8,
+      "total": 306.8
+    },
+    "acciones": [
+      "eye",
+      "check"
+    ],
+    "compartir": [
+      "whatsapp"
+    ]
+  }
+]

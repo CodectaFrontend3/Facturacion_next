@@ -1,4 +1,3 @@
-
 import { DocumentoBase , VentaBaseRow, RenovacionState} from "./documento.types"
 import { ClienteFormData } from "./cliente.types" 
 

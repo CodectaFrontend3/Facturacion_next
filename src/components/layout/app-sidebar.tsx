@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, type CSSProperties, type ReactNode } from "react"
+import { useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -10,15 +10,13 @@ import {
 	Sidebar,
 	SidebarContent,
 	SidebarFooter,
-	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-	SidebarProvider,
 	SidebarMenuSub,
 	SidebarMenuSubItem,
 	SidebarMenuSubButton,
-	SidebarInset,
+	useSidebar,
 } from "@/components/ui/sidebar"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -73,21 +71,21 @@ function getActiveMenuLabel(pathname: string, items: sidebarItem[]) {
 	return activeItem && activeItem.subPath ? activeItem.label : null
 }
 
-export default function AppSidebar({ children }: { children?: ReactNode }) {
+export default function AppSidebar() {
 	const pathname = usePathname()
 	const [openMenuState, setOpenMenuState] = useState<{ pathname: string; label: string | null } | null>(null)
-	const [isHovered, setIsHovered] = useState(false)
+	const { state, setOpen } = useSidebar()
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
 	const handleMouseEnter = () => {
 		if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
-		setIsHovered(true)
+		setOpen(true)
 	}
 
 	const handleMouseLeave = () => {
 		hoverTimeoutRef.current = setTimeout(() => {
-			setIsHovered(false)
+			setOpen(false)
 		}, 250)
 	}
 
@@ -97,34 +95,12 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 		: activeMenuLabel
 
 	return (
-		<SidebarProvider
-			open={isHovered}
-			onOpenChange={setIsHovered}
-			style={{ "--sidebar-width": "260px" } as CSSProperties}
+		<Sidebar
+			collapsible="icon"
+			className="border-none bg-[#1538A0] top-16 h-[calc(100svh-4rem)]"
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 		>
-			<Sidebar
-				collapsible="icon"
-				className="border-none bg-[#1538A0]"
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-			>
-				{/* Header: Logo + Brand */}
-				<SidebarHeader className="relative z-10 flex flex-row items-center justify-center gap-1 py-5 bg-white transition-all duration-500 ease-in-out group-data-[collapsible=icon]:px-0">
-					<Image
-						src={"http://jypsac.dyndns.org:190/facturacion_20522045773/public/archivos/imagenes/layout/Leonosoft.png"}
-						alt="Leonosoft Logo"
-						width={60}
-						height={60}
-						style={{ width: "auto", height: "auto" }}
-						className="drop-shadow-sm transition-all duration-500 ease-in-out"
-						priority
-					/>
-					<h1 className="text-[18px] font-bold tracking-wide transition-all duration-500 ease-in-out overflow-hidden group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
-						<span className="text-[#2641F8]">LEONO</span>
-						<span className="text-[#808080]">SOFT</span>
-					</h1>
-				</SidebarHeader>
-
 				{/* Navigation */}
 				<SidebarContent className="relative z-10 flex-1 overflow-hidden px-0">
 					<ScrollArea className="h-full">
@@ -178,7 +154,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 													</SidebarMenuButton>
 												</CollapsibleTrigger>
 												<CollapsibleContent className="overflow-hidden data-[state=closed]:animate-[collapsible-up_0.2s_ease-out] data-[state=open]:animate-[collapsible-down_0.2s_ease-out]">
-													<SidebarMenuSub className="m-0 p-0 gap-0 border-none space-y-0 flex-col">
+													<SidebarMenuSub className="m-0 p-0 gap-0 border-none space-y-0 flex-col translate-x-0 mx-0 px-0">
 														{item.subPath.map((subItem) => {
 															const subActive = subItem.path
 																? isActiveRoute(pathname, subItem.path)
@@ -193,7 +169,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 																					className={`
 																						group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-11 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																						hover:bg-[#09267B] hover:text-white cursor-pointer
-																						shadow-[inset_4px_0_0_0_white]
+																						shadow-[inset_4px_0_0_0_white] translate-x-0
 																						data-[active=true]:text-white
 																						group-data-[state=closed]/subcollapsible:data-[active=true]:bg-[#09267B]
 																					`}
@@ -213,7 +189,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 																									className={`
 																										group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-16 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																										hover:bg-[#09267B] hover:text-white
-																										shadow-[inset_4px_0_0_0_white]
+																										shadow-[inset_4px_0_0_0_white] translate-x-0
 																										data-[active=true]:bg-[#09267B] data-[active=true]:text-white
 																									`}
 																								>
@@ -236,7 +212,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 																			className={`
 																				group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-11 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																				hover:bg-[#09267B] hover:text-white
-																				shadow-[inset_4px_0_0_0_white]
+																				shadow-[inset_4px_0_0_0_white] translate-x-0
 																				data-[active=true]:bg-[#09267B] data-[active=true]:text-white
 																			`}
 																		>
@@ -321,7 +297,7 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 								side="top"
 								align="end"
 								sideOffset={8}
-								className={`w-38 bg-white text-black border-gray-200 p-1 ${!isHovered ? "hidden" : ""}`}
+								className={`w-38 bg-white text-black border-gray-200 p-1 ${state === "collapsed" ? "hidden" : ""}`}
 							>
 								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
 									<i className="fa fa-user-circle-o mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
@@ -344,11 +320,5 @@ export default function AppSidebar({ children }: { children?: ReactNode }) {
 					</div>
 				</SidebarFooter>
 			</Sidebar>
-			{children && (
-				<SidebarInset>
-					{children}
-				</SidebarInset>
-			)}
-		</SidebarProvider>
 	)
 }

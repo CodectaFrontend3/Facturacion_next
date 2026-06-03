@@ -26,9 +26,9 @@ export function VentaItemsTable({ mode, rows, onUpdate, onRemove, onAddEmpty }: 
   const fmt = (n: number) => (n || 0).toFixed(2)
 
   // Clases estandarizadas para mantener el diseño compacto
-  const inputStyle = "w-full h-9 border border-gray-200 rounded-sm px-2 text-[13px] text-center outline-none focus:border-blue-400 transition-colors"
-  const disabledInputClass = "w-full h-9 border border-gray-200 rounded-sm px-2 py-1.5 text-[13px] bg-[#f1f5f9] text-center focus:outline-none"
-  const headerClass = "py-3 px-2 text-[11px] font-extrabold text-[#4f566b] uppercase"
+  const inputStyle = "w-full h-9 border border-gray-200 rounded-none px-2 text-[13px] text-center outline-none focus:border-blue-400 transition-colors"
+  const disabledInputClass = "w-full h-9 border border-gray-200 rounded-none px-2 py-1.5 text-[13px] bg-[#e9ecef] text-center focus:outline-none"
+  const headerClass = "py-3 px-2 text-[13px] font-extrabold text-[#676a6c]"
 
   // Estilo estandarizado para botones tipo píldora (Descuentos)
   const pillStyle = "w-full h-9 border rounded-full text-[13px] text-center transition-colors focus:outline-none font-bold flex items-center justify-center"

@@ -1,5 +1,5 @@
 import { ClienteRow, ClienteFormData } from "../../types/cliente.types"
-import mockDataRaw from "../../data/cliente-mock.json"
+import mockDataRaw from "../../data/cliente.json"
 
 // Convertimos el mock en un array mutable en memoria para simular backend
 let inMemoryMockData: any[] = [...mockDataRaw]

@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { VentasTabTemplate } from "../components/VentasTabTemplate"
-
-export default function ClientesPage() {
-  return <VentasTabTemplate activeTab="clientes" />
-=======
 "use client"
 
 import { useState } from "react"
@@ -54,5 +48,4 @@ export default function ClientesPage() {
       />
     </>
   )
->>>>>>> origin/rodrigo
 }

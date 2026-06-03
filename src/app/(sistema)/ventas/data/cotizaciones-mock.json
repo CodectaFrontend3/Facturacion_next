@@ -2,13 +2,6 @@
   {
     "id": "1",
     "numero": "CM-0001",
-<<<<<<< HEAD
-    "rucDni": "20123456789",
-    "cliente": "Inversiones del Norte S.A.C.",
-    "emision": "02/04/2026",
-    "forma": "Contado",
-    "importeT": "S/ 5,029.48",
-=======
     "clienteId": "1",
     "clienteNombre": "Inversiones del Norte S.A.C.",
     "rucDni": "20123456789",
@@ -70,7 +63,6 @@
       "total": 800.2964
     },
     "importeT": "S/ 800.30",
->>>>>>> origin/rodrigo
     "acciones": [
       "eye",
       "clock",
@@ -85,13 +77,6 @@
   {
     "id": "2",
     "numero": "CM-0002",
-<<<<<<< HEAD
-    "rucDni": "10456789123",
-    "cliente": "Juan Perez Ramos",
-    "emision": "05/04/2026",
-    "forma": "Crédito 15 días",
-    "importeT": "S/ 1,250.00",
-=======
     "clienteId": "2",
     "clienteNombre": "Juan Perez Ramos",
     "rucDni": "10456789123",
@@ -142,7 +127,6 @@
       "total": 300.9
     },
     "importeT": "S/ 300.90",
->>>>>>> origin/rodrigo
     "acciones": [
       "eye",
       "check"
@@ -155,13 +139,6 @@
   {
     "id": "3",
     "numero": "CM-0003",
-<<<<<<< HEAD
-    "rucDni": "20556677889",
-    "cliente": "Constructora Horizonte E.I.R.L.",
-    "emision": "10/04/2026",
-    "forma": "Transferencia",
-    "importeT": "S/ 12,400.00",
-=======
     "clienteId": "3",
     "clienteNombre": "Constructora Horizonte E.I.R.L.",
     "rucDni": "20556677889",
@@ -212,7 +189,6 @@
       "total": 869.0936
     },
     "importeT": "S/ 869.09",
->>>>>>> origin/rodrigo
     "acciones": [
       "eye",
       "clock"
@@ -225,13 +201,6 @@
   {
     "id": "4",
     "numero": "CM-0004",
-<<<<<<< HEAD
-    "rucDni": "10112233445",
-    "cliente": "Carlos Ruiz Mendoza",
-    "emision": "20/04/2026",
-    "forma": "Contado",
-    "importeT": "S/ 420.00",
-=======
     "clienteId": "4",
     "clienteNombre": "Carlos Ruiz Mendoza",
     "rucDni": "10112233445",
@@ -282,7 +251,6 @@
       "total": 271.164
     },
     "importeT": "S/ 271.16",
->>>>>>> origin/rodrigo
     "acciones": [
       "eye"
     ],
@@ -294,13 +262,6 @@
   {
     "id": "1",
     "numero": "C-0001",
-<<<<<<< HEAD
-    "rucDni": "20998877665",
-    "cliente": "Tecnología Avanzada S.A.",
-    "emision": "12/04/2026",
-    "forma": "Contado",
-    "importeT": "S/ 3,450.20",
-=======
     "clienteId": "5",
     "clienteNombre": "Tecnología Avanzada S.A.",
     "rucDni": "20998877665",
@@ -351,7 +312,6 @@
       "total": 790.5646
     },
     "importeT": "S/ 790.56",
->>>>>>> origin/rodrigo
     "acciones": [
       "eye",
       "check"
@@ -364,13 +324,6 @@
   {
     "id": "2",
     "numero": "C-0002",
-<<<<<<< HEAD
-    "rucDni": "10778899445",
-    "cliente": "María Gonzales Diaz",
-    "emision": "14/04/2026",
-    "forma": "Yape/Plin",
-    "importeT": "S/ 85.00",
-=======
     "clienteId": "custom-maria-gonzales",
     "clienteNombre": "María Gonzales Diaz",
     "rucDni": "10778899445",
@@ -421,7 +374,6 @@
       "total": 88.5
     },
     "importeT": "S/ 88.50",
->>>>>>> origin/rodrigo
     "acciones": [
       "eye"
     ],
@@ -430,26 +382,5 @@
       "whatsapp"
     ],
     "tab": "cotizacion"
-<<<<<<< HEAD
-  },
-  {
-    "id": "1",
-    "numero": "NV-0001",
-    "rucDni": "20334455661",
-    "cliente": "Comercializadora Sur S.A.C.",
-    "emision": "18/04/2026",
-    "forma": "Crédito 30 días",
-    "importeT": "S/ 8,900.50",
-    "acciones": [
-      "eye",
-      "clock",
-      "check"
-    ],
-    "compartir": [
-      "envelope"
-    ],
-    "tab": "nota-venta"
-=======
->>>>>>> origin/rodrigo
   }
 ]

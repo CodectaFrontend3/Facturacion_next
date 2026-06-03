@@ -42,7 +42,7 @@ export function FilterDateRange({
     return (
         <div className="flex items-center gap-2">
             {label && (
-                <label className="text-[13px] text-[#676A6C] whitespace-nowrap font-sans">
+                <label className="text-[13px] text-[#676A6C] whitespace-nowrap font-bold">
                     {label}
                 </label>
             )}
