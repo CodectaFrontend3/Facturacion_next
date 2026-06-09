@@ -3,19 +3,22 @@
 import { useState } from "react"
 import { useFacturacionFilters } from "../hooks/useFacturacionFilters"
 import { TabsNav } from "@/app/(sistema)/ventas/components/TabsNav"
-import { CardLayout } from "./CardLayout"
+import { CardLayout } from "../../../_components/CardLayout"
 import { DataFilters } from "@/components/DataFilters/DataFilters"
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange"
 import { FilterSearch } from "@/components/DataFilters/FilterSearch"
 import { DataTable } from "@/components/shared/DataTable"
-import { type TabConfig } from "../types"
-import tabsRaw from "../data/tabs.json"
+import { type TabConfig } from "../../../types/tab"
+import { type CardConfig } from "../../../types/card"
+import tabsRaw from "../../../data/facturacion/tabs.json"
+import cardsRaw from "../../../data/facturacion/cards.json"
 import { getFacturacionColumns } from "../config/columns"
 import { ActionButton } from "@/components/common/ActionButton"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const tabConfigs: TabConfig[] = tabsRaw as TabConfig[]
+const cardConfigs: CardConfig[] = cardsRaw as CardConfig[]
 
 interface FacturacionElectronicaTemplateProps {
   activeTab: "facturas" | "enviados_facturas" | "factura_manual" | "enviados_manual" | "detracciones"
@@ -52,7 +55,7 @@ export default function FacturacionElectronicaTemplate({
   return (
     <div className="flex flex-col w-full font-sans">
       <div className="mb-5">
-        <CardLayout counts={counts} />
+        <CardLayout cardConfigs={cardConfigs} counts={counts} />
       </div>
 
       <section className="bg-white rounded-md border border-gray-200 shadow-sm p-5">
@@ -61,7 +64,7 @@ export default function FacturacionElectronicaTemplate({
             <div className="flex items-center">
               <TabsNav tabs={tabs} />
             </div>
-            <div className="pb-1">
+            
               <ActionButton
                 icon={
                   <>
@@ -77,7 +80,6 @@ export default function FacturacionElectronicaTemplate({
                   {label: "PDF", onClick: () => console.log('Exportar CSV')},
                 ]}
               />
-            </div>
           </div>
 
           <div className="border-x border-b border-gray-200 bg-white p-4 space-y-4 rounded-b-sm">

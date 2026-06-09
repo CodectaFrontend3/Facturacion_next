@@ -5,6 +5,8 @@ export interface FacturacionRow {
   rucDni: string
   cliente: string
   fechaCreacion: string
+  fechaEmision?: string
+  precioTotal?: string | number
   sunatStatus: "enviado" | "pendiente" | "error"
 }
 
@@ -14,26 +16,4 @@ export interface FacturacionData {
   factura_manual: FacturacionRow[]
   enviados_manual: FacturacionRow[]
   detracciones: FacturacionRow[]
-}
-
-export interface FacturacionFilters {
-  searchValue: string
-  dateFrom: string
-  dateTo: string
-  entriesCount: string
-}
-
-export interface TabConfig {
-  key: string
-  label: string
-  color: string
-  href: string
-}
-
-export interface CardConfig {
-  key: string
-  iconClass: string
-  label: string
-  ringColorClass: string
-  metaLabel: string
 }

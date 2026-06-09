@@ -1,0 +1,46 @@
+[
+  {
+    "id": "fe-201",
+    "item": 1,
+    "codigo": "F001-0001035",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA ACME S.A.C.",
+    "fechaCreacion": "02/05/2026",
+    "fechaEmision": "02-05-2026",
+    "precioTotal": "S/ 1,250.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-202",
+    "item": 2,
+    "codigo": "F001-0001036",
+    "rucDni": "20334875962",
+    "cliente": "COMERCIAL EXPORTADORA ANDINA",
+    "fechaCreacion": "03/05/2026",
+    "fechaEmision": "03-05-2026",
+    "precioTotal": "S/ 850.50",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-203",
+    "item": 3,
+    "codigo": "F001-0001037",
+    "rucDni": "10224589761",
+    "cliente": "MARÍA FERNANDA SÁNCHEZ DIAZ",
+    "fechaCreacion": "05/05/2026",
+    "fechaEmision": "05-05-2026",
+    "precioTotal": "S/ 3,100.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-204",
+    "item": 4,
+    "codigo": "F001-0001038",
+    "rucDni": "20608899441",
+    "cliente": "TECNOLOGÍA Y DESARROLLO PERÚ S.A.",
+    "fechaCreacion": "08/05/2026",
+    "fechaEmision": "08-05-2026",
+    "precioTotal": "S/ 95.00",
+    "sunatStatus": "enviado"
+  }
+]

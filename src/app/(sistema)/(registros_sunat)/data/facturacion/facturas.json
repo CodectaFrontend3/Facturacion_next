@@ -1,0 +1,47 @@
+[
+  {
+    "id": "f-101",
+    "item": 1,
+    "codigo": "F001-0001042",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA ACME S.A.C.",
+    "fechaCreacion": "10/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "f-102",
+    "item": 2,
+    "codigo": "F001-0001043",
+    "rucDni": "20104875962",
+    "cliente": "INVERSIONES SAN JOSÉ E.I.R.L.",
+    "fechaCreacion": "12/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "f-103",
+    "item": 3,
+    "codigo": "F001-0001044",
+    "rucDni": "10457896321",
+    "cliente": "CARLOS ALBERTO GÓMEZ PÉREZ",
+    "fechaCreacion": "15/05/2026",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "f-104",
+    "item": 4,
+    "codigo": "F001-0001045",
+    "rucDni": "20601248759",
+    "cliente": "CONSTRUCTORA DEL NORTE S.A.",
+    "fechaCreacion": "18/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "f-105",
+    "item": 5,
+    "codigo": "F001-0001046",
+    "rucDni": "20498765231",
+    "cliente": "SERVICIOS LOGÍSTICOS INTEGRALES S.A.C.",
+    "fechaCreacion": "22/05/2026",
+    "sunatStatus": "pendiente"
+  }
+]

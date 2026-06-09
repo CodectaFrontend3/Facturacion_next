@@ -1,9 +1,20 @@
 import { useTableData } from "@/hooks/useTableData"
-import { FacturacionRow, FacturacionData } from "../types"
-import mockDataRaw from "../data/facturacion.json"
+import { FacturacionRow, FacturacionData } from "@/app/(sistema)/(registros_sunat)/types/facturacion"
 import { parse, isValid, isWithinInterval } from "date-fns"
 
-const mockData: FacturacionData = mockDataRaw as FacturacionData
+import facturas from "@/app/(sistema)/(registros_sunat)/data/facturacion/facturas.json"
+import enviados_facturas from "@/app/(sistema)/(registros_sunat)/data/facturacion/enviadas_facturas.json"
+import factura_manual from "@/app/(sistema)/(registros_sunat)/data/facturacion/factura_manual.json"
+import enviados_manual from "@/app/(sistema)/(registros_sunat)/data/facturacion/enviadas_manual.json"
+import detracciones from "@/app/(sistema)/(registros_sunat)/data/facturacion/detracciones.json"
+
+const mockData: FacturacionData = {
+  facturas: facturas as any,
+  enviados_facturas: enviados_facturas as any,
+  factura_manual: factura_manual as any,
+  enviados_manual: enviados_manual as any,
+  detracciones: detracciones as any
+}
 
 const DATE_FORMAT_INPUT = "dd/MM/yyyy"
 const DATE_FORMAT_DATA = "dd/MM/yyyy"

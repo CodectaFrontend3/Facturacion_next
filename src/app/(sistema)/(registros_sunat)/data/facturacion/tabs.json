@@ -9,19 +9,19 @@
     "key": "enviados_facturas",
     "label": "Enviados",
     "color": "#ffa500",
-    "href": "/facturacion_electronica/enviados_facturas"
+    "href": "/facturacion_electronica/enviadas"
   },
   {
     "key": "factura_manual",
     "label": "Factura Manual",
     "color": "#28a745",
-    "href": "/facturacion_electronica/factura_manual"
+    "href": "/facturas_m_electronicas"
   },
   {
     "key": "enviados_manual",
     "label": "Enviados",
     "color": "#dc3545",
-    "href": "/facturacion_electronica/enviados_manual"
+    "href": "/facturas_m_electronicas/enviadas"
   },
   {
     "key": "detracciones",

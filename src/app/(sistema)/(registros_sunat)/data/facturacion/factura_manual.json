@@ -1,0 +1,29 @@
+[
+  {
+    "id": "fm-301",
+    "item": 1,
+    "codigo": "F002-0000015",
+    "rucDni": "20887766554",
+    "cliente": "HOTELES Y RESTAURANTES DEL PERÚ S.A.C.",
+    "fechaCreacion": "04/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-302",
+    "item": 2,
+    "codigo": "F002-0000016",
+    "rucDni": "10874521369",
+    "cliente": "JUAN CARLOS BENITES AGUILAR",
+    "fechaCreacion": "11/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-303",
+    "item": 3,
+    "codigo": "F002-0000017",
+    "rucDni": "20445588991",
+    "cliente": "AGROINDUSTRIAS DEL SUR S.A.",
+    "fechaCreacion": "20/05/2026",
+    "sunatStatus": "pendiente"
+  }
+]
