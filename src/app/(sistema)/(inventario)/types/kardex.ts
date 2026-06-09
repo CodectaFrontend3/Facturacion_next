@@ -55,3 +55,11 @@ export interface KardexTrasladoRow {
   productos: KardexProductoDetalle[];
   fecha_traslado: string;
 }
+
+export interface KardexSalidaRow {
+  id: string;
+  motivo: string;
+  informacion: string;
+  productos: KardexProductoDetalle[];
+  fecha_salida: string;
+}
