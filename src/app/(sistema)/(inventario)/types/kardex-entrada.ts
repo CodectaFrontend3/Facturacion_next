@@ -33,3 +33,14 @@ export interface KardexEntradaRow {
   total: number;
   estado: KardexEstadoTipo;
 }
+
+// Productos que salen del inventario por una venta, o por un ajuste de inventario, etc.
+export interface KardexDistribucionRow {
+  id: string;
+  codigo: string;
+  fecha_distribucion: string;
+  cantidad_productos: string;
+  cantidad_distribuida: string;
+  almacen: number | string;
+  guia_remision: string;
+}
