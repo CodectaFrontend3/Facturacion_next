@@ -38,7 +38,9 @@ export function TabsNav({ tabs }: TabsNavProps) {
             >
               {tab.count}
             </span>
-            {tab.label}
+            <span className="text-[13px] font-bold">
+              {tab.label}
+            </span>
           </Link>
         )
       })}

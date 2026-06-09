@@ -1,0 +1,72 @@
+[
+  {
+    "id": 101,
+    "cliente": "Tecnologías Avanzadas S.A.",
+    "servicio_tecnico": "Mantenimiento Preventivo",
+    "orden_servicio": "OS-2026-001",
+    "fecha_registrada": "27-03-2026"
+  },
+  {
+    "id": 102,
+    "cliente": "Juan Pérez",
+    "servicio_tecnico": "Reparación de Pantalla",
+    "orden_servicio": "OS-2026-002",
+    "fecha_registrada": "28-03-2026"
+  },
+  {
+    "id": 103,
+    "cliente": "Constructora del Norte",
+    "servicio_tecnico": "Instalación de Redes",
+    "orden_servicio": "OS-2026-003",
+    "fecha_registrada": "15-04-2026"
+  },
+  {
+    "id": 104,
+    "cliente": "María García",
+    "servicio_tecnico": "Limpieza de Software",
+    "orden_servicio": "OS-2026-004",
+    "fecha_registrada": "20-04-2026"
+  },
+  {
+    "id": 105,
+    "cliente": "Logística Express",
+    "servicio_tecnico": "Cambio de Batería",
+    "orden_servicio": "OS-2026-005",
+    "fecha_registrada": "22-04-2026"
+  },
+  {
+    "id": 106,
+    "cliente": "Estudio Jurídico Asociados",
+    "servicio_tecnico": "Recuperación de Datos",
+    "orden_servicio": "OS-2026-006",
+    "fecha_registrada": "25-04-2026"
+  },
+  {
+    "id": 107,
+    "cliente": "Carlos Ruiz",
+    "servicio_tecnico": "Actualización de Firmware",
+    "orden_servicio": "OS-2026-007",
+    "fecha_registrada": "28-04-2026"
+  },
+  {
+    "id": 108,
+    "cliente": "Clínica Santa María",
+    "servicio_tecnico": "Revisión de Servidores",
+    "orden_servicio": "OS-2026-008",
+    "fecha_registrada": "01-05-2026"
+  },
+  {
+    "id": 109,
+    "cliente": "Ana Martínez",
+    "servicio_tecnico": "Soporte Remoto",
+    "orden_servicio": "OS-2026-009",
+    "fecha_registrada": "03-05-2026"
+  },
+  {
+    "id": 110,
+    "cliente": "Supermercados Global",
+    "servicio_tecnico": "Configuración de TPV",
+    "orden_servicio": "OS-2026-010",
+    "fecha_registrada": "04-05-2026"
+  }
+]

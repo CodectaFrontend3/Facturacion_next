@@ -1,0 +1,24 @@
+[
+  {
+    "id": "fme-401",
+    "item": 1,
+    "codigo": "F002-0000010",
+    "rucDni": "20887766554",
+    "cliente": "HOTELES Y RESTAURANTES DEL PERÚ S.A.C.",
+    "fechaCreacion": "01/05/2026",
+    "fechaEmision": "01-05-2026",
+    "precioTotal": "S/ 512.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-402",
+    "item": 2,
+    "codigo": "F002-0000011",
+    "rucDni": "20124578963",
+    "cliente": "TRANSPORTES CUTERVO S.A.",
+    "fechaCreacion": "02/05/2026",
+    "fechaEmision": "02-05-2026",
+    "precioTotal": "S/ 1,480.00",
+    "sunatStatus": "enviado"
+  }
+]

@@ -22,6 +22,7 @@ export interface ActionButtonProps {
   popoverOptions?: ActionPopoverOption[]
   popoverContent?: React.ReactNode
   className?: string
+  disabled?: boolean
 }
 
 export function ActionButton({
@@ -35,7 +36,8 @@ export function ActionButton({
   isPopover,
   popoverOptions,
   popoverContent,
-  className
+  className,
+  disabled
 }: ActionButtonProps) {
 
   const base = "inline-flex items-center justify-center gap-2 rounded font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring cursor-pointer border"
@@ -50,7 +52,13 @@ export function ActionButton({
     md: text ? "h-9 px-4 text-[13px]" : "h-9 w-9 p-0",
   }
 
-  const btnClass = cn(base, variants[variant], sizes[size], className)
+  const btnClass = cn(
+    base,
+    variants[variant],
+    sizes[size],
+    disabled && "opacity-50 cursor-not-allowed pointer-events-none hover:translate-y-0 hover:shadow-none shadow-none",
+    className
+  )
 
   const renderButton = () => {
     if (href && !isPopover) {
@@ -66,7 +74,8 @@ export function ActionButton({
       <button
         type="button"
         className={btnClass}
-        onClick={!isPopover ? onClick : undefined}
+        onClick={!isPopover && !disabled ? onClick : undefined}
+        disabled={disabled}
         aria-label={label ?? text}
         title={label ?? text}
       >
@@ -82,7 +91,7 @@ export function ActionButton({
         <PopoverTrigger asChild>
           {renderButton()}
         </PopoverTrigger>
-        <PopoverContent className="w-fit min-w-[144px] p-2" align="end">
+        <PopoverContent className="w-fit min-w-[144px] rounded-none p-2" align="end">
           {popoverContent ? (
             popoverContent
           ) : (
@@ -91,7 +100,7 @@ export function ActionButton({
                 <Button
                   key={idx}
                   variant="ghost"
-                  className="w-full justify-start font-normal h-8 px-2"
+                  className="w-full justify-start font-normal rounded-none h-8 px-2 hover:pl-4 transition-all duration-175 cursor-pointer"
                   asChild={!!option.href}
                   onClick={option.onClick}
                 >

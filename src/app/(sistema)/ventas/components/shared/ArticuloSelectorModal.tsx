@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useMemo, useCallback } from "react"
-import articulosMock from "../../cotizacion/crear/articulo.json"
+import articulosMock from "../../data/articulo-mock.json"
 
 interface ArticuloSelectorModalProps {
   isOpen: boolean

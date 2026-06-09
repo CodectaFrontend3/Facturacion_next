@@ -1,7 +1,7 @@
 [
 	{
 		"label": "Inicio",
-		"path": "/",
+		"path": "/inicio",
 		"icon": "Home"
 	},
 	{
@@ -21,7 +21,7 @@
 	},
 	{
 		"label": "Garantias",
-		"path": "/garantia_guia_ingreso",
+		"path": "/garantia/ingreso",
 		"icon": "ShieldCheck"
 	},
 	{
