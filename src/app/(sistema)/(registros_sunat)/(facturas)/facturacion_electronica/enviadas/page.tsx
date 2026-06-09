@@ -42,10 +42,6 @@ export default function Page() {
     }
   })
 
-  const handleSend = (selectedRows: FacturacionRow[]) => {
-    console.log("Enviar facturas enviadas seleccionadas a SUNAT:", selectedRows)
-  }
-
   return (
     <RegistrosSunatTemplate<FacturacionRow>
       tabs={tabs}
@@ -55,8 +51,6 @@ export default function Page() {
       cardPeriodLabel="Resumen de Mayo del 2026"
       columns={columns}
       data={enviadasFacturasData as FacturacionRow[]}
-      onSend={handleSend}
-      sendButtonLabel="Enviar"
     />
   )
 }

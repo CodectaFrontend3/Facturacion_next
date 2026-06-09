@@ -2,19 +2,21 @@
   {
     "id": "d-501",
     "item": 1,
-    "codigo": "DET-0008451",
-    "rucDni": "20554879631",
-    "cliente": "DISTRIBUIDORA ACME S.A.C.",
-    "fechaCreacion": "09/05/2026",
-    "sunatStatus": "enviado"
+    "codigo": "FA00-00000003",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "11-04-2026",
+    "montoTotal": "S/ 800.0000000000001",
+    "montoDetraccion": "S/. 80",
+    "sunatStatus": "error"
   },
   {
     "id": "d-502",
     "item": 2,
-    "codigo": "DET-0008452",
-    "rucDni": "20601248759",
-    "cliente": "CONSTRUCTORA DEL NORTE S.A.",
-    "fechaCreacion": "14/05/2026",
-    "sunatStatus": "pendiente"
+    "codigo": "FA00-00000004",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "12-04-2026",
+    "montoTotal": "S/ 1,200.00",
+    "montoDetraccion": "S/. 120",
+    "sunatStatus": "enviado"
   }
 ]

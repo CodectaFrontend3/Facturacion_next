@@ -2,11 +2,14 @@ export interface FacturacionRow {
   id: string | number
   item: number
   codigo: string
-  rucDni: string
-  cliente: string
-  fechaCreacion: string
+  rucDni?: string
+  cliente?: string
+  fechaCreacion?: string
   fechaEmision?: string
   precioTotal?: string | number
+  tipoDoc?: string
+  montoTotal?: string | number
+  montoDetraccion?: string | number
   sunatStatus: "enviado" | "pendiente" | "error"
 }
 
