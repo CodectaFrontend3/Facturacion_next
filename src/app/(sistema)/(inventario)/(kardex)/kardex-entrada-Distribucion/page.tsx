@@ -1,6 +1,6 @@
 "use client";
 
-import { KardexDistribucionRow } from "../../types/kardex-entrada";
+import { KardexDistribucionRow } from "../../types/kardex";
 import DistribucionProducto from "../../data/DistribucionProducto.json";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";

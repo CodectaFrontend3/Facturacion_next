@@ -5,7 +5,7 @@ import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { FilterSearch } from "@/components/DataFilters/FilterSearch";
 import { useEntradaTable } from "../../hooks/useEntradaTable";
 import EntradaProducto from "../../data/EntradaProducto.json";
-import { KardexEntradaRow } from "../../types/kardex-entrada";
+import { KardexEntradaRow } from "../../types/kardex";
 import { DataTable } from "@/components/shared/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import { Trash2 } from "lucide-react";

@@ -1,5 +1,5 @@
 import { useTableData } from "@/hooks/useTableData";
-import { KardexEntradaRow } from "../types/kardex-entrada";
+import { KardexEntradaRow } from "../types/kardex";
 import {
   parse,
   isValid,

@@ -44,3 +44,14 @@ export interface KardexDistribucionRow {
   almacen: number | string;
   guia_remision: string;
 }
+
+export interface KardexTrasladoRow {
+  id: string;
+  codigo: string;
+  motivo: string;
+  categoria: string;
+  almacen_origen: number | string;
+  almacen_destino: number | string;
+  productos: KardexProductoDetalle[];
+  fecha_traslado: string;
+}

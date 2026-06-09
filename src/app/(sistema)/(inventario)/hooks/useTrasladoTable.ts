@@ -1,5 +1,5 @@
 import { useTableData } from "@/hooks/useTableData";
-import { KardexDistribucionRow } from "../types/kardex";
+import { KardexTrasladoRow } from "../types/kardex";
 import {
   parse,
   isValid,
@@ -14,11 +14,11 @@ const DATE_FORMAT_DATA = "dd/MM/yyyy";
 
 // Función de filtrado
 const filterFn = (
-  data: KardexDistribucionRow[],
+  data: KardexTrasladoRow[],
   values: Record<string, string>,
 ) => {
   return data.filter((c) => {
-    // 1. Buscador de texto (Id o Codigo)
+    // 1. Buscador de texto (Id, Codigo o Motivo)
     const matchSearch =
       !values.search ||
       String(c.id).toLowerCase().includes(values.search.toLowerCase()) ||
@@ -28,7 +28,7 @@ const filterFn = (
     let matchFecha = true;
 
     if (values.fechaDesde || values.fechaHasta) {
-      const dateC = parse(c.fecha_distribucion, DATE_FORMAT_DATA, new Date());
+      const dateC = parse(c.fecha_traslado, DATE_FORMAT_DATA, new Date());
 
       if (isValid(dateC)) {
         // Normalizamos la fecha del registro al inicio del día
@@ -74,7 +74,7 @@ const filterFn = (
   });
 };
 
-export function useDistribucionTable(data: KardexDistribucionRow[]) {
+export function useTrasladoTable(data: KardexTrasladoRow[]) {
   const table = useTableData({
     data,
     filterFn,
