@@ -1,7 +1,13 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import type { ReactNode } from "react"
+import { SummaryBox } from "./components/SummaryBox"
+import { DateInput } from "./components/DateInput"
+import { FieldGroup } from "./components/FieldGroup"
+import { DepositModal } from "./components/DepositModal"
+import { PaymentModal } from "./components/PaymentModal"
+import { ViewModal, type Transaction } from "./components/ViewModal"
+import mockData from "./data/tesoreria-mock.json"
 
 type CashBoxTotals = {
   income: number
@@ -20,6 +26,10 @@ export default function CajaChicaPage() {
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   const [isCashBoxOpen, setIsCashBoxOpen] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false)
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null)
   const [pageSize, setPageSize] = useState("10")
   const [searchValue, setSearchValue] = useState("")
 
@@ -73,12 +83,40 @@ export default function CajaChicaPage() {
             >
               Cerrar Caja
             </button>
-            <button
-              type="button"
-              className="h-[38px] rounded-[5px] bg-[#2447b9] px-4 text-[13px] font-bold text-white transition-colors hover:bg-[#1d3a9a] active:bg-[#172f7d]"
-            >
-              Agregar
-            </button>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)}
+                className="h-[38px] rounded-[5px] bg-[#2447b9] px-4 text-[13px] font-bold text-white transition-colors hover:bg-[#1d3a9a] active:bg-[#172f7d]"
+              >
+                Agregar
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute right-0 top-[calc(100%+4px)] z-10 w-[120px] rounded-[5px] border border-[#d8d8d8] bg-white py-1.5 shadow-[0_4px_14px_rgba(0,0,0,0.1)]">
+                  <button
+                    type="button"
+                    onMouseDown={() => {
+                      setIsDropdownOpen(false)
+                      setIsDepositModalOpen(true)
+                    }}
+                    className="block w-full px-4 py-2 text-left text-[14px] text-[#374151] hover:bg-[#f3f4f6]"
+                  >
+                    Recargar
+                  </button>
+                  <button
+                    type="button"
+                    onMouseDown={() => {
+                      setIsDropdownOpen(false)
+                      setIsPaymentModalOpen(true)
+                    }}
+                    className="block w-full px-4 py-2 text-left text-[14px] text-[#374151] hover:bg-[#f3f4f6]"
+                  >
+                    Pagar
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-[170px_1fr_290px] md:items-end">
@@ -122,17 +160,42 @@ export default function CajaChicaPage() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td colSpan={7} className="h-[44px] text-center text-[13px] text-[#374151]">
-                    No hay datos disponibles en la tabla
-                  </td>
-                </tr>
+                {mockData.length > 0 ? (
+                  mockData.map((item) => (
+                    <tr key={item.nro_pago} className="border-b border-[#d8d8d8] text-center text-[13px] text-[#374151] hover:bg-[#f9fafb]">
+                      <td className="h-[44px] px-3">{item.nro_pago}</td>
+                      <td className="h-[44px] px-3">{item.fecha}</td>
+                      <td className="h-[44px] px-3">{item.dni}</td>
+                      <td className="h-[44px] px-3">{item.nombres}</td>
+                      <td className="h-[44px] px-3">{item.tipo}</td>
+                      <td className="h-[44px] px-3">{formatMoney(item.monto)}</td>
+                      <td className="h-[44px] bg-[#f7f7f8] px-3">
+                        <div className="flex justify-center gap-2">
+                          <button 
+                            type="button" 
+                            onClick={() => setSelectedTransaction(item as Transaction)}
+                            className="rounded-[4px] bg-[#2447b9] px-3 py-1.5 text-[12px] text-white hover:bg-[#1d3a9a]"
+                          >
+                            Ver
+                          </button>
+                          <button type="button" className="rounded-[4px] bg-[#f04458] px-3 py-1.5 text-[12px] text-white hover:bg-[#d83a4d]">PDF</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} className="h-[44px] text-center text-[13px] text-[#374151]">
+                      No hay datos disponibles en la tabla
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
 
           <div className="mt-3 grid grid-cols-1 items-center gap-4 md:grid-cols-3">
-            <p className="text-[13px] text-[#4b5563]">Mostrando 0 a 0 de 0 registros</p>
+            <p className="text-[13px] text-[#4b5563]">Mostrando {mockData.length > 0 ? 1 : 0} a {mockData.length} de {mockData.length} registros</p>
             <div className="flex justify-center">
               <div className="inline-flex overflow-hidden rounded-[5px] border border-[#d8d8d8] bg-white text-[13px] text-[#4b5563]">
                 <button type="button" className="h-[29px] border-r border-[#d8d8d8] px-3">Anterior</button>
@@ -153,38 +216,16 @@ export default function CajaChicaPage() {
           </button>
         </div>
       )}
+
+      {isDepositModalOpen && (
+        <DepositModal onClose={() => setIsDepositModalOpen(false)} />
+      )}
+      {isPaymentModalOpen && (
+        <PaymentModal onClose={() => setIsPaymentModalOpen(false)} />
+      )}
+      {selectedTransaction && (
+        <ViewModal transaction={selectedTransaction} onClose={() => setSelectedTransaction(null)} />
+      )}
     </main>
-  )
-}
-
-function SummaryBox({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex h-[44px] items-center justify-center rounded-[7px] border-2 border-[#333333] bg-white text-center text-[13px] font-extrabold">
-      {label}: {value}
-    </div>
-  )
-}
-
-function DateInput({ value, onChange }: { value: string; onChange: (value: string) => void }) {
-  return (
-    <div className="relative">
-      <input
-        type="text"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder="dd/mm/aaaa"
-        className="h-[40px] w-full rounded-[5px] border border-[#d8d8d8] bg-white px-3 pr-10 text-[13px] text-[#374151] outline-none transition-colors placeholder:text-[#4b5563] focus:border-[#2447b9]"
-      />
-      <i className="bi bi-calendar-event absolute right-3 top-1/2 -translate-y-1/2 text-[13px] text-black" />
-    </div>
-  )
-}
-
-function FieldGroup({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 block text-[13px] font-extrabold">{label}</span>
-      {children}
-    </label>
   )
 }

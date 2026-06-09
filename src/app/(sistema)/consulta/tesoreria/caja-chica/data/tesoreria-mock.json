@@ -1,0 +1,41 @@
+[
+  {
+    "nro_pago": "00007",
+    "fecha": "2026-06-09",
+    "dni": "87654321",
+    "nombres": "Pedro",
+    "tipo": "Depósito",
+    "monto": 100.00,
+    "descripcion": "Abono inicial",
+    "metodo_pago": "Transferencia",
+    "nro_operacion": "TRX-9876543",
+    "comprobante": "ticket_001.pdf",
+    "observaciones": "Todo conforme"
+  },
+  {
+    "nro_pago": "00006",
+    "fecha": "2026-06-09",
+    "dni": "12345678",
+    "nombres": "Keiko",
+    "tipo": "Personal",
+    "monto": 52000.00,
+    "descripcion": "Adelanto de sueldo",
+    "metodo_pago": "Efectivo",
+    "nro_operacion": "",
+    "comprobante": "",
+    "observaciones": ""
+  },
+  {
+    "nro_pago": "00005",
+    "fecha": "2026-06-09",
+    "dni": "12345678",
+    "nombres": "Keiko",
+    "tipo": "Caja",
+    "monto": 52000.00,
+    "descripcion": "Pago a proveedor",
+    "metodo_pago": "Yape",
+    "nro_operacion": "YPE-1234567",
+    "comprobante": "yape_voucher.png",
+    "observaciones": "Urgente"
+  }
+]
