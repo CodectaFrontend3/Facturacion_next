@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "tipo": "nota_venta",
+    "numero": "NV 001-00000018",
+
+    "fechaEmision": "2026-04-18",
+    "estado": "Emitida",
+    "observacion": "Emitimos la siguiente Nota de Venta...",
+
+
+    "clienteId": "1",
+    "almacenId": "2",
+    
+    "moneda": "soles",
+    "formaPago": "Contado",
+    "garantia" :  "3 MESES",
+
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "9",
+        "descripcion": "DEPILACION LASER SOPRANO... No es el nombre,es  una breve descripcion",
+        "cantidad": 2,
+        "precioAsignado": 150.00
+      }
+    ]
+  }
+]
