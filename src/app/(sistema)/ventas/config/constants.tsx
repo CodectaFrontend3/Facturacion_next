@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { Tab, SummaryCard } from "../types"
-import cotizacionData from "../data/cotizacion.json"
+import cotizacionData from "../data/cotizaciones-mock.json"
 import notaVentaData from "../data/nota_venta.json"
 import clientesData from "../data/cliente.json"
 

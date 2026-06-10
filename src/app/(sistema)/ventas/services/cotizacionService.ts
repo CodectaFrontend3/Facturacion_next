@@ -18,8 +18,14 @@ export async function fetchCotizaciones(filters: FetchCotizacionesFilters): Prom
   // TODO: Implementar lógica de llamado al backend con los filtros
   // Ejemplo: return axios.get('/api/cotizaciones', { params: filters }).then(res => res.data)
 
-  // Filtramos la data mockeada por pestaña
-  const filteredData = mockData.filter(row => row.tab === filters.tab)
+  // Filtramos la data mockeada por pestaña o por renovación activa
+  let filteredData = []
+
+  if (filters.tab === "renovacion") {
+    filteredData = mockData.filter((row: any) => row.renovacion?.isActive === true)
+  } else {
+    filteredData = mockData.filter((row: any) => row.tab === filters.tab)
+  }
 
   return filteredData
 }
