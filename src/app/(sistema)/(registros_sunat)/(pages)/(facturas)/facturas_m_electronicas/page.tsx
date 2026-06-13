@@ -1,7 +1,7 @@
 "use client"
 
 import { RegistrosSunatTemplate } from "../../../_components/RegistrosSunatTemplate"
-import { getFacturacionColumns } from "../facturacion_electronica/config/columns"
+import { getFacturacionColumns } from "../config/columns"
 import facturasData from "@/app/(sistema)/(registros_sunat)/data/facturacion/facturas.json"
 import enviadasFacturasData from "@/app/(sistema)/(registros_sunat)/data/facturacion/enviadas_facturas.json"
 import facturaManualData from "@/app/(sistema)/(registros_sunat)/data/facturacion/factura_manual.json"

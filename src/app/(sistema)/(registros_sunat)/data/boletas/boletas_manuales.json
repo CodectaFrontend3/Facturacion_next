@@ -1,0 +1,12 @@
+[
+  {
+    "id": "bm-101",
+    "item": 1,
+    "codigo": "B002-0000001",
+    "rucDni": "10986543219",
+    "cliente": "JOSE CASTRO HERRERA",
+    "fechaCreacion": "20/05/2026",
+    "fechaEmision": "20/05/2026",
+    "sunatStatus": "pendiente"
+  }
+]

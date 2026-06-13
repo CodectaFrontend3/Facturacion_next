@@ -1,0 +1,13 @@
+[
+  {
+    "id": "ebm-101",
+    "item": 1,
+    "codigo": "B002-0000002",
+    "rucDni": "09873412",
+    "cliente": "ROSA MEZA ARANIBAR",
+    "fechaCreacion": "22/05/2026",
+    "fechaEmision": "22/05/2026",
+    "precioTotal": 85.00,
+    "sunatStatus": "enviado"
+  }
+]

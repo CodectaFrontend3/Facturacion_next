@@ -1,0 +1,22 @@
+[
+  {
+    "id": "b-101",
+    "item": 1,
+    "codigo": "B001-0000001",
+    "rucDni": "10427896351",
+    "cliente": "JUAN PEREZ GONZALES",
+    "fechaCreacion": "15/05/2026",
+    "fechaEmision": "15/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "b-102",
+    "item": 2,
+    "codigo": "B001-0000002",
+    "rucDni": "09876543",
+    "cliente": "MARIA RODRIGUEZ DIAZ",
+    "fechaCreacion": "18/05/2026",
+    "fechaEmision": "18/05/2026",
+    "sunatStatus": "pendiente"
+  }
+]

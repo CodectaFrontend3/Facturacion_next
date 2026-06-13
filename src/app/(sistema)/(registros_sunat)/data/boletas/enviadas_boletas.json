@@ -1,0 +1,24 @@
+[
+  {
+    "id": "eb-101",
+    "item": 1,
+    "codigo": "B001-0000003",
+    "rucDni": "45781296",
+    "cliente": "CARLOS LOPEZ SILVA",
+    "fechaCreacion": "10/05/2026",
+    "fechaEmision": "10/05/2026",
+    "precioTotal": 120.50,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-102",
+    "item": 2,
+    "codigo": "B001-0000004",
+    "rucDni": "20548963254",
+    "cliente": "SERVICIOS INDUSTRIALES S.A.C.",
+    "fechaCreacion": "12/05/2026",
+    "fechaEmision": "12/05/2026",
+    "precioTotal": 450.00,
+    "sunatStatus": "enviado"
+  }
+]
