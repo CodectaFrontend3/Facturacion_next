@@ -39,10 +39,10 @@ const ToastComponent = ({
     <div
       onClick={handleClick}
       style={{ backgroundColor: bgColor }}
-      className={`relative flex items-center w-75 min-h-15 h-auto pl-12.5 pr-3.75 py-3 rounded-md text-white border border-white/10 ${shadowStyle} cursor-pointer transition-all duration-1000 ease-in-out pointer-events-auto select-none ${
+      className={`relative flex items-center w-75 min-h-15 h-auto pl-12.5 pr-3.75 py-3 rounded-md text-white border border-white/10 ${shadowStyle} cursor-pointer transition-all duration-1000 ease-in-out pointer-events-auto select-none animate-toast-in ${
         clicked 
           ? "opacity-0 scale-95 translate-y-2 blur-[2px]" 
-          : "opacity-85 hover:opacity-100 hover:scale-[1.01]"
+          : "opacity-95 hover:opacity-100 hover:scale-[1.01]"
       }`}
     >
       {/* Icon container - absolutely positioned on the left */}

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react"
+import { showToast } from "@/components/shared/custom-toast"
 
 export interface SunatFilterState {
   searchValue: string
@@ -33,6 +34,7 @@ export function useSunatFilters<T>({
 
   const applyFilters = () => {
     setAppliedFilters({ ...pendingFilters })
+    showToast("Se han aplicado los filtros correctamente", 1)
   }
 
   const resetFilters = () => {
