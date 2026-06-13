@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { type ColumnDef } from "@tanstack/react-table"
 import { type CardConfig } from "../types/card"
 import { type TabConfig } from "../types/tab"
+import { useSunatFilters } from "../_hooks/useSunatFilters"
 
 // Componente local SunatTabsNav que renderiza las pestañas sin números y con un cuadrado de color
 interface SunatTabsNavProps {
@@ -69,6 +70,10 @@ interface RegistrosSunatTemplateProps<TData> {
   onSend?: (selectedRows: TData[]) => void
   sendButtonLabel?: string
   exportOptions?: { label: string; onClick: () => void }[]
+
+  // Configuración de campos de filtro para el hook
+  searchFields?: (keyof TData)[]
+  dateField?: keyof TData
 }
 
 export function RegistrosSunatTemplate<TData>({
@@ -86,35 +91,27 @@ export function RegistrosSunatTemplate<TData>({
     { label: "CDR", onClick: () => console.log("Exportar CDR") },
     { label: "PDF", onClick: () => console.log("Exportar PDF") },
   ],
+  searchFields = [],
+  dateField,
 }: RegistrosSunatTemplateProps<TData>) {
   const [pageSize, setPageSize] = useState(10)
   const [pageIndex, setPageIndex] = useState(0)
   const [selectedRows, setSelectedRows] = useState<TData[]>([])
 
-  // Estado local para los filtros de la interfaz
-  const [pendingFilters, setPendingFilters] = useState({
-    searchValue: "",
-    dateFrom: "05/01/2026",
-    dateTo: "05/31/2026",
+  // Consumimos el hook reutilizable para manejar el filtrado
+  const {
+    pendingFilters,
+    setFilterValue,
+    applyFilters,
+    resetFilters,
+    filteredData,
+  } = useSunatFilters({
+    data,
+    searchFields,
+    dateField,
   })
 
-  const setFilterValue = (name: string, value: string) => {
-    setPendingFilters((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const applyFilters = () => {
-    console.log("Aplicando filtros en la interfaz:", pendingFilters)
-  }
-
-  const resetFilters = () => {
-    setPendingFilters({
-      searchValue: "",
-      dateFrom: "05/01/2026",
-      dateTo: "05/31/2026",
-    })
-  }
-
-  const totalEntries = data.length
+  const totalEntries = filteredData.length
   const pageCount = Math.ceil(totalEntries / pageSize)
 
   return (
@@ -202,7 +199,7 @@ export function RegistrosSunatTemplate<TData>({
             <div className="mt-1 border border-gray-200 overflow-hidden rounded-none bg-white [&_div.border]:border-0 [&_div.border]:rounded-none">
               <DataTable
                 columns={columns}
-                data={data}
+                data={filteredData}
                 pageSize={pageSize}
                 showSelection={true}
                 showPagination={false}

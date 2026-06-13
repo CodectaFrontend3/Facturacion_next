@@ -1,6 +1,6 @@
 "use client"
 
-import { RegistrosSunatTemplate } from "../../../_components/RegistrosSunatTemplate"
+import { RegistrosSunatTemplate } from "../../../../_components/RegistrosSunatTemplate"
 import { getEnviadasColumns } from "../../facturacion_electronica/config/columns"
 import facturasData from "@/app/(sistema)/(registros_sunat)/data/facturacion/facturas.json"
 import enviadasFacturasData from "@/app/(sistema)/(registros_sunat)/data/facturacion/enviadas_facturas.json"
@@ -51,6 +51,8 @@ export default function Page() {
       cardPeriodLabel="Resumen de Mayo del 2026"
       columns={columns}
       data={enviadasManualData as FacturacionRow[]}
+      searchFields={["cliente", "rucDni", "codigo"]}
+      dateField="fechaEmision"
     />
   )
 }

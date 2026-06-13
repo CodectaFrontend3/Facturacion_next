@@ -1,7 +1,7 @@
 "use client"
 
 import { RegistrosSunatTemplate } from "../../../_components/RegistrosSunatTemplate"
-import { getEnviadasColumns } from "../config/columns"
+import { getFacturacionColumns } from "../facturacion_electronica/config/columns"
 import facturasData from "@/app/(sistema)/(registros_sunat)/data/facturacion/facturas.json"
 import enviadasFacturasData from "@/app/(sistema)/(registros_sunat)/data/facturacion/enviadas_facturas.json"
 import facturaManualData from "@/app/(sistema)/(registros_sunat)/data/facturacion/factura_manual.json"
@@ -17,7 +17,7 @@ const cardConfigs = cardsRaw as CardConfig[]
 const tabConfigs = tabsRaw as TabConfig[]
 
 export default function Page() {
-  const columns = getEnviadasColumns()
+  const columns = getFacturacionColumns()
 
   // Calcular conteos de tarjetas acumulando los datos de cada archivo json
   const cardCounts = {
@@ -42,15 +42,23 @@ export default function Page() {
     }
   })
 
+  const handleSend = (selectedRows: FacturacionRow[]) => {
+    console.log("Enviar facturas manuales seleccionadas a SUNAT:", selectedRows)
+  }
+
   return (
     <RegistrosSunatTemplate<FacturacionRow>
       tabs={tabs}
-      activeTab="enviados_facturas"
+      activeTab="factura_manual"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
       cardPeriodLabel="Resumen de Mayo del 2026"
       columns={columns}
-      data={enviadasFacturasData as FacturacionRow[]}
+      data={facturaManualData as FacturacionRow[]}
+      onSend={handleSend}
+      sendButtonLabel="Enviar"
+      searchFields={["cliente", "rucDni", "codigo"]}
+      dateField="fechaEmision"
     />
   )
 }

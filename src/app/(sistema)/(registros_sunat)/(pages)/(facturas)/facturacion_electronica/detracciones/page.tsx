@@ -1,7 +1,7 @@
 "use client"
 
-import { RegistrosSunatTemplate } from "../../_components/RegistrosSunatTemplate"
-import { getFacturacionColumns } from "./config/columns"
+import { RegistrosSunatTemplate } from "../../../../_components/RegistrosSunatTemplate"
+import { getDetraccionesColumns } from "../config/columns"
 import facturasData from "@/app/(sistema)/(registros_sunat)/data/facturacion/facturas.json"
 import enviadasFacturasData from "@/app/(sistema)/(registros_sunat)/data/facturacion/enviadas_facturas.json"
 import facturaManualData from "@/app/(sistema)/(registros_sunat)/data/facturacion/factura_manual.json"
@@ -17,7 +17,7 @@ const cardConfigs = cardsRaw as CardConfig[]
 const tabConfigs = tabsRaw as TabConfig[]
 
 export default function Page() {
-  const columns = getFacturacionColumns()
+  const columns = getDetraccionesColumns()
 
   // Calcular conteos de tarjetas acumulando los datos de cada archivo json
   const cardCounts = {
@@ -42,21 +42,17 @@ export default function Page() {
     }
   })
 
-  const handleSend = (selectedRows: FacturacionRow[]) => {
-    console.log("Enviar facturas seleccionadas a SUNAT:", selectedRows)
-  }
-
   return (
     <RegistrosSunatTemplate<FacturacionRow>
       tabs={tabs}
-      activeTab="facturas"
+      activeTab="detracciones"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
       cardPeriodLabel="Resumen de Mayo del 2026"
       columns={columns}
-      data={facturasData as FacturacionRow[]}
-      onSend={handleSend}
-      sendButtonLabel="Enviar"
+      data={detraccionesData as FacturacionRow[]}
+      searchFields={["cliente", "rucDni", "codigo"]}
+      dateField="fechaEmision"
     />
   )
 }
