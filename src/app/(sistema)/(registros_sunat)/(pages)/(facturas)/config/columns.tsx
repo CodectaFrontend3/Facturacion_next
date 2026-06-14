@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { type ColumnDef } from "@tanstack/react-table"
 import { type FacturacionRow } from "@/app/(sistema)/(registros_sunat)/types/facturacion"
-import { Check, Clock, X } from "lucide-react"
+import { Check, Clock, X, CloudUpload } from "lucide-react"
 import { ActionButton } from "@/components/common/ActionButton"
 
 // Columnas para la pestaña principal de Facturación Electrónica (Facturas Activas)
@@ -45,28 +45,12 @@ export const getFacturacionColumns = (): ColumnDef<FacturacionRow>[] => [
       </div>
     ),
     size: 120,
-    cell: ({ row }) => {
-      const status = row.original.sunatStatus
-      
-      let icon = null
-      let statusClass = ""
-
-      if (status === "enviado") {
-        icon = <Check className="w-4 h-4 text-white" strokeWidth={3} />
-        statusClass = "bg-[#1ab394] hover:bg-[#18a689]! border-[#1ab394]"
-      } else if (status === "pendiente") {
-        icon = <Clock className="w-4 h-4 text-white" strokeWidth={3} />
-        statusClass = "bg-[#f8ac59] hover:bg-[#f7a54a]! border-[#f8ac59]"
-      } else if (status === "error") {
-        icon = <X className="w-4 h-4 text-white" strokeWidth={3} />
-        statusClass = "bg-[#ed5565] hover:bg-[#ec4758]! border-[#ed5565]"
-      }
-
+    cell: () => {
       return (
         <div className="flex justify-center items-center">
           <ActionButton
-            icon={icon}
-            className={`rounded-full! w-8 h-8! p-0! flex items-center justify-center border-0 text-white ${statusClass}`}
+            icon={<CloudUpload className="w-4.5 h-4.5 text-white" strokeWidth={2.5} />}
+            className="rounded-full! w-8 h-8! p-0! flex items-center justify-center border-0 text-white bg-[#1c84c6] hover:bg-[#1a7bb9]!"
           />
         </div>
       )
@@ -125,15 +109,28 @@ export const getEnviadasColumns = (): ColumnDef<FacturacionRow>[] => [
       </div>
     ),
     size: 100,
-    cell: () => (
-      <div className="flex justify-center items-center">
-        {/* Círculo de verificación cyan/teal idéntico al mockup */}
-        <ActionButton
-          icon={<Check className="w-3.5 h-3.5" strokeWidth={4} />}
-          className={`rounded-full! w-8 h-8! p-0! flex items-center justify-center border-0 text-white bg-[#00c0a3]`}
-        />
-      </div>
-    ),
+    cell: ({ row }) => {
+      const status = row.original.sunatStatus
+      let icon = null
+      let statusClass = ""
+
+      if (status === "enviado") {
+        icon = <Check className="w-3.5 h-3.5" strokeWidth={4} />
+        statusClass = "bg-[#00c0a3] hover:bg-[#00a88f]!"
+      } else {
+        icon = <X className="w-3.5 h-3.5 text-white" strokeWidth={4} />
+        statusClass = "bg-[#ed5565] hover:bg-[#ec4758]!"
+      }
+
+      return (
+        <div className="flex justify-center items-center">
+          <ActionButton
+            icon={icon}
+            className={`rounded-full! w-8 h-8! p-0! flex items-center justify-center border-0 text-white ${statusClass}`}
+          />
+        </div>
+      )
+    },
   },
   {
     id: "xml",
@@ -228,29 +225,17 @@ export const getDetraccionesColumns = (): ColumnDef<FacturacionRow>[] => [
     size: 100,
     cell: ({ row }) => {
       const status = row.original.sunatStatus
-      
-      let icon = null
-      let statusClass = ""
-
-      if (status === "enviado") {
-        icon = <Check className="w-4 h-4 text-white" strokeWidth={3} />
-        statusClass = "bg-[#1ab394] hover:bg-[#18a689]! border-[#1ab394]"
-      } else if (status === "pendiente") {
-        icon = <Clock className="w-4 h-4 text-white" strokeWidth={3} />
-        statusClass = "bg-[#f8ac59] hover:bg-[#f7a54a]! border-[#f8ac59]"
-      } else if (status === "error") {
-        icon = <X className="w-4 h-4 text-white" strokeWidth={3} />
-        statusClass = "bg-[#ed5565] hover:bg-[#ec4758]! border-[#ed5565]"
+      if (status === "error") {
+        return (
+          <div className="flex justify-center items-center">
+            <ActionButton
+              icon={<X className="w-3.5 h-3.5 text-white" strokeWidth={4} />}
+              className="rounded-full! w-8 h-8! p-0! flex items-center justify-center border-0 text-white bg-[#ed5565] hover:bg-[#ec4758]!"
+            />
+          </div>
+        )
       }
-
-      return (
-        <div className="flex justify-center items-center">
-          <ActionButton
-            icon={icon}
-            className={`rounded-full! w-8 h-8! p-0! flex items-center justify-center border-0 text-white ${statusClass}`}
-          />
-        </div>
-      )
+      return null
     },
   },
   {

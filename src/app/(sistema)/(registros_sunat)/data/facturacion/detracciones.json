@@ -17,6 +17,6 @@
     "fechaEmision": "12-04-2026",
     "montoTotal": "S/ 1,200.00",
     "montoDetraccion": "S/. 120",
-    "sunatStatus": "enviado"
+    "sunatStatus": "error"
   }
 ]
