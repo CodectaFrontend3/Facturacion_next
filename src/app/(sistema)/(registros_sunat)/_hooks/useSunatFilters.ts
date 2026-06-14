@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react"
-import { showToast } from "@/components/shared/custom-toast"
+import { useMemo } from "react"
+import { useTableData } from "@/hooks/useTableData"
 
 export interface SunatFilterState {
   searchValue: string
@@ -18,84 +18,84 @@ export function useSunatFilters<T>({
   searchFields = [],
   dateField,
 }: UseSunatFiltersProps<T>) {
-  // Estado para los filtros pendientes en la UI
-  const [pendingFilters, setPendingFilters] = useState<SunatFilterState>({
-    searchValue: "",
-    dateFrom: "05/01/2026",
-    dateTo: "05/31/2026",
-  })
 
-  // Estado para los filtros aplicados al hacer clic en "Buscar"
-  const [appliedFilters, setAppliedFilters] = useState<SunatFilterState>({ ...pendingFilters })
+  // Definimos la función de filtrado compatible con useTableData
+  const filterFn = useMemo(() => {
+    return (items: T[], values: Record<string, string>) => {
+      const searchValue = values.searchValue || ""
+      const dateFromVal = values.dateFrom || ""
+      const dateToVal = values.dateTo || ""
 
-  const setFilterValue = (name: string, value: string) => {
-    setPendingFilters((prev) => ({ ...prev, [name]: value }))
-  }
+      return items.filter((item) => {
+        // 1. Filtrado por rango de fechas (DD/MM/YYYY)
+        if (dateField && (dateFromVal || dateToVal)) {
+          const itemDateVal = item[dateField]
+          if (itemDateVal) {
+            const itemDateStr = String(itemDateVal)
 
-  const applyFilters = () => {
-    setAppliedFilters({ ...pendingFilters })
-    showToast("Se han aplicado los filtros correctamente", 1)
-  }
+            const parseDate = (dStr: string) => {
+              const parts = dStr.split("/")
+              if (parts.length === 3) {
+                // DD/MM/YYYY -> Date (mes es 0-indexed)
+                return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]))
+              }
+              return new Date(dStr)
+            }
 
-  const resetFilters = () => {
-    const defaultFilters = {
+            const dateItem = parseDate(itemDateStr)
+            
+            if (dateFromVal) {
+              const dateFrom = parseDate(dateFromVal)
+              if (dateItem < dateFrom) return false
+            }
+            
+            if (dateToVal) {
+              const dateTo = parseDate(dateToVal)
+              dateTo.setHours(23, 59, 59, 999) // Incluir todo el día final
+              if (dateItem > dateTo) return false
+            }
+          }
+        }
+
+        // 2. Filtrado por búsqueda de texto
+        if (searchValue.trim() !== "" && searchFields.length > 0) {
+          const query = searchValue.toLowerCase()
+          const match = searchFields.some((field) => {
+            const val = item[field]
+            return val ? String(val).toLowerCase().includes(query) : false
+          })
+          if (!match) return false
+        }
+
+        return true
+      })
+    }
+  }, [searchFields, dateField])
+
+  // Delegamos el estado de los filtros y la paginación al hook centralizado useTableData
+  const {
+    filteredData,
+    pendingFilters,
+    setFilterValue,
+    applyFilters,
+    resetFilters,
+  } = useTableData({
+    data,
+    filterFn,
+    initialFilters: {
       searchValue: "",
       dateFrom: "05/01/2026",
       dateTo: "05/31/2026",
-    }
-    setPendingFilters(defaultFilters)
-    setAppliedFilters(defaultFilters)
-  }
-
-  // Filtrado de los datos locales de manera reactiva y eficiente
-  const filteredData = useMemo(() => {
-    return data.filter((item) => {
-      // 1. Filtrado por rango de fechas (DD/MM/YYYY)
-      if (dateField && (appliedFilters.dateFrom || appliedFilters.dateTo)) {
-        const itemDateVal = item[dateField]
-        if (itemDateVal) {
-          const itemDateStr = String(itemDateVal)
-
-          const parseDate = (dStr: string) => {
-            const parts = dStr.split("/")
-            if (parts.length === 3) {
-              // DD/MM/YYYY -> Date (mes es 0-indexed)
-              return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]))
-            }
-            return new Date(dStr)
-          }
-
-          const dateItem = parseDate(itemDateStr)
-          
-          if (appliedFilters.dateFrom) {
-            const dateFrom = parseDate(appliedFilters.dateFrom)
-            if (dateItem < dateFrom) return false
-          }
-          
-          if (appliedFilters.dateTo) {
-            const dateTo = parseDate(appliedFilters.dateTo)
-            dateTo.setHours(23, 59, 59, 999) // Incluir todo el día final
-            if (dateItem > dateTo) return false
-          }
-        }
-      }
-
-      // 2. Filtrado por búsqueda de texto
-      if (appliedFilters.searchValue.trim() !== "" && searchFields.length > 0) {
-        const query = appliedFilters.searchValue.toLowerCase()
-        const match = searchFields.some((field) => {
-          const val = item[field]
-          return val ? String(val).toLowerCase().includes(query) : false
-        })
-        if (!match) return false
-      }
-
-      return true
-    })
-  }, [data, appliedFilters, searchFields, dateField])
+    },
+    pageSize: 10,
+  })
 
   return {
-    pendingFilters,
+    pendingFilters: {
+      searchValue: pendingFilters.searchValue || "",
+      dateFrom: pendingFilters.dateFrom || "",
+      dateTo: pendingFilters.dateTo || "",
+    },
     setFilterValue,
     applyFilters,
     resetFilters,
