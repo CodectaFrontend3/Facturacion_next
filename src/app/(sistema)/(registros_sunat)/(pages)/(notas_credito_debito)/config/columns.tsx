@@ -3,6 +3,7 @@ import { type ColumnDef } from "@tanstack/react-table"
 import { Check, X, CloudUpload } from "lucide-react"
 import { ActionButton } from "@/components/common/ActionButton"
 import { type NotaRow, type NotaEnviadaRow } from "@/app/(sistema)/(registros_sunat)/types/notas"
+import { DocumentButton } from "@/app/(sistema)/(registros_sunat)/_components/DocumentButton"
 
 export const getNotaCreditoColumns = (): ColumnDef<NotaRow>[] => [
   {
@@ -218,17 +219,11 @@ export const getEnviadasNotaCreditoColumns = (): ColumnDef<NotaEnviadaRow>[] => 
     size: 80,
     cell: ({ row }) => (
       <div className="flex justify-center items-center">
-        <button
+        <DocumentButton
+          type="xml"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar XML para nota:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-[#b2d0ec] bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-text-o text-blue-400 text-[13px]" />
-          </div>
-          <div className="bg-[#1c84c6] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            XML
-          </div>
-        </button>
+        />
       </div>
     ),
   },
@@ -238,17 +233,11 @@ export const getEnviadasNotaCreditoColumns = (): ColumnDef<NotaEnviadaRow>[] => 
     size: 80,
     cell: ({ row }) => (
       <div className="flex justify-center items-center">
-        <button
+        <DocumentButton
+          type="cdr"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar CDR para nota:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-gray-300 bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-text-o text-gray-400 text-[13px]" />
-          </div>
-          <div className="bg-[#7f7f7f] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            CDR
-          </div>
-        </button>
+        />
       </div>
     ),
   },
@@ -332,17 +321,11 @@ export const getEnviadasNotaDebitoColumns = (): ColumnDef<NotaEnviadaRow>[] => [
     size: 80,
     cell: ({ row }) => (
       <div className="flex justify-center items-center">
-        <button
+        <DocumentButton
+          type="xml"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar XML para nota:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-[#b2d0ec] bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-text-o text-blue-400 text-[13px]" />
-          </div>
-          <div className="bg-[#1c84c6] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            XML
-          </div>
-        </button>
+        />
       </div>
     ),
   },
@@ -352,17 +335,11 @@ export const getEnviadasNotaDebitoColumns = (): ColumnDef<NotaEnviadaRow>[] => [
     size: 80,
     cell: ({ row }) => (
       <div className="flex justify-center items-center">
-        <button
+        <DocumentButton
+          type="cdr"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar CDR para nota:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-gray-300 bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-text-o text-gray-400 text-[13px]" />
-          </div>
-          <div className="bg-[#7f7f7f] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            CDR
-          </div>
-        </button>
+        />
       </div>
     ),
   },
