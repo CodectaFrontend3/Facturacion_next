@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "@/app/(sistema)/garantia/components/modal";
 import { TabsNav } from "./TabsNav";
-import 'font-awesome/css/font-awesome.min.css';
+import 'font-awesome/css/font-awesome.min.css'
 
 export default function TabsBar() {
     const [isOpen, setIsOpen] = useState(false);
