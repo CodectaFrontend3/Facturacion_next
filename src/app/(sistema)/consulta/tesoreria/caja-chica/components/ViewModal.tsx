@@ -20,7 +20,7 @@ export function ViewModal({ transaction, onClose }: { transaction: Transaction |
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <div 
-        className="w-full max-w-[700px] rounded-[8px] bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
+        className="w-full max-w-[700px] rounded-none bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -45,7 +45,7 @@ export function ViewModal({ transaction, onClose }: { transaction: Transaction |
                 type="text"
                 value={transaction.fecha}
                 readOnly
-                className="h-[40px] w-full rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
+                className="h-[40px] w-full rounded-none border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
               />
             </label>
 
@@ -56,13 +56,13 @@ export function ViewModal({ transaction, onClose }: { transaction: Transaction |
                   type="text"
                   value={transaction.nombres}
                   readOnly
-                  className="h-[40px] w-[60%] rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
+                  className="h-[40px] w-[60%] rounded-none border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
                 />
                 <input
                   type="text"
                   value={transaction.dni}
                   readOnly
-                  className="h-[40px] w-[40%] rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
+                  className="h-[40px] w-[40%] rounded-none border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
                 />
               </div>
             </label>
@@ -73,13 +73,13 @@ export function ViewModal({ transaction, onClose }: { transaction: Transaction |
                 type="text"
                 value={transaction.tipo}
                 readOnly
-                className="h-[40px] w-full rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
+                className="h-[40px] w-full rounded-none border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
               />
             </label>
 
             <label className="block">
               <span className="mb-1.5 block font-medium">Monto:</span>
-              <div className="flex h-[40px] items-center overflow-hidden rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb]">
+              <div className="flex h-[40px] items-center overflow-hidden rounded-none border border-[#d8d8d8] bg-[#f9fafb]">
                 <span className="flex h-full items-center justify-center bg-[#f9fafb] pl-3 pr-1 text-[#6b7280]">
                   S/
                 </span>
@@ -98,7 +98,7 @@ export function ViewModal({ transaction, onClose }: { transaction: Transaction |
                 type="text"
                 value={transaction.descripcion || ""}
                 readOnly
-                className="h-[40px] w-full rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
+                className="h-[40px] w-full rounded-none border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
               />
             </label>
 
@@ -129,7 +129,7 @@ export function ViewModal({ transaction, onClose }: { transaction: Transaction |
                   type="text"
                   value={transaction.nro_operacion || ""}
                   readOnly
-                  className="h-[40px] w-full rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
+                  className="h-[40px] w-full rounded-none border border-[#d8d8d8] bg-[#f9fafb] px-3 text-[#374151] outline-none"
                 />
               </label>
             )}
@@ -137,7 +137,7 @@ export function ViewModal({ transaction, onClose }: { transaction: Transaction |
             {transaction.metodo_pago !== "Efectivo" && (
               <label className="block">
                 <span className="mb-1.5 block font-medium">Comprobante:</span>
-                <div className="flex h-[40px] w-full items-center gap-2 overflow-hidden rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb]">
+                <div className="flex h-[40px] w-full items-center gap-2 overflow-hidden rounded-none border border-[#d8d8d8] bg-[#f9fafb]">
                   <div className="flex h-full items-center border-r border-[#d8d8d8] bg-[#f3f4f6] px-3 text-[#9ca3af]">
                     Archivo
                   </div>
@@ -153,7 +153,7 @@ export function ViewModal({ transaction, onClose }: { transaction: Transaction |
               <textarea
                 value={transaction.observaciones || ""}
                 readOnly
-                className="h-[80px] w-full resize-none rounded-[5px] border border-[#d8d8d8] bg-[#f9fafb] p-3 text-[#374151] outline-none"
+                className="h-[80px] w-full resize-none rounded-none border border-[#d8d8d8] bg-[#f9fafb] p-3 text-[#374151] outline-none"
               ></textarea>
             </label>
           </div>
