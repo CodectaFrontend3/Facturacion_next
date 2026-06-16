@@ -1,0 +1,16 @@
+[
+  {
+    "key": "guias_electronicas",
+    "iconClass": "fa fa-truck",
+    "label": "Guías Electrónicas",
+    "ringColorClass": "bg-[#1ab394]! border-[#1ab394]!",
+    "metaLabel": "Ultima actualización hace 9 meses"
+  },
+  {
+    "key": "guias_m_electronicas",
+    "iconClass": "fa fa-file-text-o",
+    "label": "Guías Manuales",
+    "ringColorClass": "bg-[#1c84c6]! border-[#1c84c6]!",
+    "metaLabel": "Ultima actualización hace 9 meses"
+  }
+]
