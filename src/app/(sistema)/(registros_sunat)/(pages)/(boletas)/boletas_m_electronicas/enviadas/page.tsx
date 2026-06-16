@@ -8,7 +8,7 @@ import boletasManualData from "@/app/(sistema)/(registros_sunat)/data/boletas/bo
 import enviadasManualData from "@/app/(sistema)/(registros_sunat)/data/boletas/enviadas_boletas_manuales.json"
 import cardsRaw from "@/app/(sistema)/(registros_sunat)/data/boletas/cards.json"
 import tabsRaw from "@/app/(sistema)/(registros_sunat)/data/boletas/tabs.json"
-import { type FacturacionRow } from "@/app/(sistema)/(registros_sunat)/types/facturacion"
+import { type BoletaEnviadaRow } from "@/app/(sistema)/(registros_sunat)/types/boletas"
 import { type CardConfig } from "@/app/(sistema)/(registros_sunat)/types/card"
 import { type TabConfig } from "@/app/(sistema)/(registros_sunat)/types/tab"
 
@@ -39,14 +39,14 @@ export default function Page() {
   })
 
   return (
-    <RegistrosSunatTemplate<FacturacionRow>
+    <RegistrosSunatTemplate<BoletaEnviadaRow>
       tabs={tabs}
       activeTab="enviados_manual"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
       cardPeriodLabel="Resumen de Mayo del 2026"
       columns={columns}
-      data={enviadasManualData as FacturacionRow[]}
+      data={enviadasManualData as BoletaEnviadaRow[]}
       searchFields={["cliente", "rucDni", "codigo"]}
       dateField="fechaEmision"
     />

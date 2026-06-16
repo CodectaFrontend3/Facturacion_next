@@ -1,11 +1,11 @@
 import Image from "next/image"
 import { type ColumnDef } from "@tanstack/react-table"
-import { type FacturacionRow } from "@/app/(sistema)/(registros_sunat)/types/facturacion"
+import { type BoletaRow, type BoletaEnviadaRow } from "@/app/(sistema)/(registros_sunat)/types/boletas"
 import { Check, Clock, X, CloudUpload } from "lucide-react"
 import { ActionButton } from "@/components/common/ActionButton"
 
 // Columnas para la pestaña principal de Boletas (Activas/Pendientes)
-export const getBoletasColumns = (): ColumnDef<FacturacionRow>[] => [
+export const getBoletasColumns = (): ColumnDef<BoletaRow>[] => [
   {
     accessorKey: "item",
     header: "Item",
@@ -59,7 +59,7 @@ export const getBoletasColumns = (): ColumnDef<FacturacionRow>[] => [
 ]
 
 // Columnas específicas para la sección de Enviadas de Boletas
-export const getEnviadasBoletasColumns = (): ColumnDef<FacturacionRow>[] => [
+export const getEnviadasBoletasColumns = (): ColumnDef<BoletaEnviadaRow>[] => [
   {
     accessorKey: "item",
     header: "Item",

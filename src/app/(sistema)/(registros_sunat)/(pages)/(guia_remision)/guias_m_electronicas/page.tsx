@@ -1,7 +1,8 @@
 "use client"
 
 import { RegistrosSunatTemplate } from "../../../_components/RegistrosSunatTemplate"
-import { getGuiasColumns, type GuiaRow } from "../config/columns"
+import { getGuiasColumns } from "../config/columns"
+import { type GuiaRow } from "@/app/(sistema)/(registros_sunat)/types/guias"
 import guiasElectronicasData from "@/app/(sistema)/(registros_sunat)/data/guias/guias_electronicas.json"
 import enviadasGuiasElectronicasData from "@/app/(sistema)/(registros_sunat)/data/guias/enviadas_guias_electronicas.json"
 import guiasManualesData from "@/app/(sistema)/(registros_sunat)/data/guias/guias_m_electronicas.json"

@@ -8,7 +8,7 @@ import boletasManualData from "@/app/(sistema)/(registros_sunat)/data/boletas/bo
 import enviadasManualData from "@/app/(sistema)/(registros_sunat)/data/boletas/enviadas_boletas_manuales.json"
 import cardsRaw from "@/app/(sistema)/(registros_sunat)/data/boletas/cards.json"
 import tabsRaw from "@/app/(sistema)/(registros_sunat)/data/boletas/tabs.json"
-import { type FacturacionRow } from "@/app/(sistema)/(registros_sunat)/types/facturacion"
+import { type BoletaRow } from "@/app/(sistema)/(registros_sunat)/types/boletas"
 import { type CardConfig } from "@/app/(sistema)/(registros_sunat)/types/card"
 import { type TabConfig } from "@/app/(sistema)/(registros_sunat)/types/tab"
 
@@ -38,19 +38,19 @@ export default function Page() {
     }
   })
 
-  const handleSend = (selectedRows: FacturacionRow[]) => {
+  const handleSend = (selectedRows: BoletaRow[]) => {
     console.log("Enviar boletas seleccionadas a SUNAT:", selectedRows)
   }
 
   return (
-    <RegistrosSunatTemplate<FacturacionRow>
+    <RegistrosSunatTemplate<BoletaRow>
       tabs={tabs}
       activeTab="boletas"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
       cardPeriodLabel="Resumen de Mayo del 2026"
       columns={columns}
-      data={boletasData as FacturacionRow[]}
+      data={boletasData as BoletaRow[]}
       onSend={handleSend}
       sendButtonLabel="Enviar"
       searchFields={["cliente", "rucDni", "codigo"]}

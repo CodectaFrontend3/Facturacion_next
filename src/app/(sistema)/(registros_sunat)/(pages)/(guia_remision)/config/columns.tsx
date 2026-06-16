@@ -2,18 +2,7 @@ import Image from "next/image"
 import { type ColumnDef } from "@tanstack/react-table"
 import { CloudUpload } from "lucide-react"
 import { ActionButton } from "@/components/common/ActionButton"
-
-export interface GuiaRow {
-  id: string | number
-  item: number
-  codigo: string
-  rucDni?: string
-  cliente?: string
-  fechaEmision?: string
-  fechaEntrega?: string
-  tipoTransporte?: string
-  sunatStatus: "enviado" | "pendiente" | "error"
-}
+import { type GuiaRow, type GuiaEnviadaRow } from "@/app/(sistema)/(registros_sunat)/types/guias"
 
 export const getGuiasColumns = (): ColumnDef<GuiaRow>[] => [
   {
@@ -83,7 +72,7 @@ export const getGuiasColumns = (): ColumnDef<GuiaRow>[] => [
   },
 ]
 
-export const getEnviadasGuiasColumns = (): ColumnDef<GuiaRow>[] => [
+export const getEnviadasGuiasColumns = (): ColumnDef<GuiaEnviadaRow>[] => [
   {
     accessorKey: "item",
     header: "ID",
