@@ -1,0 +1,185 @@
+[
+  {
+    "id": "1",
+    "codigo": "INVENTARIO INICIAL",
+    "motivo": "INVENTARIO INICIAL",
+    "proveedor": "INVENTARIO INICIAL",
+    "moneda": "PEN",
+    "numero_remision": "INVENTARIO INICIAL",
+    "numero_factura": "INVENTARIO INICIAL",
+    "fecha_subida": "17/03/2022",
+    "total": 0.0,
+    "estado": "ACTIVO",
+    "productos": [
+      {
+        "id": "p1",
+        "nombre": "Producto Ejemplo Inicial",
+        "unidad": "UND",
+        "cantidad": 10,
+        "precio": 0.0,
+        "total": 0.0
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "codigo": "GE001-00000000",
+    "motivo": "Compras Locales",
+    "proveedor": "POWER SERVI HARDS S.A.C. - POSEHAR S.A.C.",
+    "moneda": "PEN",
+    "numero_remision": null,
+    "numero_factura": null,
+    "fecha_subida": "25/03/2022",
+    "total": 1500.0,
+    "estado": "ANULADO",
+    "productos": [
+      {
+        "id": "p2",
+        "nombre": "Componente de Hardware",
+        "unidad": "UND",
+        "cantidad": 5,
+        "precio": 300.0,
+        "total": 1500.0
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "codigo": "GE001-00000001",
+    "motivo": "Compras Locales",
+    "proveedor": "J & P PERIFERICOS S.A.C.",
+    "moneda": "PEN",
+    "numero_remision": null,
+    "numero_factura": null,
+    "fecha_subida": "14/09/2022",
+    "total": 450.0,
+    "estado": "ANULADO",
+    "productos": [
+      {
+        "id": "p3",
+        "nombre": "Periférico de Prueba",
+        "unidad": "UND",
+        "cantidad": 3,
+        "precio": 150.0,
+        "total": 450.0
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "codigo": "GE001-00000002",
+    "motivo": "Compras Internacionales",
+    "proveedor": "POWER SERVI HARDS S.A.C. - POSEHAR S.A.C.",
+    "moneda": "USD",
+    "numero_remision": null,
+    "numero_factura": null,
+    "fecha_subida": "18/09/2022",
+    "total": 1200.0,
+    "estado": "ACTIVO",
+    "productos": []
+  },
+  {
+    "id": "5",
+    "codigo": "GE001-00000003",
+    "motivo": "Compras Internacionales",
+    "proveedor": "POWER SERVI HARDS S.A.C. - POSEHAR S.A.C.",
+    "moneda": "USD",
+    "numero_remision": "10",
+    "numero_factura": "2",
+    "fecha_subida": "27/03/2024",
+    "total": 2500.0,
+    "estado": "ACTIVO",
+    "productos": []
+  },
+  {
+    "id": "6",
+    "codigo": "GE001-00000004",
+    "motivo": "Compras Internacionales",
+    "proveedor": "J & P PERIFERICOS S.A.C.",
+    "moneda": "PEN",
+    "numero_remision": "2",
+    "numero_factura": "5",
+    "fecha_subida": "03/04/2024",
+    "total": 850.0,
+    "estado": "CIRCULACION",
+    "productos": []
+  },
+  {
+    "id": "7",
+    "codigo": "GE001-00000005",
+    "motivo": "Compras Internacionales",
+    "proveedor": "POWER SERVI HARDS S.A.C. - POSEHAR S.A.C.",
+    "moneda": "USD",
+    "numero_remision": null,
+    "numero_factura": "02",
+    "fecha_subida": "03/04/2024",
+    "total": 310.5,
+    "estado": "CIRCULACION",
+    "productos": []
+  },
+  {
+    "id": "8",
+    "codigo": "GE001-00000006",
+    "motivo": "Compras Internacionales",
+    "proveedor": "J & P PERIFERICOS S.A.C.",
+    "moneda": "PEN",
+    "numero_remision": null,
+    "numero_factura": "01",
+    "fecha_subida": "03/04/2024",
+    "total": 980.0,
+    "estado": "ACTIVO",
+    "productos": []
+  },
+  {
+    "id": "9",
+    "codigo": "GE001-00000007",
+    "motivo": "Compras Internacionales",
+    "proveedor": "J & P PERIFERICOS S.A.C.",
+    "moneda": "PEN",
+    "numero_remision": null,
+    "numero_factura": null,
+    "fecha_subida": "03/04/2024",
+    "total": 0.0,
+    "estado": "ACTIVO",
+    "productos": []
+  },
+  {
+    "id": "10",
+    "codigo": "GE001-00000008",
+    "motivo": "Compras Internacionales",
+    "proveedor": "J & P PERIFERICOS S.A.C.",
+    "moneda": "PEN",
+    "numero_remision": null,
+    "numero_factura": null,
+    "fecha_subida": "03/04/2024",
+    "total": 0.0,
+    "estado": "ACTIVO",
+    "productos": []
+  },
+  {
+    "id": "11",
+    "codigo": "GE001-00000009",
+    "motivo": "Compras Internacionales",
+    "proveedor": "J & P PERIFERICOS S.A.C.",
+    "moneda": "PEN",
+    "numero_remision": null,
+    "numero_factura": null,
+    "fecha_subida": "24/04/2025",
+    "total": 0.0,
+    "estado": "ACTIVO",
+    "productos": []
+  },
+  {
+    "id": "12",
+    "codigo": "GE001-00000010",
+    "motivo": "Compras Internacionales",
+    "proveedor": "J & P PERIFERICOS S.A.C.",
+    "moneda": "PEN",
+    "numero_remision": "00020",
+    "numero_factura": "00020",
+    "fecha_subida": "16/07/2025",
+    "total": 5400.0,
+    "estado": "ACTIVO",
+    "productos": []
+  }
+]
