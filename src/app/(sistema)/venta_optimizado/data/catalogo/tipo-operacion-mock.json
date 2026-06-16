@@ -1,0 +1,24 @@
+[
+    {
+        "id": "1",
+        "codigo": "0101",
+        "nombre": "Venta de bienes"
+    },
+    {
+        "id": "2",
+        "codigo": "0102",
+        "nombre": "Exportacion"
+    }
+    ,
+    {
+        "id": "3",
+        "codigo": "0103",
+        "nombre": "Venta de servicios"
+    }
+    ,
+    {
+        "id": "4",
+        "codigo": "0104",
+        "nombre": "Venta de servicios"
+    }
+]

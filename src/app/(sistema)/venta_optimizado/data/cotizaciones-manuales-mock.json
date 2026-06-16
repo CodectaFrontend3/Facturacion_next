@@ -1,0 +1,36 @@
+[
+  {
+    "id": "1",
+    "tipo": "cotizacion_manual",
+    "numero": "CMF 001-00000001",
+
+    "fechaEmision": "2026-04-02",
+    "estado": "Pendiente",
+    "validez":"7 DIAS",
+
+    "clienteId": "1",
+    "almacenId": "2",
+    "tipoOperacionId": "1",
+
+    "moneda": "dolares",
+    "formaPago": "Credito",
+    "garantia" :  "2 MESES",
+    "tipoDocumento": "Boleta",
+
+    "observacion": "Emitimos la siguiente Cotización...",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "6",
+        "descripcion": "LIMPIEZA FACIAL PROFUNDA...descripcion",
+        "cantidad": 4,
+        "precioAsignado": 40.00
+      }
+    ]
+  }
+]

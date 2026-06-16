@@ -1,0 +1,36 @@
+[
+  {
+    "id": "1",
+    "tipo": "cotizacion",
+    "numero": "COTF 001-00000001",
+
+    "fechaEmision": "2026-04-05",
+    "estado": "Pendiente",
+    "validez":"1 DIA",
+
+    "clienteId": "5",
+    "comisionistaId": "1",
+    "tipoOperacionId": "1",
+
+    "moneda": "soles",
+    "formaPago": "Contado",
+    "garantia" :  "6 MESES",
+    "tipoDocumento": "Factura",
+
+    "observacion": "Emitimos la siguiente Cotización...",
+    "renovacion": {
+      "isActive": true,
+      "fechaRenovacion": "2026-05-12"
+    },
+
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "5", 
+        "descripcion": "MONITOR GAMER LENOVO 24 PULGADAS...", 
+        "cantidad": 3,
+        "descuentoPorcentajeAplicado": true
+      }
+    ]
+  }
+]
