@@ -1,0 +1,152 @@
+[
+  {
+    "id": "bm-101",
+    "item": 1,
+    "codigo": "B002-0000001",
+    "rucDni": "10986543219",
+    "cliente": "JOSE CASTRO HERRERA",
+    "fechaCreacion": "20/05/2026",
+    "fechaEmision": "20/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-102",
+    "item": 2,
+    "codigo": "B002-0000002",
+    "rucDni": "45781296",
+    "cliente": "CARLOS LOPEZ SILVA",
+    "fechaCreacion": "21/05/2026",
+    "fechaEmision": "21/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-103",
+    "item": 3,
+    "codigo": "B002-0000003",
+    "rucDni": "09873412",
+    "cliente": "ROSA MEZA ARANIBAR",
+    "fechaCreacion": "22/05/2026",
+    "fechaEmision": "22/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-104",
+    "item": 4,
+    "codigo": "B002-0000004",
+    "rucDni": "47586930",
+    "cliente": "LUIS ALBERTO SANCHEZ CASAS",
+    "fechaCreacion": "23/05/2026",
+    "fechaEmision": "23/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-105",
+    "item": 5,
+    "codigo": "B002-0000005",
+    "rucDni": "41253698",
+    "cliente": "KATHY ROJAS PAREDES",
+    "fechaCreacion": "24/05/2026",
+    "fechaEmision": "24/05/2026",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "bm-106",
+    "item": 6,
+    "codigo": "B002-0000006",
+    "rucDni": "10748596321",
+    "cliente": "MIGUEL ANGEL TORRES CHAVEZ",
+    "fechaCreacion": "25/05/2026",
+    "fechaEmision": "25/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-107",
+    "item": 7,
+    "codigo": "B002-0000007",
+    "rucDni": "10224589761",
+    "cliente": "MARÍA FERNANDA SÁNCHEZ DIAZ",
+    "fechaCreacion": "26/05/2026",
+    "fechaEmision": "26/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-108",
+    "item": 8,
+    "codigo": "B002-0000008",
+    "rucDni": "10874521369",
+    "cliente": "JUAN CARLOS BENITES AGUILAR",
+    "fechaCreacion": "27/05/2026",
+    "fechaEmision": "27/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-109",
+    "item": 9,
+    "codigo": "B002-0000009",
+    "rucDni": "10457896321",
+    "cliente": "CARLOS ALBERTO GÓMEZ PÉREZ",
+    "fechaCreacion": "28/05/2026",
+    "fechaEmision": "28/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-110",
+    "item": 10,
+    "codigo": "B002-0000010",
+    "rucDni": "10234567890",
+    "cliente": "ANA MILAGROS FLORES QUISPE",
+    "fechaCreacion": "29/05/2026",
+    "fechaEmision": "29/05/2026",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "bm-111",
+    "item": 11,
+    "codigo": "B002-0000011",
+    "rucDni": "10456789012",
+    "cliente": "PEDRO ALCÁNTARA HUAMÁN",
+    "fechaCreacion": "30/05/2026",
+    "fechaEmision": "30/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-112",
+    "item": 12,
+    "codigo": "B002-0000012",
+    "rucDni": "10986543219",
+    "cliente": "JOSE CASTRO HERRERA",
+    "fechaCreacion": "01/06/2026",
+    "fechaEmision": "01/06/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-113",
+    "item": 13,
+    "codigo": "B002-0000013",
+    "rucDni": "45781296",
+    "cliente": "CARLOS LOPEZ SILVA",
+    "fechaCreacion": "02/06/2026",
+    "fechaEmision": "02/06/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-114",
+    "item": 14,
+    "codigo": "B002-0000014",
+    "rucDni": "09876543",
+    "cliente": "MARIA RODRIGUEZ DIAZ",
+    "fechaCreacion": "03/06/2026",
+    "fechaEmision": "03/06/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "bm-115",
+    "item": 15,
+    "codigo": "B002-0000015",
+    "rucDni": "10427896351",
+    "cliente": "JUAN PEREZ GONZALES",
+    "fechaCreacion": "04/06/2026",
+    "fechaEmision": "04/06/2026",
+    "sunatStatus": "pendiente"
+  }
+]

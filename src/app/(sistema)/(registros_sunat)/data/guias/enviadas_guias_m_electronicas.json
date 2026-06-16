@@ -1,0 +1,13 @@
+[
+  {
+    "id": "egm-201",
+    "item": 1,
+    "codigo": "TM01-00000003",
+    "rucDni": "45781296",
+    "cliente": "CARLOS LOPEZ SILVA",
+    "fechaEmision": "11/05/2026",
+    "fechaEntrega": "13/05/2026",
+    "tipoTransporte": "Trasporte Privado",
+    "sunatStatus": "enviado"
+  }
+]

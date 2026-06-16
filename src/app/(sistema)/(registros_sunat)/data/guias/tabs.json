@@ -1,0 +1,26 @@
+[
+  {
+    "key": "guias_electronicas",
+    "label": "Guías",
+    "color": "#28a745",
+    "href": "/guias_electronicas"
+  },
+  {
+    "key": "enviadas_guias_electronicas",
+    "label": "Enviados",
+    "color": "#ffa500",
+    "href": "/guias_electronicas/enviadas"
+  },
+  {
+    "key": "guias_m_electronicas",
+    "label": "Guías Manuales",
+    "color": "#28a745",
+    "href": "/guias_m_electronicas"
+  },
+  {
+    "key": "enviadas_guias_m_electronicas",
+    "label": "Enviados",
+    "color": "#dc3545",
+    "href": "/guias_m_electronicas/enviadas"
+  }
+]
