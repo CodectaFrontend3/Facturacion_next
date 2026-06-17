@@ -1,21 +1,44 @@
-// src/app/(sistema)/ventas/_utils/format.ts
+// _utils/format.ts
 
 /**
- * Formatea un número decimal a un formato de moneda comercial (ej. S/ 1,500.00 o $ 50.00).
- * Debe recibir el valor numérico y el tipo de moneda ('soles' | 'dolares').
- * * @param amount Valor numérico a formatear
- * @param currency Tipo de moneda del documento ('soles' | 'dolares')
+ * Formatea un número decimal a formato moneda comercial peruano.
+ * @param amount Valor numérico a formatear
+ * @param currency Tipo de moneda ('soles' | 'dolares'). Por defecto 'soles'.
  */
-export const formatCurrency = (amount: number, currency: 'soles' | 'dolares'): string => {
-  // TODO: Implementar Intl.NumberFormat para forzar 2 decimales y añadir el prefijo 'S/' o '$'
-  return '';
-};
+export const formatCurrency = (
+  amount: number,
+  currency: "soles" | "dolares" = "soles"
+): string => {
+  const prefix = currency === "dolares" ? "$ " : "S/ "
+  const formatted = new Intl.NumberFormat("es-PE", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount)
+  return `${prefix}${formatted}`
+}
 
 /**
- * Convierte una fecha en formato ISO o YYYY-MM-DD a un formato visual peruano (DD/MM/YYYY).
- * * @param dateString Fecha en formato de persistencia (ej. "2026-06-05")
+ * Convierte una fecha en formato ISO o YYYY-MM-DD al formato visual peruano DD/MM/YYYY.
+ * @param dateString Fecha en formato de persistencia (ej. "2026-06-05")
  */
 export const formatDate = (dateString: string | null | undefined): string => {
-  // TODO: Validar que el string no venga vacío y transformarlo usando métodos de Date o división de strings
-  return '';
-};
+  if (!dateString) return "---"
+
+  // Soporte para formato YYYY-MM-DD sin conversión timezone
+  const parts = dateString.split("T")[0].split("-")
+  if (parts.length !== 3) return dateString
+
+  const [year, month, day] = parts
+  return `${day}-${month}-${year}`
+}
+
+/**
+ * Objeto helper para uso idiomático en JSX y pages:
+ * format.moneda(amount)  →  "S/ 1,500.00"
+ * format.fecha(str)      →  "05-06-2026"
+ */
+export const format = {
+  moneda: (amount: number, currency: "soles" | "dolares" = "soles") =>
+    formatCurrency(amount, currency),
+  fecha: (dateString: string | null | undefined) => formatDate(dateString),
+}

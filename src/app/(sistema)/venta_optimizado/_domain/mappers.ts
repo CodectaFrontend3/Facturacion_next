@@ -1,8 +1,8 @@
 // src/app/(sistema)/ventas/_domain/mappers.ts
 
-import { 
-  CotizacionDetalle, 
-  CotizacionManualDetalle, 
+import {
+  CotizacionDetalle,
+  CotizacionManualDetalle,
   NotaVentaDetalle,
   DocumentoFilaLista,
   RenovacionFilaLista
@@ -182,9 +182,9 @@ export const mapToClienteFilaLista = (
     id: cliente.id,
     tipoDocumento: cliente.tipoDocumento,
     numeroDocumento: cliente.numeroDocumento,
-    nombre: cliente.nombre,
-    celular: cliente.celular,
-    correo: cliente.correo,
+    nombre: cliente.nombre ?? 'Sin nombre', // Manejo de nulos preventivo
+    celular: cliente.celular ?? '---',       // Valor por defecto para la UI
+    correo: cliente.correo ?? '---',
     fechaRegistro: cliente.fechaRegistro // 👈 2. Corregido: Propiedad requerida añadida
   };
 };

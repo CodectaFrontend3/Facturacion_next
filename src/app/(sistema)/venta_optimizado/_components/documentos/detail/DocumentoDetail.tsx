@@ -1,0 +1,1 @@
+// src/app/(sistema)/venta_optimizado/_components/documentos/detail/DocumentoDetail.tsx
