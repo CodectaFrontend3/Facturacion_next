@@ -80,6 +80,20 @@ export function useClienteFilters() {
     // Si quisieras que busque mientras escribes, puedes poner el debounce aquí.
     // Por ahora busca al montar o si manejamos el botón buscar.
     handleSearch()
+
+    const handleClienteAdded = () => {
+      handleSearch()
+    }
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("cliente-added", handleClienteAdded)
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("cliente-added", handleClienteAdded)
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

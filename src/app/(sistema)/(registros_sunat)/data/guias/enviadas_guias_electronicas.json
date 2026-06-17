@@ -1,0 +1,24 @@
+[
+  {
+    "id": "eg-201",
+    "item": 1,
+    "codigo": "T001-00000004",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA SAN JORGE S.A.C.",
+    "fechaEmision": "10/05/2026",
+    "fechaEntrega": "12/05/2026",
+    "tipoTransporte": "Trasporte Público",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eg-202",
+    "item": 2,
+    "codigo": "T001-00000005",
+    "rucDni": "10427896351",
+    "cliente": "JUAN PEREZ GONZALES",
+    "fechaEmision": "12/05/2026",
+    "fechaEntrega": "14/05/2026",
+    "tipoTransporte": "Trasporte Privado",
+    "sunatStatus": "enviado"
+  }
+]

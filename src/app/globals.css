@@ -326,3 +326,18 @@ body {
 .animate-breathe {
   animation: breathe 1s infinite ease-in-out;
 }
+
+@keyframes toastIn {
+  from {
+    transform: translateY(-15px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-toast-in {
+  animation: toastIn 0.28s cubic-bezier(0.21, 1.02, 0.43, 1.01) forwards;
+}

@@ -1,0 +1,167 @@
+[
+  {
+    "id": "eb-101",
+    "item": 1,
+    "codigo": "B001-0000003",
+    "rucDni": "45781296",
+    "cliente": "CARLOS LOPEZ SILVA",
+    "fechaCreacion": "10/05/2026",
+    "fechaEmision": "10/05/2026",
+    "precioTotal": 120.50,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-102",
+    "item": 2,
+    "codigo": "B001-0000004",
+    "rucDni": "20548963254",
+    "cliente": "SERVICIOS INDUSTRIALES S.A.C.",
+    "fechaCreacion": "12/05/2026",
+    "fechaEmision": "12/05/2026",
+    "precioTotal": 450.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-103",
+    "item": 3,
+    "codigo": "B001-0000005",
+    "rucDni": "09873412",
+    "cliente": "ROSA MEZA ARANIBAR",
+    "fechaCreacion": "14/05/2026",
+    "fechaEmision": "14/05/2026",
+    "precioTotal": 85.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-104",
+    "item": 4,
+    "codigo": "B001-0000006",
+    "rucDni": "47586930",
+    "cliente": "LUIS ALBERTO SANCHEZ CASAS",
+    "fechaCreacion": "15/05/2026",
+    "fechaEmision": "15/05/2026",
+    "precioTotal": 320.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-105",
+    "item": 5,
+    "codigo": "B001-0000007",
+    "rucDni": "41253698",
+    "cliente": "KATHY ROJAS PAREDES",
+    "fechaCreacion": "16/05/2026",
+    "fechaEmision": "16/05/2026",
+    "precioTotal": 95.50,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-106",
+    "item": 6,
+    "codigo": "B001-0000008",
+    "rucDni": "10748596321",
+    "cliente": "MIGUEL ANGEL TORRES CHAVEZ",
+    "fechaCreacion": "18/05/2026",
+    "fechaEmision": "18/05/2026",
+    "precioTotal": 150.00,
+    "sunatStatus": "error"
+  },
+  {
+    "id": "eb-107",
+    "item": 7,
+    "codigo": "B001-0000009",
+    "rucDni": "10224589761",
+    "cliente": "MARÍA FERNANDA SÁNCHEZ DIAZ",
+    "fechaCreacion": "19/05/2026",
+    "fechaEmision": "19/05/2026",
+    "precioTotal": 240.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-108",
+    "item": 8,
+    "codigo": "B001-0000010",
+    "rucDni": "10874521369",
+    "cliente": "JUAN CARLOS BENITES AGUILAR",
+    "fechaCreacion": "20/05/2026",
+    "fechaEmision": "20/05/2026",
+    "precioTotal": 180.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-109",
+    "item": 9,
+    "codigo": "B001-0000011",
+    "rucDni": "10457896321",
+    "cliente": "CARLOS ALBERTO GÓMEZ PÉREZ",
+    "fechaCreacion": "21/05/2026",
+    "fechaEmision": "21/05/2026",
+    "precioTotal": 115.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-110",
+    "item": 10,
+    "codigo": "B001-0000012",
+    "rucDni": "10234567890",
+    "cliente": "ANA MILAGROS FLORES QUISPE",
+    "fechaCreacion": "22/05/2026",
+    "fechaEmision": "22/05/2026",
+    "precioTotal": 70.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-111",
+    "item": 11,
+    "codigo": "B001-0000013",
+    "rucDni": "10456789012",
+    "cliente": "PEDRO ALCÁNTARA HUAMÁN",
+    "fechaCreacion": "24/05/2026",
+    "fechaEmision": "24/05/2026",
+    "precioTotal": 135.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-112",
+    "item": 12,
+    "codigo": "B001-0000014",
+    "rucDni": "10986543219",
+    "cliente": "JOSE CASTRO HERRERA",
+    "fechaCreacion": "25/05/2026",
+    "fechaEmision": "25/05/2026",
+    "precioTotal": 420.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-113",
+    "item": 13,
+    "codigo": "B001-0000015",
+    "rucDni": "45781296",
+    "cliente": "CARLOS LOPEZ SILVA",
+    "fechaCreacion": "26/05/2026",
+    "fechaEmision": "26/05/2026",
+    "precioTotal": 190.00,
+    "sunatStatus": "error"
+  },
+  {
+    "id": "eb-114",
+    "item": 14,
+    "codigo": "B001-0000016",
+    "rucDni": "09876543",
+    "cliente": "MARIA RODRIGUEZ DIAZ",
+    "fechaCreacion": "28/05/2026",
+    "fechaEmision": "28/05/2026",
+    "precioTotal": 88.00,
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "eb-115",
+    "item": 15,
+    "codigo": "B001-0000017",
+    "rucDni": "10427896351",
+    "cliente": "JUAN PEREZ GONZALES",
+    "fechaCreacion": "29/05/2026",
+    "fechaEmision": "29/05/2026",
+    "precioTotal": 145.00,
+    "sunatStatus": "enviado"
+  }
+]

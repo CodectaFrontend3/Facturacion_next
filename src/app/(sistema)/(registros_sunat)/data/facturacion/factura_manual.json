@@ -1,0 +1,137 @@
+[
+  {
+    "id": "fm-301",
+    "item": 1,
+    "codigo": "F002-0000015",
+    "rucDni": "20887766554",
+    "cliente": "HOTELES Y RESTAURANTES DEL PERÚ S.A.C.",
+    "fechaCreacion": "04/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-302",
+    "item": 2,
+    "codigo": "F002-0000016",
+    "rucDni": "10874521369",
+    "cliente": "JUAN CARLOS BENITES AGUILAR",
+    "fechaCreacion": "11/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-303",
+    "item": 3,
+    "codigo": "F002-0000017",
+    "rucDni": "20445588991",
+    "cliente": "AGROINDUSTRIAS DEL SUR S.A.",
+    "fechaCreacion": "20/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-304",
+    "item": 4,
+    "codigo": "F002-0000018",
+    "rucDni": "20124578963",
+    "cliente": "TRANSPORTES CUTERVO S.A.",
+    "fechaCreacion": "21/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-305",
+    "item": 5,
+    "codigo": "F002-0000019",
+    "rucDni": "20501234567",
+    "cliente": "MINERA AURÍFERA LOS ANDES S.A.C.",
+    "fechaCreacion": "22/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-306",
+    "item": 6,
+    "codigo": "F002-0000020",
+    "rucDni": "20412345678",
+    "cliente": "SUPERMERCADOS PERUANOS S.A.",
+    "fechaCreacion": "23/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-307",
+    "item": 7,
+    "codigo": "F002-0000021",
+    "rucDni": "10234567890",
+    "cliente": "ANA MILAGROS FLORES QUISPE",
+    "fechaCreacion": "24/05/2026",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "fm-308",
+    "item": 8,
+    "codigo": "F002-0000022",
+    "rucDni": "20602345678",
+    "cliente": "CORPORACIÓN TEXTIL DEL CENTRO S.A.C.",
+    "fechaCreacion": "25/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-309",
+    "item": 9,
+    "codigo": "F002-0000023",
+    "rucDni": "20556789012",
+    "cliente": "IMPORTADORA Y EXPORTADORA YOSHI S.A.",
+    "fechaCreacion": "26/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-310",
+    "item": 10,
+    "codigo": "F002-0000024",
+    "rucDni": "10456789012",
+    "cliente": "PEDRO ALCÁNTARA HUAMÁN",
+    "fechaCreacion": "27/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-311",
+    "item": 11,
+    "codigo": "F002-0000025",
+    "rucDni": "20304050607",
+    "cliente": "CLINICA SAN FELIPE S.A.",
+    "fechaCreacion": "28/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-312",
+    "item": 12,
+    "codigo": "F002-0000026",
+    "rucDni": "20100100200",
+    "cliente": "EDITORIAL EL COMERCIO S.A.",
+    "fechaCreacion": "29/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-313",
+    "item": 13,
+    "codigo": "F002-0000027",
+    "rucDni": "20459874123",
+    "cliente": "PESQUERA EXALMAR S.A.A.",
+    "fechaCreacion": "30/05/2026",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "fm-314",
+    "item": 14,
+    "codigo": "F002-0000028",
+    "rucDni": "10748596321",
+    "cliente": "MIGUEL ANGEL TORRES CHAVEZ",
+    "fechaCreacion": "01/06/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "fm-315",
+    "item": 15,
+    "codigo": "F002-0000029",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA ACME S.A.C.",
+    "fechaCreacion": "02/06/2026",
+    "sunatStatus": "pendiente"
+  }
+]

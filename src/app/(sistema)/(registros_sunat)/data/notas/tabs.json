@@ -1,0 +1,26 @@
+[
+  {
+    "key": "nota_credito_electronica",
+    "label": "Nota de crédito",
+    "color": "#28a745",
+    "href": "/nota_credito_electronica"
+  },
+  {
+    "key": "enviadas_nota_credito",
+    "label": "Enviados",
+    "color": "#ffa500",
+    "href": "/nota_credito_electronica/enviadas"
+  },
+  {
+    "key": "nota_debito_electronica",
+    "label": "Nota de débito",
+    "color": "#28a745",
+    "href": "/nota_debito_electronica"
+  },
+  {
+    "key": "enviadas_nota_debito",
+    "label": "Enviados",
+    "color": "#dc3545",
+    "href": "/nota_debito_electronica/enviadas"
+  }
+]

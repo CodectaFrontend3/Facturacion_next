@@ -1,0 +1,167 @@
+[
+  {
+    "id": "fme-401",
+    "item": 1,
+    "codigo": "F002-0000010",
+    "rucDni": "20887766554",
+    "cliente": "HOTELES Y RESTAURANTES DEL PERÚ S.A.C.",
+    "fechaCreacion": "01/05/2026",
+    "fechaEmision": "01-05-2026",
+    "precioTotal": "S/ 512.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-402",
+    "item": 2,
+    "codigo": "F002-0000011",
+    "rucDni": "20124578963",
+    "cliente": "TRANSPORTES CUTERVO S.A.",
+    "fechaCreacion": "02/05/2026",
+    "fechaEmision": "02-05-2026",
+    "precioTotal": "S/ 1,480.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-403",
+    "item": 3,
+    "codigo": "F002-0000012",
+    "rucDni": "20501234567",
+    "cliente": "MINERA AURÍFERA LOS ANDES S.A.C.",
+    "fechaCreacion": "04/05/2026",
+    "fechaEmision": "04-05-2026",
+    "precioTotal": "S/ 12,400.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-404",
+    "item": 4,
+    "codigo": "F002-0000013",
+    "rucDni": "20412345678",
+    "cliente": "SUPERMERCADOS PERUANOS S.A.",
+    "fechaCreacion": "05/05/2026",
+    "fechaEmision": "05-05-2026",
+    "precioTotal": "S/ 3,120.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-405",
+    "item": 5,
+    "codigo": "F002-0000014",
+    "rucDni": "10234567890",
+    "cliente": "ANA MILAGROS FLORES QUISPE",
+    "fechaCreacion": "06/05/2026",
+    "fechaEmision": "06-05-2026",
+    "precioTotal": "S/ 450.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "fme-406",
+    "item": 6,
+    "codigo": "F002-0000015",
+    "rucDni": "20602345678",
+    "cliente": "CORPORACIÓN TEXTIL DEL CENTRO S.A.C.",
+    "fechaCreacion": "07/05/2026",
+    "fechaEmision": "07-05-2026",
+    "precioTotal": "S/ 1,980.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-407",
+    "item": 7,
+    "codigo": "F002-0000016",
+    "rucDni": "20556789012",
+    "cliente": "IMPORTADORA Y EXPORTADORA YOSHI S.A.",
+    "fechaCreacion": "08/05/2026",
+    "fechaEmision": "08-05-2026",
+    "precioTotal": "S/ 1,120.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-408",
+    "item": 8,
+    "codigo": "F002-0000017",
+    "rucDni": "10456789012",
+    "cliente": "PEDRO ALCÁNTARA HUAMÁN",
+    "fechaCreacion": "10/05/2026",
+    "fechaEmision": "10-05-2026",
+    "precioTotal": "S/ 890.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-409",
+    "item": 9,
+    "codigo": "F002-0000018",
+    "rucDni": "20304050607",
+    "cliente": "CLINICA SAN FELIPE S.A.",
+    "fechaCreacion": "11/05/2026",
+    "fechaEmision": "11-05-2026",
+    "precioTotal": "S/ 4,200.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-410",
+    "item": 10,
+    "codigo": "F002-0000019",
+    "rucDni": "20100100200",
+    "cliente": "EDITORIAL EL COMERCIO S.A.",
+    "fechaCreacion": "12/05/2026",
+    "fechaEmision": "12-05-2026",
+    "precioTotal": "S/ 650.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-411",
+    "item": 11,
+    "codigo": "F002-0000020",
+    "rucDni": "20459874123",
+    "cliente": "PESQUERA EXALMAR S.A.A.",
+    "fechaCreacion": "13/05/2026",
+    "fechaEmision": "13-05-2026",
+    "precioTotal": "S/ 18,300.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-412",
+    "item": 12,
+    "codigo": "F002-0000021",
+    "rucDni": "10748596321",
+    "cliente": "MIGUEL ANGEL TORRES CHAVEZ",
+    "fechaCreacion": "14/05/2026",
+    "fechaEmision": "14-05-2026",
+    "precioTotal": "S/ 150.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "fme-413",
+    "item": 13,
+    "codigo": "F002-0000022",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA ACME S.A.C.",
+    "fechaCreacion": "15/05/2026",
+    "fechaEmision": "15-05-2026",
+    "precioTotal": "S/ 2,100.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-414",
+    "item": 14,
+    "codigo": "F002-0000023",
+    "rucDni": "20104875962",
+    "cliente": "INVERSIONES SAN JOSÉ E.I.R.L.",
+    "fechaCreacion": "16/05/2026",
+    "fechaEmision": "16-05-2026",
+    "precioTotal": "S/ 3,450.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fme-415",
+    "item": 15,
+    "codigo": "F002-0000024",
+    "rucDni": "10457896321",
+    "cliente": "CARLOS ALBERTO GÓMEZ PÉREZ",
+    "fechaCreacion": "18/05/2026",
+    "fechaEmision": "18-05-2026",
+    "precioTotal": "S/ 900.00",
+    "sunatStatus": "enviado"
+  }
+]

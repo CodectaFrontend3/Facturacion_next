@@ -1,0 +1,167 @@
+[
+  {
+    "id": "fe-201",
+    "item": 1,
+    "codigo": "F001-0001035",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA ACME S.A.C.",
+    "fechaCreacion": "02/05/2026",
+    "fechaEmision": "02-05-2026",
+    "precioTotal": "S/ 1,250.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-202",
+    "item": 2,
+    "codigo": "F001-0001036",
+    "rucDni": "20334875962",
+    "cliente": "COMERCIAL EXPORTADORA ANDINA",
+    "fechaCreacion": "03/05/2026",
+    "fechaEmision": "03-05-2026",
+    "precioTotal": "S/ 850.50",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-203",
+    "item": 3,
+    "codigo": "F001-0001037",
+    "rucDni": "10224589761",
+    "cliente": "MARÍA FERNANDA SÁNCHEZ DIAZ",
+    "fechaCreacion": "05/05/2026",
+    "fechaEmision": "05-05-2026",
+    "precioTotal": "S/ 3,100.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-204",
+    "item": 4,
+    "codigo": "F001-0001038",
+    "rucDni": "20608899441",
+    "cliente": "TECNOLOGÍA Y DESARROLLO PERÚ S.A.",
+    "fechaCreacion": "08/05/2026",
+    "fechaEmision": "08-05-2026",
+    "precioTotal": "S/ 95.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-205",
+    "item": 5,
+    "codigo": "F001-0001039",
+    "rucDni": "20501234567",
+    "cliente": "MINERA AURÍFERA LOS ANDES S.A.C.",
+    "fechaCreacion": "10/05/2026",
+    "fechaEmision": "10-05-2026",
+    "precioTotal": "S/ 15,200.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-206",
+    "item": 6,
+    "codigo": "F001-0001040",
+    "rucDni": "20412345678",
+    "cliente": "SUPERMERCADOS PERUANOS S.A.",
+    "fechaCreacion": "11/05/2026",
+    "fechaEmision": "11-05-2026",
+    "precioTotal": "S/ 4,320.80",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "fe-207",
+    "item": 7,
+    "codigo": "F001-0001041",
+    "rucDni": "20602345678",
+    "cliente": "CORPORACIÓN TEXTIL DEL CENTRO S.A.C.",
+    "fechaCreacion": "12/05/2026",
+    "fechaEmision": "12-05-2026",
+    "precioTotal": "S/ 2,450.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-208",
+    "item": 8,
+    "codigo": "F001-0001042",
+    "rucDni": "20556789012",
+    "cliente": "IMPORTADORA Y EXPORTADORA YOSHI S.A.",
+    "fechaCreacion": "14/05/2026",
+    "fechaEmision": "14-05-2026",
+    "precioTotal": "S/ 1,890.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-209",
+    "item": 9,
+    "codigo": "F001-0001043",
+    "rucDni": "20304050607",
+    "cliente": "CLINICA SAN FELIPE S.A.",
+    "fechaCreacion": "15/05/2026",
+    "fechaEmision": "15-05-2026",
+    "precioTotal": "S/ 5,800.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-210",
+    "item": 10,
+    "codigo": "F001-0001044",
+    "rucDni": "20100100200",
+    "cliente": "EDITORIAL EL COMERCIO S.A.",
+    "fechaCreacion": "16/05/2026",
+    "fechaEmision": "16-05-2026",
+    "precioTotal": "S/ 980.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-211",
+    "item": 11,
+    "codigo": "F001-0001045",
+    "rucDni": "20459874123",
+    "cliente": "PESQUERA EXALMAR S.A.A.",
+    "fechaCreacion": "18/05/2026",
+    "fechaEmision": "18-05-2026",
+    "precioTotal": "S/ 24,500.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-212",
+    "item": 12,
+    "codigo": "F001-0001046",
+    "rucDni": "10748596321",
+    "cliente": "MIGUEL ANGEL TORRES CHAVEZ",
+    "fechaCreacion": "19/05/2026",
+    "fechaEmision": "19-05-2026",
+    "precioTotal": "S/ 320.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "fe-213",
+    "item": 13,
+    "codigo": "F001-0001047",
+    "rucDni": "20887766554",
+    "cliente": "HOTELES Y RESTAURANTES DEL PERÚ S.A.C.",
+    "fechaCreacion": "20/05/2026",
+    "fechaEmision": "20-05-2026",
+    "precioTotal": "S/ 1,150.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-214",
+    "item": 14,
+    "codigo": "F001-0001048",
+    "rucDni": "10874521369",
+    "cliente": "JUAN CARLOS BENITES AGUILAR",
+    "fechaCreacion": "22/05/2026",
+    "fechaEmision": "22-05-2026",
+    "precioTotal": "S/ 740.00",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "fe-215",
+    "item": 15,
+    "codigo": "F001-0001049",
+    "rucDni": "20445588991",
+    "cliente": "AGROINDUSTRIAS DEL SUR S.A.",
+    "fechaCreacion": "24/05/2026",
+    "fechaEmision": "24-05-2026",
+    "precioTotal": "S/ 8,900.00",
+    "sunatStatus": "enviado"
+  }
+]
