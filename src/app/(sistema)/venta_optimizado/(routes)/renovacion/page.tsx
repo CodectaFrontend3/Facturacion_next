@@ -15,19 +15,26 @@ import { getRenovacionColumns } from "../../_config/columns/renovacion.columns"
 import { SUMMARY_CARDS } from "../../_config/summaryCards"
 import { format } from "../../_utils/format"
 
-const ALERTA_OPTIONS = [
-  { label: "Todos los Estados", value: "todos" },
-  { label: "Activo", value: "activo" },
+const COMPROBANTE_OPTIONS = [
+  { label: "Comprobantes", value: "todos" },
+  { label: "Factura", value: "Factura" },
+  { label: "Boleta", value: "Boleta" },
+  { label: "Nota de Venta", value: "Nota de Venta" },
+]
+
+const ESTADO_OPTIONS = [
+  { label: "Estados", value: "todos" },
+  { label: "Activa", value: "activo" },
   { label: "Por vencer", value: "por_vencer" },
-  { label: "Vencido", value: "vencido" },
+  { label: "Vencida", value: "vencido" },
 ]
 
 export default function RenovacionPage() {
   const { cotizaciones, cotizacionesManuales, notasVenta, clientes, renovaciones, isLoading } =
     useVentasContext()
 
-  const { filters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
-  const renovacionesFiltradas = useVentasList(renovaciones, filters)
+  const { filters, activeFilters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
+  const renovacionesFiltradas = useVentasList(renovaciones, activeFilters)
 
   const allDocs = useMemo(
     () => [...cotizaciones, ...cotizacionesManuales, ...notasVenta],
@@ -68,8 +75,14 @@ export default function RenovacionPage() {
       tabCounts={tabCounts}
       totalAmount={totalAmount}
       filterBar={
-        <FilterBar filters={filters} onFilterChange={handleFilterChange} onSearchSubmit={handleSearch}
-          onReset={resetFilters} selectConfig={{ name: "estado", options: ALERTA_OPTIONS }} showDateRange />
+        <FilterBar
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          onSearchSubmit={handleSearch}
+          onReset={resetFilters}
+          selectConfig={{ name: "tipoDocumento", options: COMPROBANTE_OPTIONS }}
+          estadoSelectConfig={{ name: "estado", options: ESTADO_OPTIONS }}
+        />
       }
     />
   )

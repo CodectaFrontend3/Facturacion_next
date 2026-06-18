@@ -16,19 +16,22 @@ import { getNotaVentaColumns } from "../../_config/columns/notaVenta.columns"
 import { SUMMARY_CARDS } from "../../_config/summaryCards"
 import { format } from "../../_utils/format"
 
-const FORMA_PAGO_OPTIONS = [
-  { label: "Todos los Documentos", value: "todos" },
-  { label: "Contado", value: "Contado" },
-  { label: "Crédito", value: "Credito" },
-]
-
 export default function NotaVentaPage() {
   const router = useRouter()
   const { cotizaciones, cotizacionesManuales, notasVenta, clientes, renovaciones, isLoading } =
     useVentasContext()
 
-  const { filters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
-  const notasFiltradas = useVentasList(notasVenta, filters)
+  const { filters, activeFilters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
+  const notasFiltradas = useVentasList(notasVenta, activeFilters)
+
+  // Opciones del combobox: "Nombre | Documento", igual al diseño original
+  const clienteItems = useMemo(
+    () => clientes.map((c) => ({
+      value: c.id,
+      label: `${c.nombre} | ${c.numeroDocumento}`,
+    })),
+    [clientes]
+  )
 
   const allDocs = useMemo(
     () => [...cotizaciones, ...cotizacionesManuales, ...notasVenta],
@@ -70,8 +73,13 @@ export default function NotaVentaPage() {
       totalAmount={totalAmount}
       onAddClick={() => router.push("/venta_optimizado/nota_venta/crear")}
       filterBar={
-        <FilterBar filters={filters} onFilterChange={handleFilterChange} onSearchSubmit={handleSearch}
-          onReset={resetFilters} selectConfig={{ name: "tipoDocumento", options: FORMA_PAGO_OPTIONS }} showDateRange />
+        <FilterBar
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          onSearchSubmit={handleSearch}
+          onReset={resetFilters}
+          clienteFilter={{ name: "clienteId", items: clienteItems, placeholder: "Seleccionar Cliente" }}
+        />
       }
     />
   )

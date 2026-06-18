@@ -17,10 +17,11 @@ import { getCotizacionColumns } from "../../_config/columns/cotizacion.columns"
 import { SUMMARY_CARDS } from "../../_config/summaryCards"
 import { format } from "../../_utils/format"
 
-const FORMA_PAGO_OPTIONS = [
+const COMPROBANTE_OPTIONS = [
   { label: "Todos los comprobantes", value: "todos" },
-  { label: "Contado", value: "Contado" },
-  { label: "Crédito", value: "Credito" },
+  { label: "Factura", value: "Factura" },
+  { label: "Boleta", value: "Boleta" },
+  { label: "Nota de Venta", value: "Nota de Venta" },
 ]
 
 export default function CotizacionPage() {
@@ -30,8 +31,8 @@ export default function CotizacionPage() {
   const { cotizaciones, cotizacionesManuales, notasVenta, clientes, renovaciones, isLoading } =
     useVentasContext()
 
-  const { filters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
-  const cotizacionesFiltradas = useVentasList(cotizaciones, filters)
+  const { filters, activeFilters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
+  const cotizacionesFiltradas = useVentasList(cotizaciones, activeFilters)
 
   const allDocs = useMemo(
     () => [...cotizaciones, ...cotizacionesManuales, ...notasVenta],
@@ -95,8 +96,8 @@ export default function CotizacionPage() {
             onFilterChange={handleFilterChange}
             onSearchSubmit={handleSearch}
             onReset={resetFilters}
-            selectConfig={{ name: "tipoDocumento", options: FORMA_PAGO_OPTIONS }}
-            showDateRange
+            selectConfig={{ name: "tipoDocumento", options: COMPROBANTE_OPTIONS }}
+            showDateRange={true}
           />
         }
       />

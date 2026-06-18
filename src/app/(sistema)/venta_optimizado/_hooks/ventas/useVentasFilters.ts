@@ -1,4 +1,4 @@
-import { useState } from "react"
+  import { useState } from "react"
 
 export interface VentasFilters {
   dateFrom: string
@@ -19,7 +19,11 @@ const INITIAL_FILTERS: VentasFilters = {
 
 export const useVentasFilters = () => {
   const [filters, setFilters] =
+  useState<VentasFilters>(INITIAL_FILTERS)
+
+  const [activeFilters, setActiveFilters] =
     useState<VentasFilters>(INITIAL_FILTERS)
+
 
   const handleFilterChange = (
     name: string,
@@ -33,15 +37,17 @@ export const useVentasFilters = () => {
 
   const handleSearch = () => {
     //aqui sera reemplazado por la llamada de servicios
-    console.log(filters)
+    setActiveFilters(filters)
   }
 
   const resetFilters = () => {
     setFilters(INITIAL_FILTERS)
+    setActiveFilters(INITIAL_FILTERS)
   }
 
   return {
     filters,
+    activeFilters,
     handleFilterChange,
     handleSearch,
     resetFilters,

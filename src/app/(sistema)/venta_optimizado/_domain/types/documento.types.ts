@@ -133,15 +133,17 @@ export type CrearCotizacionPayload = Omit<CotizacionDetalle, 'id' | 'numero'>;
 export interface DocumentoFilaLista {
   id: string;
   tipo: DocumentoTipo;
-  numero: string;             // Columna: "N°"
-  clienteDocumento: string;   // Columna: "RUC-DNI" (Inyectado por mapper al cruzar clienteId)
-  clienteNombre: string;      // Columna: "Cliente" (Inyectado por mapper al cruzar clienteId)
-  clienteCelular?: string | null; // 👈 AGREGO: Opcional para el Popover de WhatsApp
-  clienteCorreo?: string | null;  // 👈 AGREGO: Opcional para el Popover de Correo
-  fechaEmision: string;       // Columna: "Emisión" / "Fecha Emisión"
-  formaPago: FormaPagoTipo;   // Columna: "Forma" ('Contado' | 'Credito')
-  total: number;              // Columna: "Importe T." (Calculado por _utils/calculations.ts)
-  estado: DocumentoEstado;    // Necesario para los filtros comerciales por Tabs
+  numero: string;              // Columna: "N°"
+  clienteId: string;           // 👈 AGREGO: necesario para filtrar por cliente (CboData en Nota de Venta)
+  clienteDocumento: string;    // Columna: "RUC-DNI" (Inyectado por mapper al cruzar clienteId)
+  clienteNombre: string;       // Columna: "Cliente" (Inyectado por mapper al cruzar clienteId)
+  clienteCelular?: string | null; // Opcional para el Popover de WhatsApp
+  clienteCorreo?: string | null;  // Opcional para el Popover de Correo
+  fechaEmision: string;        // Columna: "Emisión" / "Fecha Emisión"
+  tipoComprobante: DocumentoTipoComprobante | 'Nota de Venta'; // 👈 AGREGO: Factura/Boleta/Nota de Venta — filtro del selector "Comprobantes"
+  formaPago: FormaPagoTipo;    // Columna: "Forma" ('Contado' | 'Credito')
+  total: number;               // Columna: "Importe T." (Calculado por _utils/calculations.ts)
+  estado: DocumentoEstado;     // Necesario para los filtros comerciales por Tabs
 }
 
 // Extrae los campos de renovación y añade el cálculo de días y alertas visuales.
@@ -151,5 +153,3 @@ export interface RenovacionFilaLista extends DocumentoFilaLista {
   diasRestantes: number;   // Operación matemática: fechaRenovacion - hoy
   alertaVisual: 'activo' | 'por_vencer' | 'vencido'; // Control de colores en UI
 }
-
-

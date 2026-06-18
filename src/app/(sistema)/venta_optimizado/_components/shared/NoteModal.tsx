@@ -31,7 +31,7 @@ export function NotaModal({ isOpen, initialValue = "", onSave, onDelete, onCance
         className="fixed inset-0 z-50 flex items-center justify-center"
         style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
       >
-        <div className="h-[340px] w-[440px] max-w-[calc(100vw-32px)] overflow-hidden rounded-md bg-white shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+        <div className="h-[340px] w-[440px] max-w-[calc(100vw-32px)]  bg-white shadow-2xl animate-in fade-in zoom-in-95 duration-150">
           <div className="flex h-full flex-col items-center px-8 pt-[44px] text-center">
             <div className="mb-[34px] flex h-[86px] w-[86px] items-center justify-center rounded-full border-[4px] border-[#f4c978] text-[#f4c978]">
               <span className="translate-y-[1px] text-[60px] font-light leading-none">!</span>
@@ -67,7 +67,7 @@ export function NotaModal({ isOpen, initialValue = "", onSave, onDelete, onCance
       style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
       onClick={(e) => { if (e.target === e.currentTarget) onCancel() }}
     >
-      <div className="bg-white rounded-lg shadow-2xl w-[440px] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div className="bg-white  shadow-2xl w-[440px] animate-in fade-in zoom-in-95 duration-150">
         <div className="flex items-center justify-between px-5 py-3 bg-[#1538A0]">
           <div className="flex items-center gap-2">
             <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full text-white">

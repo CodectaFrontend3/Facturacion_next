@@ -5,8 +5,9 @@ import {
   CotizacionManualDetalle,
   NotaVentaDetalle,
   DocumentoFilaLista,
-  RenovacionFilaLista
+  RenovacionFilaLista,
 } from './types/documento.types';
+import {DocumentoTipo, DocumentoTipoComprobante,} from './types/shared.types';
 import { ClienteDetalle, ClienteFilaLista } from './types/cliente.types';
 import { 
   calcularTotalesCotizacion, 
@@ -41,6 +42,21 @@ const encontrarClienteSeguro = (
 };
 
 /**
+ * HELPER INTERNO: Deriva el tipo de comprobante visible en el selector de filtros
+ * (Factura / Boleta / Nota de Venta) a partir del tipo interno del documento.
+ * - cotizacion / cotizacion_manual → ya tienen tipoDocumento real ('Factura' | 'Boleta')
+ * - nota_venta → no tiene ese campo en los datos crudos, se etiqueta fijo como "Nota de Venta"
+ */
+const resolverTipoComprobante = (
+  tipoDocInterno: DocumentoTipo,
+  tipoDocumentoOrigen?: DocumentoTipoComprobante
+): DocumentoTipoComprobante | 'Nota de Venta' => {
+  if (tipoDocInterno === 'nota_venta') return 'Nota de Venta';
+  return tipoDocumentoOrigen ?? 'Boleta';
+};
+
+
+/**
  * 1. MAPPER: COTIZACIONES TRADICIONALES
  * Transforma una Cotización Cruda a la estructura plana de la interfaz de usuario.
  * Se eliminó el parámetro 'comisionistas' por no ser utilizado en este flujo.
@@ -57,11 +73,13 @@ export const mapCotizacionToFilaLista = (
     id: cotizacion.id,
     tipo: cotizacion.tipo,
     numero: cotizacion.numero,
+    clienteId: cotizacion.clienteId, // 👈 AGREGO: necesario para filtro CboData en Nota de Venta
     clienteDocumento: cliente ? cliente.numeroDocumento : '---',
     clienteNombre: cliente ? cliente.nombre : '⚠️ Cliente no encontrado',
     clienteCelular: cliente ? cliente.celular : null, // 👈 Inyectamos celular de la entidad Cliente
     clienteCorreo: cliente ? cliente.correo : null,   // 👈 Inyectamos correo de la entidad Cliente
     fechaEmision: cotizacion.fechaEmision,
+    tipoComprobante: resolverTipoComprobante(cotizacion.tipo, cotizacion.tipoDocumento), // 👈 AGREGO
     formaPago: cotizacion.formaPago,
     total: financieros.total,
     estado: cotizacion.estado,
@@ -84,11 +102,13 @@ export const mapCotizacionManualToFilaLista = (
     id: cotizacionManual.id,
     tipo: cotizacionManual.tipo,
     numero: cotizacionManual.numero,
+    clienteId: cotizacionManual.clienteId, // 👈 AGREGO: necesario para filtro CboData en Nota de Venta
     clienteDocumento: cliente ? cliente.numeroDocumento : '---',
     clienteNombre: cliente ? cliente.nombre : '⚠️ Cliente no encontrado',
     clienteCelular: cliente ? cliente.celular : null, // 👈 Inyectamos celular de la entidad Cliente
     clienteCorreo: cliente ? cliente.correo : null,   // 👈 Inyectamos correo de la entidad Cliente
     fechaEmision: cotizacionManual.fechaEmision,
+    tipoComprobante: resolverTipoComprobante(cotizacionManual.tipo, cotizacionManual.tipoDocumento), // 👈 AGREGO
     formaPago: cotizacionManual.formaPago,
     total: financieros.total,
     estado: cotizacionManual.estado,
@@ -110,11 +130,13 @@ export const mapNotaVentaToFilaLista = (
     id: notaVenta.id,
     tipo: notaVenta.tipo,
     numero: notaVenta.numero,
+    clienteId: notaVenta.clienteId, // 👈 AGREGO
     clienteDocumento: cliente ? cliente.numeroDocumento : '---',
     clienteNombre: cliente ? cliente.nombre : '⚠️ Cliente no encontrado',
     clienteCelular: cliente ? cliente.celular : null, // 👈 Inyectamos celular de la entidad Cliente
     clienteCorreo: cliente ? cliente.correo : null,   // 👈 Inyectamos correo de la entidad Cliente
     fechaEmision: notaVenta.fechaEmision,
+    tipoComprobante: resolverTipoComprobante(notaVenta.tipo), // 👈 AGREGO: siempre "Nota de Venta"
     formaPago: notaVenta.formaPago,
     total: financieros.total,
     estado: notaVenta.estado,
@@ -156,11 +178,13 @@ export const mapToRenovacionFilaLista = (
     id: documento.id,
     tipo: documento.tipo,
     numero: documento.numero,
+    clienteId: documento.clienteId, // 👈 AGREGO
     clienteDocumento: cliente ? cliente.numeroDocumento : '---',
     clienteNombre: cliente ? cliente.nombre : '⚠️ Cliente no encontrado',
     clienteCelular: cliente ? cliente.celular : null, // 👈 Inyectamos celular de la entidad Cliente
     clienteCorreo: cliente ? cliente.correo : null,   // 👈 Inyectamos correo de la entidad Cliente
     fechaEmision: documento.fechaEmision,
+    tipoComprobante: resolverTipoComprobante(documento.tipo, documento.tipoDocumento), // 👈 AGREGO
     formaPago: documento.formaPago,
     total: totalCalculado,
     estado: documento.estado,

@@ -27,8 +27,8 @@ export default function ClientesPage() {
   const { cotizaciones, cotizacionesManuales, notasVenta, clientes, renovaciones, isLoading } =
     useVentasContext()
 
-  const { filters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
-  const clientesFiltrados = useVentasList(clientes, filters)
+  const { filters,  activeFilters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
+  const clientesFiltrados = useVentasList(clientes, activeFilters)
 
   const allDocs = useMemo(
     () => [...cotizaciones, ...cotizacionesManuales, ...notasVenta],
@@ -67,8 +67,14 @@ export default function ClientesPage() {
         tabCounts={tabCounts}
         onAddClick={() => setModalOpen(true)}
         filterBar={
-          <FilterBar filters={filters} onFilterChange={handleFilterChange} onSearchSubmit={handleSearch}
-            onReset={resetFilters} selectConfig={{ name: "tipoDocumento", options: TIPO_DOC_OPTIONS }} showDateRange={false} />
+          <FilterBar
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onSearchSubmit={handleSearch}
+            onReset={resetFilters}
+            showDateRange={true}
+            selectConfig={{ name: "tipoDocumento", options: TIPO_DOC_OPTIONS }}
+          />
         }
       />
       <ClienteModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
