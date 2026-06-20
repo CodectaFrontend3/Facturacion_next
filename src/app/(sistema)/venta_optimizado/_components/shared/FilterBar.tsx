@@ -8,6 +8,8 @@ import { FilterSearch } from "@/components/DataFilters/FilterSearch"
 import { CboData, CboItem } from "@/components/common/CboData"
 import { VentasFilters } from "../../_hooks/ventas/useVentasFilters"
 
+
+
 interface SelectConfig {
   name: string
   options: { label: string; value: string }[]

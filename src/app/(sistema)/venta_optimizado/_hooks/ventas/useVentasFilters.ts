@@ -1,4 +1,5 @@
-  import { useState } from "react"
+import { useState } from "react"
+import { showToast } from "@/components/shared/custom-toast";
 
 export interface VentasFilters {
   dateFrom: string
@@ -38,11 +39,13 @@ export const useVentasFilters = () => {
   const handleSearch = () => {
     //aqui sera reemplazado por la llamada de servicios
     setActiveFilters(filters)
+    showToast( "Se han aplicado los filtros correctamente", 1);
   }
 
   const resetFilters = () => {
     setFilters(INITIAL_FILTERS)
     setActiveFilters(INITIAL_FILTERS)
+    showToast( "Filtros restablecidos", 1);
   }
 
   return {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { showToast } from "@/components/shared/custom-toast";
 
 interface NotaModalProps {
   isOpen: boolean
@@ -48,7 +49,16 @@ export function NotaModal({ isOpen, initialValue = "", onSave, onDelete, onCance
                 Cancelar
               </button>
               <button
-                onClick={() => { onDelete?.(); setShowDeleteConfirm(false) }}
+                onClick={() => {
+                  onDelete?.();
+
+                  showToast(
+                    "Nota eliminada correctamente",
+                    1
+                  );
+
+                  setShowDeleteConfirm(false);
+                }}
                 className="h-[42px] min-w-[152px] rounded bg-[#2040bd] px-6 text-[16px] font-semibold text-white shadow-[0_1px_4px_rgba(0,0,0,0.28)] transition-colors hover:bg-[#1934a0]"
               >
                 Sí, eliminar
@@ -123,7 +133,24 @@ export function NotaModal({ isOpen, initialValue = "", onSave, onDelete, onCance
               Cancelar
             </button>
             <button
-              onClick={() => onSave(text)}
+              onClick={() => {
+                if (!text.trim()) {
+                  showToast(
+                    "La nota no puede estar vacía",
+                    3
+                  );
+                  return;
+                }
+
+                onSave(text);
+
+                showToast(
+                  isEditMode
+                    ? "Nota actualizada correctamente"
+                    : "Nota agregada correctamente",
+                  1
+                );
+              }}
               className="px-4 py-1.5 text-[12px] font-semibold bg-[#1538A0] text-white rounded hover:bg-[#0f2b82] transition-colors"
             >
               {isEditMode ? "Actualizar" : "Guardar"}

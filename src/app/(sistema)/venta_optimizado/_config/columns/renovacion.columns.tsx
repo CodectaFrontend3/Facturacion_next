@@ -35,7 +35,7 @@ export const getRenovacionColumns = (
   { 
     accessorKey: "diasRestantes", 
     header: "Días R.", 
-    size: 80,
+    size: 90,
     cell: ({ row }) => {
       const dias = row.original.diasRestantes;
       const alerta = row.original.alertaVisual;
