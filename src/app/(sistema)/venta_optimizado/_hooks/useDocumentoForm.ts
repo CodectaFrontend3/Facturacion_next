@@ -39,9 +39,11 @@ const crearItemVacio = (tipo: DocumentoTipo): DocumentoItem => {
 interface UseDocumentoFormOptions {
   tipo: DocumentoTipo
   articulosMaster: ArticuloDetalle[]
+  /** % del comisionista seleccionado (solo aplica a cotización), afecta el Total general */
+  porcentajeComision?: number
 }
 
-export function useDocumentoForm({ tipo, articulosMaster }: UseDocumentoFormOptions) {
+export function useDocumentoForm({ tipo, articulosMaster, porcentajeComision = 0 }: UseDocumentoFormOptions) {
   // Inicia con una fila vacía para que el usuario vea la tabla lista de inmediato
   const [items, setItems] = useState<DocumentoItem[]>([crearItemVacio(tipo)])
 
@@ -124,13 +126,13 @@ export function useDocumentoForm({ tipo, articulosMaster }: UseDocumentoFormOpti
 
     switch (tipo) {
       case "cotizacion":
-        return calcularTotalesCotizacion(itemsValidos as ItemCotizacion[], articulosMaster)
+        return calcularTotalesCotizacion(itemsValidos as ItemCotizacion[], articulosMaster, porcentajeComision)
       case "cotizacion_manual":
         return calcularTotalesCotizacionManual(itemsValidos as ItemCotizacionManual[])
       case "nota_venta":
         return calcularTotalesNotaVenta(itemsValidos as ItemNotaVenta[])
     }
-  }, [tipo, items, articulosMaster])
+  }, [tipo, items, articulosMaster, porcentajeComision])
   
   return {
     items,

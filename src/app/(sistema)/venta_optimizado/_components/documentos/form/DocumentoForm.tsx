@@ -13,6 +13,7 @@ import { useDocumentoForm } from "../../../_hooks/useDocumentoForm"
 import { DocumentoTipo } from "../../../_domain/types/shared.types"
 import { catalogoService } from "../../../_services/catalogoService"
 import { AlmacenDetalle, ComisionistaDetalle, TipoOperacionDetalle, ArticuloDetalle } from "../../../_domain/types/catalogo.types"
+import { areIdsEqual } from "../../../_utils/idNormalizer"
 
 import { ClienteModal } from "../../clientes/ClienteModal"
 import { ArticuloSelectorModal } from "./ArticuloSelectorModal"
@@ -74,18 +75,24 @@ export function DocumentoForm({ tipo }: DocumentoFormProps) {
     return () => { isMounted = false }
   }, [])
 
-  // --- Estado del formulario (items + renovación + totales) ---
-  const { items, renovacion, totals, actions } = useDocumentoForm({ tipo, articulosMaster })
-
-  // --- Cliente seleccionado ---
-  const [selectedClienteId, setSelectedClienteId] = useState("")
-  const [isClienteModalOpen, setIsClienteModalOpen] = useState(false)
-
   // --- Condiciones del documento (campos variables del topForm) ---
+  // Se declara antes de useDocumentoForm porque el porcentaje de comisión
+  // seleccionado aquí es necesario para calcular el Total general del documento.
   const [condiciones, setCondiciones] = useState<CondicionesValues>(VALORES_INICIALES)
   const handleCondicionChange = (field: keyof CondicionesValues, value: string) => {
     setCondiciones((prev) => ({ ...prev, [field]: value }))
   }
+
+  // % del comisionista actualmente seleccionado (solo aplica en cotización)
+  const comisionistaSeleccionado = comisionistas.find((c) => areIdsEqual(c.id, condiciones.comisionistaId))
+  const porcentajeComision = comisionistaSeleccionado?.porcentajeComision ?? 0
+
+  // --- Estado del formulario (items + renovación + totales) ---
+  const { items, renovacion, totals, actions } = useDocumentoForm({ tipo, articulosMaster, porcentajeComision })
+
+  // --- Cliente seleccionado ---
+  const [selectedClienteId, setSelectedClienteId] = useState("")
+  const [isClienteModalOpen, setIsClienteModalOpen] = useState(false)
 
   // --- Modal de selección de artículo ---
   const [isArticuloModalOpen, setIsArticuloModalOpen] = useState(false)
@@ -173,6 +180,8 @@ export function DocumentoForm({ tipo }: DocumentoFormProps) {
             onUpdate={actions.updateItem}
             onRemove={actions.removeItem}
             onAddEmpty={() => setIsArticuloModalOpen(true)}
+            comisionistas={comisionistas}
+            comisionistaId={condiciones.comisionistaId}
           />
         }
         summarySection={

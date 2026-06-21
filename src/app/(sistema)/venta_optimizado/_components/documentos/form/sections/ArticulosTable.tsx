@@ -4,7 +4,7 @@
 import { Trash2, Plus } from "lucide-react"
 import { ActionButton } from "@/components/common/ActionButton"
 import { CboData } from "@/components/common/CboData"
-import { ArticuloDetalle } from "../../../../_domain/types/catalogo.types"
+import { ArticuloDetalle, ComisionistaDetalle } from "../../../../_domain/types/catalogo.types"
 import { DocumentoTipo } from "../../../../_domain/types/shared.types"
 import { DocumentoItem } from "../../../../_hooks/useDocumentoForm"
 import { areIdsEqual } from "../../../../_utils/idNormalizer"
@@ -16,6 +16,9 @@ interface ArticulosTableProps {
   onUpdate: (id: string, field: string, value: any) => void
   onRemove: (id: string) => void
   onAddEmpty: () => void
+  /** Comisionista seleccionado en CondicionesSection, usado para calcular PU. Com. (solo cotización) */
+  comisionistas?: ComisionistaDetalle[]
+  comisionistaId?: string
 }
 
 export function ArticulosTable({
@@ -25,11 +28,17 @@ export function ArticulosTable({
   onUpdate,
   onRemove,
   onAddEmpty,
+  comisionistas = [],
+  comisionistaId,
 }: ArticulosTableProps) {
   const articulosOptions = articulosMaster.map((a) => ({
     value: String(a.id),
     label: `${a.id} | ${a.codigo} | ${a.nombre}`,
   }))
+
+  // Comisionista activo según el seleccionado en el formulario
+  const comisionista = comisionistas.find((c) => areIdsEqual(c.id, comisionistaId))
+  const porcentajeComision = comisionista?.porcentajeComision ?? 0
 
   const fmt = (n: number) => (n || 0).toFixed(2)
 
@@ -52,6 +61,7 @@ export function ArticulosTable({
             <th className={`${headerClass} text-center w-28`}>Precio</th>
             <th className={`${headerClass} text-center w-16`}>Dcto</th>
             <th className={`${headerClass} text-center w-28`}>PU. Dcto.</th>
+            <th className={`${headerClass} text-center w-28`}>PU. Com.</th>
             <th className={`${headerClass} text-center w-28`}>Total</th>
             <th className={`${headerClass} text-center w-28`}>Total IGV</th>
           </>
@@ -139,7 +149,10 @@ export function ArticulosTable({
                   const precioConDcto = itemCot.descuentoPorcentajeAplicado
                     ? precioCatalogo * (1 - dctoLabel / 100)
                     : precioCatalogo
-                  const total = precioConDcto * cantidad
+                  // PU. Com.: precio con descuento incrementado por el % del comisionista seleccionado.
+                  // Esta es la base real para el Total/Total IGV del documento (confirmado por el usuario).
+                  const precioConComision = precioConDcto * (1 + porcentajeComision / 100)
+                  const total = precioConComision * cantidad
                   const totalIGV = total * 1.18
 
                   return (
@@ -176,6 +189,9 @@ export function ArticulosTable({
                       </td>
                       <td className="py-2 px-1 text-center align-top">
                         <input type="text" readOnly value={fmt(precioConDcto)} className={disabledInputClass} />
+                      </td>
+                      <td className="py-2 px-1 text-center align-top">
+                        <input type="text" readOnly value={fmt(precioConComision)} className={disabledInputClass} />
                       </td>
                       <td className="py-2 px-1 text-center align-top">
                         <input type="text" readOnly value={fmt(total)} className={disabledInputClass} />

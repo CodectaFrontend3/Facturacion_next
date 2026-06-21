@@ -3,6 +3,7 @@
 
 import React, { useState, useMemo, useCallback } from "react"
 import { ArticuloDetalle } from "../../../_domain/types/catalogo.types"
+import { showToast } from "@/components/shared/custom-toast"
 
 interface ArticuloSelectorModalProps {
   isOpen: boolean
@@ -87,7 +88,7 @@ export function ArticuloSelectorModal({ isOpen, onClose, onAdd, articulosMaster 
     setCantidades((prev) => ({ ...prev, [id]: val }))
   }, [])
 
-  // Limpia el estado interno antes de cerrar, igual que el original
+  // Limpia el estado interno antes de cerrar — solo se invoca desde el botón ✕
   const handleInternalClose = () => {
     setSearch("")
     setCurrentPage(1)
@@ -95,10 +96,13 @@ export function ArticuloSelectorModal({ isOpen, onClose, onAdd, articulosMaster 
     onClose()
   }
 
+  // El modal se mantiene abierto tras agregar un artículo, para permitir
+  // seguir seleccionando varios sin tener que reabrirlo cada vez.
+  // El único modo de cerrarlo es el botón ✕.
   const handleAdd = useCallback(
     (id: string, qty: number) => {
       onAdd(id, qty)
-      handleInternalClose()
+      showToast("Se agregó el Artículo correctamente", 4)
     },
     [onAdd]
   )
@@ -196,12 +200,9 @@ export function ArticuloSelectorModal({ isOpen, onClose, onAdd, articulosMaster 
             </div>
           )}
 
-          <button
-            onClick={handleInternalClose}
-            className="bg-[#70757a] hover:bg-[#5a6268] text-white px-5 py-1.5 rounded-sm text-[13px] font-medium transition-colors"
-          >
-            Cerrar
-          </button>
+          {/* El botón "Cerrar" se removió: el cierre del modal es exclusivo
+              del botón ✕ del header, según lo solicitado. */}
+          <div className="w-0" />
         </div>
       </div>
     </div>
