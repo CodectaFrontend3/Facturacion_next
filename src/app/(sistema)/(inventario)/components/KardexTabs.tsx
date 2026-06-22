@@ -12,7 +12,6 @@ interface Props {
 function KardexTabs({ children, actions }: Props) {
   const pathname = usePathname();
 
-  // Tus rutas configuradas exactamente como las tienes
   const allTabs = [
     { name: "Entradas", href: "/kardex-entrada", count: 0 },
     { name: "Distribuciones", href: "/kardex-entrada-Distribucion", count: 0 },
@@ -20,39 +19,35 @@ function KardexTabs({ children, actions }: Props) {
     { name: "Salidas", href: "/kardex-salida", count: 0 },
   ];
 
-  // Buscamos únicamente la pestaña que haga match con la URL actual
   const activeTab = allTabs.find((tab) => pathname === tab.href);
 
   return (
-    <div className="w-full min-h-screen bg-[#f8fafc] p-4 lg:p-6">
-      {/* Cabecera: El Único Tab Activo a la izquierda + Acciones a la derecha */}
-      <div className="flex items-center justify-between">
+    <div className="bg-white border border-gray-300 rounded-none p-4 shadow-sm w-full mb-12">
+      <div className="flex items-center justify-between mb-1">
         <nav className="flex items-end space-x-1">
           {activeTab ? (
             <Link
               href={activeTab.href}
-              className="flex items-center px-5 py-2.5 text-[13px] transition-all border-t border-l border-r rounded-t-lg cursor-pointer select-none bg-white border-gray-300 text-slate-700 font-bold -mb-px z-10 shadow-[0_-2px_5px_rgba(0,0,0,0.02)]"
+              className="flex items-center px-4 py-1.5 text-[12px] transition-all border-t border-l border-r rounded-t-md cursor-pointer select-none bg-white border-gray-300 text-slate-700 font-bold -mb-px z-10"
             >
-              {/* Contador azul dinámico de la imagen */}
-              <span className="bg-[#1A5EB3] text-white text-[10px] px-1.5 py-0.5 rounded-[5px] mr-2 flex items-center justify-center min-w-4.5 font-bold">
+              <span className="bg-[#1A5EB3] text-white text-[9px] px-1.5 py-0.5 rounded-sm mr-1.5 flex items-center justify-center min-w-4 font-bold">
                 {activeTab.count}
               </span>
               {activeTab.name}
             </Link>
           ) : (
-            /* Fallback por si heredas una subruta que no esté mapeada exactamente en el array */
-            <div className="px-5 py-2.5 text-[13px] border-t border-l border-r rounded-t-lg bg-white border-gray-300 text-slate-700 font-bold -mb-px z-10">
+            <div className="px-4 py-1.5 text-[12px] border-t border-l border-r rounded-t-md bg-white border-gray-300 text-slate-700 font-bold -mb-px z-10">
               Kardex
             </div>
           )}
         </nav>
 
-        {/* Botones de acción (Upload, Download, Plus) perfectamente alineados a la derecha */}
-        <div className="mb-2 flex items-center gap-2">{actions}</div>
+        <div className="mb-1 flex items-center gap-1.5 scale-90 origin-right">
+          {actions}
+        </div>
       </div>
 
-      {/* Contenedor del contenido (Tabla, filtros, etc.) */}
-      <div className="bg-white border border-gray-300 rounded-b-lg rounded-tr-none p-6 shadow-sm h-auto">
+      <div className="bg-white border border-gray-300 rounded-md rounded-tl-none p-4 h-auto relative z-0">
         {children}
       </div>
     </div>
