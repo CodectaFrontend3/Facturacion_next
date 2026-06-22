@@ -12,6 +12,8 @@ import { FilterSearch } from "@/components/DataFilters/FilterSearch";
 import { DataTable } from "@/components/shared/DataTable";
 import { Download, Plus, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import AlmacenModal from "../../components/distribucion/AlmacenModal";
 
 const data = TrasladoProducto as unknown as KardexTrasladoRow[];
 
@@ -26,6 +28,7 @@ export default function Page() {
     setPageIndex,
   } = useTrasladoTable(data);
   const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const columns: ColumnDef<KardexTrasladoRow>[] = [
     {
@@ -89,7 +92,9 @@ export default function Page() {
         <Download className="w-4 h-4" size={16} strokeWidth={3} />
       </button>
       <button className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all">
-        <Plus className="w-4 h-4" size={16} strokeWidth={3} />
+        <AlmacenModal>
+          <Plus className="w-4 h-4" size={16} strokeWidth={3} />
+        </AlmacenModal>
       </button>
     </>
   );
