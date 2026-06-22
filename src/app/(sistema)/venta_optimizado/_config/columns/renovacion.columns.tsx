@@ -7,6 +7,8 @@ import { NotaButton } from "../../_components/ventas/cells/NotaButton";
 interface NoteColumnOptions {
   getNote?: (rowId: string | number) => string
   onNoteClick?: (rowId: string | number) => void
+  /** Navega al detalle del documento (botón del ojo). row.tipo indica si es cotizacion o cotizacion_manual */
+  onView?: (row: RenovacionFilaLista) => void
 }
 
 export const getRenovacionColumns = (
@@ -62,13 +64,36 @@ export const getRenovacionColumns = (
     id: "acciones",
     header: "Acciones",
     size: 130,
-    cell: () => (
-      <div className="flex items-center gap-1.5">
-        <ActionButton icon={<i className="bi bi-eye"></i>} className="w-9 h-9 bg-[#0b65d8] hover:bg-[#0952b1] rounded-[3px]" />
-        <ActionButton icon={<i className="bi bi-clock"></i>} className="w-9 h-9 bg-[#f6a041] hover:bg-[#e08b33] rounded-[3px]" />
-        <ActionButton icon={<i className="bi bi-check-circle"></i>} className="w-9 h-9 bg-[#20c997] hover:bg-[#1ba87e] rounded-[3px]" />
-      </div>
-    )
+    cell: ({ row }) => {
+      const doc = row.original;
+
+      // Misma lógica que en Cotización/Manual:
+      // - 2do botón: refleja el ESTADO del documento (no la renovación)
+      // - 3er botón ADICIONAL: solo si la renovación está vencida (siempre es el caso aquí,
+      //   ya que esta tabla solo lista renovaciones activas, pero se valida igual por consistencia)
+      const esPendiente = doc.estado === "Pendiente";
+      const renovacionVencida = doc.alertaVisual === "vencido";
+
+      return (
+        <div className="flex items-center gap-1.5">
+          <ActionButton
+            icon={<i className="bi bi-eye"></i>}
+            className="w-9 h-9 bg-[#0b65d8] hover:bg-[#0952b1] rounded-[3px]"
+            onClick={() => noteOptions.onView?.(doc)}
+          />
+
+          {esPendiente ? (
+            <ActionButton icon={<i className="bi bi-clock"></i>} className="w-9 h-9 bg-[#f6a041] hover:bg-[#e08b33] rounded-[3px]" />
+          ) : (
+            <ActionButton icon={<i className="bi bi-check-circle"></i>} className="w-9 h-9 bg-[#20c997] hover:bg-[#1ba87e] rounded-[3px]" />
+          )}
+
+          {renovacionVencida && (
+            <ActionButton icon={<i className="bi bi-arrow-repeat"></i>} className="w-9 h-9 bg-[#dc3545] hover:bg-[#c82333] rounded-[3px]" />
+          )}
+        </div>
+      );
+    }
   },
   {
     id: "compartir",

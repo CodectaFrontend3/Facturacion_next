@@ -69,6 +69,7 @@ export default function CotizacionManualPage() {
   const columns = getCotizacionManualColumns({
     getNote: (rowId) => notes[String(rowId)] ?? "",
     onNoteClick: (rowId) => setNoteModal({ open: true, rowId }),
+    onView: (doc) => router.push(`/venta_optimizado/cotizacion_manual/${doc.id}`),
   })
 
   if (isLoading) {

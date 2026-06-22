@@ -144,6 +144,10 @@ export interface DocumentoFilaLista {
   formaPago: FormaPagoTipo;    // Columna: "Forma" ('Contado' | 'Credito')
   total: number;               // Columna: "Importe T." (Calculado por _utils/calculations.ts)
   estado: DocumentoEstado;     // Necesario para los filtros comerciales por Tabs
+  // 👇 AGREGO: usado por el 3er botón de Acciones en Cotización/Manual
+  // (reloj = renovación activa sin vencer, check = sin renovación o al día, flechas rojas = vencido)
+  renovacionActiva?: boolean;
+  alertaVisual?: 'activo' | 'por_vencer' | 'vencido';
 }
 
 // Extrae los campos de renovación y añade el cálculo de días y alertas visuales.

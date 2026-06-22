@@ -55,6 +55,28 @@ const resolverTipoComprobante = (
   return tipoDocumentoOrigen ?? 'Boleta';
 };
 
+/**
+ * HELPER INTERNO: Calcula el estado visual de renovación de un documento.
+ * Usado por el 3er botón de "Acciones" en las tablas de Cotización y Cotización Manual:
+ * - Sin renovación activa → null (se muestra el check verde fijo)
+ * - Activa y al día / por vencer → 'activo' | 'por_vencer' (reloj naranja)
+ * - Vencida → 'vencido' (flechas rojas)
+ */
+const resolverAlertaRenovacion = (
+  renovacion: { isActive: boolean; fechaRenovacion: string | null }
+): { renovacionActiva: boolean; alertaVisual?: 'activo' | 'por_vencer' | 'vencido' } => {
+  if (!renovacion.isActive || !renovacion.fechaRenovacion) {
+    return { renovacionActiva: false };
+  }
+
+  const dias = calcularDiasRestantes(renovacion.fechaRenovacion);
+  let alerta: 'activo' | 'por_vencer' | 'vencido' = 'activo';
+  if (dias <= 0) alerta = 'vencido';
+  else if (dias <= 7) alerta = 'por_vencer';
+
+  return { renovacionActiva: true, alertaVisual: alerta };
+};
+
 
 /**
  * 1. MAPPER: COTIZACIONES TRADICIONALES
@@ -68,6 +90,7 @@ export const mapCotizacionToFilaLista = (
 ): DocumentoFilaLista => {
   const cliente = encontrarClienteSeguro(cotizacion.clienteId, clientes, cotizacion.numero);
   const financieros = calcularTotalesCotizacion(cotizacion.items, articulosMaster);
+  const renovacionInfo = resolverAlertaRenovacion(cotizacion.renovacion); // 👈 AGREGO
 
   return {
     id: cotizacion.id,
@@ -83,6 +106,7 @@ export const mapCotizacionToFilaLista = (
     formaPago: cotizacion.formaPago,
     total: financieros.total,
     estado: cotizacion.estado,
+    ...renovacionInfo, // 👈 AGREGO: renovacionActiva + alertaVisual
   };
 };
 
@@ -97,6 +121,7 @@ export const mapCotizacionManualToFilaLista = (
 ): DocumentoFilaLista => {
   const cliente = encontrarClienteSeguro(cotizacionManual.clienteId, clientes, cotizacionManual.numero);
   const financieros = calcularTotalesCotizacionManual(cotizacionManual.items);
+  const renovacionInfo = resolverAlertaRenovacion(cotizacionManual.renovacion); // 👈 AGREGO
 
   return {
     id: cotizacionManual.id,
@@ -112,6 +137,7 @@ export const mapCotizacionManualToFilaLista = (
     formaPago: cotizacionManual.formaPago,
     total: financieros.total,
     estado: cotizacionManual.estado,
+    ...renovacionInfo, // 👈 AGREGO: renovacionActiva + alertaVisual
   };
 };
 

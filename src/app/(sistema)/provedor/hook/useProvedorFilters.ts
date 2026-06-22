@@ -79,6 +79,17 @@ export function useProvedorFilters() {
     setFilteredData(prev => [...prev, formatted])
   }
 
+  const updateProveedor = (id: number, updated: any) => {
+    setData(prev => prev.map(item => item.id === id ? { ...item, ...updated } : item))
+    setFilteredData(prev => prev.map(item => item.id === id ? { ...item, ...updated } : item))
+  }
+
+  const toggleProveedorAcciones = (id: number, checked: boolean) => {
+    const newActions = checked ? ["view", "cancel"] : ["edit", "check"]
+    setData(prev => prev.map(item => item.id === id ? { ...item, acciones: newActions } : item))
+    setFilteredData(prev => prev.map(item => item.id === id ? { ...item, acciones: newActions } : item))
+  }
+
   return {
     data: filteredData,
     filters,
@@ -86,6 +97,8 @@ export function useProvedorFilters() {
     handleFilterChange,
     handleSearch,
     handleReset,
-    addProveedor
+    addProveedor,
+    updateProveedor,
+    toggleProveedorAcciones
   }
 }

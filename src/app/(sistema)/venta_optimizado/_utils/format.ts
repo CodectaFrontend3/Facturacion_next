@@ -33,6 +33,13 @@ export const formatDate = (dateString: string | null | undefined): string => {
 }
 
 /**
+ * Devuelve el símbolo de moneda visible para mostrar junto a montos
+ * en la vista de detalle (ej. "S/" o "$").
+ */
+export const simboloDesdeMoneda = (moneda: "soles" | "dolares"): string =>
+  moneda === "soles" ? "S/" : "$"
+
+/**
  * Objeto helper para uso idiomático en JSX y pages:
  * format.moneda(amount)  →  "S/ 1,500.00"
  * format.fecha(str)      →  "05-06-2026"
@@ -41,4 +48,5 @@ export const format = {
   moneda: (amount: number, currency: "soles" | "dolares" = "soles") =>
     formatCurrency(amount, currency),
   fecha: (dateString: string | null | undefined) => formatDate(dateString),
+  simbolo: (moneda: "soles" | "dolares") => simboloDesdeMoneda(moneda),
 }

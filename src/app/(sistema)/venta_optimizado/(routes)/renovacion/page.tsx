@@ -2,6 +2,7 @@
 "use client"
 
 import { useMemo } from "react"
+import { useRouter } from "next/navigation"
 
 import { VentasListLayout } from "../../_components/ventas/VentasListLayout"
 import { FilterBar } from "../../_components/shared/FilterBar"
@@ -30,6 +31,7 @@ const ESTADO_OPTIONS = [
 ]
 
 export default function RenovacionPage() {
+  const router = useRouter()
   const { cotizaciones, cotizacionesManuales, notasVenta, clientes, renovaciones, isLoading } =
     useVentasContext()
 
@@ -70,7 +72,14 @@ export default function RenovacionPage() {
     <VentasListLayout
       activeTab="renovaciones"
       summaryCards={summaryCards}
-      tableColumns={getRenovacionColumns()}
+      tableColumns={getRenovacionColumns({
+        onView: (doc) => {
+          // La renovación puede provenir de Cotización o Cotización Manual,
+          // cada una con su propia ruta de detalle.
+          const ruta = doc.tipo === "cotizacion" ? "cotizacion" : "cotizacion_manual"
+          router.push(`/venta_optimizado/${ruta}/${doc.id}`)
+        },
+      })}
       tableData={renovacionesFiltradas}
       tabCounts={tabCounts}
       totalAmount={totalAmount}

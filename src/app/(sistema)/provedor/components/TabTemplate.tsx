@@ -7,7 +7,7 @@ import { TabsNav } from "../components/TabsNav"
 import { DataTable } from "@/components/shared/DataTable"
 
 import { ProveedorTabla } from "../types/proovedor"
-import { getColumnsForTab } from "../components/Columns"
+import { getColumnsForTab, ActionCallbacks } from "./Columns"
 import { FilterBar } from "../components/Filterbar"
 
 import { ActionButton } from "@/components/common/ActionButton"
@@ -25,6 +25,10 @@ interface TabTemplateProps {
     onSearch: () => void,
     onReset: () => void,
     onAddClick?: () => void,
+    onEdit?: (provider: ProveedorTabla) => void,
+    onCheck?: (provider: ProveedorTabla) => void,
+    onView?: (provider: ProveedorTabla) => void,
+    onCancel?: (provider: ProveedorTabla) => void,
     filterSelectConfig?: {
         name: string,
         options: { label: string; value: string }[]
@@ -41,6 +45,10 @@ export function TabTemplate({
     onSearch,
     onReset,
     onAddClick,
+    onEdit,
+    onCheck,
+    onView,
+    onCancel,
     filterSelectConfig
 }: TabTemplateProps) {
     const updatedTabs = useMemo(() => {
@@ -117,7 +125,7 @@ export function TabTemplate({
             
                         <div className="bg-white fixed-table custom-checkbox-table">
                             <DataTable
-                            columns={getColumnsForTab(activeTab)}
+                            columns={getColumnsForTab(activeTab, { onEdit, onCheck, onView, onCancel })}
                             data={tableData}
                             pageSize={10}
                             showSelection={true}

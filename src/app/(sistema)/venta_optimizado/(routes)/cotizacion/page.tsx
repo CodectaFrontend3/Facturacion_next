@@ -70,6 +70,7 @@ export default function CotizacionPage() {
   const columns = getCotizacionColumns({
     getNote: (rowId) => notes[String(rowId)] ?? "",
     onNoteClick: (rowId) => setNoteModal({ open: true, rowId }),
+    onView: (doc) => router.push(`/venta_optimizado/cotizacion/${doc.id}`),
   })
 
   if (isLoading) {
@@ -119,3 +120,4 @@ export default function CotizacionPage() {
     </>
   )
 }
+  

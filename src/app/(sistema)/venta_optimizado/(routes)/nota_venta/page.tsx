@@ -67,7 +67,9 @@ export default function NotaVentaPage() {
     <VentasListLayout
       activeTab="notasVenta"
       summaryCards={summaryCards}
-      tableColumns={getNotaVentaColumns()}
+      tableColumns={getNotaVentaColumns({
+        onView: (doc) => router.push(`/venta_optimizado/nota_venta/${doc.id}`),
+      })}
       tableData={notasFiltradas}
       tabCounts={tabCounts}
       totalAmount={totalAmount}

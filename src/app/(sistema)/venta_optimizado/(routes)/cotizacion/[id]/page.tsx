@@ -1,17 +1,8 @@
-"use client"
+// (routes)/cotizacion/[id]/page.tsx
+import { DocumentoDetail } from "../../../_components/documentos/detail/DocumentoDetail"
 
-import { useRouter } from "next/navigation"
-
-export default function CotizacionDetalleePage() {
-  const router = useRouter()
-
-  return (
-    <div className="p-6">
-      <button onClick={() => router.back()} className="mb-4 px-4 py-2 bg-gray-200 rounded">
-        Atrás
-      </button>
-      <h1 className="text-2xl font-bold">Detalle de Cotización</h1>
-      <p className="text-gray-500 mt-2">Página de detalle en construcción</p>
-    </div>
-  )
+// Next.js 15+: params llega como Promise, hay que resolverlo con await
+export default async function CotizacionDetallePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  return <DocumentoDetail tipo="cotizacion" id={id} />
 }

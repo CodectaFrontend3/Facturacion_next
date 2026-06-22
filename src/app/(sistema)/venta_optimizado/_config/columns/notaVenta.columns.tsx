@@ -7,6 +7,7 @@ import { NotaButton } from "../../_components/ventas/cells/NotaButton";
 interface NoteColumnOptions {
   getNote?: (rowId: string | number) => string
   onNoteClick?: (rowId: string | number) => void
+  onView?: (row: DocumentoFilaLista) => void
 }
 
 export const getNotaVentaColumns = (
@@ -29,10 +30,15 @@ export const getNotaVentaColumns = (
     id: "acciones",
     header: "Acciones",
     size: 130,
-    cell: () => (
+    // Nota de Venta no tiene estado "Pendiente" ni renovación: al crearse
+    // queda confirmada de inmediato, por eso el check es siempre fijo (sin reloj ni flechas).
+    cell: ({ row }) => (
       <div className="flex items-center gap-1.5">
-        <ActionButton icon={<i className="bi bi-eye"></i>} className="w-9 h-9 bg-[#0b65d8] hover:bg-[#0952b1] rounded-[3px]" />
-        <ActionButton icon={<i className="bi bi-clock"></i>} className="w-9 h-9 bg-[#f6a041] hover:bg-[#e08b33] rounded-[3px]" />
+        <ActionButton
+          icon={<i className="bi bi-eye"></i>}
+          className="w-9 h-9 bg-[#0b65d8] hover:bg-[#0952b1] rounded-[3px]"
+          onClick={() => noteOptions.onView?.(row.original)}
+        />
         <ActionButton icon={<i className="bi bi-check-circle"></i>} className="w-9 h-9 bg-[#20c997] hover:bg-[#1ba87e] rounded-[3px]" />
       </div>
     )
