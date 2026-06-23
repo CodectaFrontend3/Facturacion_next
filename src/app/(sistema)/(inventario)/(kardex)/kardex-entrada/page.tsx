@@ -106,7 +106,10 @@ export default function Page() {
       <button className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all">
         <Download className="w-4 h-4" size={16} strokeWidth={3} />
       </button>
-      <button className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all">
+      <button
+        className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all"
+        onClick={() => router.push("/kardex-entrada/create")}
+      >
         <Plus className="w-4 h-4" size={16} strokeWidth={3} />
       </button>
     </>
