@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react"
 import { toast } from "sonner"
-import { Check, X, AlertTriangle } from "lucide-react"
+import { Check, X, AlertTriangle, Info } from "lucide-react"
 
-export type ToastType = 1 | 2 | 3
+export type ToastType = 1 | 2 | 3 | 4
 
 interface ToastOptions {
   icon?: React.ReactNode
@@ -134,12 +134,15 @@ export const showToast = (
   const isSuccess = type === 1
   const isError = type === 2
   const isWarning = type === 3
+  const isInfo = type === 4
 
   let bgColor = "#51A351"
   if (isError) {
     bgColor = "#BD362F"
   } else if (isWarning) {
     bgColor = "#f8ac59"
+  } else if (isInfo) {
+    bgColor = "#2D9CDB"
   }
   
   const shadowStyle = "shadow-[0_10px_25px_rgba(0,0,0,0.25)]"
@@ -151,6 +154,8 @@ export const showToast = (
     DefaultIcon = X
   } else if (isWarning) {
     DefaultIcon = AlertTriangle
+  } else if (isInfo) {
+    DefaultIcon = Info
   }
   
   const icon = options?.icon || (

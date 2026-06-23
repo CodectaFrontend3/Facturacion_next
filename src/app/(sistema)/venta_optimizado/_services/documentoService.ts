@@ -1,4 +1,4 @@
-// src/app/(sistema)/ventas/_services/documentoService.ts
+// src/app/(sistema)/ventas_optimizado/_services/documentoService.ts
 
 import { 
   CotizacionDetalle, 
@@ -6,7 +6,7 @@ import {
   NotaVentaDetalle 
 } from '../_domain/types/documento.types';
 
-// Importación de los Mocks JSON Temporales
+// Importación de los Mocks JSON Temporales (Ajustado al árbol oficial)
 import cotizacionesMock from '../data/cotizaciones-mock.json';
 import cotizacionesManualesMock from '../data/cotizaciones-manuales-mock.json';
 import notasVentaMock from '../data/notas-venta-mock.json';
@@ -49,16 +49,34 @@ export const documentoService = {
   getRenovaciones: async (): Promise<(CotizacionDetalle | CotizacionManualDetalle)[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        // Filtramos ambos catálogos para extraer solo los documentos que requieren seguimiento temporal
         const cotizacionesConRenovacion = listaCotizaciones.filter(
           (c) => c.renovacion && c.renovacion.isActive
         );
         const manualesConRenovacion = listaCotizacionesManuales.filter(
           (m) => m.renovacion && m.renovacion.isActive
         );
-
         resolve([...cotizacionesConRenovacion, ...manualesConRenovacion]);
-      }, 500);
+      }, 400);
+    });
+  },
+
+  /**
+   * 🌟 NUEVO MÉTODO UNIFICADOR: Sirve para alimentar la máquina de estados 
+   * y calcular los contadores globales en caliente sin colapsar la UI.
+   */
+  getAllCombined: async (): Promise<{
+    cotizaciones: CotizacionDetalle[];
+    manuales: CotizacionManualDetalle[];
+    notas: NotaVentaDetalle[];
+  }> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          cotizaciones: listaCotizaciones,
+          manuales: listaCotizacionesManuales,
+          notas: listaNotasVenta
+        });
+      }, 300);
     });
   }
 };

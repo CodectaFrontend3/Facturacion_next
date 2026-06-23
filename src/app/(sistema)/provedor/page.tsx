@@ -5,6 +5,7 @@ import { TabTemplate } from "./components/TabTemplate"
 import { useProvedorFilters } from "./hook/useProvedorFilters"
 import { ProveedorModal } from "./components/ProveedorModal"
 import { ProveedorModal as ProveedorModalType } from "./types/proovedor"
+import { showToast } from "@/components/shared/custom-toast"
 
 const PROVEDOR_TABS = [
   {
@@ -17,14 +18,65 @@ const PROVEDOR_TABS = [
 ]
 
 export default function Page() {
-  const { data, filters, isLoading, handleFilterChange, handleSearch, handleReset, addProveedor } = useProvedorFilters()
+  const { 
+    data, 
+    filters, 
+    isLoading, 
+    handleFilterChange, 
+    handleSearch, 
+    handleReset, 
+    addProveedor,
+    updateProveedor,
+    toggleProveedorAcciones
+  } = useProvedorFilters()
+  
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedProvider, setSelectedProvider] = useState<any | null>(null)
+  const [isViewOnly, setIsViewOnly] = useState(false)
 
   const handleSaveProveedor = (formData: ProveedorModalType) => {
-    console.log("Guardando proveedor:", formData)
-    // Llama a la función para añadirlo a la tabla visualmente
-    addProveedor(formData)
+    if (selectedProvider) {
+      console.log("Actualizando proveedor:", formData)
+      updateProveedor(selectedProvider.id, formData)
+    } else {
+      console.log("Guardando proveedor:", formData)
+      addProveedor(formData)
+    }
     setIsModalOpen(false)
+    setSelectedProvider(null)
+  }
+
+  const handleAddClick = () => {
+    setSelectedProvider(null)
+    setIsViewOnly(false)
+    setIsModalOpen(true)
+  }
+
+  const handleEdit = (provider: any) => {
+    setSelectedProvider(provider)
+    setIsViewOnly(false)
+    setIsModalOpen(true)
+  }
+
+  const handleView = (provider: any) => {
+    setSelectedProvider(provider)
+    setIsViewOnly(true)
+    setIsModalOpen(true)
+  }
+
+  const handleCheck = (provider: any) => {
+    showToast("Estado actualizado correctamente.", 1)
+    toggleProveedorAcciones(provider.id, true)
+  }
+
+  const handleCancel = (provider: any) => {
+    toggleProveedorAcciones(provider.id, false)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedProvider(null)
+    setIsViewOnly(false)
   }
 
   return (
@@ -38,12 +90,18 @@ export default function Page() {
         onFilterChange={handleFilterChange}
         onSearch={handleSearch}
         onReset={handleReset}
-        onAddClick={() => setIsModalOpen(true)}
+        onAddClick={handleAddClick}
+        onEdit={handleEdit}
+        onView={handleView}
+        onCheck={handleCheck}
+        onCancel={handleCancel}
       />
       <ProveedorModal 
         isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+        onClose={handleCloseModal} 
         onSave={handleSaveProveedor} 
+        provider={selectedProvider}
+        isViewOnly={isViewOnly}
       />
     </>
   )

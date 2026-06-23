@@ -23,7 +23,8 @@ export const redondearComercial = (valor: number): number => {
  */
 export const calcularTotalesCotizacion = (
   items: ItemCotizacion[],
-  articulosMaster: ArticuloDetalle[]
+  articulosMaster: ArticuloDetalle[],
+  porcentajeComision: number = 0 // 👈 AGREGO: % del comisionista seleccionado en CondicionesSection
 ): TotalesFinancieros => {
   let subtotalNetoAcumulado = 0;
 
@@ -49,6 +50,13 @@ export const calcularTotalesCotizacion = (
       if (item.descuentoPorcentajeAplicado && articulo.descuentoPorDefecto > 0) {
         const descuento = precioUnitario * (articulo.descuentoPorDefecto / 100);
         precioUnitario = precioUnitario - descuento;
+      }
+
+      // Si hay un comisionista seleccionado, su % incrementa el precio unitario (PU. Com.)
+      // antes de calcular el importe del ítem — así el Total general del documento
+      // queda consistente con el Total por fila que se muestra en ArticulosTable.
+      if (porcentajeComision > 0) {
+        precioUnitario = precioUnitario * (1 + porcentajeComision / 100);
       }
 
       const importeItem = precioUnitario * cantidadValidada;
