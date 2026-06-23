@@ -1,0 +1,16 @@
+[
+  {
+    "key": "nota_credito_electronica",
+    "iconClass": "fa fa-envelope-open",
+    "label": "Notas de Crédito",
+    "ringColorClass": "bg-[#1ab394]! border-[#1ab394]!",
+    "metaLabel": "Ultima actualización hace 9 meses"
+  },
+  {
+    "key": "nota_debito_electronica",
+    "iconClass": "fa fa-envelope-open",
+    "label": "Notas de Débito",
+    "ringColorClass": "bg-[#1ab394]! border-[#1ab394]!",
+    "metaLabel": "Ultima actualización hace 9 meses"
+  }
+]

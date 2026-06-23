@@ -1,0 +1,24 @@
+[
+  {
+    "id": "nd-101",
+    "item": 1,
+    "codigo": "FD01-00000001",
+    "tipo": "Interés por mora",
+    "docAsoc": "F001-00001890",
+    "rucDni": "20104875962",
+    "cliente": "AGROINDUSTRIAS DEL NORTE S.A.",
+    "fechaEmision": "16/05/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "nd-102",
+    "item": 2,
+    "codigo": "FD01-00000002",
+    "tipo": "Aumento en el valor",
+    "docAsoc": "F001-00002045",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA ACME S.A.C.",
+    "fechaEmision": "20/05/2026",
+    "sunatStatus": "pendiente"
+  }
+]

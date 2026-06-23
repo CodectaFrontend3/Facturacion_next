@@ -1,11 +1,12 @@
 import Image from "next/image"
 import { type ColumnDef } from "@tanstack/react-table"
-import { type FacturacionRow } from "@/app/(sistema)/(registros_sunat)/types/facturacion"
+import { type FacturaRow, type FacturaEnviadaRow, type DetraccionRow } from "@/app/(sistema)/(registros_sunat)/types/facturacion"
 import { Check, Clock, X, CloudUpload } from "lucide-react"
 import { ActionButton } from "@/components/common/ActionButton"
+import { DocumentButton } from "@/app/(sistema)/(registros_sunat)/_components/DocumentButton"
 
 // Columnas para la pestaña principal de Facturación Electrónica (Facturas Activas)
-export const getFacturacionColumns = (): ColumnDef<FacturacionRow>[] => [
+export const getFacturacionColumns = (): ColumnDef<FacturaRow>[] => [
   {
     accessorKey: "item",
     header: "Item",
@@ -59,7 +60,7 @@ export const getFacturacionColumns = (): ColumnDef<FacturacionRow>[] => [
 ]
 
 // Columnas específicas para la sección de Enviadas (ambas facturaciones)
-export const getEnviadasColumns = (): ColumnDef<FacturacionRow>[] => [
+export const getEnviadasColumns = (): ColumnDef<FacturaEnviadaRow>[] => [
   {
     accessorKey: "item",
     header: "Item",
@@ -138,18 +139,11 @@ export const getEnviadasColumns = (): ColumnDef<FacturacionRow>[] => [
     size: 80,
     cell: ({ row }) => (
       <div className="flex justify-center items-center">
-        {/* Botón interactivo de tipo archivo XML (azul) */}
-        <button
+        <DocumentButton
+          type="xml"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar XML para:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-[#b2d0ec] bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-text-o text-blue-400 text-[13px]" />
-          </div>
-          <div className="bg-[#1c84c6] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            XML
-          </div>
-        </button>
+        />
       </div>
     ),
   },
@@ -159,25 +153,18 @@ export const getEnviadasColumns = (): ColumnDef<FacturacionRow>[] => [
     size: 80,
     cell: ({ row }) => (
       <div className="flex justify-center items-center">
-        {/* Botón interactivo de tipo archivo CDR (gris) */}
-        <button
+        <DocumentButton
+          type="cdr"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar CDR para:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-gray-300 bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-text-o text-gray-400 text-[13px]" />
-          </div>
-          <div className="bg-[#7f7f7f] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            CDR
-          </div>
-        </button>
+        />
       </div>
     ),
   },
 ]
 
 // Columnas específicas para la sección de Detracciones
-export const getDetraccionesColumns = (): ColumnDef<FacturacionRow>[] => [
+export const getDetraccionesColumns = (): ColumnDef<DetraccionRow>[] => [
   {
     accessorKey: "item",
     header: "ID",
@@ -243,45 +230,22 @@ export const getDetraccionesColumns = (): ColumnDef<FacturacionRow>[] => [
     header: "Acciones",
     size: 160,
     cell: ({ row }) => (
-      <div className="flex justify-center items-center gap-2">
-        {/* Botón interactivo de tipo archivo PDF (rojo) */}
-        <button
+      <div className="flex justify-between items-center px-2">
+        <DocumentButton
+          type="pdf"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar PDF para:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-[#f5b8b8] bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-pdf-o text-red-500 text-[13px]" />
-          </div>
-          <div className="bg-[#d9534f] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            PDF
-          </div>
-        </button>
-
-        {/* Botón interactivo de tipo archivo XML (azul) */}
-        <button
+        />
+        <DocumentButton
+          type="xml"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar XML para:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-[#b2d0ec] bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-text-o text-blue-400 text-[13px]" />
-          </div>
-          <div className="bg-[#1c84c6] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            XML
-          </div>
-        </button>
-
-        {/* Botón interactivo de tipo archivo CDR (gris) */}
-        <button
+        />
+        <DocumentButton
+          type="cdr"
+          codigo={row.original.codigo}
           onClick={() => console.log("Descargar CDR para:", row.original.codigo)}
-          className="flex flex-col items-center justify-between w-7 h-9 border border-gray-300 bg-white rounded-[2px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer p-0.5 overflow-hidden"
-        >
-          <div className="flex-1 flex items-center justify-center">
-            <i className="fa fa-file-text-o text-gray-400 text-[13px]" />
-          </div>
-          <div className="bg-[#7f7f7f] w-full text-[8px] font-bold text-white text-center py-0.5 uppercase tracking-tighter">
-            CDR
-          </div>
-        </button>
+        />
       </div>
     ),
   },
