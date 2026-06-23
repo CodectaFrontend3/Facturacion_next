@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useState, memo } from "react"
 import {
     ColumnDef,
     flexRender,
@@ -59,7 +59,7 @@ interface DataTableProps<TData, TValue> {
     }
 }
 
-export function DataTable<TData, TValue>({
+function DataTableInner<TData, TValue>({
     columns,
     data,
     pageSize = 16,
@@ -203,3 +203,7 @@ export function DataTable<TData, TValue>({
         </div>
     )
 }
+
+export const DataTable = memo(DataTableInner) as <TData, TValue>(
+    props: DataTableProps<TData, TValue>
+) => React.ReactElement

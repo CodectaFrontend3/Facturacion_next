@@ -1,4 +1,4 @@
-"use client"
+import { useMemo, memo } from "react"
 import {
     Pagination,
     PaginationContent,
@@ -15,7 +15,7 @@ interface DataTablePaginationProps {
     setPageIndex: (index: number) => void
 }
 
-export function DataTablePagination({
+export const DataTablePagination = memo(function DataTablePagination({
     pageIndex,
     pageSize,
     dataLength,
@@ -27,7 +27,7 @@ export function DataTablePagination({
     const startEntry = dataLength === 0 ? 0 : pageIndex * pageSize + 1
     const endEntry = Math.min((pageIndex + 1) * pageSize, dataLength)
 
-    const generatePaginationLinks = () => {
+    const paginationLinks = useMemo(() => {
         const pages: (number | string)[] = []
         if (pageCount <= 7) {
             for (let i = 0; i < pageCount; i++) {
@@ -44,7 +44,7 @@ export function DataTablePagination({
         }
         if (pages.length === 0) pages.push(0)
         return pages
-    }
+    }, [pageIndex, pageCount])
 
     return (
         <div className="flex items-center justify-between py-2 w-full">
@@ -65,7 +65,7 @@ export function DataTablePagination({
                             </button>
                         </PaginationItem>
 
-                        {generatePaginationLinks().map((page, idx) => (
+                        {paginationLinks.map((page, idx) => (
                             <PaginationItem key={idx}>
                                 {typeof page === 'number' ? (
                                     <button
@@ -101,4 +101,4 @@ export function DataTablePagination({
             <div className="flex-1"></div>
         </div>
     )
-}
+})
