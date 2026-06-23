@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { CardLayout } from "./CardLayout"
@@ -16,6 +16,7 @@ import { type ColumnDef } from "@tanstack/react-table"
 import { type CardConfig } from "../types/card"
 import { type TabConfig } from "../types/tab"
 import { useSunatFilters } from "../_hooks/useSunatFilters"
+import { showToast } from "@/components/shared/custom-toast"
 
 // Componente local SunatTabsNav que renderiza las pestañas sin números y con un cuadrado de color
 interface SunatTabsNavProps {
@@ -74,14 +75,20 @@ interface RegistrosSunatTemplateProps<TData> {
   // Configuración de campos de filtro para el hook
   searchFields?: (keyof TData)[]
   dateField?: keyof TData
+
+  // Nuevas propiedades opcionales para alertas/toasts
+  alertMessage?: string
+  toastMessage?: string
 }
+
+let lastShownToastKey = ""
 
 export function RegistrosSunatTemplate<TData>({
   tabs,
   activeTab,
   cardConfigs,
   cardCounts,
-  cardPeriodLabel = "Resumen de Mayo del 2026",
+  cardPeriodLabel = "Resumen de Junio del 2026",
   columns,
   data,
   onSend,
@@ -93,10 +100,24 @@ export function RegistrosSunatTemplate<TData>({
   ],
   searchFields = [],
   dateField,
+  alertMessage,
+  toastMessage,
 }: RegistrosSunatTemplateProps<TData>) {
   const [pageSize, setPageSize] = useState(10)
   const [pageIndex, setPageIndex] = useState(0)
   const [selectedRows, setSelectedRows] = useState<TData[]>([])
+
+  const pathname = usePathname()
+
+  useEffect(() => {
+    if (toastMessage) {
+      const key = `${pathname}-${toastMessage}`
+      if (lastShownToastKey !== key) {
+        showToast(toastMessage, 3, { duration: 6000 })
+        lastShownToastKey = key
+      }
+    }
+  }, [toastMessage, pathname])
 
   // Consumimos el hook reutilizable para manejar el filtrado
   const {
@@ -117,6 +138,13 @@ export function RegistrosSunatTemplate<TData>({
   return (
     // Removidos bordes redondeados y sombras de los contenedores globales e inputs
     <div className="flex flex-col w-full font-sans [&_input]:rounded-none! [&_select]:rounded-none!">
+      {/* Tarjeta roja de advertencia (alerta de soporte) */}
+      {alertMessage && (
+        <div className="mb-4 bg-[#f8d7da] border border-[#f5c2c7] text-[#842029] text-[13px] font-bold px-4 py-2.5 rounded-none shadow-none">
+          {alertMessage}
+        </div>
+      )}
+
       {/* Tarjetas de resumen del periodo */}
       <div className="mb-5">
         <CardLayout

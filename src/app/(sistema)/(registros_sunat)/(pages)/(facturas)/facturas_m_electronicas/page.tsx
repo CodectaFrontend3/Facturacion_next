@@ -52,7 +52,7 @@ export default function Page() {
       activeTab="factura_manual"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
-      cardPeriodLabel="Resumen de Mayo del 2026"
+      cardPeriodLabel="Resumen de Junio del 2026"
       columns={columns}
       data={facturaManualData as FacturaRow[]}
       onSend={handleSend}

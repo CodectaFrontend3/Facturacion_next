@@ -21,45 +21,43 @@ export function useSunatFilters<T>({
 
   // Definimos la función de filtrado compatible con useTableData
   const filterFn = useMemo(() => {
+    const parseDate = (dStr: string) => {
+      const parts = dStr.split(/[/-]/)
+      if (parts.length === 3) {
+        // DD/MM/YYYY o DD-MM-YYYY -> Date (mes es 0-indexed)
+        return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]))
+      }
+      return new Date(dStr)
+    }
+
     return (items: T[], values: Record<string, string>) => {
       const searchValue = values.searchValue || ""
       const dateFromVal = values.dateFrom || ""
       const dateToVal = values.dateTo || ""
 
+      const parsedDateFrom = dateFromVal ? parseDate(dateFromVal) : null
+      const parsedDateTo = dateToVal ? parseDate(dateToVal) : null
+      if (parsedDateTo) {
+        parsedDateTo.setHours(23, 59, 59, 999) // Incluir todo el día final
+      }
+
+      const query = searchValue.trim().toLowerCase()
+      const hasSearchQuery = query !== "" && searchFields.length > 0
+
       return items.filter((item) => {
         // 1. Filtrado por rango de fechas (DD/MM/YYYY)
-        if (dateField && (dateFromVal || dateToVal)) {
-          const itemDateVal = item[dateField]
+        if (dateField && (parsedDateFrom || parsedDateTo)) {
+          const itemDateVal = item[dateField] || (item as any)["fechaCreacion"] || (item as any)["fechaEmision"]
           if (itemDateVal) {
-            const itemDateStr = String(itemDateVal)
-
-            const parseDate = (dStr: string) => {
-              const parts = dStr.split("/")
-              if (parts.length === 3) {
-                // DD/MM/YYYY -> Date (mes es 0-indexed)
-                return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]))
-              }
-              return new Date(dStr)
-            }
-
-            const dateItem = parseDate(itemDateStr)
+            const dateItem = parseDate(String(itemDateVal))
             
-            if (dateFromVal) {
-              const dateFrom = parseDate(dateFromVal)
-              if (dateItem < dateFrom) return false
-            }
-            
-            if (dateToVal) {
-              const dateTo = parseDate(dateToVal)
-              dateTo.setHours(23, 59, 59, 999) // Incluir todo el día final
-              if (dateItem > dateTo) return false
-            }
+            if (parsedDateFrom && dateItem < parsedDateFrom) return false
+            if (parsedDateTo && dateItem > parsedDateTo) return false
           }
         }
 
         // 2. Filtrado por búsqueda de texto
-        if (searchValue.trim() !== "" && searchFields.length > 0) {
-          const query = searchValue.toLowerCase()
+        if (hasSearchQuery) {
           const match = searchFields.some((field) => {
             const val = item[field]
             return val ? String(val).toLowerCase().includes(query) : false
@@ -71,6 +69,19 @@ export function useSunatFilters<T>({
       })
     }
   }, [searchFields, dateField])
+
+  // Calculamos dinámicamente el primer y último día del mes actual en formato DD/MM/YYYY
+  const { defaultDateFrom, defaultDateTo } = useMemo(() => {
+    const now = new Date()
+    const year = now.getFullYear()
+    const month = String(now.getMonth() + 1).padStart(2, "0")
+    const lastDayDate = new Date(year, now.getMonth() + 1, 0)
+    const lastDay = String(lastDayDate.getDate()).padStart(2, "0")
+    return {
+      defaultDateFrom: `01/${month}/${year}`,
+      defaultDateTo: `${lastDay}/${month}/${year}`
+    }
+  }, [])
 
   // Delegamos el estado de los filtros y la paginación al hook centralizado useTableData
   const {
@@ -84,8 +95,13 @@ export function useSunatFilters<T>({
     filterFn,
     initialFilters: {
       searchValue: "",
-      dateFrom: "05/01/2026",
-      dateTo: "05/31/2026",
+      dateFrom: defaultDateFrom,
+      dateTo: defaultDateTo,
+    },
+    initialActiveFilters: {
+      searchValue: "",
+      dateFrom: "",
+      dateTo: "",
     },
     pageSize: 10,
   })

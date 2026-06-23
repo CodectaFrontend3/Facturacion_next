@@ -5,6 +5,7 @@ interface UseTableDataOptions<TData> {
   data: TData[];
   filterFn: (data: TData[], values: Record<string, string>) => TData[];
   initialFilters?: Record<string, string>;
+  initialActiveFilters?: Record<string, string>;
   pageSize?: number;
 }
 
@@ -12,6 +13,7 @@ export function useTableData<TData>({
   data,
   filterFn,
   initialFilters = {},
+  initialActiveFilters,
   pageSize = 16,
 }: UseTableDataOptions<TData>) {
   // Lo que el usuario va tocando — no filtra hasta Buscar
@@ -19,7 +21,7 @@ export function useTableData<TData>({
     useState<Record<string, string>>(initialFilters);
   // Lo que realmente filtra la data — se actualiza solo al presionar Buscar
   const [activeFilters, setActiveFilters] =
-    useState<Record<string, string>>(initialFilters);
+    useState<Record<string, string>>(initialActiveFilters ?? initialFilters);
   const [pageIndex, setPageIndex] = useState(0);
 
   // Actualiza un filtro pendiente sin afectar la tabla
@@ -37,9 +39,9 @@ export function useTableData<TData>({
   // Limpia todo — pendientes y activos
   const resetFilters = useCallback(() => {
     setPendingFilters(initialFilters);
-    setActiveFilters(initialFilters);
+    setActiveFilters(initialActiveFilters ?? initialFilters);
     setPageIndex(0);
-  }, [initialFilters]);
+  }, [initialFilters, initialActiveFilters]);
 
   // Solo filtra con activeFilters
   const filteredData = useMemo(() => {

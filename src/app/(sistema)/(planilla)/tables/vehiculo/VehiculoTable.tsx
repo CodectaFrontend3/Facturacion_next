@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DataTable as Table } from "@/components/ui/shared/DataTable"
+import { DataTable as Table } from "@/components/shared/DataTable"
 
 import { publicoColumns } from "./publicoColumns"
 import { privadoColumns } from "./privadoColumns"
