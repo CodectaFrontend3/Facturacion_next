@@ -81,6 +81,8 @@ interface RegistrosSunatTemplateProps<TData> {
   toastMessage?: string
 }
 
+let lastShownToastKey = ""
+
 export function RegistrosSunatTemplate<TData>({
   tabs,
   activeTab,
@@ -109,7 +111,11 @@ export function RegistrosSunatTemplate<TData>({
 
   useEffect(() => {
     if (toastMessage) {
-      showToast(toastMessage, 3, { duration: 6000 })
+      const key = `${pathname}-${toastMessage}`
+      if (lastShownToastKey !== key) {
+        showToast(toastMessage, 3, { duration: 6000 })
+        lastShownToastKey = key
+      }
     }
   }, [toastMessage, pathname])
 
