@@ -13,7 +13,7 @@ interface CardLayoutProps {
 export function CardLayout({
   cardConfigs,
   counts,
-  periodLabel = "Resumen de Mayo del 2026",
+  periodLabel = "Resumen de Junio del 2026",
 }: CardLayoutProps) {
   return (
     <section className="bg-white rounded-none border border-gray-200 shadow-none">

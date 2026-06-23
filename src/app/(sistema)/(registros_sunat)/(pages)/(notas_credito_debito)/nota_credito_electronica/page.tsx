@@ -50,7 +50,7 @@ export default function Page() {
       activeTab="nota_credito_electronica"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
-      cardPeriodLabel="Resumen de Mayo del 2026"
+      cardPeriodLabel="Resumen de Junio del 2026"
       columns={columns}
       data={notasCreditoData as NotaRow[]}
       onSend={handleSend}

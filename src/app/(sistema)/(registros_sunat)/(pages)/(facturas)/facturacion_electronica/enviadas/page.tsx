@@ -48,7 +48,7 @@ export default function Page() {
       activeTab="enviados_facturas"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
-      cardPeriodLabel="Resumen de Mayo del 2026"
+      cardPeriodLabel="Resumen de Junio del 2026"
       columns={columns}
       data={enviadasFacturasData as FacturaEnviadaRow[]}
       searchFields={["cliente", "rucDni", "codigo"]}

@@ -46,11 +46,13 @@ export default function Page() {
       activeTab="enviadas_guias_m_electronicas"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
-      cardPeriodLabel="Resumen de Mayo del 2026"
+      cardPeriodLabel="Resumen de Junio del 2026"
       columns={columns}
       data={enviadasGuiasManualesData as GuiaEnviadaRow[]}
       searchFields={["cliente", "rucDni", "codigo"]}
       dateField="fechaEmision"
+      toastMessage="Debido a la actualizacion de SUNAT, la anulacion de una Guia de Remision se debe hacer desde el portal de SUNAT con el Usuario y Clave Sol"
+      alertMessage="Por favor, ponerse en contacto con el soporte para ver el tema de Envio Guias de Remision a SUNAT"
     />
   )
 }

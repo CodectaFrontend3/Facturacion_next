@@ -46,7 +46,7 @@ export default function Page() {
       activeTab="enviadas_nota_debito"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
-      cardPeriodLabel="Resumen de Mayo del 2026"
+      cardPeriodLabel="Resumen de Junio del 2026"
       columns={columns}
       data={enviadasNotasDebitoData as NotaEnviadaRow[]}
       searchFields={["cliente", "rucDni", "codigo"]}
