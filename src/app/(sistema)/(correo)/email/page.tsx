@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+// Importamos nuestro nuevo componente
+import ComposeEmailModal from "./components/ComposeEmailModal"; 
 
 interface EmailData {
   id: number;
@@ -25,20 +27,17 @@ const initialEmails: EmailData[] = [
 
 export default function EmailPage() {
   const [selectedEmail, setSelectedEmail] = useState<EmailData | null>(null);
-  
-  // Estado global simulado
   const [emails, setEmails] = useState<EmailData[]>([]);
   const [trashCount, setTrashCount] = useState(0);
-  
-  // Estado para la selección de checkboxes
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
-  // Cargar datos de localStorage al montar el componente
+  // Estado que controla si se ve el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Cargar datos
   useEffect(() => {
     const loadData = async () => {
-      // Forzamos a que la ejecución sea asíncrona para que el React Compiler no lance advertencias
       await Promise.resolve(); 
-
       const storedInbox = localStorage.getItem("inboxEmails");
       const storedTrash = localStorage.getItem("trashEmails");
       
@@ -52,47 +51,57 @@ export default function EmailPage() {
         setTrashCount(storedTrash ? JSON.parse(storedTrash).length : 0);
       }
     };
-
     loadData();
   }, []);
 
-  // Función para seleccionar/deseleccionar un solo correo
+  // Seleccionar/deseleccionar
   const toggleSelect = (id: number) => {
-    setSelectedIds(prev => 
-      prev.includes(id) ? prev.filter(emailId => emailId !== id) : [...prev, id]
-    );
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(emailId => emailId !== id) : [...prev, id]);
   };
 
-  // Función para seleccionar/deseleccionar todos
   const toggleSelectAll = () => {
-    if (selectedIds.length === emails.length) {
-      setSelectedIds([]); // Deseleccionar todos
-    } else {
-      setSelectedIds(emails.map(e => e.id)); // Seleccionar todos
-    }
+    if (selectedIds.length === emails.length) setSelectedIds([]);
+    else setSelectedIds(emails.map(e => e.id));
   };
 
-  // Función para enviar a la papelera
+  // Papelera
   const handleDelete = () => {
     if (selectedIds.length === 0) return;
-
-    // Separamos los que se quedan y los que se van
     const remainingEmails = emails.filter(e => !selectedIds.includes(e.id));
     const movingToTrash = emails.filter(e => selectedIds.includes(e.id));
-
-    // Obtenemos la papelera actual
     const storedTrash = localStorage.getItem("trashEmails");
     const currentTrash = storedTrash ? JSON.parse(storedTrash) : [];
-    
-    // Actualizamos localStorage
     const newTrash = [...currentTrash, ...movingToTrash];
+    
     localStorage.setItem("inboxEmails", JSON.stringify(remainingEmails));
     localStorage.setItem("trashEmails", JSON.stringify(newTrash));
 
-    // Actualizamos estado visual
     setEmails(remainingEmails);
     setTrashCount(newTrash.length);
-    setSelectedIds([]); // Limpiamos selección
+    setSelectedIds([]);
+  };
+
+  // Función que llamará el modal cuando queramos ENVIAR un correo
+const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerpo: string, adjuntos?: File[] }) => {    const now = new Date();
+    const fechaCorta = now.toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    const fechaLarga = now.toISOString().replace('T', ' ').substring(0, 19);
+
+    const nuevoCorreo: EmailData = {
+      id: Date.now(),
+      email: formData.para,
+      subject: formData.asunto,
+      hasAttachment: formData.adjuntos && formData.adjuntos.length > 0 ? true : false,
+      date: fechaCorta,
+      fullDate: fechaLarga,
+      from: "danielroman@codecta.pe",
+      body: formData.cuerpo,
+      attachmentName: ""
+    };
+
+    const nuevosCorreos = [nuevoCorreo, ...emails];
+    setEmails(nuevosCorreos);
+    localStorage.setItem("inboxEmails", JSON.stringify(nuevosCorreos));
+    setIsModalOpen(false); // Cierra el modal automáticamente
   };
 
   return (
@@ -100,7 +109,11 @@ export default function EmailPage() {
       
       {/* BARRA LATERAL IZQUIERDA */}
       <div className="w-full md:w-[260px] shrink-0 bg-white border border-gray-200 shadow-sm p-4">
-        <Button className="w-full bg-[#1a5eb3] hover:bg-blue-800 text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors">
+        {/* Aquí conectamos el botón con el modal */}
+        <Button 
+          onClick={() => setIsModalOpen(true)}
+          className="w-full bg-[#1a5eb3] hover:bg-blue-800 text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors"
+        >
           Redactar
         </Button>
 
@@ -150,7 +163,6 @@ export default function EmailPage() {
 
       {/* PANEL PRINCIPAL DERECHO */}
       <div className="flex-1 bg-white border border-gray-200 shadow-sm w-full flex flex-col">
-        
         {!selectedEmail ? (
           <div className="p-6">
             <h2 className="text-2xl font-light text-gray-400 mb-6">Enviados ({emails.length})</h2>
@@ -206,7 +218,6 @@ export default function EmailPage() {
           </div>
         ) : (
           <div className="flex flex-col w-full">
-             {/* ... (Todo tu bloque de VISTA 2: DETALLE DEL CORREO que ya tenías) ... */}
             <div className="flex justify-between items-center p-5 border-b border-gray-100">
               <h2 className="text-[26px] font-light text-gray-400">Ver Correo</h2>
               <div className="flex gap-1.5">
@@ -215,7 +226,6 @@ export default function EmailPage() {
                 </Button>
               </div>
             </div>
-            {/* Contenido del correo omitido por brevedad, manten tu código actual aquí */}
             <div className="p-5 flex flex-col gap-3">
               <div className="text-[15px] text-gray-600">Asunto: <span className="font-bold text-gray-800">{selectedEmail.subject}</span></div>
               <div className="flex justify-between items-start">
@@ -230,6 +240,11 @@ export default function EmailPage() {
           </div>
         )}
       </div>
+      <ComposeEmailModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onSend={handleEnviarNuevoCorreo}
+      />
     </div>
   );
 }
