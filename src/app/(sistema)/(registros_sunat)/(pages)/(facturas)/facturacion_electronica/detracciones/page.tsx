@@ -51,7 +51,7 @@ export default function Page() {
       cardPeriodLabel="Resumen de Junio del 2026"
       columns={columns}
       data={detraccionesData as DetraccionRow[]}
-      searchFields={["cliente", "rucDni", "codigo"]}
+      searchFields={["codigo", "tipoDoc"]}
       dateField="fechaEmision"
     />
   )
