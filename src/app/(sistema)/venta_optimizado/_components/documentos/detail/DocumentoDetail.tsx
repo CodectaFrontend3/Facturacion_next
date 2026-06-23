@@ -1,10 +1,11 @@
-// src/app/(sistema)/venta_optimizado/_components/documentos/detail/DocumentoDetail.tsx
 // _components/documentos/detail/DocumentoDetail.tsx
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { DocumentDetailTemplate } from "@/components/shared/DocumentDetailTemplate"
+import { showToast } from "@/components/shared/custom-toast"
+import { ConfirmModal } from "../../shared/ConfirmModal"
 
 import { documentoService } from "../../../_services/documentoService"
 import { clienteService } from "../../../_services/clienteService"
@@ -28,13 +29,17 @@ import {
 import { ArticuloDetalle, ComisionistaDetalle } from "../../../_domain/types/catalogo.types"
 import { ClienteDetalle } from "../../../_domain/types/cliente.types"
 
-import { HeaderSection } from "./sections/HeaderSection"
+import { HeaderSection, CondicionesEditables } from "./sections/HeaderSection"
 import { ItemsTable } from "./sections/ItemsTable"
 import { TotalesDetailSection } from "./sections/TotalesDetailSection"
 import { BancosInfo } from "./sections/BancosInfo"
 import { MandatarioSection } from "./sections/MandatarioSection"
 
-type DocumentoCualquiera = CotizacionDetalle | CotizacionManualDetalle | NotaVentaDetalle
+// El documento finalizado se marca con este campo extra en memoria.
+// No forma parte del dominio persistido — es solo control de UI.
+type DocumentoCualquiera = (CotizacionDetalle | CotizacionManualDetalle | NotaVentaDetalle) & {
+  _bloqueado?: boolean
+}
 
 const TITULOS: Record<DocumentoTipo, string> = {
   cotizacion: "COTIZACIÓN",
@@ -62,6 +67,16 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
   const [comisionistas, setComisionistas] = useState<ComisionistaDetalle[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+
+  // --- Modo edición ---
+  const [isEditing, setIsEditing] = useState(false)
+  const [editItems, setEditItems] = useState<any[]>([])
+  const [editValues, setEditValues] = useState<CondicionesEditables | null>(null)
+
+  // --- Modales de confirmación (replican el flujo de las capturas) ---
+  const [showConfirmFinalizar, setShowConfirmFinalizar] = useState(false)
+  const [showCanceladoInfo, setShowCanceladoInfo] = useState(false)
+  const [showCerradoInfo, setShowCerradoInfo] = useState(false)
 
   useEffect(() => {
     let isMounted = true
@@ -100,6 +115,113 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
     return () => { isMounted = false }
   }, [tipo, id])
 
+  // --- Entrar / salir del modo edición ---
+  const handleToggleEditar = () => {
+    if (!documento || documento._bloqueado) return
+
+    if (!isEditing) {
+      // Al entrar a edición: clona items y condiciones actuales como punto de partida
+      setEditItems(JSON.parse(JSON.stringify(documento.items)))
+      setEditValues({
+        formaPago: documento.formaPago,
+        validez: "validez" in documento ? documento.validez : "",
+        garantia: "garantia" in documento ? documento.garantia : "",
+        moneda: documento.moneda,
+        observacion: documento.observacion ?? "",
+        renovacionActiva: "renovacion" in documento ? documento.renovacion.isActive : false,
+        fechaRenovacion: "renovacion" in documento ? (documento.renovacion.fechaRenovacion ?? "") : "",
+      })
+      setIsEditing(true)
+    } else {
+      // Cancelar edición sin guardar (botón ✕ del header)
+      setIsEditing(false)
+      setEditItems([])
+      setEditValues(null)
+    }
+  }
+
+  const handleEditItemChange = (itemId: string, field: string, value: any) => {
+    setEditItems((prev) =>
+      prev.map((item) => (item.id === itemId ? { ...item, [field]: value } : item))
+    )
+  }
+
+  const handleEditValuesChange = (field: keyof CondicionesEditables, value: any) => {
+    setEditValues((prev) => (prev ? { ...prev, [field]: value } : prev))
+  }
+
+  // Construye el documento actualizado a partir de los datos en edición.
+  const construirDocumentoActualizado = (): DocumentoCualquiera | null => {
+    if (!documento || !editValues) return null
+
+    const actualizado: any = {
+      ...documento,
+      items: editItems,
+      formaPago: editValues.formaPago,
+      moneda: editValues.moneda,
+      observacion: editValues.observacion,
+    }
+
+    if ("validez" in documento) actualizado.validez = editValues.validez
+    if ("garantia" in documento) actualizado.garantia = editValues.garantia
+    if ("renovacion" in documento) {
+      actualizado.renovacion = {
+        isActive: editValues.renovacionActiva,
+        fechaRenovacion: editValues.renovacionActiva ? editValues.fechaRenovacion || null : null,
+      }
+    }
+
+    return actualizado
+  }
+
+  // --- "Guardar" (sin finalizar): persiste en memoria y SALE de edición,
+  //     pero el documento sigue editable más adelante. ---
+  const handleGuardar = () => {
+    const actualizado = construirDocumentoActualizado()
+    if (!actualizado) return
+
+    setDocumento(actualizado)
+    setIsEditing(false)
+    setEditItems([])
+    setEditValues(null)
+
+    showToast("Documento actualizado correctamente", 1)
+  }
+
+  // --- "Guardar y Finalizar": pide confirmación primero ---
+  const handleGuardarYFinalizarClick = () => {
+    setShowConfirmFinalizar(true)
+  }
+
+  const handleConfirmarFinalizar = () => {
+    const actualizado = construirDocumentoActualizado()
+    setShowConfirmFinalizar(false)
+    if (!actualizado) return
+
+    // Se marca como bloqueado: a partir de aquí no se puede volver a editar.
+    actualizado._bloqueado = true
+
+    setDocumento(actualizado)
+    setIsEditing(false)
+    setEditItems([])
+    setEditValues(null)
+
+    setShowCerradoInfo(true)
+  }
+
+  const handleCancelarFinalizar = () => {
+    setShowConfirmFinalizar(false)
+    // Los cambios en pantalla se mantienen — no se descartan ni se persisten.
+    setShowCanceladoInfo(true)
+  }
+
+  // --- Generar Nota de Venta a partir de esta cotización ---
+  const handleGenerarNotaVenta = () => {
+    if (!documento) return
+    showToast("Redirigiendo a Nota de Venta...", 4)
+    router.push(`/venta_optimizado/nota_venta/crear?origen=${tipo}&origenId=${documento.id}`)
+  }
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64 text-gray-400 text-sm">
@@ -119,7 +241,7 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
     )
   }
 
-  const moneda = documento.moneda
+  const moneda = isEditing && editValues ? editValues.moneda : documento.moneda
   const currencySymbol = simboloDesdeMoneda(moneda)
 
   // Comisionista (solo cotización tiene este campo)
@@ -128,13 +250,19 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
   const porcentajeComision = comisionista?.porcentajeComision ?? 0
   const comisionistaLabel = comisionista ? `${comisionista.nombre} - ${comisionista.porcentajeComision}%` : undefined
 
-  // Totales según el tipo, reutilizando la misma lógica del formulario de creación
-  const totals =
-    tipo === "cotizacion"
-      ? calcularTotalesCotizacion(documento.items as any, articulosMaster, porcentajeComision)
-      : tipo === "cotizacion_manual"
-      ? calcularTotalesCotizacionManual(documento.items as any)
-      : calcularTotalesNotaVenta(documento.items as any)
+  // Items vigentes: los editados en memoria si está en modo edición, o los originales
+  const itemsVigentes = isEditing ? editItems : documento.items
+
+  // Totales recalculados en vivo según los items vigentes
+  const totals = useMemo(() => {
+    if (tipo === "cotizacion") {
+      return calcularTotalesCotizacion(itemsVigentes as any, articulosMaster, porcentajeComision)
+    }
+    if (tipo === "cotizacion_manual") {
+      return calcularTotalesCotizacionManual(itemsVigentes as any)
+    }
+    return calcularTotalesNotaVenta(itemsVigentes as any)
+  }, [tipo, itemsVigentes, articulosMaster, porcentajeComision])
 
   // Renovación (solo cotización / cotización_manual)
   const renovacion = "renovacion" in documento ? documento.renovacion : undefined
@@ -151,28 +279,47 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
             numero={documento.numero}
             documentTitle={TITULOS[tipo]}
             cliente={cliente}
+            clienteCelular={cliente?.celular}
             fechaEmision={documento.fechaEmision}
             validez={"validez" in documento ? documento.validez : undefined}
             garantia={"garantia" in documento ? documento.garantia : undefined}
             formaPago={documento.formaPago}
             moneda={moneda}
             comisionistaLabel={comisionistaLabel}
+            observacion={documento.observacion}
             fechaRenovacion={renovacion?.isActive ? renovacion.fechaRenovacion : undefined}
             empresa={tipo === "nota_venta" ? getEmpresaConfig() : undefined}
             logoUrl={tipo === "nota_venta" ? getEmpresaLogoUrl() : undefined}
+            isEditing={isEditing}
+            // El botón Editar no se muestra (ni puede activarse) si el documento ya fue finalizado.
+            puedeEditar={!documento._bloqueado}
+            onEditar={handleToggleEditar}
+            onGenerarNotaVenta={tipo !== "nota_venta" ? handleGenerarNotaVenta : undefined}
+            editValues={editValues ?? undefined}
+            onEditValuesChange={handleEditValuesChange}
           />
         }
         tableBody={
           <ItemsTable
             tipo={tipo}
-            items={documento.items as any}
+            items={itemsVigentes as any}
             articulosMaster={articulosMaster}
             porcentajeComision={porcentajeComision}
             currencySymbol={currencySymbol}
+            isEditing={isEditing}
+            onItemChange={handleEditItemChange}
           />
         }
         summarySection={
-          <TotalesDetailSection tipo={tipo} totals={totals} moneda={moneda} currencySymbol={currencySymbol} />
+          <TotalesDetailSection
+            tipo={tipo}
+            totals={totals}
+            moneda={moneda}
+            currencySymbol={currencySymbol}
+            isEditing={isEditing}
+            onGuardar={handleGuardar}
+            onGuardarYFinalizar={handleGuardarYFinalizarClick}
+          />
         }
         actions={
           <div className="space-y-6">
@@ -186,12 +333,43 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
                 mandatario={{
                   telefono: "999 999 999",
                   celular: "999 999 999",
+                  email: "demo@mi-empresa.com",
                   web: "https://www.demo.com/",
                 }}
               />
             )}
           </div>
         }
+      />
+
+      {/* Modal 1: confirmar Finalizar */}
+      <ConfirmModal
+        isOpen={showConfirmFinalizar}
+        variant="warning"
+        title="¿Estás seguro que deseas Finalizar?"
+        description="Una vez Finalizado, no podrás editar esta Cotización"
+        confirmText="Si, Finalizar"
+        cancelText="Cancelar!"
+        onConfirm={handleConfirmarFinalizar}
+        onCancel={handleCancelarFinalizar}
+      />
+
+      {/* Modal 2: resultado si se cancela el finalizar */}
+      <ConfirmModal
+        isOpen={showCanceladoInfo}
+        variant="error"
+        title="Cancelado"
+        description="Cancelando el Finalizar"
+        onOk={() => setShowCanceladoInfo(false)}
+      />
+
+      {/* Modal 3: resultado si se confirma el finalizar */}
+      <ConfirmModal
+        isOpen={showCerradoInfo}
+        variant="success"
+        title="Edición de Cotización Cerrado"
+        description="No se va a poder editar de nuevo"
+        onOk={() => setShowCerradoInfo(false)}
       />
     </div>
   )

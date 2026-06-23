@@ -15,9 +15,23 @@ interface ItemsTableProps {
   /** % de comisión aplicado al documento (solo cotización) */
   porcentajeComision?: number
   currencySymbol: string
+  /** Activa los inputs editables (cantidad, descuento aplicado, precio asignado) */
+  isEditing?: boolean
+  onItemChange?: (id: string, field: string, value: any) => void
 }
 
-export function ItemsTable({ tipo, items, articulosMaster, porcentajeComision = 0, currencySymbol }: ItemsTableProps) {
+const editableInputClass =
+  "w-20 border border-[#1ab394] rounded-sm px-2 py-1 text-[13px] text-center outline-none"
+
+export function ItemsTable({
+  tipo,
+  items,
+  articulosMaster,
+  porcentajeComision = 0,
+  currencySymbol,
+  isEditing = false,
+  onItemChange,
+}: ItemsTableProps) {
   const fmt = (n: number) => n.toFixed(2)
   const headerClass = "py-2.5 text-left font-bold uppercase text-[12px] text-[#676a6c]"
 
@@ -52,6 +66,17 @@ export function ItemsTable({ tipo, items, articulosMaster, porcentajeComision = 
             const articulo = articulosMaster.find((a) => areIdsEqual(a.id, item.articuloId))
             const cantidad = Number(item.cantidad) || 0
 
+            const cantidadCell = isEditing ? (
+              <input
+                type="number"
+                className={editableInputClass}
+                value={item.cantidad}
+                onChange={(e) => onItemChange?.(item.id, "cantidad", Number(e.target.value))}
+              />
+            ) : (
+              cantidad
+            )
+
             if (tipo === "cotizacion") {
               const itemCot = item as ItemCotizacion
               const precioBase = articulo?.precio ?? 0
@@ -67,8 +92,24 @@ export function ItemsTable({ tipo, items, articulosMaster, porcentajeComision = 
                   <td className="py-3 text-left font-medium">{idx + 1}</td>
                   <td className="py-3 text-left font-mono">{articulo?.codigo ?? "—"}</td>
                   <td className="py-3 text-left">{item.descripcion}</td>
-                  <td className="py-3 text-center">{cantidad}</td>
-                  <td className="py-3 text-center">{itemCot.descuentoPorcentajeAplicado ? `${dctoLabel}%` : "0%"}</td>
+                  <td className="py-3 text-center">{cantidadCell}</td>
+                  <td className="py-3 text-center">
+                    {isEditing ? (
+                      <button
+                        type="button"
+                        onClick={() => onItemChange?.(item.id, "descuentoPorcentajeAplicado", !itemCot.descuentoPorcentajeAplicado)}
+                        className={`px-2 py-1 rounded-full text-[12px] font-bold border ${
+                          itemCot.descuentoPorcentajeAplicado
+                            ? "bg-[#7eb5d6] border-[#7eb5d6] text-white"
+                            : "bg-white border-gray-200 text-[#4f566b]"
+                        }`}
+                      >
+                        {dctoLabel}%
+                      </button>
+                    ) : (
+                      itemCot.descuentoPorcentajeAplicado ? `${dctoLabel}%` : "0%"
+                    )}
+                  </td>
                   <td className="py-3 text-center">{currencySymbol} {fmt(precioConDcto)}</td>
                   <td className="py-3 text-center">{porcentajeComision}%</td>
                   <td className="py-3 text-center">{currencySymbol} {fmt(precioConComision)}</td>
@@ -87,8 +128,19 @@ export function ItemsTable({ tipo, items, articulosMaster, porcentajeComision = 
                 <td className="py-3 text-left font-medium">{idx + 1}</td>
                 <td className="py-3 text-left font-mono">{articulo?.codigo ?? "—"}</td>
                 <td className="py-3 text-left">{item.descripcion}</td>
-                <td className="py-3 text-center">{cantidad}</td>
-                <td className="py-3 text-center">{currencySymbol} {fmt(precioUnitario)}</td>
+                <td className="py-3 text-center">{cantidadCell}</td>
+                <td className="py-3 text-center">
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      className={editableInputClass}
+                      value={itemLibre.precioAsignado}
+                      onChange={(e) => onItemChange?.(item.id, "precioAsignado", Number(e.target.value))}
+                    />
+                  ) : (
+                    `${currencySymbol} ${fmt(precioUnitario)}`
+                  )}
+                </td>
                 <td className="py-3 text-right font-bold">{currencySymbol} {fmt(total)}</td>
               </tr>
             )

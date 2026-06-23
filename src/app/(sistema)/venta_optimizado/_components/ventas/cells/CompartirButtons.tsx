@@ -3,6 +3,7 @@
 
 import { useState } from "react"
 import { ActionButton } from "@/components/common/ActionButton"
+import { WhatsappShareButton } from "../../../_components/shared/WhatsappShareButton"
 
 interface CompartirButtonsProps {
   celular?: string | null
@@ -35,18 +36,6 @@ export const CompartirButtons = ({ celular, correo, numeroDoc }: CompartirButton
       `mailto:${destinos}?subject=Documento Comercial %23${numeroDoc}`,
       "_blank"
     )
-  }
-
-  // --- Estado del popover de WhatsApp ---
-  const [numeroWA, setNumeroWA] = useState(celular ?? "")
-
-  const enviarWhatsApp = () => {
-    const limpio = numeroWA.replace(/\s+/g, "").replace(/-/g, "")
-    if (!limpio) return
-    const mensaje = encodeURIComponent(
-      `Hola, le hacemos llegar su documento comercial N° ${numeroDoc}.`
-    )
-    window.open(`https://api.whatsapp.com/send?phone=${limpio}&text=${mensaje}`, "_blank")
   }
 
   // --- Contenido popover correo ---
@@ -103,27 +92,6 @@ export const CompartirButtons = ({ celular, correo, numeroDoc }: CompartirButton
     </div>
   )
 
-  // --- Contenido popover WhatsApp ---
-  const whatsappPopover = (
-    <div className="flex flex-col gap-2 p-1 w-[200px]">
-      <input
-        type="tel"
-        value={numeroWA}
-        onChange={(e) => setNumeroWA(e.target.value)}
-        placeholder="Ej: 51987654321"
-        className="border border-gray-300 rounded px-2 py-1 text-[12px] focus:outline-none focus:border-green-400"
-      />
-      <button
-        onClick={enviarWhatsApp}
-        disabled={!numeroWA.trim()}
-        className="bg-[#28a745] hover:bg-[#218838] disabled:opacity-40 text-white rounded px-3 py-1.5 text-[12px] font-semibold flex items-center justify-center gap-1.5"
-      >
-        <i className="bi bi-whatsapp text-[13px]" />
-        Enviar por WhatsApp
-      </button>
-    </div>
-  )
-
   return (
     <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
 
@@ -135,13 +103,8 @@ export const CompartirButtons = ({ celular, correo, numeroDoc }: CompartirButton
         popoverContent={correoPopover}
       />
 
-      {/* BOTÓN WHATSAPP */}
-      <ActionButton
-        icon={<i className="bi bi-whatsapp" />}
-        className="w-9 h-9 bg-[#28a745] hover:bg-[#218838] rounded-[3px]"
-        isPopover
-        popoverContent={whatsappPopover}
-      />
+      {/* BOTÓN WHATSAPP — pieza compartida, mismo popover usado en el detalle del documento */}
+      <WhatsappShareButton celular={celular} numeroDoc={numeroDoc} />
 
     </div>
   )
