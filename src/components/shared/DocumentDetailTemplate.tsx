@@ -3,8 +3,7 @@
 import React, { useState } from "react"
 
 interface DocumentDetailTemplateProps {
-  title: string                  // Título del documento (ej. "COTIZACIÓN COTF 001-00000001")
-  onClose?: () => void           // Acción al cerrar/volver, opcional
+  onClose?: () => void           // Acción al cerrar/volver a la lista (flecha ←)
   topHeader: React.ReactNode     // Barra de acciones específica del documento (PDF, imprimir, compartir...)
   topBody: React.ReactNode       // Bloques de "Contacto Cliente" / "Condiciones Generales" (o Empresa, en nota de venta)
   tableHeaders?: React.ReactNode // Cabeceras de la tabla de items, opcional (modo rígido)
@@ -14,7 +13,6 @@ interface DocumentDetailTemplateProps {
 }
 
 export function DocumentDetailTemplate({
-  title,
   onClose,
   topHeader,
   topBody,
@@ -23,22 +21,29 @@ export function DocumentDetailTemplate({
   summarySection,
   actions,
 }: DocumentDetailTemplateProps) {
-  // Igual que en ventas original: el header colapsa (chevron) ocultando topBody,
-  // pero la tabla y los totales permanecen siempre visibles.
-  const [showHeader, setShowHeader] = useState(true)
+  // El chevron colapsa SOLO topBody (Contacto Cliente / Condiciones Generales),
+  // nunca la barra de número/título/acciones que vive dentro de topHeader.
+  const [showBody, setShowBody] = useState(true)
 
   return (
     <div className="flex flex-col bg-white w-full rounded-md shadow-sm border border-gray-200 my-2">
-      {/* Encabezado con padding reducido */}
-      <div className="bg-[#f8fafc] px-4 py-3 flex justify-between items-center border-b border-gray-200 rounded-t-md">
-        <h2 className="text-[15px] font-extrabold text-[#4f566b]">{title}</h2>
+      {/* Franja superior minimalista: solo flecha de volver + chevron/cerrar */}
+      <div className="flex justify-between items-center px-4 py-2 border-b border-gray-100">
+        <button
+          onClick={onClose}
+          className="text-gray-400 hover:text-gray-600 transition-colors"
+          title="Volver a la lista"
+        >
+          <i className="bi bi-arrow-left text-[16px]" />
+        </button>
+
         <div className="flex gap-4 text-gray-400">
           <button
-            onClick={() => setShowHeader((prev) => !prev)}
+            onClick={() => setShowBody((prev) => !prev)}
             className="hover:text-gray-600 transition-colors"
             title="Mostrar u ocultar cabecera"
           >
-            <i className={`bi bi-chevron-up transition-transform duration-200 ${showHeader ? "" : "rotate-180"}`} />
+            <i className={`bi bi-chevron-up transition-transform duration-200 ${showBody ? "" : "rotate-180"}`} />
           </button>
           {onClose && (
             <button onClick={onClose} className="hover:text-gray-600 transition-colors" title="Cerrar">
@@ -49,22 +54,22 @@ export function DocumentDetailTemplate({
       </div>
 
       {/* Contenido Principal */}
-      <div className="p-3 flex flex-col flex-1">
+      <div className="p-6 flex flex-col flex-1">
 
-        {/* Barra de acciones del documento (PDF, imprimir, compartir, editar...) */}
-        <div className="mb-3 w-full flex justify-end">
+        {/* Barra de número/título/acciones (vive dentro de HeaderSection) */}
+        <div className="w-full">
           {topHeader}
         </div>
 
-        {/* Bloques de contacto/condiciones — colapsable */}
-        {showHeader && (
-          <div className="mb-4 w-full">
+        {/* Bloques de contacto/condiciones — colapsable independientemente del header */}
+        {showBody && (
+          <div className="mt-4 w-full">
             {topBody}
           </div>
         )}
 
-        {/* Tabla de Detalle: con cabeceras rígidas o modo modular, igual que DocumentFormTemplate */}
-        <div className="w-full mb-2 overflow-x-auto">
+        {/* Tabla de Detalle: con cabeceras rígidas o modo modular */}
+        <div className="w-full mb-2 mt-6 overflow-x-auto">
           {tableHeaders ? (
             <table className="w-full text-left border-collapse min-w-[1000px]">
               <thead>

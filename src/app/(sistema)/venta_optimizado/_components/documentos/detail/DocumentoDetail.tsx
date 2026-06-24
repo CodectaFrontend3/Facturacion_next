@@ -15,9 +15,12 @@ import {
   calcularTotalesCotizacion,
   calcularTotalesCotizacionManual,
   calcularTotalesNotaVenta,
+  calcularFechaVencimiento,
+  calcularDiasRestantes,
 } from "../../../_utils/calculations"
 import { simboloDesdeMoneda } from "../../../_utils/format"
 import { areIdsEqual } from "../../../_utils/idNormalizer"
+import { mapToClienteFilaLista } from "../../../_domain/mappers"
 import { getEmpresaConfig, getEmpresaLogoUrl, BANCOS_DEFAULT } from "../../../_config/empresa.config"
 
 import { DocumentoTipo } from "../../../_domain/types/shared.types"
@@ -27,9 +30,10 @@ import {
   NotaVentaDetalle,
 } from "../../../_domain/types/documento.types"
 import { ArticuloDetalle, ComisionistaDetalle } from "../../../_domain/types/catalogo.types"
-import { ClienteDetalle } from "../../../_domain/types/cliente.types"
+import { ClienteDetalle, ClienteFilaLista } from "../../../_domain/types/cliente.types"
 
-import { HeaderSection, CondicionesEditables } from "./sections/HeaderSection"
+import { HeaderSection } from "./sections/HeaderSection"
+import { DocumentInfoSection, CondicionesEditables } from "./sections/DocumentInfoSection"
 import { ItemsTable } from "./sections/ItemsTable"
 import { TotalesDetailSection } from "./sections/TotalesDetailSection"
 import { BancosInfo } from "./sections/BancosInfo"
@@ -63,6 +67,7 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
 
   const [documento, setDocumento] = useState<DocumentoCualquiera | null>(null)
   const [cliente, setCliente] = useState<ClienteDetalle | undefined>(undefined)
+  const [clientesLista, setClientesLista] = useState<ClienteFilaLista[]>([])
   const [articulosMaster, setArticulosMaster] = useState<ArticuloDetalle[]>([])
   const [comisionistas, setComisionistas] = useState<ComisionistaDetalle[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -72,6 +77,7 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [editItems, setEditItems] = useState<any[]>([])
   const [editValues, setEditValues] = useState<CondicionesEditables | null>(null)
+  const [editClienteId, setEditClienteId] = useState("")
 
   // --- Modales de confirmación (replican el flujo de las capturas) ---
   const [showConfirmFinalizar, setShowConfirmFinalizar] = useState(false)
@@ -106,6 +112,7 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
 
       setDocumento(doc)
       setCliente(clientes.find((c) => areIdsEqual(c.id, doc!.clienteId)))
+      setClientesLista(clientes.map(mapToClienteFilaLista))
       setArticulosMaster(articulos)
       setComisionistas(comisionistasData)
       setIsLoading(false)
@@ -131,12 +138,14 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
         renovacionActiva: "renovacion" in documento ? documento.renovacion.isActive : false,
         fechaRenovacion: "renovacion" in documento ? (documento.renovacion.fechaRenovacion ?? "") : "",
       })
+      setEditClienteId(documento.clienteId)
       setIsEditing(true)
     } else {
       // Cancelar edición sin guardar (botón ✕ del header)
       setIsEditing(false)
       setEditItems([])
       setEditValues(null)
+      setEditClienteId("")
     }
   }
 
@@ -144,6 +153,23 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
     setEditItems((prev) =>
       prev.map((item) => (item.id === itemId ? { ...item, [field]: value } : item))
     )
+  }
+
+  // Agrega una fila vacía al editar — mismo patrón que useDocumentoForm del formulario de creación.
+  const handleEditAddEmpty = () => {
+    const nuevoItem =
+      tipo === "cotizacion"
+        ? { id: Math.random().toString(36).substring(2, 9), articuloId: "", descripcion: "", cantidad: 0, descuentoPorcentajeAplicado: false }
+        : { id: Math.random().toString(36).substring(2, 9), articuloId: "", descripcion: "", cantidad: 0, precioAsignado: 0 }
+
+    setEditItems((prev) => [...prev, nuevoItem])
+  }
+
+  const handleEditRemoveItem = (itemId: string) => {
+    setEditItems((prev) => {
+      if (prev.length <= 1) return prev // no se permite dejar la tabla sin filas
+      return prev.filter((item) => item.id !== itemId)
+    })
   }
 
   const handleEditValuesChange = (field: keyof CondicionesEditables, value: any) => {
@@ -157,6 +183,7 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
     const actualizado: any = {
       ...documento,
       items: editItems,
+      clienteId: editClienteId || documento.clienteId,
       formaPago: editValues.formaPago,
       moneda: editValues.moneda,
       observacion: editValues.observacion,
@@ -174,16 +201,36 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
     return actualizado
   }
 
+  // Actualiza también el objeto `cliente` completo cuando el clienteId cambió durante la edición.
+  const sincronizarClienteSeleccionado = () => {
+    if (editClienteId && !areIdsEqual(editClienteId, documento?.clienteId ?? "")) {
+      const nuevoCliente = clientesLista.find((c) => areIdsEqual(c.id, editClienteId))
+      if (nuevoCliente) {
+        setCliente({
+          id: nuevoCliente.id,
+          nombre: nuevoCliente.nombre,
+          numeroDocumento: nuevoCliente.numeroDocumento,
+          tipoDocumento: nuevoCliente.tipoDocumento,
+          celular: nuevoCliente.celular,
+          correo: nuevoCliente.correo,
+          fechaRegistro: nuevoCliente.fechaRegistro,
+        } as ClienteDetalle)
+      }
+    }
+  }
+
   // --- "Guardar" (sin finalizar): persiste en memoria y SALE de edición,
   //     pero el documento sigue editable más adelante. ---
   const handleGuardar = () => {
     const actualizado = construirDocumentoActualizado()
     if (!actualizado) return
 
+    sincronizarClienteSeleccionado()
     setDocumento(actualizado)
     setIsEditing(false)
     setEditItems([])
     setEditValues(null)
+    setEditClienteId("")
 
     showToast("Documento actualizado correctamente", 1)
   }
@@ -201,10 +248,12 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
     // Se marca como bloqueado: a partir de aquí no se puede volver a editar.
     actualizado._bloqueado = true
 
+    sincronizarClienteSeleccionado()
     setDocumento(actualizado)
     setIsEditing(false)
     setEditItems([])
     setEditValues(null)
+    setEditClienteId("")
 
     setShowCerradoInfo(true)
   }
@@ -214,6 +263,7 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
     // Los cambios en pantalla se mantienen — no se descartan ni se persisten.
     setShowCanceladoInfo(true)
   }
+
 
   // --- Generar Nota de Venta a partir de esta cotización ---
   const handleGenerarNotaVenta = () => {
@@ -255,31 +305,49 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
 
   // Totales recalculados en vivo según los items vigentes
   const totals = useMemo(() => {
+    // Filtramos filas sin artículo seleccionado (recién agregadas en modo edición)
+    // para no disparar el warning de integridad de calculations.ts.
+    const itemsConArticulo = (itemsVigentes as any[]).filter((item) => item.articuloId)
+
     if (tipo === "cotizacion") {
-      return calcularTotalesCotizacion(itemsVigentes as any, articulosMaster, porcentajeComision)
+      return calcularTotalesCotizacion(itemsConArticulo, articulosMaster, porcentajeComision)
     }
     if (tipo === "cotizacion_manual") {
-      return calcularTotalesCotizacionManual(itemsVigentes as any)
+      return calcularTotalesCotizacionManual(itemsConArticulo)
     }
-    return calcularTotalesNotaVenta(itemsVigentes as any)
+    return calcularTotalesNotaVenta(itemsConArticulo)
   }, [tipo, itemsVigentes, articulosMaster, porcentajeComision])
 
   // Renovación (solo cotización / cotización_manual)
   const renovacion = "renovacion" in documento ? documento.renovacion : undefined
 
+  // F. Vencimiento: fechaEmision + validez, independiente de si hay renovación activa.
+  const fechaVencimiento =
+    "validez" in documento ? calcularFechaVencimiento(documento.fechaEmision, documento.validez) : undefined
+  const diasRestantesVencimiento = fechaVencimiento ? calcularDiasRestantes(fechaVencimiento) : undefined
+
   return (
     <div className="p-4 bg-[#f5f5f5]">
       <DocumentDetailTemplate
-        title={`${TITULOS[tipo]} ${documento.numero}`}
         onClose={() => router.push(RUTA_LISTA[tipo])}
-        topHeader={null}
-        topBody={
+        topHeader={
           <HeaderSection
             tipo={tipo}
             numero={documento.numero}
             documentTitle={TITULOS[tipo]}
             cliente={cliente}
             clienteCelular={cliente?.celular}
+            isEditing={isEditing}
+            // El botón Editar no se muestra (ni puede activarse) si el documento ya fue finalizado.
+            puedeEditar={!documento._bloqueado}
+            onEditar={handleToggleEditar}
+            onGenerarNotaVenta={tipo !== "nota_venta" ? handleGenerarNotaVenta : undefined}
+          />
+        }
+        topBody={
+          <DocumentInfoSection
+            tipo={tipo}
+            cliente={cliente}
             fechaEmision={documento.fechaEmision}
             validez={"validez" in documento ? documento.validez : undefined}
             garantia={"garantia" in documento ? documento.garantia : undefined}
@@ -287,16 +355,19 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
             moneda={moneda}
             comisionistaLabel={comisionistaLabel}
             observacion={documento.observacion}
+            fechaVencimiento={fechaVencimiento}
+            diasRestantesVencimiento={diasRestantesVencimiento}
             fechaRenovacion={renovacion?.isActive ? renovacion.fechaRenovacion : undefined}
             empresa={tipo === "nota_venta" ? getEmpresaConfig() : undefined}
             logoUrl={tipo === "nota_venta" ? getEmpresaLogoUrl() : undefined}
+            documentTitle={TITULOS[tipo]}
+            numero={documento.numero}
             isEditing={isEditing}
-            // El botón Editar no se muestra (ni puede activarse) si el documento ya fue finalizado.
-            puedeEditar={!documento._bloqueado}
-            onEditar={handleToggleEditar}
-            onGenerarNotaVenta={tipo !== "nota_venta" ? handleGenerarNotaVenta : undefined}
             editValues={editValues ?? undefined}
             onEditValuesChange={handleEditValuesChange}
+            clientes={clientesLista}
+            clienteIdSeleccionado={editClienteId}
+            onClienteChange={setEditClienteId}
           />
         }
         tableBody={
@@ -308,6 +379,8 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
             currencySymbol={currencySymbol}
             isEditing={isEditing}
             onItemChange={handleEditItemChange}
+            onAddEmpty={handleEditAddEmpty}
+            onRemoveItem={handleEditRemoveItem}
           />
         }
         summarySection={
