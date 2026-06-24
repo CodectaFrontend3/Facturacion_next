@@ -1,3 +1,9 @@
+import {
+  KardexDistribucionFormValues,
+  KardexEntradaFormValues,
+  KardexTrasladoFormValues,
+} from "./kardex.schema";
+
 export type MonedaTipo = "SOLES" | "DOLARES";
 
 export type TipoComprobante = "SIN_COMPROBANTE" | "FACTURA" | "BOLETA";
@@ -62,4 +68,45 @@ export interface KardexSalidaRow {
   informacion: string;
   productos: KardexProductoDetalle[];
   fecha_salida: string;
+}
+
+// Interfaces para los formularios de entrada, distribución y traslado
+
+export interface KardexEntradaFormProps {
+  motivos: SelectOption[];
+  tiposComprobante: SelectOption[];
+  tiposTransporte: SelectOption[];
+  proveedores: SelectOption[];
+  monedas: SelectOption[];
+  productos: ProductoOption[];
+  defaultValues?: Partial<KardexEntradaFormValues>;
+  onSubmit: (values: KardexEntradaFormValues) => Promise<void> | void;
+}
+
+export interface KardexDistribucionFormProps {
+  motivos: SelectOption[];
+  categorias: SelectOption[];
+  almacenes: SelectOption[];
+  productos: ProductoOption[];
+  defaultValues?: Partial<KardexDistribucionFormValues>;
+  onSubmit: (values: KardexDistribucionFormValues) => Promise<void> | void;
+}
+
+export interface KardexTrasladoFormProps {
+  almacenes: SelectOption[];
+  productos: ProductoOption[];
+  defaultValues?: Partial<KardexTrasladoFormValues>;
+  onSubmit: (values: KardexTrasladoFormValues) => Promise<void> | void;
+}
+
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
+export interface ProductoOption extends SelectOption {
+  // datos extra que puede traer el producto al seleccionarlo
+  stock?: number;
+  precio?: number;
+  unidad?: string;
 }
