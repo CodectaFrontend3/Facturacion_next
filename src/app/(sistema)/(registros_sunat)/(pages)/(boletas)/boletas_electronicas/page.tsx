@@ -48,7 +48,7 @@ export default function Page() {
       activeTab="boletas"
       cardConfigs={cardConfigs}
       cardCounts={cardCounts}
-      cardPeriodLabel="Resumen de Mayo del 2026"
+      cardPeriodLabel="Resumen de Junio del 2026"
       columns={columns}
       data={boletasData as BoletaRow[]}
       onSend={handleSend}

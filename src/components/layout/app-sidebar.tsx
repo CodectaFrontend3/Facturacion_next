@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -89,10 +89,51 @@ export default function AppSidebar() {
 		}, 250)
 	}
 
-	const activeMenuLabel = getActiveMenuLabel(pathname, mainItems)
+	const activeMenuLabel = useMemo(() => getActiveMenuLabel(pathname, mainItems), [pathname])
 	const resolvedOpenMenu = openMenuState && openMenuState.pathname === pathname
 		? openMenuState.label
 		: activeMenuLabel
+
+	// Precomputamos y memoizamos los items activos para evitar chequeos de rutas redundantes en cada frame de animación
+	const menuList = useMemo(() => {
+		return mainItems.map((item) => {
+			const active = item.path
+				? isActiveRoute(pathname, item.path)
+				: item.subPath?.some((sub) => {
+					if (sub.path) return isActiveRoute(pathname, sub.path)
+					if (sub.kPath) return sub.kPath.some((k) => isActiveRoute(pathname, k.path))
+					return false
+				})
+			const iconClass = iconMap[item.icon] ?? "fa fa-fw fa-file-text-o"
+
+			const subItems = item.subPath?.map((subItem) => {
+				const subActive = subItem.path
+					? isActiveRoute(pathname, subItem.path)
+					: subItem.kPath?.some((k) => isActiveRoute(pathname, k.path))
+
+				const kItems = subItem.kPath?.map((kItem) => {
+					const kActive = isActiveRoute(pathname, kItem.path)
+					return {
+						...kItem,
+						active: kActive,
+					}
+				})
+
+				return {
+					...subItem,
+					active: subActive,
+					kPath: kItems,
+				}
+			})
+
+			return {
+				...item,
+				active,
+				iconClass,
+				subPath: subItems,
+			}
+		})
+	}, [pathname])
 
 	return (
 		<Sidebar
@@ -105,15 +146,8 @@ export default function AppSidebar() {
 				<SidebarContent className="relative z-10 flex-1 overflow-hidden px-0">
 					<ScrollArea className="h-full">
 						<SidebarMenu className="gap-0 py-0">
-							{mainItems.map((item) => {
-								const active = item.path
-									? isActiveRoute(pathname, item.path)
-									: item.subPath?.some((sub) => {
-										if (sub.path) return isActiveRoute(pathname, sub.path)
-										if (sub.kPath) return sub.kPath.some((k) => isActiveRoute(pathname, k.path))
-										return false
-									})
-								const iconClass = iconMap[item.icon] ?? "fa fa-fw fa-file-text-o"
+							{menuList.map((item) => {
+								const iconClass = item.iconClass
 
 								if (item.subPath) {
 									return (
@@ -126,7 +160,7 @@ export default function AppSidebar() {
 											<SidebarMenuItem>
 												<CollapsibleTrigger asChild>
 													<SidebarMenuButton
-														isActive={active}
+														isActive={item.active}
 														className={`
 															group relative flex h-11.5 w-full items-center gap-3 rounded-none border-none px-6 text-[12px] font-bold tracking-wide text-white transition-all duration-500 ease-in-out
 															group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:justify-center
@@ -156,16 +190,13 @@ export default function AppSidebar() {
 												<CollapsibleContent className="overflow-hidden data-[state=closed]:animate-[collapsible-up_0.2s_ease-out] data-[state=open]:animate-[collapsible-down_0.2s_ease-out]">
 													<SidebarMenuSub className="m-0 p-0 gap-0 border-none space-y-0 flex-col translate-x-0 mx-0 px-0">
 														{item.subPath.map((subItem) => {
-															const subActive = subItem.path
-																? isActiveRoute(pathname, subItem.path)
-																: subItem.kPath?.some((k) => isActiveRoute(pathname, k.path))
 															return (
 																subItem.kPath ? (
 																	<Collapsible key={subItem.label} className="group/subcollapsible transition-all duration-200">
 																		<SidebarMenuSubItem>
 																			<CollapsibleTrigger asChild>
 																				<SidebarMenuSubButton
-																					isActive={subActive}
+																					isActive={subItem.active}
 																					className={`
 																						group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-11 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																						hover:bg-[#09267B] hover:text-white cursor-pointer
@@ -180,12 +211,11 @@ export default function AppSidebar() {
 																			<CollapsibleContent className="overflow-hidden data-[state=closed]:animate-[collapsible-up_0.2s_ease-out] data-[state=open]:animate-[collapsible-down_0.2s_ease-out]">
 																				<ul className="m-0 p-0 gap-0 border-none space-y-0 flex flex-col">
 																					{subItem.kPath.map((kItem) => {
-																						const kActive = isActiveRoute(pathname, kItem.path)
 																						return (
 																							<li key={kItem.label}>
 																								<SidebarMenuSubButton
 																									asChild
-																									isActive={kActive}
+																									isActive={kItem.active}
 																									className={`
 																										group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-16 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																										hover:bg-[#09267B] hover:text-white
@@ -208,7 +238,7 @@ export default function AppSidebar() {
 																	<SidebarMenuSubItem key={subItem.label}>
 																		<SidebarMenuSubButton
 																			asChild
-																			isActive={subActive}
+																			isActive={subItem.active}
 																			className={`
 																				group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-11 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
 																				hover:bg-[#09267B] hover:text-white
@@ -235,7 +265,7 @@ export default function AppSidebar() {
 									<SidebarMenuItem key={item.label}>
 										<SidebarMenuButton
 											asChild
-											isActive={active}
+											isActive={item.active}
 											className={`
 												group relative flex h-11.5 w-full items-center gap-3 rounded-none border-none px-6 text-[12px] font-bold tracking-wide text-white transition-all duration-500 ease-in-out
 												group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:justify-center
