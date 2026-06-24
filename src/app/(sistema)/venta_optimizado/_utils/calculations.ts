@@ -157,6 +157,18 @@ export const calcularTotalesNotaVenta = (
  * 4. CÁLCULO DE DÍAS RESTANTES (MÓDULO RENOVACIONES)
  * Resta la fecha de vencimiento configurada con la fecha actual del sistema.
  */
+/**
+ * Calcula la fecha de vencimiento de un documento sumando los días de "validez"
+ * (ej. "15 DIAS", "7 DIAS", "1 DIA") a la fecha de emisión.
+ * Usado en el bloque "Contacto Cliente" del detalle: F. Vencimiento + Días restantes.
+ */
+export const calcularFechaVencimiento = (fechaEmision: string, validez: string): string => {
+  const dias = parseInt(validez, 10) || 0;
+  const fecha = new Date(fechaEmision);
+  fecha.setDate(fecha.getDate() + dias);
+  return fecha.toISOString().split('T')[0]; // YYYY-MM-DD
+};
+
 export const calcularDiasRestantes = (fechaRenovacion: string | null): number => {
   if (!fechaRenovacion) return 0;
 

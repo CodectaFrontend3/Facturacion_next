@@ -48,7 +48,7 @@ export function TotalesDetailSection({
     return (
       <div className="w-full">
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row w-full">
-          <p className="text-[13px] font-bold text-[#676a6c]">Son: {sonTexto}</p>
+          <p className="text-[14px] font-bold text-[#676a6c]">Son: {sonTexto}</p>
           <div className="w-full rounded-[8px] border border-gray-200 px-8 py-5 text-center lg:w-[380px]">
             <p className="font-extrabold text-[#676a6c]">Importe Total</p>
             <p className="mt-4 text-[16px] text-[#676a6c]">{currencySymbol} {totals.total.toFixed(2)}</p>
@@ -63,10 +63,10 @@ export function TotalesDetailSection({
   return (
     <div className="w-full">
       <div className="flex flex-col items-start justify-between gap-6 lg:flex-row w-full">
-        <p className="text-[13px] font-bold text-[#676a6c]">Son: {sonTexto}</p>
+        <p className="text-[14px] font-bold text-[#676a6c]">Son: {sonTexto}</p>
 
-        <div className="w-full rounded-[4px] border border-gray-200 bg-white px-5 py-4 lg:w-[320px]">
-          <div className="space-y-2 text-[13px] text-[#676a6c]">
+        <div className="w-full rounded-[4px] border border-gray-200 bg-white px-7 py-6 lg:w-[360px]">
+          <div className="space-y-3 text-[14px] text-[#676a6c]">
             <Row label="Subtotal:" value={totals.subtotal} symbol={currencySymbol} />
             <Row label="Op. Gravada:" value={totals.subtotal} symbol={currencySymbol} />
             <Row label="Op. Inafecta:" value={0} symbol={currencySymbol} />
