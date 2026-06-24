@@ -69,7 +69,7 @@ export function DocumentDetailTemplate({
         )}
 
         {/* Tabla de Detalle: con cabeceras rígidas o modo modular */}
-        <div className="w-full mb-2 mt-6 overflow-x-auto">
+        <div className="w-full mb-2 mt-6 overflow-x-auto pl-5 pr-5">
           {tableHeaders ? (
             <table className="w-full text-left border-collapse min-w-[1000px]">
               <thead>
@@ -88,7 +88,7 @@ export function DocumentDetailTemplate({
 
         {/* Totales (Son: ... / Subtotal / IGV / Total) */}
         {summarySection && (
-          <div className="w-full flex justify-end border-t border-gray-100 pt-4 mt-2">
+          <div className="w-full flex justify-end border-t border-gray-100 pt-4 mt-2 pl-5 pr-5 ">
             {summarySection}
           </div>
         )}

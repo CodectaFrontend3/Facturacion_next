@@ -14,8 +14,9 @@ interface MandatarioSectionProps {
 
 export function MandatarioSection({ mandatario }: MandatarioSectionProps) {
   return (
-    <div className="flex flex-col items-end justify-between gap-6 pt-6 sm:flex-row">
-      <div className="space-y-1 leading-relaxed text-[13px] text-[#676a6c]">
+    <div className="flex flex-col items-end justify-between gap-6 pt-6 sm:flex-row pl-5 pr-5 ">
+
+      <div className="space-y-1 leading-relaxed text-[13px] text-[#676a6c] w-full">
         <p className="font-bold underline">Atendido por:</p>
         <p><span className="font-bold">Teléfono:</span> {mandatario.telefono}</p>
         {mandatario.email && (
@@ -32,6 +33,13 @@ export function MandatarioSection({ mandatario }: MandatarioSectionProps) {
             </a>
           </p>
         )}
+      </div>
+
+      <div className="w-128 mx-auto text-center space-y-2 pb-4">
+        <hr className="border-t border-gray-300 w-full mb-2" />
+        <span className="text-[13px] text-[#676a6c] tracking-wider block">
+          SSSS
+        </span>
       </div>
     </div>
   )

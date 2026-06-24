@@ -138,8 +138,8 @@ export function DocumentInfoSection({
 
         {/* --- MODO LECTURA --- */}
         {!isEditing && (
-            <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div className="flex flex-col justify-between rounded-[12px] border border-gray-200 p-8">
+            <div className="mt-2 grid grid-cols-1 gap-8 md:grid-cols-2 items-start">
+                <div className="flex flex-col justify-between rounded-[12px] border border-gray-200 p-6">
                     <p className="mb-5 text-center font-bold text-[15px] text-[#4f566b]">Contacto Cliente</p>
                     <div className="space-y-2 pl-1 leading-relaxed text-[14px] text-[#676a6c]">
                     <p><span className="font-bold">Señor(es):</span> {cliente?.nombre ?? "—"}</p>
@@ -153,10 +153,18 @@ export function DocumentInfoSection({
                     </p>
                     {isCotizacion && fechaVencimiento && (
                         <p>
-                        <span className="font-bold">F. Vencimiento:</span> {formatSlash(fechaVencimiento)}
-                        {diasRestantesVencimiento != null && (
-                            <span className="ml-4 font-bold">Días restantes: {diasRestantesVencimiento}</span>
-                        )}
+                            <span className="font-bold">F. Vencimiento:</span> {formatSlash(fechaVencimiento)}
+                            {diasRestantesVencimiento != null && (
+                                <span className="ml-4 font-bold">
+                                    Días restantes:{" "}
+                                    <span className={`font-normal ${diasRestantesVencimiento < 0 ? "text-red-500" : "text-gray-600"}`}>
+                                        {diasRestantesVencimiento < 0 
+                                            ? `${diasRestantesVencimiento} días vencido` 
+                                            : `${diasRestantesVencimiento} días`
+                                        }
+                                    </span>
+                                </span>
+                            )}
                         </p>
                     )}
                     {tipo === "nota_venta" && (
@@ -173,25 +181,31 @@ export function DocumentInfoSection({
                     </div>
                 </div>
 
-                <div className="flex flex-col justify-between rounded-[12px] border border-gray-200 p-8">
-                    <p className="mb-5 text-center font-bold text-[15px] text-[#4f566b]">Condiciones Generales</p>
-                    <div className="space-y-2 pl-1 leading-relaxed text-[14px] text-[#676a6c]">
-                    {isCotizacion && (
-                        <>
-                        <div className="flex justify-between gap-4">
-                            <p className="flex-1"><span className="font-bold">Forma de Pago:</span> {formaPago}</p>
-                            <p className="flex-1"><span className="font-bold">Fecha:</span> {fechaEmision}</p>
-                        </div>
-                        <div className="flex justify-between gap-4">
-                            <p className="flex-1"><span className="font-bold">Validez:</span> {validez}</p>
-                            <p className="flex-1"><span className="font-bold">Garantía:</span> {garantia}</p>
-                        </div>
-                        </>
-                    )}
-                    <p><span className="font-bold">Tipo de Moneda:</span> {monedaLabel}</p>
-                    {comisionistaLabel && (
-                        <p><span className="font-bold">Comisionista:</span> {comisionistaLabel}</p>
-                    )}
+                <div className="flex flex-col justify-start space-y-5 rounded-[12px] border border-gray-200 p-6">
+                    {/* Título de la sección */}
+                    <p className="mb-5 text-center font-bold text-[15px] text-[#4f566b]">
+                        Condiciones Generales
+                    </p>
+                    
+                    {/* Contenedor de datos estructurado en Grid de 2 columnas */}
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-2 pl-1 leading-relaxed text-[14px] text-[#676a6c]">
+                        {isCotizacion && (
+                            <>
+                                <p><span className="font-bold">Forma de Pago:</span> {formaPago}</p>
+                                <p><span className="font-bold">Fecha:</span> {fechaEmision}</p>
+                                
+                                <p><span className="font-bold">Validez:</span> {validez}</p>
+                                <p><span className="font-bold">Garantía:</span> {garantia}</p>
+                            </>
+                        )}
+                        
+                        {/* Estos elementos ocuparán toda la fila si van solos, 
+                            o se alinearán en la primera columna */}
+                        <p><span className="font-bold">Tipo de Moneda:</span> {monedaLabel}</p>
+                        
+                        {comisionistaLabel && (
+                            <p><span className="font-bold">Comisionista:</span> {comisionistaLabel}</p>
+                        )}
                     </div>
                 </div>
             </div>
@@ -199,7 +213,7 @@ export function DocumentInfoSection({
 
         {/* Observaciones — solo en modo lectura, debajo de las 2 cards */}
         {!isEditing && observacion && (
-            <p className="mt-5 text-[14px] text-[#676a6c]">
+            <p className="mt-5 text-[14px] text-[#676a6c] pl-7">
             <span className="font-bold">Observaciones:</span> {observacion}
             </p>
         )}
