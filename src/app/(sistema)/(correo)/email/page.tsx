@@ -217,7 +217,11 @@ export default function EmailPage() {
           <li>
             <button 
               onClick={() => setCurrentFolder("enviados")} 
-              className={`w-full flex items-center justify-between px-2 py-2 text-[13px] text-gray-800 font-bold border-l-2 cursor-pointer transition-colors ${currentFolder === "enviados" ? "bg-gray-50 border-[#1a5eb3]" : "hover:bg-gray-50 border-transparent"}`}
+              className={`w-full flex items-center justify-between px-2 py-2 text-[13px] border-l-2 cursor-pointer transition-colors ${
+                currentFolder === "enviados" 
+                  ? "bg-gray-50 border-[#1a5eb3] text-gray-800 font-bold" 
+                  : "text-gray-600 border-transparent hover:bg-gray-50"
+              }`}
             >
               <div className="flex items-center gap-2.5">
                 <i className="bi bi-inbox-fill text-gray-500 text-base"></i>
@@ -230,7 +234,11 @@ export default function EmailPage() {
           <li>
             <button 
               onClick={() => setCurrentFolder("borradores")} 
-              className={`w-full flex items-center justify-between px-2 py-2 text-[13px] text-gray-800 font-bold border-l-2 cursor-pointer transition-colors mt-1 ${currentFolder === "borradores" ? "bg-gray-50 border-[#1a5eb3]" : "hover:bg-gray-50 border-transparent"}`}
+              className={`w-full flex items-center justify-between px-2 py-2 text-[13px] border-l-2 cursor-pointer transition-colors mt-1 ${
+                currentFolder === "borradores" 
+                  ? "bg-gray-50 border-[#1a5eb3] text-gray-800 font-bold" 
+                  : "text-gray-600 border-transparent hover:bg-gray-50"
+              }`}
             >
               <div className="flex items-center gap-2.5">
                 <i className="bi bi-envelope text-gray-500 text-base"></i>
