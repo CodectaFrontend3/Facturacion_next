@@ -1,21 +1,24 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Pencil, Reply, X, File as FileIcon } from "lucide-react";
 
-// Importamos React Quill dinámicamente para que no rompa Next.js
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false }) as any;
-// Importamos los estilos por defecto (tema "snow" es muy limpio)
 import "react-quill-new/dist/quill.snow.css";
 
 interface ComposeEmailModalProps {
   isOpen: boolean;
   onClose: () => void;
+  // Función para enviar
   onSend: (data: { para: string; cc: string; asunto: string; cuerpo: string; adjuntos?: File[] }) => void;
+  // Nueva función para guardar borrador
+  onSaveDraft: (data: { para: string; cc: string; asunto: string; cuerpo: string; adjuntos?: File[] }) => void;
+  // Datos iniciales para cuando se reanuda un borrador
+  initialData?: { para: string; cc: string; asunto: string; cuerpo: string } | null;
 }
 
-export default function ComposeEmailModal({ isOpen, onClose, onSend }: ComposeEmailModalProps) {
+export default function ComposeEmailModal({ isOpen, onClose, onSend, onSaveDraft, initialData }: ComposeEmailModalProps) {
   const [formData, setFormData] = useState({
     para: "",
     cc: "",
@@ -26,27 +29,33 @@ export default function ComposeEmailModal({ isOpen, onClose, onSend }: ComposeEm
   const [adjuntos, setAdjuntos] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Efecto para cargar los datos del borrador cuando se abre el modal
+  useEffect(() => {
+    if (isOpen) {
+      if (initialData) {
+        setFormData(initialData);
+      } else {
+        setFormData({ para: "", cc: "", asunto: "", cuerpo: "" });
+      }
+      setAdjuntos([]);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }, [isOpen, initialData]);
+
   if (!isOpen) return null;
 
-  // ==========================================
-  // CONFIGURACIÓN DE LA PLANTILLA (QUILL)
-  // ==========================================
-  // Aquí le decimos qué botones queremos en la barra
   const quillModules = {
     toolbar: [
-      [{ 'font': [] }, { 'size': [] }], // Selectores de fuente y tamaño
-      ['bold', 'italic', 'underline', 'strike'], // Formatos básicos
-      [{ 'color': [] }, { 'background': [] }], // Color de texto y resaltado
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }], // Listas
-      [{ 'align': [] }], // Alineación
-      ['link', 'image'], // Enlaces e imágenes
-      ['clean'] // Borrar formato
+      [{ 'font': [] }, { 'size': [] }], 
+      ['bold', 'italic', 'underline', 'strike'], 
+      [{ 'color': [] }, { 'background': [] }], 
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }], 
+      [{ 'align': [] }], 
+      ['link', 'image'], 
+      ['clean'] 
     ],
   };
 
-  // ==========================================
-  // LÓGICA DE ARCHIVOS ADJUNTOS
-  // ==========================================
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const nuevosArchivos = Array.from(e.target.files);
@@ -59,9 +68,6 @@ export default function ComposeEmailModal({ isOpen, onClose, onSend }: ComposeEm
     setAdjuntos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // ==========================================
-  // LÓGICA DE ENVÍO Y CIERRE
-  // ==========================================
   const handleCerrar = () => {
     setFormData({ para: "", cc: "", asunto: "", cuerpo: "" });
     setAdjuntos([]);
@@ -73,9 +79,12 @@ export default function ComposeEmailModal({ isOpen, onClose, onSend }: ComposeEm
       alert("Por favor, completa los campos 'Para' y 'Asunto'.");
       return;
     }
-    
     onSend({ ...formData, adjuntos }); 
-    handleCerrar();
+  };
+
+  // Función exclusiva para guardar el borrador
+  const handleGuardarBorrador = () => {
+    onSaveDraft({ ...formData, adjuntos });
   };
 
   return (
@@ -89,7 +98,6 @@ export default function ComposeEmailModal({ isOpen, onClose, onSend }: ComposeEm
       >
         <div className="p-6 pb-4 flex flex-col flex-grow">
           
-          {/* CABECERA */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-3 mb-3">
             <div>
               <label className="block text-[12px] text-gray-600 mb-1">De:</label>
@@ -129,19 +137,17 @@ export default function ComposeEmailModal({ isOpen, onClose, onSend }: ComposeEm
             </div>
           </div>
 
-          {/* LA PLANTILLA DEL EDITOR DE TEXTO RICO */}
-          <div className="flex-grow flex flex-col mb-2">
+          <div className="mb-15 pb-2"> 
             <ReactQuill 
               theme="snow"
               value={formData.cuerpo}
               onChange={(content: string) => setFormData({...formData, cuerpo: content})}
               modules={quillModules}
-              className="h-[180px] mb-10" // El margen inferior es necesario porque Quill saca su toolbar de la caja
+              className="h-[180px]" 
             />
           </div>
 
-          {/* ADJUNTOS */}
-          <div className="mt-2 mb-4">
+          <div className="mb-4">
             <input 
               type="file" 
               multiple 
@@ -176,9 +182,13 @@ export default function ComposeEmailModal({ isOpen, onClose, onSend }: ComposeEm
             )}
           </div>
 
-          {/* FOOTER */}
           <div className="border-t border-gray-200 pt-4 flex justify-between items-center">
-            <button type="button" className="flex items-center gap-1.5 bg-[#f8ac59] hover:bg-orange-500 text-white px-4 py-2 rounded-sm text-[12px] font-bold transition-colors cursor-pointer shadow-sm">
+            {/* AQUÍ CONECTAMOS EL BOTÓN BORRADOR */}
+            <button 
+              type="button" 
+              onClick={handleGuardarBorrador}
+              className="flex items-center gap-1.5 bg-[#f8ac59] hover:bg-orange-500 text-white px-4 py-2 rounded-sm text-[12px] font-bold transition-colors cursor-pointer shadow-sm"
+            >
               <Pencil className="w-3.5 h-3.5" />
               Borrador
             </button>

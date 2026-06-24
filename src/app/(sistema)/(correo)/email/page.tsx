@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-// Importamos nuestro nuevo componente
 import ComposeEmailModal from "./components/ComposeEmailModal"; 
 
 interface EmailData {
   id: number;
   email: string;
+  cc?: string; // Se añade el campo CC
   subject: string;
   hasAttachment: boolean;
   date: string;
@@ -27,70 +27,100 @@ const initialEmails: EmailData[] = [
 
 export default function EmailPage() {
   const [selectedEmail, setSelectedEmail] = useState<EmailData | null>(null);
+  
+  // Bandejas
   const [emails, setEmails] = useState<EmailData[]>([]);
+  const [drafts, setDrafts] = useState<EmailData[]>([]);
   const [trashCount, setTrashCount] = useState(0);
+  
+  // Control de interfaz
+  const [currentFolder, setCurrentFolder] = useState<"enviados" | "borradores">("enviados");
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
-
-  // Estado que controla si se ve el modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingDraft, setEditingDraft] = useState<EmailData | null>(null); // Borrador actual en edición
 
-  // Cargar datos
+  // Cargar datos al iniciar
   useEffect(() => {
     const loadData = async () => {
       await Promise.resolve(); 
       const storedInbox = localStorage.getItem("inboxEmails");
+      const storedDrafts = localStorage.getItem("draftEmails");
       const storedTrash = localStorage.getItem("trashEmails");
       
-      if (!storedInbox && !storedTrash) {
+      if (!storedInbox && !storedTrash && !storedDrafts) {
         localStorage.setItem("inboxEmails", JSON.stringify(initialEmails));
         localStorage.setItem("trashEmails", JSON.stringify([]));
+        localStorage.setItem("draftEmails", JSON.stringify([]));
         setEmails(initialEmails);
         setTrashCount(0);
+        setDrafts([]);
       } else {
         setEmails(storedInbox ? JSON.parse(storedInbox) : []);
+        setDrafts(storedDrafts ? JSON.parse(storedDrafts) : []);
         setTrashCount(storedTrash ? JSON.parse(storedTrash).length : 0);
       }
     };
     loadData();
   }, []);
 
-  // Seleccionar/deseleccionar
+  // Al cambiar de carpeta, limpiamos selecciones
+  useEffect(() => {
+    setSelectedIds([]);
+    setSelectedEmail(null);
+  }, [currentFolder]);
+
+  // Obtenemos la lista activa actual según la carpeta seleccionada
+  const currentList = currentFolder === "enviados" ? emails : drafts;
+  const folderTitle = currentFolder === "enviados" ? "Enviados" : "Borradores";
+
   const toggleSelect = (id: number) => {
     setSelectedIds(prev => prev.includes(id) ? prev.filter(emailId => emailId !== id) : [...prev, id]);
   };
 
   const toggleSelectAll = () => {
-    if (selectedIds.length === emails.length) setSelectedIds([]);
-    else setSelectedIds(emails.map(e => e.id));
+    if (selectedIds.length === currentList.length) setSelectedIds([]);
+    else setSelectedIds(currentList.map(e => e.id));
   };
 
-  // Papelera
+  // Función para Eliminar (aplica para Enviados y Borradores)
   const handleDelete = () => {
     if (selectedIds.length === 0) return;
-    const remainingEmails = emails.filter(e => !selectedIds.includes(e.id));
-    const movingToTrash = emails.filter(e => selectedIds.includes(e.id));
+
+    const isDrafts = currentFolder === "borradores";
+    const targetList = isDrafts ? drafts : emails;
+    
+    const remaining = targetList.filter(e => !selectedIds.includes(e.id));
+    const movingToTrash = targetList.filter(e => selectedIds.includes(e.id));
+
     const storedTrash = localStorage.getItem("trashEmails");
     const currentTrash = storedTrash ? JSON.parse(storedTrash) : [];
     const newTrash = [...currentTrash, ...movingToTrash];
     
-    localStorage.setItem("inboxEmails", JSON.stringify(remainingEmails));
+    if (isDrafts) {
+      setDrafts(remaining);
+      localStorage.setItem("draftEmails", JSON.stringify(remaining));
+    } else {
+      setEmails(remaining);
+      localStorage.setItem("inboxEmails", JSON.stringify(remaining));
+    }
+    
     localStorage.setItem("trashEmails", JSON.stringify(newTrash));
-
-    setEmails(remainingEmails);
     setTrashCount(newTrash.length);
     setSelectedIds([]);
   };
 
-  // Función que llamará el modal cuando queramos ENVIAR un correo
-const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerpo: string, adjuntos?: File[] }) => {    const now = new Date();
+  // Función para "Enviar" un correo
+  const handleEnviarNuevoCorreo = (formData: { para: string, cc: string, asunto: string, cuerpo: string }) => {
+    const now = new Date();
     const fechaCorta = now.toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: '2-digit' });
     const fechaLarga = now.toISOString().replace('T', ' ').substring(0, 19);
 
     const nuevoCorreo: EmailData = {
       id: Date.now(),
       email: formData.para,
+      cc: formData.cc,
       subject: formData.asunto,
-      hasAttachment: formData.adjuntos && formData.adjuntos.length > 0 ? true : false,
+      hasAttachment: false,
       date: fechaCorta,
       fullDate: fechaLarga,
       from: "danielroman@codecta.pe",
@@ -101,7 +131,72 @@ const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerp
     const nuevosCorreos = [nuevoCorreo, ...emails];
     setEmails(nuevosCorreos);
     localStorage.setItem("inboxEmails", JSON.stringify(nuevosCorreos));
-    setIsModalOpen(false); // Cierra el modal automáticamente
+
+    // Si enviamos un correo que era un borrador, lo eliminamos de borradores
+    if (editingDraft) {
+      const updatedDrafts = drafts.filter(d => d.id !== editingDraft.id);
+      setDrafts(updatedDrafts);
+      localStorage.setItem("draftEmails", JSON.stringify(updatedDrafts));
+    }
+
+    setIsModalOpen(false);
+    setEditingDraft(null);
+  };
+
+  // Función para guardar en "Borradores"
+  const handleGuardarBorrador = (formData: { para: string, cc: string, asunto: string, cuerpo: string }) => {
+    const now = new Date();
+    const fechaCorta = now.toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    const fechaLarga = now.toISOString().replace('T', ' ').substring(0, 19);
+
+    let updatedDrafts;
+
+    if (editingDraft) {
+      // Estamos actualizando un borrador que ya existía
+      updatedDrafts = drafts.map(d => d.id === editingDraft.id ? {
+        ...d,
+        email: formData.para,
+        cc: formData.cc,
+        subject: formData.asunto,
+        body: formData.cuerpo,
+        date: fechaCorta,
+        fullDate: fechaLarga
+      } : d);
+    } else {
+      // Es un borrador completamente nuevo
+      const nuevoBorrador: EmailData = {
+        id: Date.now(),
+        email: formData.para,
+        cc: formData.cc,
+        subject: formData.asunto || "(Sin Asunto)",
+        hasAttachment: false,
+        date: fechaCorta,
+        fullDate: fechaLarga,
+        from: "danielroman@codecta.pe",
+        body: formData.cuerpo,
+        attachmentName: ""
+      };
+      updatedDrafts = [nuevoBorrador, ...drafts];
+    }
+
+    setDrafts(updatedDrafts);
+    localStorage.setItem("draftEmails", JSON.stringify(updatedDrafts));
+    setIsModalOpen(false);
+    setEditingDraft(null);
+  };
+
+  const handleOpenNuevo = () => {
+    setEditingDraft(null);
+    setIsModalOpen(true);
+  };
+
+  const handleClickRow = (email: EmailData) => {
+    if (currentFolder === "borradores") {
+      setEditingDraft(email);
+      setIsModalOpen(true); // Al tocar un borrador, reanudamos el modal
+    } else {
+      setSelectedEmail(email); // Al tocar un enviado, abrimos la vista de lectura
+    }
   };
 
   return (
@@ -109,9 +204,8 @@ const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerp
       
       {/* BARRA LATERAL IZQUIERDA */}
       <div className="w-full md:w-[260px] shrink-0 bg-white border border-gray-200 shadow-sm p-4">
-        {/* Aquí conectamos el botón con el modal */}
         <Button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleOpenNuevo}
           className="w-full bg-[#1a5eb3] hover:bg-blue-800 text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors"
         >
           Redactar
@@ -121,7 +215,10 @@ const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerp
 
         <ul className="space-y-0.5">
           <li>
-            <button onClick={() => setSelectedEmail(null)} className="w-full flex items-center justify-between px-2 py-2 bg-gray-50 text-[13px] text-gray-800 font-bold border-l-2 border-[#1a5eb3] cursor-pointer transition-colors">
+            <button 
+              onClick={() => setCurrentFolder("enviados")} 
+              className={`w-full flex items-center justify-between px-2 py-2 text-[13px] text-gray-800 font-bold border-l-2 cursor-pointer transition-colors ${currentFolder === "enviados" ? "bg-gray-50 border-[#1a5eb3]" : "hover:bg-gray-50 border-transparent"}`}
+            >
               <div className="flex items-center gap-2.5">
                 <i className="bi bi-inbox-fill text-gray-500 text-base"></i>
                 Enviados
@@ -131,16 +228,19 @@ const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerp
           </li>
           
           <li>
-            <Link href="#" className="flex items-center justify-between px-2 py-2 hover:bg-gray-50 text-[13px] text-gray-600 border-l-2 border-transparent transition-colors">
+            <button 
+              onClick={() => setCurrentFolder("borradores")} 
+              className={`w-full flex items-center justify-between px-2 py-2 text-[13px] text-gray-800 font-bold border-l-2 cursor-pointer transition-colors mt-1 ${currentFolder === "borradores" ? "bg-gray-50 border-[#1a5eb3]" : "hover:bg-gray-50 border-transparent"}`}
+            >
               <div className="flex items-center gap-2.5">
                 <i className="bi bi-envelope text-gray-500 text-base"></i>
                 Borradores
               </div>
-              <span className="bg-[#f8ac59] text-white text-[10px] font-bold px-1.5 py-[1px] rounded-sm">0</span>
-            </Link>
+              <span className="bg-[#f8ac59] text-white text-[10px] font-bold px-1.5 py-[1px] rounded-sm">{drafts.length}</span>
+            </button>
           </li>
 
-          <li className="border-b border-gray-100 pb-1 mb-1">
+          <li className="border-b border-gray-100 pb-1 mb-1 mt-1">
             <Link href="/configuracion_email" className="flex items-center justify-between px-2 py-2 hover:bg-gray-50 text-[13px] text-gray-600 border-l-2 border-transparent transition-colors">
               <div className="flex items-center gap-2.5">
                 <i className="bi bi-gear text-gray-500 text-base"></i>
@@ -165,13 +265,13 @@ const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerp
       <div className="flex-1 bg-white border border-gray-200 shadow-sm w-full flex flex-col">
         {!selectedEmail ? (
           <div className="p-6">
-            <h2 className="text-2xl font-light text-gray-400 mb-6">Enviados ({emails.length})</h2>
+            <h2 className="text-2xl font-light text-gray-400 mb-6">{folderTitle} ({currentList.length})</h2>
 
             <div className="flex items-center justify-between border border-gray-200 p-2.5 bg-white mb-2">
               <div className="ml-2 flex items-center">
                 <Checkbox 
                   className="border-gray-400 rounded-sm cursor-pointer" 
-                  checked={emails.length > 0 && selectedIds.length === emails.length}
+                  checked={currentList.length > 0 && selectedIds.length === currentList.length}
                   onCheckedChange={toggleSelectAll}
                 />
               </div>
@@ -190,10 +290,10 @@ const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerp
             </div>
 
             <div className="border border-gray-200 border-b-0">
-              {emails.map((email) => (
+              {currentList.map((email) => (
                 <div 
                   key={email.id} 
-                  onClick={() => setSelectedEmail(email)} 
+                  onClick={() => handleClickRow(email)} 
                   className={`flex items-center border-b border-gray-200 p-3 hover:bg-gray-50 transition-colors cursor-pointer ${selectedIds.includes(email.id) ? 'bg-gray-50' : ''}`}
                 >
                   <div onClick={(e) => e.stopPropagation()}>
@@ -203,15 +303,22 @@ const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerp
                       onCheckedChange={() => toggleSelect(email.id)}
                     />
                   </div>
-                  <div className="w-[200px] shrink-0 text-[13px] text-gray-600 truncate pr-4">{email.email}</div>
-                  <div className="flex-1 text-[13px] text-gray-600 truncate pr-4">{email.subject}</div>
+                  <div className="w-[200px] shrink-0 text-[13px] text-gray-600 truncate pr-4">
+                    {email.email || "(Sin Destinatario)"}
+                  </div>
+                  <div className="flex-1 text-[13px] text-gray-600 truncate pr-4">
+                    <span className={!email.subject ? "italic text-gray-400" : ""}>
+                      {email.subject || "(Sin Asunto)"}
+                    </span>
+                    {currentFolder === "borradores" && <span className="text-orange-400 font-medium ml-2">- Borrador</span>}
+                  </div>
                   <div className="w-10 flex justify-center text-gray-400">
                     {email.hasAttachment && <i className="bi bi-paperclip text-[15px] transform rotate-45"></i>}
                   </div>
                   <div className="w-20 text-right text-[12px] text-gray-600 pr-2">{email.date}</div>
                 </div>
               ))}
-              {emails.length === 0 && (
+              {currentList.length === 0 && (
                 <div className="p-6 text-center text-[13px] text-gray-400">Bandeja vacía.</div>
               )}
             </div>
@@ -232,18 +339,34 @@ const handleEnviarNuevoCorreo = (formData: { para: string, asunto: string, cuerp
                 <div className="text-[13px] text-gray-600 leading-snug">
                   <div>De: <span className="font-bold text-gray-800">{selectedEmail.from}</span></div>
                   <div>Para: <span className="font-bold text-gray-800">{selectedEmail.email}</span></div>
+                  {selectedEmail.cc && <div>CC: <span className="font-bold text-gray-800">{selectedEmail.cc}</span></div>}
                 </div>
                 <div className="text-[13px] text-gray-500">{selectedEmail.fullDate}</div>
               </div>
             </div>
-            <div className="p-5 py-8 border-y border-gray-100 text-[13px] text-gray-600 min-h-[120px]">{selectedEmail.body}</div>
+            {/* Visualizamos el cuerpo como HTML ya que viene del editor Quill */}
+            <div 
+              className="p-5 py-8 border-y border-gray-100 text-[13px] text-gray-600 min-h-[120px]"
+              dangerouslySetInnerHTML={{ __html: selectedEmail.body }}
+            />
           </div>
         )}
       </div>
+
       <ComposeEmailModal 
         isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+        onClose={() => {
+          setIsModalOpen(false);
+          setEditingDraft(null); // Al cerrar manualmente, perdemos referencia al borrador en edición
+        }} 
         onSend={handleEnviarNuevoCorreo}
+        onSaveDraft={handleGuardarBorrador}
+        initialData={editingDraft ? {
+          para: editingDraft.email,
+          cc: editingDraft.cc || "",
+          asunto: editingDraft.subject,
+          cuerpo: editingDraft.body
+        } : null}
       />
     </div>
   );
