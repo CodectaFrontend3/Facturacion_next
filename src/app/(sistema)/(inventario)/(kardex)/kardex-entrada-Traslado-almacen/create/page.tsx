@@ -31,8 +31,8 @@ import {
 } from "../../../types/kardex.schema";
 
 function KardexTrasladoFormContent({
-  almacenes,
-  productos,
+  almacenes = [],
+  productos = [],
   defaultValues,
   onSubmit,
 }: KardexTrasladoFormProps) {

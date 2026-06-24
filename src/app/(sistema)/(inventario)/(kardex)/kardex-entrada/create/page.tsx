@@ -29,12 +29,12 @@ import {
 } from "../../../types/kardex.schema";
 
 export default function GenerarKardexEntrada({
-  motivos,
-  tiposComprobante,
-  tiposTransporte,
-  proveedores,
-  monedas,
-  productos,
+  motivos = [],
+  tiposComprobante = [],
+  tiposTransporte = [],
+  proveedores = [],
+  monedas = [],
+  productos = [],
   defaultValues,
   onSubmit,
 }: KardexEntradaFormProps) {

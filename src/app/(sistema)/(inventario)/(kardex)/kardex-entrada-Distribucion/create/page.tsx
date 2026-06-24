@@ -31,10 +31,10 @@ import {
 } from "../../../types/kardex.schema";
 
 export default function GenerarKardexDistribucion({
-  motivos,
-  categorias,
-  almacenes,
-  productos,
+  motivos = [],
+  categorias = [],
+  almacenes = [],
+  productos = [],
   defaultValues,
   onSubmit,
 }: KardexDistribucionFormProps) {
