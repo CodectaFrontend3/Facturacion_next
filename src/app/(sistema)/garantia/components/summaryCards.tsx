@@ -1,4 +1,4 @@
-import { SummaryCard } from "@/components/ui/shared/SummaryCards";
+import { SummaryCard } from "@/components/shared/SummaryCard";
 import { summaryItems } from "./cards-summary";
 
 export default function SummaryCards() {

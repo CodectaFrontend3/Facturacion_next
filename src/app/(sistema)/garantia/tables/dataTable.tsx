@@ -7,7 +7,7 @@ import ingresoData from "../data/ingreso.json";
 import egresoData from "../data/egreso.json"
 import tecnicoData from "../data/tecnico.json";
 
-import { DataTable as Table } from "@/components/ui/shared/DataTable";
+import { DataTable as Table } from "@/components/shared/DataTable";
 import { useState } from "react";
 import { ConfirmModal } from "../components/modals/confirm-modal";
 
