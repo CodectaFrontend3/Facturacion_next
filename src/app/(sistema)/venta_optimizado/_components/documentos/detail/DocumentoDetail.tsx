@@ -29,7 +29,7 @@ import {
   CotizacionManualDetalle,
   NotaVentaDetalle,
 } from "../../../_domain/types/documento.types"
-import { ArticuloDetalle, ComisionistaDetalle } from "../../../_domain/types/catalogo.types"
+import { ArticuloDetalle, ComisionistaDetalle, AlmacenDetalle, TipoOperacionDetalle } from "../../../_domain/types/catalogo.types"
 import { ClienteDetalle, ClienteFilaLista } from "../../../_domain/types/cliente.types"
 
 import { HeaderSection } from "./sections/HeaderSection"
@@ -47,7 +47,7 @@ type DocumentoCualquiera = (CotizacionDetalle | CotizacionManualDetalle | NotaVe
 
 const TITULOS: Record<DocumentoTipo, string> = {
   cotizacion: "COTIZACIÓN",
-  cotizacion_manual: "COTIZACIÓN",
+  cotizacion_manual: "COTIZACIÓN MANUAL",
   nota_venta: "NOTA DE VENTA",
 }
 
@@ -70,6 +70,8 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
   const [clientesLista, setClientesLista] = useState<ClienteFilaLista[]>([])
   const [articulosMaster, setArticulosMaster] = useState<ArticuloDetalle[]>([])
   const [comisionistas, setComisionistas] = useState<ComisionistaDetalle[]>([])
+  const [almacenes, setAlmacenes] = useState<AlmacenDetalle[]>([])
+  const [tiposOperacion, setTiposOperacion] = useState<TipoOperacionDetalle[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
 
@@ -88,13 +90,15 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
     let isMounted = true
 
     const fetchAll = async () => {
-      const [cotizaciones, manuales, notas, clientes, articulos, comisionistasData] = await Promise.all([
+      const [cotizaciones, manuales, notas, clientes, articulos, comisionistasData, almacenesData, tiposOperacionData] = await Promise.all([
         documentoService.getCotizaciones(),
         documentoService.getCotizacionesManuales(),
         documentoService.getNotasVenta(),
         clienteService.getAll(),
         catalogoService.getArticulos(),
         catalogoService.getComisionistas(),
+        catalogoService.getAlmacenes(),
+        catalogoService.getTiposOperacion(),
       ])
 
       if (!isMounted) return
@@ -115,6 +119,8 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
       setClientesLista(clientes.map(mapToClienteFilaLista))
       setArticulosMaster(articulos)
       setComisionistas(comisionistasData)
+      setAlmacenes(almacenesData)
+      setTiposOperacion(tiposOperacionData)
       setIsLoading(false)
     }
 
@@ -134,9 +140,12 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
         validez: "validez" in documento ? documento.validez : "",
         garantia: "garantia" in documento ? documento.garantia : "",
         moneda: documento.moneda,
+        tipoDocumento: "tipoDocumento" in documento ? documento.tipoDocumento : "Boleta",
         observacion: documento.observacion ?? "",
         renovacionActiva: "renovacion" in documento ? documento.renovacion.isActive : false,
         fechaRenovacion: "renovacion" in documento ? (documento.renovacion.fechaRenovacion ?? "") : "",
+        almacenId: "almacenId" in documento ? documento.almacenId : "",
+        tipoOperacionId: "tipoOperacionId" in documento ? documento.tipoOperacionId : "",
       })
       setEditClienteId(documento.clienteId)
       setIsEditing(true)
@@ -191,6 +200,9 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
 
     if ("validez" in documento) actualizado.validez = editValues.validez
     if ("garantia" in documento) actualizado.garantia = editValues.garantia
+    if ("tipoDocumento" in documento) actualizado.tipoDocumento = editValues.tipoDocumento
+    if ("almacenId" in documento) actualizado.almacenId = editValues.almacenId
+    if ("tipoOperacionId" in documento) actualizado.tipoOperacionId = editValues.tipoOperacionId
     if ("renovacion" in documento) {
       actualizado.renovacion = {
         isActive: editValues.renovacionActiva,
@@ -300,6 +312,15 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
   const porcentajeComision = comisionista?.porcentajeComision ?? 0
   const comisionistaLabel = comisionista ? `${comisionista.nombre} - ${comisionista.porcentajeComision}%` : undefined
 
+  // Almacén y T. Operación (solo cotización manual; cotización tradicional no los tiene)
+  const almacenId = "almacenId" in documento ? documento.almacenId : undefined
+  const almacen = almacenes.find((a) => areIdsEqual(a.id, almacenId))
+  const almacenLabel = almacen ? `${almacen.codigo} - ${almacen.nombre}` : undefined
+
+  const tipoOperacionId = "tipoOperacionId" in documento ? documento.tipoOperacionId : undefined
+  const tipoOperacion = tiposOperacion.find((t) => areIdsEqual(t.id, tipoOperacionId))
+  const tipoOperacionLabel = tipoOperacion ? `${tipoOperacion.codigo} - ${tipoOperacion.nombre}` : undefined
+
   // Items vigentes: los editados en memoria si está en modo edición, o los originales
   const itemsVigentes = isEditing ? editItems : documento.items
 
@@ -354,6 +375,10 @@ export function DocumentoDetail({ tipo, id }: DocumentoDetailProps) {
             formaPago={documento.formaPago}
             moneda={moneda}
             comisionistaLabel={comisionistaLabel}
+            almacenLabel={almacenLabel}
+            tipoOperacionLabel={tipoOperacionLabel}
+            almacenes={almacenes}
+            tiposOperacion={tiposOperacion}
             observacion={documento.observacion}
             fechaVencimiento={fechaVencimiento}
             diasRestantesVencimiento={diasRestantesVencimiento}

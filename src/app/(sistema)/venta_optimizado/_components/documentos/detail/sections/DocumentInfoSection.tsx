@@ -6,6 +6,7 @@ import { CboData } from "@/components/common/CboData"
 import { DocumentoTipo } from "../../../../_domain/types/shared.types"
 import { ClienteDetalle, ClienteFilaLista } from "../../../../_domain/types/cliente.types"
 import { EmpresaConfig } from "../../../../_config/empresa.config"
+import { AlmacenDetalle, TipoOperacionDetalle } from "../../../../_domain/types/catalogo.types"
 
 const inputStyle =
   "w-full border border-gray-300 rounded-none px-3 h-9 text-[13px] outline-none focus:border-blue-400 transition-colors"
@@ -40,9 +41,13 @@ export interface CondicionesEditables {
   validez: string
   garantia: string
   moneda: "soles" | "dolares"
+  tipoDocumento: "Factura" | "Boleta"
   observacion: string
   renovacionActiva: boolean
   fechaRenovacion: string
+  /** Solo cotización manual: editables en este modo, a diferencia de cotización */
+  almacenId: string
+  tipoOperacionId: string
 }
 
 interface DocumentInfoSectionProps {
@@ -56,6 +61,9 @@ interface DocumentInfoSectionProps {
   formaPago?: string
   moneda: "soles" | "dolares"
   comisionistaLabel?: string
+  /** Solo cotización manual: no tiene comisionista, sí tiene almacén y tipo de operación */
+  almacenLabel?: string
+  tipoOperacionLabel?: string
   observacion?: string
 
   /** Fecha de vencimiento del documento (fechaEmision + validez), independiente de la renovación */
@@ -81,6 +89,10 @@ interface DocumentInfoSectionProps {
   clientes?: ClienteFilaLista[]
   clienteIdSeleccionado?: string
   onClienteChange?: (clienteId: string) => void
+
+  /** Catálogos para poblar los selects de Almacén / T. Operación en edición (solo cotización manual) */
+  almacenes?: AlmacenDetalle[]
+  tiposOperacion?: TipoOperacionDetalle[]
 }
 
 export function DocumentInfoSection({
@@ -92,6 +104,8 @@ export function DocumentInfoSection({
   formaPago,
   moneda,
   comisionistaLabel,
+  almacenLabel,
+  tipoOperacionLabel,
   observacion,
   fechaVencimiento,
   diasRestantesVencimiento,
@@ -107,6 +121,8 @@ export function DocumentInfoSection({
   clientes = [],
   clienteIdSeleccionado = "",
   onClienteChange,
+  almacenes = [],
+  tiposOperacion = [],
 }: DocumentInfoSectionProps) {
   const isCotizacion = tipo === "cotizacion" || tipo === "cotizacion_manual"
   const monedaLabel = moneda === "soles" ? "Soles" : "Dólares"
@@ -138,68 +154,133 @@ export function DocumentInfoSection({
 
         {/* --- MODO LECTURA --- */}
         {!isEditing && (
-            <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div className="flex flex-col justify-between rounded-[12px] border border-gray-200 p-8">
-                    <p className="mb-5 text-center font-bold text-[15px] text-[#4f566b]">Contacto Cliente</p>
-                    <div className="space-y-2 pl-1 leading-relaxed text-[14px] text-[#676a6c]">
+        <div className="mt-2 grid grid-cols-1 gap-8 md:grid-cols-2 items-start">
+            
+            {/* =========================================================================
+                CARD 1: CONTACTO CLIENTE
+                ========================================================================= */}
+            <div className="flex flex-col justify-between rounded-[12px] border border-gray-200 p-6">
+                <p className="mb-5 text-center font-bold text-[15px] text-[#4f566b]">Contacto Cliente</p>
+                <div className="space-y-2 pl-1  leading-relaxed text-[14px] text-[#676a6c]">
+                    
+                    {/* Campos comunes a todos */}
                     <p><span className="font-bold">Señor(es):</span> {cliente?.nombre ?? "—"}</p>
-                    <p><span className="font-bold">RUC / DNI:</span> {cliente?.numeroDocumento ?? "—"}</p>
-                    {isCotizacion && (
+                    <p><span className="font-bold">RUC / DNI / Pasaporte:</span> {cliente?.numeroDocumento ?? "—"}</p>
+
+                    {/* VARIANTE: COTIZACIÓN ESTÁNDAR */}
+                    {tipo === "cotizacion" && (
+                    <>
                         <p><span className="font-bold">Dirección:</span> {cliente?.direccion ?? "-"}</p>
-                    )}
-                    <p>
+                        <p>
                         <span className="font-bold">N° Contacto:</span>{" "}
                         {cliente?.telefono || "0000000"} / {cliente?.celular || "00000"}
-                    </p>
-                    {isCotizacion && fechaVencimiento && (
-                        <p>
-                        <span className="font-bold">F. Vencimiento:</span> {formatSlash(fechaVencimiento)}
-                        {diasRestantesVencimiento != null && (
-                            <span className="ml-4 font-bold">Días restantes: {diasRestantesVencimiento}</span>
-                        )}
                         </p>
-                    )}
-                    {tipo === "nota_venta" && (
-                        <p><span className="font-bold">Fecha:</span> {fechaEmision}</p>
-                    )}
-                    {fechaRenovacion && (
+                        {fechaVencimiento && (
                         <p>
-                        <span className="font-bold">F. Renovación:</span> {fechaRenovacion}
-                        {diasRestantes != null && (
-                            <span className="ml-4 font-bold">Días restantes: {diasRestantes}</span>
-                        )}
+                            <span className="font-bold">F. Vencimiento:</span> {formatSlash(fechaVencimiento)}
+                            {diasRestantesVencimiento != null && (
+                            <span className="ml-4 font-bold">
+                                Días restantes:{" "}
+                                <span className={`font-normal ${diasRestantesVencimiento < 0 ? "text-red-500" : "text-gray-600"}`}>
+                                {diasRestantesVencimiento < 0 ? `${diasRestantesVencimiento} días vencido` : `${diasRestantesVencimiento} días`}
+                                </span>
+                            </span>
+                            )}
                         </p>
+                        )}
+                    </>
                     )}
-                    </div>
-                </div>
 
-                <div className="flex flex-col justify-between rounded-[12px] border border-gray-200 p-8">
-                    <p className="mb-5 text-center font-bold text-[15px] text-[#4f566b]">Condiciones Generales</p>
-                    <div className="space-y-2 pl-1 leading-relaxed text-[14px] text-[#676a6c]">
-                    {isCotizacion && (
-                        <>
-                        <div className="flex justify-between gap-4">
-                            <p className="flex-1"><span className="font-bold">Forma de Pago:</span> {formaPago}</p>
-                            <p className="flex-1"><span className="font-bold">Fecha:</span> {fechaEmision}</p>
+                    {/* VARIANTE: COTIZACIÓN MANUAL */}
+                    {tipo === "cotizacion_manual" && (
+                    <>
+                        <p><span className="font-bold">Fecha:</span> {fechaEmision}</p>
+                        <p><span className="font-bold">Dirección:</span> {cliente?.direccion ?? "-"}</p>
+                        <div className="flex flex-wrap  items-center gap-50.5">    
+                            <p><span className="font-bold">Teléfono:</span> {cliente?.telefono || "00000"}</p>
+                            <p><span className="font-bold">Celular:</span> {cliente?.celular || "0000000"}</p>
                         </div>
-                        <div className="flex justify-between gap-4">
-                            <p className="flex-1"><span className="font-bold">Validez:</span> {validez}</p>
-                            <p className="flex-1"><span className="font-bold">Garantía:</span> {garantia}</p>
-                        </div>
-                        </>
+                        {fechaVencimiento && (
+                        <p>
+                            <span className="font-bold">F. Vencimiento:</span> {formatSlash(fechaVencimiento)}
+                            {diasRestantesVencimiento != null && (
+                            <span className="ml-40 font-bold">
+                                Días restantes:{" "}
+                                <span className={`font-normal ${diasRestantesVencimiento < 0 ? "text-red-500" : "text-gray-600"}`}>
+                                {diasRestantesVencimiento < 0 ? `${diasRestantesVencimiento} días vencido` : `${diasRestantesVencimiento} días`}
+                                </span>
+                            </span>
+                            )}
+                        </p>
+                        )}
+                    </>
                     )}
-                    <p><span className="font-bold">Tipo de Moneda:</span> {monedaLabel}</p>
-                    {comisionistaLabel && (
-                        <p><span className="font-bold">Comisionista:</span> {comisionistaLabel}</p>
+
+                    {/* VARIANTE: NOTA DE VENTA */}
+                    {tipo === "nota_venta" && (
+                    <>
+                        <p><span className="font-bold">Fecha:</span> {fechaEmision}</p>
+                    </>
                     )}
-                    </div>
+                
                 </div>
             </div>
+
+            {/* =========================================================================
+                CARD 2: CONDICIONES GENERALES
+                ========================================================================= */}
+            <div className="flex flex-col justify-start space-y-5 rounded-[12px] border border-gray-200 p-6">
+                <p className="mb-5 text-center font-bold text-[15px] text-[#4f566b]">Condiciones Generales</p>
+                
+                <div className="grid grid-cols-2 gap-x-8 gap-y-2 pl-1 leading-relaxed text-[14px] text-[#676a6c]">
+                    
+                    {/* VARIANTE: COTIZACIÓN ESTÁNDAR */}
+                    {tipo === "cotizacion" && (
+                    <>
+                        <p><span className="font-bold">Forma De Pago:</span> {formaPago}</p>
+                        <p><span className="font-bold">Fecha:</span> {fechaEmision}</p>
+                        <p><span className="font-bold">Validez:</span> {validez}</p>
+                        <p><span className="font-bold">Garantía:</span> {garantia}</p>
+                        <p><span className="font-bold">Tipo de Moneda:</span> {monedaLabel}</p>
+                        {comisionistaLabel && <p><span className="font-bold">Comisionista:</span> {comisionistaLabel}</p>}
+                        {/* Flujo automático de renovación (si aplica a las cotizaciones) */}
+                        {fechaRenovacion && (
+                            <p>
+                                <span className="font-bold">F. Renovación:</span> {fechaRenovacion}
+                                {diasRestantes != null && (
+                                <span className="ml-4 font-bold">Días restantes: {diasRestantes}</span>
+                                )}
+                            </p>
+                        )}
+                    </>
+                    )}
+
+                    {/* VARIANTE: COTIZACIÓN MANUAL */}
+                    {tipo === "cotizacion_manual" && (
+                    <>
+                        <p><span className="font-bold">Forma De Pago:</span> {formaPago}</p>
+                        <p><span className="font-bold">Validez:</span> {validez}</p>
+                        <p><span className="font-bold">Garantía:</span> {garantia}</p>
+                        <p><span className="font-bold">Tipo de Moneda:</span> {monedaLabel}</p>
+                    </>
+                    )}
+
+                    {/* VARIANTE: NOTA DE VENTA */}
+                    {tipo === "nota_venta" && (
+                    <>
+                        <p><span className="font-bold">Garantía:</span> {garantia}</p>
+                        <p><span className="font-bold">Tipo de Moneda:</span> {monedaLabel}</p>
+                    </>
+                    )}
+                </div>
+            </div>
+
+        </div>
         )}
 
         {/* Observaciones — solo en modo lectura, debajo de las 2 cards */}
         {!isEditing && observacion && (
-            <p className="mt-5 text-[14px] text-[#676a6c]">
+            <p className="mt-5 text-[14px] text-[#676a6c] pl-7">
             <span className="font-bold">Observaciones:</span> {observacion}
             </p>
         )}
@@ -207,11 +288,11 @@ export function DocumentInfoSection({
         {/* --- MODO EDICIÓN --- */}
         {isEditing && editValues && onEditValuesChange && (
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
-            
-            {/* Columna izquierda compactada */}
+
+            {/* Columna izquierda */}
             <div className="rounded-[12px] border border-gray-200 p-8 space-y-4">
-            
-            {/* Fila: Señor(es) */}
+
+            {/* Fila: Señor(es) — común a ambos tipos */}
             <div className="flex items-center">
                 <label className="w-28 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
                 Señor(es)
@@ -227,9 +308,9 @@ export function DocumentInfoSection({
                 </div>
             </div>
 
-            {isCotizacion && (
+            {/* ====== COTIZACIÓN ====== */}
+            {tipo === "cotizacion" && (
                 <>
-                {/* Fila: Forma de Pago */}
                 <div className="flex items-center">
                     <label className="w-28 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
                     Forma de Pago:
@@ -246,7 +327,76 @@ export function DocumentInfoSection({
                     </div>
                 </div>
 
-                {/* Fila: Garantía */}
+                <div className="flex items-center">
+                    <label className="w-28 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
+                    Garantía:
+                    </label>
+                    <div className="flex-1">
+                    <CustomSelect
+                        className={inputStyle}
+                        value={editValues.garantia}
+                        onChange={(e) => onEditValuesChange("garantia", e.target.value)}
+                    >
+                        <option value="6 MESES">6 MESES</option>
+                        <option value="1 AÑO">1 AÑO</option>
+                    </CustomSelect>
+                    </div>
+                </div>
+                </>
+            )}
+
+            {/* ====== COTIZACIÓN MANUAL ====== */}
+            {tipo === "cotizacion_manual" && (
+                <>
+                <div className="flex items-center">
+                    <label className="w-28 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
+                    Tipo:
+                    </label>
+                    <div className="flex-1">
+                    <CustomSelect
+                        className={inputStyle}
+                        value={editValues.tipoDocumento}
+                        onChange={(e) => onEditValuesChange("tipoDocumento", e.target.value)}
+                    >
+                        <option value="Factura">Factura</option>
+                        <option value="Boleta">Boleta</option>
+                    </CustomSelect>
+                    </div>
+                </div>
+
+                <div className="flex items-center">
+                    <label className="w-28 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
+                    Almacén:
+                    </label>
+                    <div className="flex-1">
+                    <CustomSelect
+                        className={inputStyle}
+                        value={editValues.almacenId}
+                        onChange={(e) => onEditValuesChange("almacenId", e.target.value)}
+                    >
+                        {almacenes.map((a) => (
+                        <option key={a.id} value={a.id}>{a.codigo} - {a.nombre}</option>
+                        ))}
+                    </CustomSelect>
+                    </div>
+                </div>
+
+                <div className="flex items-center">
+                    <label className="w-28 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
+                    Forma de Pago:
+                    </label>
+                    <div className="flex-1">
+                    <CustomSelect
+                        className={inputStyle}
+                        value={editValues.formaPago}
+                        onChange={(e) => onEditValuesChange("formaPago", e.target.value)}
+                    >
+                        <option value="Contado">Contado</option>
+                        <option value="Credito">Crédito</option>
+                    </CustomSelect>
+                    </div>
+                </div>
+
                 <div className="flex items-center">
                     <label className="w-28 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
                     Garantía:
@@ -266,11 +416,10 @@ export function DocumentInfoSection({
             )}
             </div>
 
-            {/* Columna derecha compactada y simétrica */}
+            {/* Columna derecha */}
             <div className="rounded-[12px] border border-gray-200 p-8 space-y-4">
-            
+
             {isCotizacion && (
-                /* Fila: Validez */
                 <div className="flex items-center">
                 <label className="w-32 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
                     Validez:
@@ -289,18 +438,29 @@ export function DocumentInfoSection({
                 </div>
             )}
 
-            {/* Fila: Tipo de Moneda */}
+            {/* Tipo de Moneda: readonly en Cotización, editable en Cotización Manual */}
             <div className="flex items-center">
                 <label className="w-32 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
                 Tipo de Moneda:
                 </label>
                 <div className="flex-1">
-                <input type="text" readOnly value={monedaLabel} className={readOnlyStyle} />
+                {tipo === "cotizacion_manual" ? (
+                    <CustomSelect
+                    className={inputStyle}
+                    value={editValues.moneda}
+                    onChange={(e) => onEditValuesChange("moneda", e.target.value)}
+                    >
+                    <option value="soles">Soles</option>
+                    <option value="dolares">Dólares</option>
+                    </CustomSelect>
+                ) : (
+                    <input type="text" readOnly value={monedaLabel} className={readOnlyStyle} />
+                )}
                 </div>
             </div>
 
-            {comisionistaLabel && (
-                /* Fila: Comisionista */
+            {/* Comisionista: solo Cotización, siempre readonly */}
+            {tipo === "cotizacion" && comisionistaLabel && (
                 <div className="flex items-center">
                 <label className="w-32 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
                     Comisionista:
@@ -311,8 +471,28 @@ export function DocumentInfoSection({
                 </div>
             )}
 
+            {/* T. Operación: solo Cotización Manual, editable */}
+            {tipo === "cotizacion_manual" && (
+                <div className="flex items-center">
+                <label className="w-32 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
+                    T. Operación:
+                </label>
+                <div className="flex-1">
+                    <CustomSelect
+                    className={inputStyle}
+                    value={editValues.tipoOperacionId}
+                    onChange={(e) => onEditValuesChange("tipoOperacionId", e.target.value)}
+                    >
+                    {tiposOperacion.map((t) => (
+                        <option key={t.id} value={t.id}>{t.codigo} - {t.nombre}</option>
+                    ))}
+                    </CustomSelect>
+                </div>
+                </div>
+            )}
+
             {isCotizacion && (
-                /* Fila: Renovación */
+                /* Fila: Renovación — común a ambos tipos */
                 <div className="flex items-center">
                 <label className="w-32 text-right pr-4 text-[13px] font-bold text-[#4f566b] shrink-0">
                     Renovación:
