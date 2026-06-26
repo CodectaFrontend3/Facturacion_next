@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "tipo": "Factura",
+    "nombre": "Teclado Mecánico Vite Pro RGB",
+    "cantidad": 15,
+    "precio_nacional": 185.0,
+    "precio_extranjero": 49.99
+  },
+  {
+    "id": 2,
+    "tipo": "Factura",
+    "nombre": "Mouse Ergonómico Express Wireless",
+    "cantidad": 40,
+    "precio_nacional": 95.0,
+    "precio_extranjero": 25.5
+  },
+  {
+    "id": 3,
+    "tipo": "Factura",
+    "nombre": "Monitor Gamer Asus 24\" IPS",
+    "cantidad": 5,
+    "precio_nacional": 680.0,
+    "precio_extranjero": 182.5
+  },
+  {
+    "id": 4,
+    "tipo": "Boleta",
+    "nombre": "Memoria RAM Kingston 16GB DDR4",
+    "cantidad": 12,
+    "precio_nacional": 145.0,
+    "precio_extranjero": 39.0
+  },
+  {
+    "id": 5,
+    "tipo": "Nota de Crédito",
+    "nombre": "Cable HDMI 2.1 Ultra High Speed",
+    "cantidad": 2,
+    "precio_nacional": 35.0,
+    "precio_extranjero": 9.5
+  }
+]

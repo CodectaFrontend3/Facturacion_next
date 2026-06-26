@@ -3,10 +3,16 @@
 import FiltroInventario from "@/app/(sistema)/(inventario)/components/FiltroInventario";
 import { ColumnDef } from "@tanstack/react-table";
 import { ComprasProduco, VentasProducto } from "../types/MoviminetoConsulta";
-import { Button } from "@/components/ui/button";
-import { Clock, Eye } from "lucide-react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/shared/DataTable";
+
+// Importación de datos y del hook
+import { useFiltroInventario } from "../hooks/useInventarioFilter";
+import MovimientoConsultaData from "../data/MovimientoConsulta.json";
+
+// Forzamos el tipado correcto de los JSON cargados
+const comprasData = MovimientoConsultaData as ComprasProduco[];
+const ventasData = MovimientoConsultaData as VentasProducto[];
 
 export const columnsCompra: ColumnDef<ComprasProduco>[] = [
   { accessorKey: "id", header: "ID", size: 80 },
@@ -74,6 +80,27 @@ export const columnsVenta: ColumnDef<VentasProducto>[] = [
 ];
 
 export default function Page() {
+  // Instanciamos el hook para compras generales
+  const filterCompras = useFiltroInventario<ComprasProduco>({
+    dataOriginal: comprasData,
+    dateKey: "fecha_registro" as any, // Cambiar por tu propiedad real de fecha si existe
+  });
+
+  // Instanciamos el hook para ventas/documentos segmentados
+  const filterVentas = useFiltroInventario<VentasProducto>({
+    dataOriginal: ventasData,
+    dateKey: "fecha_registro" as any,
+  });
+
+  const handleConsultar = () => {
+    filterCompras.ejecutarFiltro();
+    filterVentas.ejecutarFiltro();
+  };
+
+  // Separamos sublistas en caliente usando la utilitaria del hook
+  const filterdataFacturas = filterVentas.separarPorTipo("tipo", "Factura");
+  const filterdataBoletas = filterVentas.separarPorTipo("tipo", "Boleta");
+
   return (
     <main className="block w-full h-auto bg-white p-6">
       <div className="mb-6">
@@ -82,12 +109,15 @@ export default function Page() {
         </h2>
       </div>
 
-      {/* Filtros de Inventario */}
+      {/* Enviamos las props del hook unificado al componente de UI */}
       <div className="mb-6">
-        <FiltroInventario />
+        <FiltroInventario
+          titulo="Nueva Entradas"
+          {...filterCompras}
+          onConsultar={handleConsultar}
+        />
       </div>
 
-      {/* Contenedor de las tarjetas */}
       <div className="flex flex-col gap-6">
         {/* Tabla de Compras */}
         <Card className="rounded-none border border-slate-200 shadow-none bg-white w-full h-auto">
@@ -99,7 +129,7 @@ export default function Page() {
           <div className="p-4">
             <DataTable
               columns={columnsCompra}
-              data={[]}
+              data={filterCompras.dataFiltrada}
               showSelection={false}
               isLoading={false}
             />
@@ -116,7 +146,7 @@ export default function Page() {
           <div className="p-4">
             <DataTable
               columns={columnsVenta}
-              data={[]}
+              data={filterdataFacturas}
               showSelection={false}
               isLoading={false}
             />
@@ -133,7 +163,7 @@ export default function Page() {
           <div className="p-4">
             <DataTable
               columns={columnsVenta}
-              data={[]}
+              data={filterdataBoletas}
               showSelection={false}
               isLoading={false}
             />

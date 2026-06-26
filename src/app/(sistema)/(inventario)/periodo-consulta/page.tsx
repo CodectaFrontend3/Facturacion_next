@@ -1,20 +1,21 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 import FiltroInventario from "../components/FiltroInventario";
 import { ConsultaCompra, ConsultaVenta } from "../types/ConsultaInventario";
-import { Button } from "@/components/ui/button";
-import router from "next/router";
-import { Clock, Eye } from "lucide-react";
 import { DataTable } from "@/components/shared/DataTable";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
-export const columnsCompra: ColumnDef<ConsultaCompra>[] = [
-  {
-    accessorKey: "nombre",
-    header: "Nombre Producto",
-    size: 250,
-  },
+// Importación de datos y del hook
+import { useFiltroInventario } from "../hooks/useInventarioFilter";
+import ConsultaInventarioData from "../data/ConsultaInventario.json";
+
+const comprasInventario = ConsultaInventarioData as ConsultaCompra[];
+const ventasInventario = ConsultaInventarioData as ConsultaVenta[];
+
+export const columnsCompra = (router: any): ColumnDef<ConsultaCompra>[] => [
+  { accessorKey: "nombre", header: "Nombre Producto", size: 250 },
   {
     accessorKey: "cantidad",
     header: "Cantidad",
@@ -39,56 +40,19 @@ export const columnsCompra: ColumnDef<ConsultaCompra>[] = [
       <span>$ {row.original.precio_extranjero.toFixed(2)}</span>
     ),
   },
-  {
-    id: "actions",
-    header: "Acciones",
-    size: 180,
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <Button
-          size="icon"
-          className="bg-[#1A5EB3] hover:bg-[#164e96] text-white rounded-none h-8 w-8 p-0"
-          onClick={() =>
-            router.push(`/servicio-tecnico/compra/${row.original.id}`)
-          }
-          aria-label="Ver detalle compra"
-        >
-          <Eye size={16} />
-        </Button>
-
-        <Button
-          size="icon"
-          className="bg-[#FBAF5D] hover:bg-[#e89d4d] text-white rounded-none h-8 w-8 p-0"
-          onClick={() => alert(`Pendiente compra ID: ${row.original.id}`)}
-          aria-label="Tiempo pendiente"
-        >
-          <Clock size={16} />
-        </Button>
-      </div>
-    ),
-  },
 ];
 
-export const columnsVenta: ColumnDef<ConsultaVenta>[] = [
+export const columnsVenta = (router: any): ColumnDef<ConsultaVenta>[] => [
   {
     accessorKey: "tipo",
     header: "Tipo",
     size: 160,
-    // Si 'tipo' es un enum u objeto, puedes renderizarlo de forma personalizada aquí
     cell: ({ row }) => (
       <span className="capitalize">{String(row.original.tipo)}</span>
     ),
   },
-  {
-    accessorKey: "nombre",
-    header: "Nombre Producto / Ítem",
-    size: 250,
-  },
-  {
-    accessorKey: "cantidad",
-    header: "Cantidad",
-    size: 120,
-  },
+  { accessorKey: "nombre", header: "Nombre Producto / Ítem", size: 250 },
+  { accessorKey: "cantidad", header: "Cantidad", size: 120 },
   {
     accessorKey: "precio_nacional",
     header: "Precio Nac.",
@@ -105,81 +69,79 @@ export const columnsVenta: ColumnDef<ConsultaVenta>[] = [
       <span>$ {row.original.precio_extranjero.toFixed(2)}</span>
     ),
   },
-  {
-    id: "actions",
-    header: "Acciones",
-    size: 180,
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <Button
-          size="icon"
-          className="bg-[#1A5EB3] hover:bg-[#164e96] text-white rounded-none h-8 w-8 p-0"
-          onClick={() =>
-            router.push(`/servicio-tecnico/venta/${row.original.id}`)
-          }
-          aria-label="Ver detalle venta"
-        >
-          <Eye size={16} />
-        </Button>
-
-        <Button
-          size="icon"
-          className="bg-[#FBAF5D] hover:bg-[#e89d4d] text-white rounded-none h-8 w-8 p-0"
-          onClick={() => alert(`Pendiente venta ID: ${row.original.id}`)}
-          aria-label="Tiempo pendiente"
-        >
-          <Clock size={16} />
-        </Button>
-      </div>
-    ),
-  },
 ];
 
 export default function Page() {
+  const router = useRouter();
+
+  const filterCompras = useFiltroInventario<ConsultaCompra>({
+    dataOriginal: comprasInventario,
+    dateKey: "fecha" as any,
+  });
+
+  const filterVentas = useFiltroInventario<ConsultaVenta>({
+    dataOriginal: ventasInventario,
+    dateKey: "fecha" as any,
+  });
+
+  const handleConsultar = () => {
+    filterCompras.ejecutarFiltro();
+    filterVentas.ejecutarFiltro();
+  };
+
   return (
-    <main className="min-h-screen bg-white p-6 flex flex-col space-y-6">
-      <div>
+    <main className="block w-full h-auto bg-white p-6">
+      <div className="mb-6">
         <h2 className="text-xl font-semibold text-black">
-          Consultas Inventario
+          Movimientos Inventario
         </h2>
       </div>
 
       {/* Filtros de Inventario */}
-      <FiltroInventario />
+      <div className="mb-6">
+        <FiltroInventario
+          titulo="Consultas Generales"
+          {...filterCompras}
+          onConsultar={handleConsultar}
+        />
+      </div>
 
-      {/* Tabla de Compras */}
-      <Card className="rounded-none border border-slate-200 shadow-none bg-white">
-        <CardHeader className="flex flex-row items-center justify-between py-2.5 px-4 border-b border-slate-200">
-          <CardTitle className="text-[14px] font-bold text-slate-700 tracking-wide">
-            Compras
-          </CardTitle>
-        </CardHeader>
-        <div className="p-4">
-          <DataTable
-            columns={columnsCompra}
-            data={[]}
-            showSelection={false}
-            isLoading={false}
-          />
-        </div>
-      </Card>
+      {/* Contenedor de las tarjetas */}
+      <div className="flex flex-col gap-6">
+        {/* Tabla de Compras */}
+        <Card className="rounded-none border border-slate-200 shadow-none bg-white">
+          <CardHeader className="flex flex-row items-center justify-between py-2.5 px-4 border-b border-slate-200">
+            <CardTitle className="text-[14px] font-bold text-slate-700 tracking-wide">
+              Compras
+            </CardTitle>
+          </CardHeader>
+          <div className="p-4">
+            <DataTable
+              columns={columnsCompra(router)}
+              data={filterCompras.dataFiltrada}
+              showSelection={false}
+              isLoading={false}
+            />
+          </div>
+        </Card>
 
-      {/* Tabla de Ventas */}
-      <Card className="rounded-none border border-slate-200 shadow-none bg-white">
-        <CardHeader className="flex flex-row items-center justify-between py-2.5 px-4 border-b border-slate-200">
-          <CardTitle className="text-[14px] font-bold text-slate-700 tracking-wide">
-            Ventas
-          </CardTitle>
-        </CardHeader>
-        <div className="p-4">
-          <DataTable
-            columns={columnsVenta}
-            data={[]}
-            showSelection={false}
-            isLoading={false}
-          />
-        </div>
-      </Card>
+        {/* Tabla de Ventas */}
+        <Card className="rounded-none border border-slate-200 shadow-none bg-white">
+          <CardHeader className="flex flex-row items-center justify-between py-2.5 px-4 border-b border-slate-200">
+            <CardTitle className="text-[14px] font-bold text-slate-700 tracking-wide">
+              Ventas
+            </CardTitle>
+          </CardHeader>
+          <div className="p-4">
+            <DataTable
+              columns={columnsVenta(router)}
+              data={filterVentas.dataFiltrada}
+              showSelection={false}
+              isLoading={false}
+            />
+          </div>
+        </Card>
+      </div>
     </main>
   );
 }
