@@ -63,11 +63,11 @@ export default function EmailPage() {
     loadData();
   }, []);
 
-  // Al cambiar de carpeta, limpiamos selecciones
-  useEffect(() => {
+  const handleFolderChange = (folder: "enviados" | "borradores") => {
+    setCurrentFolder(folder);
     setSelectedIds([]);
     setSelectedEmail(null);
-  }, [currentFolder]);
+  };
 
   // Obtenemos la lista activa actual según la carpeta seleccionada
   const currentList = currentFolder === "enviados" ? emails : drafts;
