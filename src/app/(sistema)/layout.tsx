@@ -2,6 +2,7 @@ import AppSidebar from "@/components/layout/app-sidebar";
 import AppHeader from "@/components/layout/app-header";
 import AppFooter from "@/components/layout/app-footer";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { AddButton } from "@/components/shared/add-button";
 import type { CSSProperties } from "react";
 
 export default function SistemaLayout({ children }: { children: React.ReactNode }) {
@@ -22,6 +23,7 @@ export default function SistemaLayout({ children }: { children: React.ReactNode 
             </div>
           </main>
           <AppFooter />
+          <AddButton />
         </SidebarInset>
       </SidebarProvider>
     </div>

@@ -41,7 +41,7 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                     <div className="flex justify-end gap-3">
                         <Link
                             href={`/garantia/ingreso/create`}
-                            className="inline-flex items-center justify-center bg-[#1a5eb3] hover:bg-[#1a3bb3] px-4 py-2 text-white rounded"
+                            className="inline-flex items-center justify-center bg-[#2C1FF3] hover:bg-[#190FCE] px-4 py-2 text-white rounded"
                         >
                             Grabar
                         </Link>

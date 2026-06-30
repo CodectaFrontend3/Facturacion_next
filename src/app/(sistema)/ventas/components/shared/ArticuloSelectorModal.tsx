@@ -169,7 +169,7 @@ export function ArticuloSelectorModal({ isOpen, onClose, onAdd }: ArticuloSelect
                   key={page}
                   onClick={() => setCurrentPage(page)}
                   className={`w-10 h-9 text-[13px] border border-gray-300 -ml-px transition-colors
-                    ${page === safePage ? "bg-[#1a5eb3] text-white z-10" : "bg-white text-[#676a6c] hover:bg-gray-50"}
+                    ${page === safePage ? "bg-[#2C1FF3] text-white z-10" : "bg-white text-[#676a6c] hover:bg-gray-50"}
                   `}
                 >
                   {page}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "enc-201",
+    "item": 1,
+    "codigo": "FC01-00000003",
+    "tipo": "Anulación por error en el RUC",
+    "docAsoc": "F001-00002244",
+    "rucDni": "20104875962",
+    "cliente": "AGROINDUSTRIAS DEL NORTE S.A.",
+    "fechaEmision": "10/06/2026",
+    "fechaEnvio": "12/06/2026",
+    "sunatStatus": "enviado"
+  },
+  {
+    "id": "enc-202",
+    "item": 2,
+    "codigo": "FC01-00000004",
+    "tipo": "Devolución total",
+    "docAsoc": "F001-00002560",
+    "rucDni": "10427896351",
+    "cliente": "CARLOS LOPEZ SILVA",
+    "fechaEmision": "12/06/2026",
+    "fechaEnvio": "14/06/2026",
+    "sunatStatus": "enviado"
+  }
+]

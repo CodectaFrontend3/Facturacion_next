@@ -89,7 +89,7 @@ export default function AlmacenModal({ children }: AlmacenModalProps) {
         {/* Botón "Ir" */}
         <button
           onClick={handleIr}
-          className="bg-[#1A5EB3] text-white px-5 py-1.5 rounded-sm text-[13px] hover:bg-[#16529d] transition-colors shadow-sm font-medium min-w-[55px] mb-1 cursor-pointer"
+          className="bg-[#2C1FF3] text-white px-5 py-1.5 rounded-sm text-[13px] hover:bg-[#190FCE] transition-colors shadow-sm font-medium min-w-[55px] mb-1 cursor-pointer"
         >
           Ir
         </button>

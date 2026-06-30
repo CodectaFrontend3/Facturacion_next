@@ -84,7 +84,7 @@ export default function TrashPage() {
       
       {/* BARRA LATERAL IZQUIERDA */}
       <div className="w-full md:w-[260px] shrink-0 bg-white border border-gray-200 shadow-sm p-4">
-        <Button className="w-full bg-[#1a5eb3] hover:bg-blue-800 text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors">
+        <Button className="w-full bg-[#2C1FF3] hover:bg-[#190FCE] text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors">
           Redactar
         </Button>
 
@@ -121,7 +121,7 @@ export default function TrashPage() {
           </li>
 
           <li className="mt-1">
-            <button onClick={() => setSelectedEmail(null)} className="w-full flex items-center justify-between px-2 py-2 bg-gray-50 text-[13px] text-gray-800 font-bold border-l-2 border-[#1a5eb3] cursor-pointer transition-colors">
+            <button onClick={() => setSelectedEmail(null)} className="w-full flex items-center justify-between px-2 py-2 bg-gray-50 text-[13px] text-gray-800 font-bold border-l-2 border-[#2C1FF3] cursor-pointer transition-colors">
               <div className="flex items-center gap-2.5">
                 <i className="bi bi-trash-fill text-gray-500 text-base"></i>
                 Papelera

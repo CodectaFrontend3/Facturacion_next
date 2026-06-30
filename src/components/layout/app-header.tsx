@@ -22,8 +22,8 @@ function NotificationCarousel() {
     const currentNotif = headerData.notificacionesCarousel[notifIndex]
 
     return (
-        <div className="flex h-11.5 items-center overflow-hidden rounded-xl border-3 border-[#1A3BB3] shadow-sm">
-            <div className="flex h-full w-40 justify-center items-center gap-4 bg-[#1A3BB3] px-2 text-white transition-all duration-300">
+        <div className="flex h-11.5 items-center overflow-hidden rounded-xl border-3 border-[#2C1FF3] shadow-sm">
+            <div className="flex h-full w-40 justify-center items-center gap-4 bg-[#2C1FF3] px-2 text-white transition-all duration-300">
                 <i className="fa fa-bell text-[19px]! animate-breathe shrink-0 w-[22.29px] h-[26.4px] flex! items-center! justify-center!"></i>
                 <div className="flex w-19 gap-1 text-left">
                     <span className="text-[13px]">{currentNotif.count}</span>
@@ -82,8 +82,8 @@ export default function AppHeader() {
                 <NotificationCarousel />
 
                 {/* 3. seccion: indicador de mensajes */}
-                <div className="flex h-11.5 items-center overflow-hidden rounded-xl border-3 border-[#1A3BB3] shadow-sm">
-                    <div className="flex h-full w-40 justify-center items-center gap-2 bg-[#1A3BB3] px-2 text-white">
+                <div className="flex h-11.5 items-center overflow-hidden rounded-xl border-3 border-[#2C1FF3] shadow-sm">
+                    <div className="flex h-full w-40 justify-center items-center gap-2 bg-[#2C1FF3] px-2 text-white">
                         <i className="fa fa-exclamation-circle text-[26px]! w-[22.29px] h-[26.4px] flex! items-center! justify-center!"></i>
                         <span className="text-[13px]">{headerData.notificacionesMensajes.count} de {headerData.notificacionesMensajes.total}</span>
                     </div>
@@ -97,7 +97,7 @@ export default function AppHeader() {
 
                 {/* 4. seccion: calendario con badge */}
                 <div className="relative cursor-pointer transition-transform hover:scale-105 w-9 h-9.75 flex! items-center! justify-center!">
-                    <i className="fa fa-calendar text-[39px]! text-[#1538A0]"></i>
+                    <i className="fa fa-calendar text-[39px]! text-[#2C1FF3]"></i>
                     <Badge className="absolute -top-1 -right-3.5 flex h-6 w-4.5 items-center justify-center rounded-sm bg-[#F9AC55] text-[10px] font-black text-white hover:bg-[#F9AC55] p-0 border-none shadow-none">
                         0
                     </Badge>
@@ -105,7 +105,7 @@ export default function AppHeader() {
 
                 {/* 5. seccion: sobre de correo */}
                 <div className="cursor-pointer transition-transform hover:scale-105 w-9 h-9.75 flex! items-center! justify-center!">
-                    <i className="fa fa-envelope text-[39px]! text-[#1538A0]"></i>
+                    <i className="fa fa-envelope text-[39px]! text-[#2C1FF3]"></i>
                 </div>
             </div>
         </header>

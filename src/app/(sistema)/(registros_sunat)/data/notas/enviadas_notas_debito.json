@@ -1,0 +1,14 @@
+[
+  {
+    "id": "end-201",
+    "item": 1,
+    "codigo": "FD01-00000003",
+    "tipo": "Gastos de cobranza",
+    "docAsoc": "F001-00003001",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA ACME S.A.C.",
+    "fechaEmision": "11/06/2026",
+    "fechaEnvio": "13/06/2026",
+    "sunatStatus": "enviado"
+  }
+]

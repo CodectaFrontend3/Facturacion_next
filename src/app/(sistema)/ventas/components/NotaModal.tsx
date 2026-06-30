@@ -61,7 +61,7 @@ export function NotaModal({ isOpen, initialValue = "", onSave, onDelete, onCance
       onClick={(e) => { if (e.target === e.currentTarget) onCancel() }}
     >
       <div className="bg-white rounded-lg shadow-2xl w-[440px] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-        <div className="flex items-center justify-between px-5 py-3 bg-[#1538A0]">
+        <div className="flex items-center justify-between px-5 py-3 bg-[#2C1FF3]">
           <div className="flex items-center gap-2">
             <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full text-white">
               {isEditMode
@@ -91,7 +91,7 @@ export function NotaModal({ isOpen, initialValue = "", onSave, onDelete, onCance
             onChange={(e) => setText(e.target.value)}
             placeholder="Escriba aquí..."
             autoFocus
-            className="w-full h-[130px] border border-gray-300 rounded px-3 py-2 text-[13px] resize-none focus:outline-none focus:border-[#1538A0] focus:ring-1 focus:ring-[#1538A0] transition-all"
+            className="w-full h-[130px] border border-gray-300 rounded px-3 py-2 text-[13px] resize-none focus:outline-none focus:border-[#2C1FF3] focus:ring-1 focus:ring-[#2C1FF3] transition-all"
           />
         </div>
 
@@ -117,7 +117,7 @@ export function NotaModal({ isOpen, initialValue = "", onSave, onDelete, onCance
             </button>
             <button
               onClick={() => onSave(text)}
-              className="px-4 py-1.5 text-[12px] font-semibold bg-[#1538A0] text-white rounded hover:bg-[#0f2b82] transition-colors"
+              className="px-4 py-1.5 text-[12px] font-semibold bg-[#2C1FF3] text-white rounded hover:bg-[#190FCE] transition-colors"
             >
               {isEditMode ? "Actualizar" : "Guardar"}
             </button>

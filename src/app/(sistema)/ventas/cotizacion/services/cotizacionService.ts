@@ -1,7 +1,7 @@
 import { CotizacionRow } from "../../types/cotizacion.types"
 import { COMPROBANTE_TODOS_VALUES, rowMatchesComprobante } from "../../utils/comprobantePrefixes"
 import { rowMatchesCliente } from "../../utils/clientesOptions"
-import cotizacionData from "../../data/cotizacion.json"
+import cotizacionData from "../../data/cotizaciones-mock.json"
 import notaVentaData from "../../data/nota_venta.json"
 
 const mockData = [

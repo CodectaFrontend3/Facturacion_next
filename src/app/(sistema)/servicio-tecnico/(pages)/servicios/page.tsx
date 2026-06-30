@@ -42,7 +42,7 @@ function ServiciosPage() {
         <>
           <Button
             size="icon-sm"
-            className="bg-[#1A5EB3] hover:bg-[#164e96] text-white rounded-sm py-1.5 px-3 h-8.5 w-9"
+            className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white rounded-sm py-1.5 px-3 h-8.5 w-9"
             onClick={() =>
               router.push(
                 `/servicio-tecnico/servicios/proceso/${row.original.id}/ingresos`,
@@ -68,7 +68,7 @@ function ServiciosPage() {
   const misBotones = (
     <button
       onClick={() => router.push("/servicio-tecnico/servicios/create")}
-      className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-md hover:bg-[#164e96] transition-all"
+      className="flex items-center justify-center bg-[#2C1FF3] text-[#FFFFFF] py-2.5 px-3 rounded-md hover:bg-[#190FCE] transition-all"
       style={{ fontFamily: "'Outfit', sans-serif", fontSize: "15px" }}
       aria-label="Agregar servicio"
     >

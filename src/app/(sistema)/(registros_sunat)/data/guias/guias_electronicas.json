@@ -1,0 +1,35 @@
+[
+  {
+    "id": "g-101",
+    "item": 1,
+    "codigo": "T001-00000001",
+    "rucDni": "12322222222",
+    "cliente": "were",
+    "fechaEmision": "15/06/2026",
+    "fechaEntrega": "26/06/2026",
+    "tipoTransporte": "Trasporte Privado",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "g-102",
+    "item": 2,
+    "codigo": "T001-00000002",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA SAN JORGE S.A.C.",
+    "fechaEmision": "18/06/2026",
+    "fechaEntrega": "28/06/2026",
+    "tipoTransporte": "Trasporte Público",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "g-103",
+    "item": 3,
+    "codigo": "T001-00000003",
+    "rucDni": "10427896351",
+    "cliente": "CONSTRUCTORA ACUARIO S.A.",
+    "fechaEmision": "20/06/2026",
+    "fechaEntrega": "22/06/2026",
+    "tipoTransporte": "Trasporte Privado",
+    "sunatStatus": "pendiente"
+  }
+]

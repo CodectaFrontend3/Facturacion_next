@@ -23,7 +23,7 @@ export default function TabsBar() {
             <TabsNav tabs={tabs} />
             
             <div className="flex gap-4">
-                <button onClick={() => setIsOpen(true)} className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! add-btn text-white p-2 px-4 rounded">
+                <button onClick={() => setIsOpen(true)} className="bg-[#2C1FF3] hover:bg-[#190FCE]! add-btn text-white p-2 px-4 rounded">
                     <i className="fa fa-plus" style={{
                         fontSize: "15px",
                         textShadow: "0 0 1px currentColor",
@@ -32,7 +32,7 @@ export default function TabsBar() {
                 </button>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! download-btn text-white p-2 px-4 rounded flex gap-2">
+                        <button className="bg-[#2C1FF3] hover:bg-[#190FCE]! download-btn text-white p-2 px-4 rounded flex gap-2">
                             <i className="fa fa-download" style={{
                                 fontSize: "15px",
                                 textShadow: "0 0 1px currentColor",

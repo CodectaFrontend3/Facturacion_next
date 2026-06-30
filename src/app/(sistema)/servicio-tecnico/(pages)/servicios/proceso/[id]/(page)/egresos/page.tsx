@@ -56,7 +56,7 @@ function EgresosPage() {
         <>
           <Button
             size="icon-sm"
-            className="bg-[#1A5EB3] hover:bg-[#164e96] text-white rounded-sm py-1.5 px-3 h-8.5 w-9"
+            className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white rounded-sm py-1.5 px-3 h-8.5 w-9"
             onClick={() => openRepararModal(row.original)}
             aria-label="Ver detalle"
           >

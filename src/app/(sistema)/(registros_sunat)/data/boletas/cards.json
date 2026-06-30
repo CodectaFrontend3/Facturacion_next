@@ -1,0 +1,16 @@
+[
+  {
+    "key": "boletas",
+    "iconClass": "fa fa-envelope-open",
+    "label": "Boletas",
+    "ringColorClass": "bg-[#1ab394]! border-[#1ab394]!",
+    "metaLabel": "Ultima actualización hace 9 meses"
+  },
+  {
+    "key": "boletasManuales",
+    "iconClass": "fa fa-file-archive-o",
+    "label": "Boletas Manuales",
+    "ringColorClass": "bg-[#1c84c6]! border-[#1c84c6]!",
+    "metaLabel": "Ultima actualización hace 9 meses"
+  }
+]

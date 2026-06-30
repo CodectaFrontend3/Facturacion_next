@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "codigo": "ALM-001",
+    "nombre": "Almacén Principal",
+    "ubicacion": "Avenida Principal 123"
+  },
+  {
+    "id": "2",
+    "codigo": "ALM-002",
+    "nombre": "Almacén Secundario",
+    "ubicacion": "Calle Secundaria 456"
+  }
+]

@@ -1,0 +1,1 @@
+// Aqui ira la interfaz de todo el flujo de productos, siendo listado, grafico, modal(CRUD)
