@@ -97,7 +97,7 @@ export default function LoginPage() {
                         </div>
                     </div>
                     {errorMsg && <p className="text-red-500 text-xs text-center mb-3 font-semibold">Usuario o contraseña incorrectos.</p>}
-                    <button type="submit" className="w-full bg-[#0044B2] hover:bg-blue-800 text-white font-semibold py-3 rounded transition-colors duration-200 shadow-md cursor-pointer">
+                    <button type="submit" className="w-full bg-[#0044B2] hover:bg-[#190FCE] text-white font-semibold py-3 rounded transition-colors duration-200 shadow-md cursor-pointer">
                         Ingresar
                     </button>
                 </form>
@@ -179,7 +179,7 @@ export default function LoginPage() {
                             </div>
                         </div>
 
-                        <Button className="w-full md:w-auto bg-[#1a5eb3] hover:bg-blue-800 text-white px-10 transition-colors duration-200 cursor-pointer">
+                        <Button className="w-full md:w-auto bg-[#2C1FF3] hover:bg-[#190FCE] text-white px-10 transition-colors duration-200 cursor-pointer">
                             Consultar
                         </Button>
                     </div>

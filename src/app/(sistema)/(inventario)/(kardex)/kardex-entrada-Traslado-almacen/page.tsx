@@ -62,7 +62,7 @@ export default function Page() {
               `/kardex-entrada-Traslado-almacen/detalle/${row.original.id}`,
             )
           }
-          className="bg-[#1A5EB3] hover:bg-[#154b91] text-white font-semibold text-[12px] uppercase tracking-wider h-8 w-16 rounded-sm shadow-sm"
+          className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white font-semibold text-[12px] uppercase tracking-wider h-8 w-16 rounded-sm shadow-sm"
         >
           Ver
         </Button>
@@ -85,13 +85,13 @@ export default function Page() {
 
   const misBotones = (
     <>
-      <button className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all">
+      <button className="flex items-center justify-center bg-[#2C1FF3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#190FCE] transition-all">
         <Upload className="w-4 h-4" size={16} strokeWidth={3} />
       </button>
-      <button className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all">
+      <button className="flex items-center justify-center bg-[#2C1FF3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#190FCE] transition-all">
         <Download className="w-4 h-4" size={16} strokeWidth={3} />
       </button>
-      <button className="flex items-center justify-center bg-[#1A5EB3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#164e96] transition-all">
+      <button className="flex items-center justify-center bg-[#2C1FF3] text-[#FFFFFF] py-2.5 px-3 rounded-sm hover:bg-[#190FCE] transition-all">
         <AlmacenModal>
           <Plus className="w-4 h-4" size={16} strokeWidth={3} />
         </AlmacenModal>

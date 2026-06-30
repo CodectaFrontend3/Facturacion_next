@@ -198,7 +198,7 @@ export default function CreateClient() {
                     </InfoCard>
                 </GridContent>
                 <div className="flex justify-end px-5 pb-5">
-                    <button className="bg-[#1a5eb3] hover:bg-[#174a8f] text-white px-6 py-2 rounded-sm font-medium">
+                    <button className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white px-6 py-2 rounded-sm font-medium">
                         Grabar
                     </button>
                 </div>

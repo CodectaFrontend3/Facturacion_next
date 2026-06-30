@@ -21,7 +21,7 @@ export default function ConfiguracionEmailPage() {
       
       {/* ================= BARRA LATERAL IZQUIERDA (FOLDERS) ================= */}
       <div className="w-full md:w-[260px] shrink-0 bg-white border border-gray-200 shadow-sm p-4">
-        <Button className="w-full bg-[#1a5eb3] hover:bg-blue-800 text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors">
+        <Button className="w-full bg-[#2C1FF3] hover:bg-[#190FCE] text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors">
           Redactar
         </Button>
 
@@ -49,7 +49,7 @@ export default function ConfiguracionEmailPage() {
           </li>
 
           <li className="border-b border-gray-100 pb-1 mb-1">
-            <Link href="/configuracion_email" className="flex items-center justify-between px-2 py-2 bg-gray-50 text-[13px] text-gray-800 font-bold border-l-2 border-[#1a5eb3] transition-colors">
+            <Link href="/configuracion_email" className="flex items-center justify-between px-2 py-2 bg-gray-50 text-[13px] text-gray-800 font-bold border-l-2 border-[#2C1FF3] transition-colors">
               <div className="flex items-center gap-2.5">
                 <i className="bi bi-gear-fill text-gray-500 text-base"></i>
                 Configuracion
@@ -169,7 +169,7 @@ export default function ConfiguracionEmailPage() {
 
         {/* Botón Guardar */}
         <div className="mt-8">
-          <Button className="bg-[#1a5eb3] hover:bg-blue-800 text-white h-9 px-6 rounded-sm text-[13px] font-medium cursor-pointer">
+          <Button className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white h-9 px-6 rounded-sm text-[13px] font-medium cursor-pointer">
             Grabar
           </Button>
         </div>

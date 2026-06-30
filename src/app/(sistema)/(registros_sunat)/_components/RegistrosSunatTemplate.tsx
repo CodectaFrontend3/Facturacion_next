@@ -244,7 +244,7 @@ export function RegistrosSunatTemplate<TData>({
                     text={sendButtonLabel}
                     onClick={() => onSend(selectedRows)}
                     disabled={selectedRows.length === 0}
-                    className="focus:bg-[#18a689] bg-[#1a5eb3] hover:bg-[#1a3bb3]! text-white text-xs font-semibold px-5 py-1.5 h-auto! w-auto! rounded-[4px] cursor-pointer shadow-sm hover:shadow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    className="focus:bg-[#18a689] bg-[#2C1FF3] hover:bg-[#190FCE]! text-white text-xs font-semibold px-5 py-1.5 h-auto! w-auto! rounded-[4px] cursor-pointer shadow-sm hover:shadow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                   />
                 </div>
               )}

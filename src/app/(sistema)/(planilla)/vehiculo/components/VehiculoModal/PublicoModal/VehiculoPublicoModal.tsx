@@ -21,7 +21,7 @@ export default function VehiculoPublicoModal({
             <div className="space-y-6">
                 <div className="flex justify-center mb-10">
                     <div className="w-32 h-32 rounded-full flex items-center justify-center">
-                        <i className="fa fa-truck text-[#1a5eb3]" style={{ fontSize: "150px" }}></i>
+                        <i className="fa fa-truck text-[#2C1FF3]" style={{ fontSize: "150px" }}></i>
                     </div>
                 </div>
                 <SearchItem

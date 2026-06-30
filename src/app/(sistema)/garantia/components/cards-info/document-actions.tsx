@@ -22,7 +22,7 @@ export function DocumentActions() {
             </Button>
 
             <Button
-                className="bg-blue-700 hover:bg-blue-800 cursor-pointer text-white px-3 py-2 rounded"
+                className="bg-blue-700 hover:bg-[#190FCE] cursor-pointer text-white px-3 py-2 rounded"
             >
                 <i className="fa fa-print fa-lg" aria-hidden="true"></i>
             </Button>

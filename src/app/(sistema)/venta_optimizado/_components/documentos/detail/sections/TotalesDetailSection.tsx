@@ -36,7 +36,7 @@ export function TotalesDetailSection({
       </button>
       <button
         onClick={onGuardarYFinalizar}
-        className="bg-[#1e40af] hover:bg-blue-800 text-white px-6 py-1.5 rounded-sm text-[13px] font-semibold transition-colors"
+        className="bg-[#1e40af] hover:bg-[#190FCE] text-white px-6 py-1.5 rounded-sm text-[13px] font-semibold transition-colors"
       >
         Guardar y Finalizar
       </button>

@@ -46,7 +46,7 @@ export const ingresoColumns = (
                 return (
                     <Link
                         href={`/garantia/ingreso/${row.original.id}`}
-                        className="view-btn bg-[#1a5eb3] text-white p-2 rounded"
+                        className="view-btn bg-[#2C1FF3] text-white p-2 rounded"
                     >
                         <i className="bi bi-eye"></i>
                     </Link>

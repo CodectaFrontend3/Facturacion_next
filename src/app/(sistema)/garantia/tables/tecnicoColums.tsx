@@ -42,7 +42,7 @@ export const tecnicoColumns: ColumnDef<Tecnico>[] = [
             return (
                 <Link
                     href={`/garantia/tecnico/${row.original.id}`}
-                    className="view-btn bg-[#1a5eb3] text-white p-2 rounded hover:bg-blue-800"
+                    className="view-btn bg-[#2C1FF3] text-white p-2 rounded hover:bg-[#190FCE]"
                 >
                     <i className="bi bi-eye"></i>
                 </Link>

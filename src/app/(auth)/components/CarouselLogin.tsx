@@ -21,12 +21,12 @@ export const CarouselLogin = () => {
         <div className="relative w-full h-full flex flex-col justify-center">
             
             {/* Botón Izquierdo */}
-            <button onClick={prevSlide} className="absolute left-8 top-1/2 transform -translate-y-1/2 bg-white text-[#1538A0] w-5 h-5 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition z-30 cursor-pointer">
+            <button onClick={prevSlide} className="absolute left-8 top-1/2 transform -translate-y-1/2 bg-white text-[#2C1FF3] w-5 h-5 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition z-30 cursor-pointer">
                 <i className="bi bi-chevron-left text-[10px] pr-0.5"></i>
             </button>
 
             {/* Botón Derecho */}
-            <button onClick={nextSlide} className="absolute right-8 top-1/2 transform -translate-y-1/2 bg-white text-[#1538A0] w-5 h-5 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition z-30 cursor-pointer">
+            <button onClick={nextSlide} className="absolute right-8 top-1/2 transform -translate-y-1/2 bg-white text-[#2C1FF3] w-5 h-5 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition z-30 cursor-pointer">
                 <i className="bi bi-chevron-right text-[10px] pl-0.5"></i>
             </button>
 

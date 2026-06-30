@@ -138,7 +138,7 @@ export default function AppSidebar() {
 	return (
 		<Sidebar
 			collapsible="icon"
-			className="border-none bg-[#1538A0] top-16 h-[calc(100svh-4rem)]"
+			className="border-none bg-[#2C1FF3] top-16 h-[calc(100svh-4rem)]"
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 		>
@@ -155,7 +155,7 @@ export default function AppSidebar() {
 											key={item.label}
 											open={resolvedOpenMenu === item.label}
 											onOpenChange={(isOpen) => setOpenMenuState({ pathname, label: isOpen ? item.label : null })}
-											className="group/collapsible transition-all duration-200 data-[state=open]:bg-[#143593] group-data-[collapsible=icon]:data-[state=open]:bg-transparent"
+											className="group/collapsible transition-all duration-200 data-[state=open]:bg-[#2417DA] group-data-[collapsible=icon]:data-[state=open]:bg-transparent"
 										>
 											<SidebarMenuItem>
 												<CollapsibleTrigger asChild>
@@ -164,11 +164,11 @@ export default function AppSidebar() {
 														className={`
 															group relative flex h-11.5 w-full items-center gap-3 rounded-none border-none px-6 text-[12px] font-bold tracking-wide text-white transition-all duration-500 ease-in-out
 															group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:justify-center
-															hover:bg-[#09267B] hover:text-white cursor-pointer
+															hover:bg-[#190FCE] hover:text-white cursor-pointer
 															group-data-[state=open]/collapsible:shadow-[inset_4px_0_0_0_white]
 															data-[active=true]:text-white data-[active=true]:shadow-[inset_4px_0_0_0_white]
-															group-data-[state=closed]/collapsible:data-[active=true]:bg-[#09267B]
-															group-data-[collapsible=icon]:data-[active=true]:bg-[#09267B]
+															group-data-[state=closed]/collapsible:data-[active=true]:bg-[#190FCE]
+															group-data-[collapsible=icon]:data-[active=true]:bg-[#190FCE]
 														`}
 													>
 														{isUrl(iconClass) ? (
@@ -199,10 +199,10 @@ export default function AppSidebar() {
 																					isActive={subItem.active}
 																					className={`
 																						group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-11 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
-																						hover:bg-[#09267B] hover:text-white cursor-pointer
+																						hover:bg-[#190FCE] hover:text-white cursor-pointer
 																						shadow-[inset_4px_0_0_0_white] translate-x-0
 																						data-[active=true]:text-white
-																						group-data-[state=closed]/subcollapsible:data-[active=true]:bg-[#09267B]
+																						group-data-[state=closed]/subcollapsible:data-[active=true]:bg-[#190FCE]
 																					`}
 																				>
 																					<span className="truncate text-[12px] font-bold tracking-wide text-white">{subItem.label}</span>
@@ -218,9 +218,9 @@ export default function AppSidebar() {
 																									isActive={kItem.active}
 																									className={`
 																										group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-16 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
-																										hover:bg-[#09267B] hover:text-white
+																										hover:bg-[#190FCE] hover:text-white
 																										shadow-[inset_4px_0_0_0_white] translate-x-0
-																										data-[active=true]:bg-[#09267B] data-[active=true]:text-white
+																										data-[active=true]:bg-[#190FCE] data-[active=true]:text-white
 																									`}
 																								>
 																									<Link href={kItem.path}>
@@ -241,9 +241,9 @@ export default function AppSidebar() {
 																			isActive={subItem.active}
 																			className={`
 																				group relative flex h-10 w-full items-center gap-3 rounded-none border-none pl-11 pr-6 text-[12px] font-bold tracking-wide text-white transition-all duration-200
-																				hover:bg-[#09267B] hover:text-white
+																				hover:bg-[#190FCE] hover:text-white
 																				shadow-[inset_4px_0_0_0_white] translate-x-0
-																				data-[active=true]:bg-[#09267B] data-[active=true]:text-white
+																				data-[active=true]:bg-[#190FCE] data-[active=true]:text-white
 																			`}
 																		>
 																			<Link href={subItem.path!}>
@@ -269,8 +269,8 @@ export default function AppSidebar() {
 											className={`
 												group relative flex h-11.5 w-full items-center gap-3 rounded-none border-none px-6 text-[12px] font-bold tracking-wide text-white transition-all duration-500 ease-in-out
 												group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:justify-center
-												hover:bg-[#09267B] hover:text-white
-												data-[active=true]:bg-[#09267B] data-[active=true]:text-white data-[active=true]:shadow-none
+												hover:bg-[#190FCE] hover:text-white
+												data-[active=true]:bg-[#190FCE] data-[active=true]:text-white data-[active=true]:shadow-none
 											`}
 										>
 											<Link href={item.path!}>
@@ -298,7 +298,7 @@ export default function AppSidebar() {
 				</SidebarContent>
 
 				{/* Footer: User Info */}
-				<SidebarFooter className="relative z-10 p-3 bg-[#1538A0] overflow-hidden">
+				<SidebarFooter className="relative z-10 p-3 bg-[#2C1FF3] overflow-hidden">
 					<div className="flex w-59 items-center gap-3 px-2 py-2 text-left text-white transition-all duration-500 ease-in-out group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:invisible">
 						<Avatar size="lg" className="ring-2 ring-white/20">
 							<AvatarImage src="" alt="Demo" />
@@ -329,21 +329,29 @@ export default function AppSidebar() {
 								sideOffset={8}
 								className={`w-38 bg-white text-black border-gray-200 p-1 ${state === "collapsed" ? "hidden" : ""}`}
 							>
-								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<i className="fa fa-user-circle-o mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
-									Mi Perfil
+								<DropdownMenuItem asChild className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
+									<Link href="/usuario" className="flex items-center w-full">
+										<i className="fa fa-user-circle-o mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
+										Mi Perfil
+									</Link>
 								</DropdownMenuItem>
-								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<i className="fa fa-university mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
-									Mi Empresa
+								<DropdownMenuItem asChild className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
+									<Link href="/empresa" className="flex items-center w-full">
+										<i className="fa fa-university mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
+										Mi Empresa
+									</Link>
 								</DropdownMenuItem>
-								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<i className="fa fa-cog mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
-									Configuración
+								<DropdownMenuItem asChild className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
+									<Link href="/configuracion_general" className="flex items-center w-full">
+										<i className="fa fa-cog mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
+										Configuración
+									</Link>
 								</DropdownMenuItem>
-								<DropdownMenuItem className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
-									<i className="fa fa-sign-out mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
-									Cerrar Sesión
+								<DropdownMenuItem asChild className="text-[12px] font-bold px-3 py-1.5 transition-all duration-200 hover:pl-4 focus:pl-4 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer text-black">
+									<Link href="/login" className="flex items-center w-full">
+										<i className="fa fa-sign-out mr-2 text-[14px] text-black w-3.5 h-3.5 flex items-center justify-center" />
+										Cerrar Sesión
+									</Link>
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>

@@ -196,7 +196,7 @@ export default function ComposeEmailModal({ isOpen, onClose, onSend, onSaveDraft
               <button 
                 type="button" 
                 onClick={handleEnviar}
-                className="flex items-center gap-1.5 bg-[#1a5eb3] hover:bg-blue-800 text-white px-4 py-2 rounded-sm text-[12px] font-bold transition-colors cursor-pointer shadow-sm"
+                className="flex items-center gap-1.5 bg-[#2C1FF3] hover:bg-[#190FCE] text-white px-4 py-2 rounded-sm text-[12px] font-bold transition-colors cursor-pointer shadow-sm"
               >
                 <Reply className="w-3.5 h-3.5 scale-x-[-1]" /> 
                 Enviar
