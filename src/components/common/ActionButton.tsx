@@ -93,7 +93,7 @@ export function ActionButton({
         <PopoverTrigger asChild>
           {renderButton()}
         </PopoverTrigger>
-        <PopoverContent className={cn("w-fit min-w-[144px] rounded-none p-2", popoverClassName)} align="end">
+        <PopoverContent className={cn("w-fit min-w-[180px] rounded-none p-2", popoverClassName)} align="end">
           {popoverContent ? (
             popoverContent
           ) : (
