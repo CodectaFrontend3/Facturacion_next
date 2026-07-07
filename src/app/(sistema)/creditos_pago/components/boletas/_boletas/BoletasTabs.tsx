@@ -1,22 +1,22 @@
 import React from "react";
-import NavigationTabs, { TabItem } from "../NavigationTabs";
+import NavigationTabs, { TabItem } from "../../NavigationTabs";
 
 interface Props {
   children: React.ReactNode;
   actions?: React.ReactNode;
 }
 
-function FacturasTabs({ children, actions }: Props) {
+function BoletasTabs({ children, actions }: Props) {
   const creditosTabs: TabItem[] = [
     {
       name: "Sin Pagos",
-      href: "/creditos_pago/facturas/sin-pagos",
+      href: "/creditos_pago/boletas/sin-pagos",
       count: 0,
       badgeColor: "#008000", // Verde
     },
     {
       name: "Pagados",
-      href: "/creditos_pago/facturas/pagados",
+      href: "/creditos_pago/boletas/pagados",
       count: 0,
       badgeColor: "#FFA500", // Naranja
     },
@@ -29,4 +29,4 @@ function FacturasTabs({ children, actions }: Props) {
   );
 }
 
-export default FacturasTabs;
+export default BoletasTabs;

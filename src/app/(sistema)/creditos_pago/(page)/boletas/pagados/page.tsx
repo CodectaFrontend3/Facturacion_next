@@ -1,18 +1,72 @@
 "use client";
 
-import BoletasTabs from "../../../components/boletas/BoletasTabs";
+import { DataFilters } from "@/components/DataFilters/DataFilters";
+import BoletasTabs from "../../../components/boletas/_boletas/BoletasTabs";
+import { useComprobanteTable } from "../../../hooks/useComprobanteTable";
+import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
+import { FilterSearchSelect } from "@/components/DataFilters/FilterSearchSelect";
+import { DataTable } from "@/components/shared/DataTable";
+import { getColumns } from "../../../components/Columns";
 
 function page() {
+  const {
+    pendingFilters,
+    setFilterValue,
+    applyFilters,
+    resetFilters,
+    pageIndex,
+    setPageIndex,
+    filteredDataPagadoAutomatica,
+  } = useComprobanteTable({ data: [], tipo: "Boleta" }); // Usamos el hook para obtener los datos y funciones de filtrado
+
   return (
     <main className="min-h-screen bg-[#f8fafc] p-4 lg:p-6 flex flex-col justify-between">
       <div className="w-full">
         <BoletasTabs>
-          {/* Todo tu contenido interno (Filtros, Tabla, etc.) */}
-          <div className="space-y-4">
-            {/* Aquí van tus componentes de filtros y la tabla tal cual los tienes en la imagen */}
-            <div>Filtros...</div>
-            <div>Tabla de registros...</div>
+          {/* Filtros */}
+          <div className="flex items-center justify-between mb-4">
+            <DataFilters onSearch={applyFilters} onReset={resetFilters}>
+              <FilterDateRange
+                nameFrom="fechaDesde"
+                nameTo="fechaHasta"
+                valueFrom={pendingFilters.fechaDesde}
+                valueTo={pendingFilters.fechaHasta}
+                onChange={setFilterValue}
+              />
+              <FilterSearchSelect
+                name="cliente"
+                value={pendingFilters.cliente || "todos"}
+                onChange={setFilterValue}
+                options={[]}
+                placeholder="Seleccionar Cliente"
+              />
+              <FilterSearchSelect
+                name="estado"
+                value={pendingFilters.estado || "todos"}
+                onChange={setFilterValue}
+                options={[]}
+                placeholder="Seleccionar Estado"
+              />
+              <FilterSearchSelect
+                name="Forma de Pago"
+                value={pendingFilters.formaDePago || "todos"}
+                onChange={setFilterValue}
+                options={[]}
+                placeholder="Seleccionar Forma de Pago"
+              />
+            </DataFilters>
           </div>
+
+          {/* Aquí se renderiza la tabla con los datos */}
+          <DataTable
+            columns={getColumns({ tipo: "Boleta", esPagado: true })} // Pasamos el tipo de comprobante para obtener las columnas correctas
+            data={filteredDataPagadoAutomatica}
+            showSelection={false}
+            isLoading={false}
+            pageIndex={pageIndex}
+            onPageChange={setPageIndex}
+            showPagination={true}
+          />
         </BoletasTabs>
       </div>
     </main>

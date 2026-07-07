@@ -1,12 +1,12 @@
 "use client";
 
 import { DataTable } from "@/components/shared/DataTable";
-import FacturasManualTabs from "../../../components/facturas_manuales/FacturasManualTabs";
-import { columns } from "../../../components/facturas/table/Column";
+import FacturasManualTabs from "../../../components/facturas/facturas_manuales/FacturasManualTabs";
+import { getColumns } from "../../../components/Columns";
 import { DataFilters } from "@/components/DataFilters/DataFilters";
 import { FilterSearchSelect } from "@/components/DataFilters/FilterSearchSelect";
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
-import { useFacturaTable } from "../../../hooks/useFacturaTable";
+import { useComprobanteTable } from "../../../hooks/useComprobanteTable";
 
 function page() {
   const {
@@ -17,7 +17,7 @@ function page() {
     pageIndex,
     setPageIndex,
     filteredDataPagadoManual,
-  } = useFacturaTable([]); // Usamos el hook para obtener los datos y funciones de filtrado
+  } = useComprobanteTable({ data: [], tipo: "Factura" }); // Usamos el hook para obtener los datos y funciones de filtrado
 
   return (
     <main className="min-h-screen bg-[#f8fafc] p-4 lg:p-6 flex flex-col justify-between">
@@ -59,7 +59,7 @@ function page() {
 
           {/* Aquí se renderiza la tabla con los datos */}
           <DataTable
-            columns={columns}
+            columns={getColumns({ tipo: "Factura", esPagado: true })} // Pasamos el tipo de comprobante para obtener las columnas correctas
             data={filteredDataPagadoManual}
             showSelection={false}
             isLoading={false}

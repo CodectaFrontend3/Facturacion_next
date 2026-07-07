@@ -1,11 +1,11 @@
 "use client";
 
 import { DataFilters } from "@/components/DataFilters/DataFilters";
-import FacturasTabs from "../../../components/facturas/FacturasTabs";
+import FacturasTabs from "../../../components/facturas/_facturas/FacturasTabs";
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { DataTable } from "@/components/shared/DataTable";
-import { columns } from "../../../components/facturas/table/Column";
-import { useFacturaTable } from "../../../hooks/useFacturaTable";
+import { getColumns } from "../../../components/Columns";
+import { useComprobanteTable } from "../../../hooks/useComprobanteTable";
 import { FilterSearchSelect } from "@/components/DataFilters/FilterSearchSelect";
 import { Banknote } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ function page() {
     pageIndex,
     setPageIndex,
     filteredDataSinPagoAutomatica,
-  } = useFacturaTable([]); // Usamos el hook para obtener los datos y funciones de filtrado
+  } = useComprobanteTable({ data: [], tipo: "Factura" }); // Usamos el hook para obtener los datos y funciones de filtrado
 
   const acciones = (
     <Button
@@ -71,7 +71,7 @@ function page() {
 
           {/* Aquí se renderiza la tabla con los datos */}
           <DataTable
-            columns={columns}
+            columns={getColumns({ tipo: "Factura", esPagado: false })}
             data={filteredDataSinPagoAutomatica}
             showSelection={false}
             isLoading={false}
