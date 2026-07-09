@@ -87,9 +87,11 @@ export function ActionButton({
     )
   }
 
+  const [popoverOpen, setPopoverOpen] = React.useState(false)
+
   if (isPopover) {
     return (
-      <Popover>
+      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
         <PopoverTrigger asChild>
           {renderButton()}
         </PopoverTrigger>
@@ -104,10 +106,13 @@ export function ActionButton({
                   variant="ghost"
                   className="w-full justify-start font-normal rounded-none h-8 px-2 hover:pl-4 transition-all duration-175 cursor-pointer"
                   asChild={!!option.href}
-                  onClick={option.onClick}
+                  onClick={() => {
+                    option.onClick?.()
+                    setPopoverOpen(false)
+                  }}
                 >
                   {option.href ? (
-                    <Link href={option.href}>{option.label}</Link>
+                    <Link href={option.href} onClick={() => setPopoverOpen(false)}>{option.label}</Link>
                   ) : (
                     option.label
                   )}

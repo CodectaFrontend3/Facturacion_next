@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 import { ActionButton } from "@/components/common/ActionButton"
-import { Servicio, ServicioEstado } from "../../types/servicios.types"
-import { showToast } from "@/components/shared/custom-toast"
+import { Servicio } from "../../types/servicios.types"
+import { useServicioForm } from "../../_hooks/useServicioForm"
+import { UtilityCalculator } from "../shared/UtilityCalculator"
 
 interface ServicioModalProps {
   isOpen: boolean
@@ -20,117 +20,33 @@ const MARCA_OPTIONS = ["EXAMPLE01", "LENOVO", "SAMSUNG", "ESSENZA"]
 const AFECTACION_OPTIONS = ["Gravado - Operación Onerosa", "Exonerado - Operación Onerosa", "Inafecto - Operación Onerosa"]
 
 export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioModalProps) {
-  const [codigoServicio, setCodigoServicio] = useState("")
-  const [codigoOriginal, setOriginal] = useState("")
-  const [nombre, setNombre] = useState("")
-  const [descripcion, setDescripcion] = useState("")
-  const [familia, setFamilia] = useState("Seleccionar")
-  const [subfamilia, setSubfamilia] = useState("Seleccionar")
-  const [marca, setMarca] = useState("EXAMPLE01")
-  const [descuento, setDescuento] = useState(0)
-  const [precioVentaPen, setPrecioVentaPen] = useState(0)
-  const [precioVentaUsd, setPrecioVentaUsd] = useState(0)
-  const [utilidad, setUtilidad] = useState(0)
-  const [fechaRegistro, setFechaRegistro] = useState("07-07-2026")
-  const [afectacion, setAfectacion] = useState("Gravado - Operación Onerosa")
-  const [imagenUrl, setImagenUrl] = useState<string | null>(null)
+  const {
+    form,
+    onSubmit,
+    setValue,
+    imageInputRef,
+    handleImageChange,
+  } = useServicioForm({
+    isOpen,
+    servicio,
+    onSave,
+    onClose,
+  })
 
-  // Estados para la calculadora de utilidad
-  const [showUtilityHelper, setShowUtilityHelper] = useState(false)
-  const [precioSinIgv, setPrecioSinIgv] = useState(0)
-  const [precioConIgv, setPrecioConIgv] = useState(0)
+  const { register, watch, formState: { errors } } = form
 
-  useEffect(() => {
-    if (isOpen) {
-      if (servicio) {
-        setCodigoServicio(servicio.codigoServicio)
-        setOriginal(servicio.codigoOriginal)
-        setNombre(servicio.nombre)
-        setDescripcion(servicio.descripcion || "")
-        setFamilia(servicio.familia)
-        setSubfamilia(servicio.subfamilia || "Seleccionar")
-        setMarca(servicio.marca || "EXAMPLE01")
-        setDescuento(servicio.descuento || 0)
-        setPrecioVentaPen(servicio.precioVentaPen)
-        setPrecioVentaUsd(servicio.precioVentaUsd)
-        setUtilidad(servicio.utilidad || 0)
-        setFechaRegistro(servicio.fechaRegistro)
-        setAfectacion(servicio.afectacion || "Gravado - Operación Onerosa")
-        setImagenUrl(servicio.imagenUrl || null)
-        
-        // Inicializar calculadora
-        const conIgv = servicio.precioVentaPen
-        const sinIgv = Number((conIgv / 1.18).toFixed(2))
-        setPrecioConIgv(conIgv)
-        setPrecioSinIgv(sinIgv)
-      } else {
-        setCodigoServicio(`SERV-${String(Date.now()).slice(-8)}`)
-        setOriginal("")
-        setNombre("")
-        setDescripcion("")
-        setFamilia("Seleccionar")
-        setSubfamilia("Seleccionar")
-        setMarca("EXAMPLE01")
-        setDescuento(0)
-        setPrecioVentaPen(0)
-        setPrecioVentaUsd(0)
-        setUtilidad(0)
-        setFechaRegistro("07-07-2026")
-        setAfectacion("Gravado - Operación Onerosa")
-        setImagenUrl(null)
-        setPrecioConIgv(0)
-        setPrecioSinIgv(0)
-      }
-      setShowUtilityHelper(false)
-    }
-  }, [isOpen, servicio])
+  const precioVentaPen = watch("precioVentaPen")
+  const fechaRegistro = watch("fechaRegistro")
+  const imagenUrl = watch("imagenUrl")
 
   if (!isOpen) return null
 
-  const handlePrecioSinIgvChange = (val: number) => {
-    setPrecioSinIgv(val)
-    const conIgv = Number((val * 1.18).toFixed(2))
-    setPrecioConIgv(conIgv)
-    setPrecioVentaPen(conIgv)
-    setPrecioVentaUsd(Number((conIgv / 3.75).toFixed(2)))
+  const handleImageClick = () => {
+    imageInputRef.current?.click()
   }
 
-  const handlePrecioConIgvChange = (val: number) => {
-    setPrecioConIgv(val)
-    const sinIgv = Number((val / 1.18).toFixed(2))
-    setPrecioSinIgv(sinIgv)
-    setPrecioVentaPen(val)
-    setPrecioVentaUsd(Number((val / 3.75).toFixed(2)))
-  }
-
-  const handleSave = () => {
-    if (!nombre.trim() || familia === "Seleccionar") {
-      showToast("Por favor complete los campos obligatorios (*)", 2)
-      return
-    }
-    onSave({
-      id: servicio?.id,
-      codigoServicio,
-      codigoOriginal: codigoOriginal.trim() || codigoServicio,
-      nombre: nombre.trim(),
-      descripcion: descripcion.trim(),
-      familia,
-      subfamilia,
-      marca,
-      descuento,
-      precioVentaPen,
-      precioVentaUsd,
-      utilidad,
-      fechaRegistro,
-      afectacion,
-      estado: servicio?.estado || "Activo",
-      fichaTecnicaUrl: servicio?.fichaTecnicaUrl || null,
-      imagenUrl
-    })
-    onClose()
-  }
-
-  const inputClass = "h-9 w-full bg-white! border border-gray-300 px-3 text-[13px] outline-none rounded-none shadow-none focus-visible:ring-0 focus-visible:border-[#18a689] focus:border-[#18a689] font-sans text-[#676A6C] min-w-0"
+  const inputClass =
+    "h-9 w-full bg-white! border border-gray-300 px-3 text-[13px] outline-none rounded-none shadow-none focus-visible:ring-0 focus-visible:border-[#18a689] focus:border-[#18a689] font-sans text-[#676A6C] min-w-0"
 
   return (
     <div
@@ -138,7 +54,7 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
       onClick={onClose}
     >
       <div
-        className="w-full max-w-[850px] bg-white shadow-lg flex flex-col font-sans border border-gray-200"
+        className="w-full max-w-[850px] bg-white shadow-lg flex flex-col font-sans border border-gray-200 animate-in fade-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Cabecera */}
@@ -150,6 +66,7 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
             </h2>
           </div>
           <button
+            type="button"
             onClick={onClose}
             className="text-[#9ca3af] transition-colors hover:text-[#111827] cursor-pointer"
             title="Cerrar"
@@ -160,11 +77,11 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
           </button>
         </div>
 
-        {/* Cuerpo (Menos altura y scroll auto) */}
+        {/* Cuerpo */}
         <div className="max-h-[55vh] overflow-y-auto p-6 text-[13px] text-[#4b5563] [&_input]:rounded-none! [&_select]:rounded-none!">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
             
-            {/* Código (Generado Automáticamente) */}
+            {/* Código */}
             <label className="block">
               <span className="mb-1 block font-medium text-gray-700">Código*:</span>
               <Input
@@ -180,43 +97,42 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
               <span className="mb-1 block font-medium text-gray-700">Cod. Orig.:</span>
               <Input
                 type="text"
-                value={codigoOriginal}
-                onChange={(e) => setOriginal(e.target.value)}
+                {...register("codigoOriginal")}
                 className={inputClass}
                 placeholder="Ingresa el código original"
               />
+              {errors.codigoOriginal && <p className="mt-1 text-xs text-red-500">{errors.codigoOriginal.message}</p>}
             </label>
 
-            {/* Nombre (Spans 2 columns) */}
+            {/* Nombre */}
             <label className="block md:col-span-2">
               <span className="mb-1 block font-medium text-gray-700">Nombre*:</span>
               <Input
                 type="text"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                {...register("nombre")}
                 className={inputClass}
                 placeholder="Nombre del Servicio"
               />
+              {errors.nombre && <p className="mt-1 text-xs text-red-500">{errors.nombre.message}</p>}
             </label>
 
-            {/* Descripción (Spans 2 columns) */}
+            {/* Descripción */}
             <label className="block md:col-span-2">
               <span className="mb-1 block font-medium text-gray-700">Descripción:</span>
               <Input
                 type="text"
-                value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
+                {...register("descripcion")}
                 className={inputClass}
                 placeholder="Ingresa la descripcion"
               />
+              {errors.descripcion && <p className="mt-1 text-xs text-red-500">{errors.descripcion.message}</p>}
             </label>
 
             {/* Familia */}
             <label className="block">
               <span className="mb-1 block font-medium text-gray-700">Familia*:</span>
               <NativeSelect
-                value={familia}
-                onChange={(e) => setFamilia(e.target.value)}
+                {...register("familia")}
                 selectClassName={inputClass}
               >
                 {FAMILIA_OPTIONS.map((opt) => (
@@ -225,14 +141,14 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
+              {errors.familia && <p className="mt-1 text-xs text-red-500">{errors.familia.message}</p>}
             </label>
 
             {/* SubFamilia */}
             <label className="block">
               <span className="mb-1 block font-medium text-gray-700">SubFamilia:</span>
               <NativeSelect
-                value={subfamilia}
-                onChange={(e) => setSubfamilia(e.target.value)}
+                {...register("subfamilia")}
                 selectClassName={inputClass}
               >
                 {SUBFAMILIA_OPTIONS.map((opt) => (
@@ -241,14 +157,14 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
+              {errors.subfamilia && <p className="mt-1 text-xs text-red-500">{errors.subfamilia.message}</p>}
             </label>
 
             {/* Marca */}
             <label className="block">
               <span className="mb-1 block font-medium text-gray-700">Marca*:</span>
               <NativeSelect
-                value={marca}
-                onChange={(e) => setMarca(e.target.value)}
+                {...register("marca")}
                 selectClassName={inputClass}
               >
                 {MARCA_OPTIONS.map((opt) => (
@@ -257,6 +173,7 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
+              {errors.marca && <p className="mt-1 text-xs text-red-500">{errors.marca.message}</p>}
             </label>
 
             {/* Descuento */}
@@ -265,12 +182,12 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
               <div className="flex border border-gray-300 items-center h-9 focus-within:border-[#18a689]">
                 <Input
                   type="number"
-                  value={descuento}
-                  onChange={(e) => setDescuento(Number(e.target.value))}
+                  {...register("descuento", { valueAsNumber: true })}
                   className="h-full border-none focus-visible:ring-0 shadow-none rounded-none w-full px-3 text-[13px] text-[#676A6C] focus:border-none focus-visible:border-none"
                 />
                 <span className="px-3 bg-gray-50 border-l border-gray-300 text-gray-500 font-semibold text-[13px] h-full flex items-center justify-center">%</span>
               </div>
+              {errors.descuento && <p className="mt-1 text-xs text-red-500">{errors.descuento.message}</p>}
             </label>
 
             {/* Precio Nacional */}
@@ -280,16 +197,17 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                 <span className="px-3 text-gray-500 font-semibold text-[13px] border-r border-gray-300 h-full flex items-center bg-gray-100">S/</span>
                 <Input
                   type="number"
-                  value={precioVentaPen}
-                  onChange={(e) => {
-                    setPrecioVentaPen(Number(e.target.value))
-                    const val = Number(e.target.value)
-                    setPrecioConIgv(val)
-                    setPrecioSinIgv(Number((val / 1.18).toFixed(2)))
-                  }}
+                  {...register("precioVentaPen", {
+                    valueAsNumber: true,
+                    onChange: (e) => {
+                      const val = Number(e.target.value)
+                      setValue("precioVentaUsd", Number((val / 3.75).toFixed(2)), { shouldValidate: true })
+                    }
+                  })}
                   className="h-full border-none focus-visible:ring-0 shadow-none rounded-none w-full bg-white px-3 text-[13px] text-[#676A6C]"
                 />
               </div>
+              {errors.precioVentaPen && <p className="mt-1 text-xs text-red-500">{errors.precioVentaPen.message}</p>}
             </label>
 
             {/* Precio Extranjero */}
@@ -299,11 +217,11 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                 <span className="px-3 text-gray-500 font-semibold text-[13px] border-r border-gray-300 h-full flex items-center bg-gray-100">$</span>
                 <Input
                   type="number"
-                  value={precioVentaUsd}
-                  onChange={(e) => setPrecioVentaUsd(Number(e.target.value))}
+                  {...register("precioVentaUsd", { valueAsNumber: true })}
                   className="h-full border-none focus-visible:ring-0 shadow-none rounded-none w-full bg-white px-3 text-[13px] text-[#676A6C]"
                 />
               </div>
+              {errors.precioVentaUsd && <p className="mt-1 text-xs text-red-500">{errors.precioVentaUsd.message}</p>}
             </label>
 
             {/* Utilidad */}
@@ -312,62 +230,20 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
               <div className="flex border border-gray-300 items-center h-9 focus-within:border-[#18a689]">
                 <Input
                   type="number"
-                  value={utilidad}
-                  onChange={(e) => setUtilidad(Number(e.target.value))}
+                  {...register("utilidad", { valueAsNumber: true })}
                   className="h-full border-none focus-visible:ring-0 shadow-none rounded-none w-full px-3 text-[13px] text-[#676A6C]"
                 />
                 <span className="px-3 bg-gray-50 border-l border-gray-300 text-gray-500 font-semibold text-[13px] h-full flex items-center justify-center">%</span>
               </div>
+              {errors.utilidad && <p className="mt-1 text-xs text-red-500">{errors.utilidad.message}</p>}
             </label>
 
             {/* ¿En duda con su porcentaje de utilidad? */}
-            <div className="flex items-end">
-              <ActionButton
-                onClick={() => setShowUtilityHelper(!showUtilityHelper)}
-                className="w-full bg-[#1b55c4] hover:bg-[#1546a3] text-white font-bold h-9 text-[11px] uppercase tracking-wider rounded-none cursor-pointer flex items-center justify-center border-none transition-all shadow-sm hover:shadow"
-                text="¿En duda con su porcentaje de utilidad?"
-              />
-            </div>
-
-            {/* Panel de Calculadora de Utilidad (Spans 2 columns) */}
-            {showUtilityHelper && (
-              <div className="md:col-span-2 bg-[#f8f9fa] border border-gray-200 p-4 space-y-3 mt-1 rounded-none text-center transition-all animate-in fade-in slide-in-from-top-2 duration-200">
-                <p className="text-[12px] text-gray-600 font-sans">
-                  Puede colocar su precio venta <strong>(S/)</strong> y el sistema calculará por ud.
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Precio sin IGV */}
-                  <div>
-                    <span className="mb-1 block font-semibold text-gray-700 text-left text-[12px]">Precio sin IGV</span>
-                    <div className="flex border border-gray-300 items-center bg-gray-50 h-9 focus-within:border-[#18a689]">
-                      <span className="px-3 text-gray-500 font-semibold text-[13px] border-r border-gray-300 h-full flex items-center bg-gray-100">S/</span>
-                      <Input
-                        type="number"
-                        value={precioSinIgv || ""}
-                        onChange={(e) => handlePrecioSinIgvChange(Number(e.target.value))}
-                        className="h-full border-none focus-visible:ring-0 shadow-none rounded-none w-full bg-white px-3 text-[13px] text-[#676A6C]"
-                        placeholder="0.00"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Precio de Venta + IGV */}
-                  <div>
-                    <span className="mb-1 block font-semibold text-gray-700 text-left text-[12px]">Precio de Venta + IGV</span>
-                    <div className="flex border border-gray-300 items-center bg-gray-50 h-9 focus-within:border-[#18a689]">
-                      <span className="px-3 text-gray-500 font-semibold text-[13px] border-r border-gray-300 h-full flex items-center bg-gray-100">S/</span>
-                      <Input
-                        type="number"
-                        value={precioConIgv || ""}
-                        onChange={(e) => handlePrecioConIgvChange(Number(e.target.value))}
-                        className="h-full border-none focus-visible:ring-0 shadow-none rounded-none w-full bg-white px-3 text-[13px] text-[#676A6C]"
-                        placeholder="0.00"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+            <UtilityCalculator
+              precioVenta={precioVentaPen}
+              onChangePrecioVenta={(val) => setValue("precioVentaPen", val, { shouldValidate: true })}
+              onChangePrecioUsd={(val) => setValue("precioVentaUsd", val, { shouldValidate: true })}
+            />
 
             {/* Fecha */}
             <label className="block">
@@ -384,8 +260,7 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
             <label className="block">
               <span className="mb-1 block font-medium text-gray-700">Afectación:</span>
               <NativeSelect
-                value={afectacion}
-                onChange={(e) => setAfectacion(e.target.value)}
+                {...register("afectacion")}
                 selectClassName={inputClass}
               >
                 {AFECTACION_OPTIONS.map((opt) => (
@@ -394,27 +269,23 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
+              {errors.afectacion && <p className="mt-1 text-xs text-red-500">{errors.afectacion.message}</p>}
             </label>
 
-            {/* Imagen del Servicio (Boton grande que abre explorador) */}
+            {/* Imagen del Servicio */}
             <div className="block md:col-span-2">
               <span className="mb-1 block font-medium text-gray-700">Imagen del Servicio:</span>
               <input
                 type="file"
                 id="image-file"
+                ref={imageInputRef}
                 className="hidden"
                 accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files?.[0]
-                  if (file) {
-                    const localUrl = URL.createObjectURL(file)
-                    setImagenUrl(localUrl)
-                    showToast(`Imagen ${file.name} cargada correctamente`, 1)
-                  }
-                }}
+                onChange={handleImageChange}
               />
               <label
                 htmlFor="image-file"
+                onClick={handleImageClick}
                 className="border-2 border-dashed border-gray-300 hover:border-[#18a689] bg-gray-50 hover:bg-gray-100/50 w-full h-32 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors duration-150 p-2"
               >
                 {imagenUrl ? (
@@ -429,7 +300,7 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                       onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
-                        setImagenUrl(null)
+                        setValue("imagenUrl", null, { shouldValidate: true })
                       }}
                       className="absolute top-0 right-0 bg-[#ed5565] text-white rounded-full w-5 h-5 flex items-center justify-center shadow hover:bg-[#da4f5d] border-none text-[10px]"
                       title="Eliminar imagen"
@@ -444,6 +315,7 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                   </>
                 )}
               </label>
+              {errors.imagenUrl && <p className="mt-1 text-xs text-red-500">{errors.imagenUrl.message}</p>}
             </div>
           </div>
         </div>
@@ -451,7 +323,7 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
         {/* Footer */}
         <div className="flex justify-end gap-2 border-t border-gray-200 px-6 py-4 bg-gray-50 flex-shrink-0">
           <ActionButton
-            onClick={handleSave}
+            onClick={onSubmit}
             className="bg-[#2c1ff3] hover:bg-[#190fce] text-white rounded-[5px] h-9 text-[13px] px-5"
             text="Guardar"
             variant="filled"

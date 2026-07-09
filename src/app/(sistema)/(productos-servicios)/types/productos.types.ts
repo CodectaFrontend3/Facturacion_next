@@ -11,4 +11,23 @@ export interface Producto {
   stock: number
   fichaTecnicaUrl?: string | null
   fechaRegistro: string
+
+  // New optional properties from product form
+  codOrig?: string
+  descripcion?: string
+  peso?: number
+  pesoUnidad?: string
+  familia?: string
+  subFamilia?: string
+  stockMin?: number
+  stockMax?: number
+  desc1?: number
+  desc2?: number
+  descMax?: number
+  origen?: string
+  utilidad?: number
+  garantia?: string
+  afectacion?: string
+  imagen?: string
+  detalle?: string
 }

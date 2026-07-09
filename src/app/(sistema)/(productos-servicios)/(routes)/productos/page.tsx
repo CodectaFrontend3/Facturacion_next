@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { DataTable } from "@/components/shared/DataTable"
 import { ActionButton } from "@/components/common/ActionButton"
 import { showToast } from "@/components/shared/custom-toast"
@@ -17,6 +17,17 @@ export default function Page() {
   const [productos, setProductos] = useState<Producto[]>(() => productosMock as Producto[])
   const [selectedProducto, setSelectedProducto] = useState<Producto | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    const handleAdded = (e: Event) => {
+      const customEvent = e as CustomEvent<Producto>
+      if (customEvent.detail) {
+        setProductos((prev) => [customEvent.detail, ...prev])
+      }
+    }
+    window.addEventListener("producto-added" as any, handleAdded)
+    return () => window.removeEventListener("producto-added" as any, handleAdded)
+  }, [])
 
   // Extraemos toda la lógica cerebro para manejar filtros, paginado, etc.
   const {
