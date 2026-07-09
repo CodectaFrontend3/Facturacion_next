@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { Clock9, Eye } from "lucide-react"; // Añadí Eye para simular el botón azul de tus capturas
+import { Banknote, ChevronDown, Clock9, Eye } from "lucide-react"; // Añadí Eye para simular el botón azul de tus capturas
 import { ComprobanteBase, TipoComprobante } from "../types/ComprobanteBase";
+import { ActionButton } from "@/components/common/ActionButton";
 
 interface ConfigColumnas {
   tipo: TipoComprobante;
@@ -34,12 +35,27 @@ export const getColumns = ({
   // 2. Esqueleto Inicial Base (Item, Estado, Documento, Cliente, Emisión)
   const columnasBase: ColumnDef<ComprobanteBase>[] = [
     {
-      id: "item",
-      header: "Item",
-      size: 40,
-      cell: ({ row }) => row.id,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 100,
+      cell: ({ row }) => {
+        const estado = row.original.estado; // "Sin Pagar" o "Pagado"
+
+        if (estado === "Pagado") {
+          return (
+            <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+              Pagado
+            </span>
+          );
+        }
+
+        return (
+          <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">
+            Sin Pagar
+          </span>
+        );
+      },
     },
-    { accessorKey: "estado", header: "Estado", size: 100 },
     columnaDocumento,
     { accessorKey: "cliente", header: "Cliente", size: 150 },
     { accessorKey: "fecha_emision", header: "Emisión", size: 120 },
@@ -135,10 +151,10 @@ export const getColumns = ({
     cell: ({ row }) => (
       <div className="flex gap-2">
         {esPagado ? (
-          // Botón azul de "Ver" simulando tus capturas de completados
+          // Botón naranja de "Tiempo pendiente"
           <Button
             size="icon-sm"
-            className="bg-[#0052CC] hover:bg-[#0040A3] text-white rounded-sm h-8.5 w-9"
+            className="bg-[#0052CC] hover:bg-[#0040A3] text-white rounded-sm h-9 w-10 cursor-pointer"
             onClick={() =>
               alert(`Ver detalle del documento: ${row.original.id}`)
             }
@@ -146,15 +162,42 @@ export const getColumns = ({
             <Eye size={16} />
           </Button>
         ) : (
-          // Botón naranja de "Tiempo pendiente"
-          <Button
-            size="icon-sm"
-            className="bg-[#FBAF5D] hover:bg-[#e89d4d] text-white rounded-sm h-8.5 w-9"
-            onClick={() => alert(`Servicio pendiente: ${row.original.id}`)}
-            aria-label="Tiempo pendiente"
-          >
-            <Clock9 size={16} />
-          </Button>
+          <>
+            {/* Botón azul de "Ver" */}
+            <Button
+              size="icon-sm"
+              className="bg-[#0052CC] hover:bg-[#0040A3] text-white rounded-sm h-9 w-10 cursor-pointer"
+              onClick={() =>
+                alert(`Ver detalle del documento: ${row.original.id}`)
+              }
+            >
+              <Eye size={16} />
+            </Button>
+            {/* Boton desplegable de "Opciones" de pago */}
+            <ActionButton
+              isPopover={true}
+              popoverOptions={[
+                {
+                  label: "Pagar",
+                  onClick: () =>
+                    alert(`Ver comprobante del documento: ${row.original.id}`),
+                },
+                {
+                  label: "Adelantar",
+                  onClick: () =>
+                    alert(`Editar pago del documento: ${row.original.id}`),
+                },
+              ]}
+              className="bg-[#0052CC] hover:bg-[#2C8F7B] data-[state=open]:bg-[#2C8F7B] text-white rounded-md transition-colors w-14 flex items-center justify-center px-0"
+              popoverClassName="bg-white rounded-md border border-gray-100 shadow-md min-w-[150px]"
+              icon={
+                <div className="flex items-center justify-center gap-1 w-full h-full">
+                  <Banknote className="size-5 shrink-0" />
+                  <ChevronDown className="size-3 shrink-0 transition-transform duration-200" />
+                </div>
+              }
+            />
+          </>
         )}
       </div>
     ),

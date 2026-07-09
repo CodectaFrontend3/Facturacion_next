@@ -9,6 +9,13 @@ import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { FilterSearchSelect } from "@/components/DataFilters/FilterSearchSelect";
 import { DataTable } from "@/components/shared/DataTable";
 import { getColumns } from "../../../components/Columns";
+import Facturas from "../../../data/facturas.json";
+import { ComprobanteBase } from "../../../types/ComprobanteBase";
+
+const FacturasData = Facturas as ComprobanteBase[];
+const FacturasDataSinPago = FacturasData.filter(
+  (b) => b.estado === "Sin Pagar",
+);
 
 function page() {
   const {
@@ -18,8 +25,11 @@ function page() {
     resetFilters,
     pageIndex,
     setPageIndex,
-    filteredDataSinPagoManual,
-  } = useComprobanteTable({ data: [], tipo: "Factura" }); // Usamos el hook para obtener los datos y funciones de filtrado
+    filteredData,
+    clientesOptions,
+    estadosOptions,
+    formasDePagoOptions,
+  } = useComprobanteTable({ data: FacturasDataSinPago, tipo: "Factura" }); // Usamos el hook para obtener los datos y funciones de filtrado
 
   const acciones = (
     <Button
@@ -49,21 +59,21 @@ function page() {
                 name="cliente"
                 value={pendingFilters.cliente || "todos"}
                 onChange={setFilterValue}
-                options={[]}
+                options={clientesOptions}
                 placeholder="Seleccionar Cliente"
               />
               <FilterSearchSelect
                 name="estado"
                 value={pendingFilters.estado || "todos"}
                 onChange={setFilterValue}
-                options={[]}
+                options={estadosOptions}
                 placeholder="Seleccionar Estado"
               />
               <FilterSearchSelect
-                name="Forma de Pago"
-                value={pendingFilters.formaDePago || "todos"}
+                name="formaPago"
+                value={pendingFilters.formaPago || "todos"}
                 onChange={setFilterValue}
-                options={[]}
+                options={formasDePagoOptions}
                 placeholder="Seleccionar Forma de Pago"
               />
             </DataFilters>
@@ -72,8 +82,8 @@ function page() {
           {/* Aquí se renderiza la tabla con los datos */}
           <DataTable
             columns={getColumns({ tipo: "Factura", esPagado: false })}
-            data={filteredDataSinPagoManual}
-            showSelection={false}
+            data={filteredData}
+            showSelection={true}
             isLoading={false}
             pageIndex={pageIndex}
             onPageChange={setPageIndex}

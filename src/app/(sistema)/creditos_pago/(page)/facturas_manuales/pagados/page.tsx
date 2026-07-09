@@ -7,6 +7,11 @@ import { DataFilters } from "@/components/DataFilters/DataFilters";
 import { FilterSearchSelect } from "@/components/DataFilters/FilterSearchSelect";
 import { FilterDateRange } from "@/components/DataFilters/FilterDateRange";
 import { useComprobanteTable } from "../../../hooks/useComprobanteTable";
+import Facturas from "../../../data/facturas.json";
+import { ComprobanteBase } from "../../../types/ComprobanteBase";
+
+const FacturasData = Facturas as ComprobanteBase[];
+const FacturasDataPagadas = FacturasData.filter((b) => b.estado === "Pagado");
 
 function page() {
   const {
@@ -16,8 +21,11 @@ function page() {
     resetFilters,
     pageIndex,
     setPageIndex,
-    filteredDataPagadoManual,
-  } = useComprobanteTable({ data: [], tipo: "Factura" }); // Usamos el hook para obtener los datos y funciones de filtrado
+    filteredData,
+    clientesOptions,
+    estadosOptions,
+    formasDePagoOptions,
+  } = useComprobanteTable({ data: FacturasDataPagadas, tipo: "Factura" }); // Usamos el hook para obtener los datos y funciones de filtrado
 
   return (
     <main className="min-h-screen bg-[#f8fafc] p-4 lg:p-6 flex flex-col justify-between">
@@ -37,21 +45,21 @@ function page() {
                 name="cliente"
                 value={pendingFilters.cliente || "todos"}
                 onChange={setFilterValue}
-                options={[]}
+                options={clientesOptions}
                 placeholder="Seleccionar Cliente"
               />
               <FilterSearchSelect
                 name="estado"
                 value={pendingFilters.estado || "todos"}
                 onChange={setFilterValue}
-                options={[]}
+                options={estadosOptions}
                 placeholder="Seleccionar Estado"
               />
               <FilterSearchSelect
-                name="Forma de Pago"
-                value={pendingFilters.formaDePago || "todos"}
+                name="formaPago"
+                value={pendingFilters.formaPago || "todos"}
                 onChange={setFilterValue}
-                options={[]}
+                options={formasDePagoOptions}
                 placeholder="Seleccionar Forma de Pago"
               />
             </DataFilters>
@@ -60,8 +68,8 @@ function page() {
           {/* Aquí se renderiza la tabla con los datos */}
           <DataTable
             columns={getColumns({ tipo: "Factura", esPagado: true })} // Pasamos el tipo de comprobante para obtener las columnas correctas
-            data={filteredDataPagadoManual}
-            showSelection={false}
+            data={filteredData}
+            showSelection={true}
             isLoading={false}
             pageIndex={pageIndex}
             onPageChange={setPageIndex}

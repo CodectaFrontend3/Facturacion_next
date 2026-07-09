@@ -14,7 +14,7 @@ interface FilterSearchSelectProps {
   label?: string;
   value: string;
   onChange: (name: string, value: string) => void;
-  options: SearchSelectOption[];
+  options: SearchSelectOption[]; // Permite opciones simples o con subLabel
   placeholder?: string;
 }
 

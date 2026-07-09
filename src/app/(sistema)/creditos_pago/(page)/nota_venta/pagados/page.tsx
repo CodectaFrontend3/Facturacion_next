@@ -8,6 +8,12 @@ import { FilterSearchSelect } from "@/components/DataFilters/FilterSearchSelect"
 import { DataTable } from "@/components/shared/DataTable";
 import { getColumns } from "../../../components/Columns";
 
+import NotaVenta from "../../../data/notas_venta.json";
+import { ComprobanteBase } from "../../../types/ComprobanteBase";
+
+const NotaVentaData = NotaVenta as ComprobanteBase[];
+const NotaVentaPagado = NotaVentaData.filter((b) => b.estado === "Pagado");
+
 function page() {
   const {
     pendingFilters,
@@ -16,51 +22,33 @@ function page() {
     resetFilters,
     pageIndex,
     setPageIndex,
-    filteredDataPagadoAutomatica,
-  } = useComprobanteTable({ data: [], tipo: "NotaVenta" }); // Usamos el hook para obtener los datos y funciones de filtrado
+    filteredData,
+  } = useComprobanteTable({ data: NotaVentaPagado, tipo: "NotaVenta" }); // Usamos el hook para obtener los datos y funciones de filtrado
 
   return (
     <main className="min-h-screen bg-[#f8fafc] p-4 lg:p-6 flex flex-col justify-between">
       <div className="w-full">
         <NotaVentaTabs>
           {/* Filtros */}
-          <div className="flex items-center justify-between mb-4">
-            <DataFilters onSearch={applyFilters} onReset={resetFilters}>
-              <FilterDateRange
-                nameFrom="fechaDesde"
-                nameTo="fechaHasta"
-                valueFrom={pendingFilters.fechaDesde}
-                valueTo={pendingFilters.fechaHasta}
-                onChange={setFilterValue}
-              />
-              <FilterSearchSelect
-                name="cliente"
-                value={pendingFilters.cliente || "todos"}
-                onChange={setFilterValue}
-                options={[]}
-                placeholder="Seleccionar Cliente"
-              />
-              <FilterSearchSelect
-                name="estado"
-                value={pendingFilters.estado || "todos"}
-                onChange={setFilterValue}
-                options={[]}
-                placeholder="Seleccionar Estado"
-              />
-              <FilterSearchSelect
-                name="Forma de Pago"
-                value={pendingFilters.formaDePago || "todos"}
-                onChange={setFilterValue}
-                options={[]}
-                placeholder="Seleccionar Forma de Pago"
-              />
-            </DataFilters>
+          <div className="flex items-center mb-4">
+            <div className="w-full max-w-2xl">
+              {" "}
+              <DataFilters onSearch={applyFilters} onReset={resetFilters}>
+                <FilterDateRange
+                  nameFrom="fechaDesde"
+                  nameTo="fechaHasta"
+                  valueFrom={pendingFilters.fechaDesde}
+                  valueTo={pendingFilters.fechaHasta}
+                  onChange={setFilterValue}
+                />
+              </DataFilters>
+            </div>
           </div>
 
           {/* Aquí se renderiza la tabla con los datos */}
           <DataTable
             columns={getColumns({ tipo: "NotaVenta", esPagado: true })} // Pasamos el tipo de comprobante para obtener las columnas correctas
-            data={filteredDataPagadoAutomatica}
+            data={filteredData}
             showSelection={false}
             isLoading={false}
             pageIndex={pageIndex}

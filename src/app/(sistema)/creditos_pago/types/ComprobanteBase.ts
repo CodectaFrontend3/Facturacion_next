@@ -5,7 +5,7 @@ export type ModoEmision = "Manual" | "Automatica";
 
 // Lo que comparten absolutamente todos
 export interface ComprobanteBase {
-  id: number;
+  id: string;
   cliente: string;
   fecha_emision: string;
   monto_total: number;
@@ -13,5 +13,7 @@ export interface ComprobanteBase {
   fecha_vencimiento: string;
   fecha_cancelado: string;
   estado: EstadoPago;
+  forma_pago: FormaPago | null; // Puede ser null si no se ha definido
+  observaciones: string;
   tipo_emision: ModoEmision; // Simplificamos tipo_factura, tipo_boleta, etc. en uno solo
 }
