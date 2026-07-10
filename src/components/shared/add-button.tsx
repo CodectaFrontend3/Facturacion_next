@@ -6,10 +6,13 @@ import { ClienteModal } from "@/app/(sistema)/ventas/clientes/components/Cliente
 import { addCliente } from "@/app/(sistema)/ventas/clientes/services/clienteService"
 import { ClienteFormData } from "@/app/(sistema)/ventas/types/cliente.types"
 import { showToast } from "@/components/shared/custom-toast"
+import { ProductoModal } from "@/app/(sistema)/(productos-servicios)/_components/productos/ProductoModal"
+import { Producto } from "@/app/(sistema)/(productos-servicios)/types/productos.types"
 
 export function AddButton() {
   const [isOpen, setIsOpen] = useState(false)
   const [isClienteModalOpen, setIsClienteModalOpen] = useState(false)
+  const [isProductoModalOpen, setIsProductoModalOpen] = useState(false)
 
   const handleSaveCliente = async (formData: ClienteFormData) => {
     try {
@@ -25,6 +28,21 @@ export function AddButton() {
       console.error("Error al guardar cliente:", error)
       showToast("Ocurrió un error al guardar el cliente", 2)
     }
+  }
+
+  const handleSaveProducto = (data: Omit<Producto, "id"> & { id?: string }) => {
+    const newProduct: Producto = {
+      ...data,
+      id: String(Date.now()),
+      fechaRegistro: "07-07-2026",
+    }
+    showToast("Producto registrado correctamente", 1)
+    
+    // Dispatch custom event to notify mounted tables/views to reload
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("producto-added", { detail: newProduct }))
+    }
+    setIsProductoModalOpen(false)
   }
 
   return (
@@ -47,7 +65,10 @@ export function AddButton() {
               Nuevo Producto
             </span>
             <ActionButton
-              onClick={() => {}}
+              onClick={() => {
+                setIsProductoModalOpen(true)
+                setIsOpen(false)
+              }}
               icon={<i className="bi bi-box-seam text-[16px] text-white"></i>}
               variant="filled"
               className="w-10 h-10 rounded-full shadow-lg flex items-center justify-center bg-blue-600 hover:bg-blue-700 border-blue-600 text-white transition-all duration-200"
@@ -98,6 +119,15 @@ export function AddButton() {
           isOpen={isClienteModalOpen}
           onClose={() => setIsClienteModalOpen(false)}
           onSave={handleSaveCliente}
+        />
+      )}
+
+      {/* Modal de Producto */}
+      {isProductoModalOpen && (
+        <ProductoModal
+          isOpen={isProductoModalOpen}
+          onClose={() => setIsProductoModalOpen(false)}
+          onSave={handleSaveProducto}
         />
       )}
     </>
