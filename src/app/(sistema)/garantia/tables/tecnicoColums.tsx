@@ -38,11 +38,12 @@ export const tecnicoColumns: ColumnDef<Tecnico>[] = [
     {
         header: "Ver",
         id: "ver",
+        size: 80,
         cell: ({ row }) => {
             return (
                 <Link
                     href={`/garantia/tecnico/${row.original.id}`}
-                    className="view-btn bg-[#1a5eb3] text-white p-2 rounded hover:bg-blue-800"
+                    className="view-btn bg-[#1a5eb3] text-white py-2 px-4 rounded hover:bg-blue-800 inline-flex items-center justify-center"
                 >
                     <i className="bi bi-eye"></i>
                 </Link>

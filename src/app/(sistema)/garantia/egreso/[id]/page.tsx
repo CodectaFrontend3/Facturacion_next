@@ -5,18 +5,19 @@ import { InfoUser, DocumentTitle, TopHeader } from "../../components/cards-info/
 import { DocumentActions } from "../../components/cards-info/document-actions";
 import { GridContent } from "../../components/cards-info/detail-grid";
 import { ContactInfoCard } from "../../components/cards-info/cards-info";
+import { GeneralContainer } from "../../components/cards-info/general-container";
 
-import egresoData from "../../data/egreso.json";
+import garantiaMock from "../../data/garantia-mock.json";
 import 'font-awesome/css/font-awesome.min.css';
 
 export default async function EgresoDetallePage({ params }: EgresoProps) {
     const { id } = await params;
 
-    const egreso = egresoData.find(
+    const garantia = garantiaMock.find(
         (item) => item.id === Number(id)
     );
 
-    if (!egreso) {
+    if (!garantia) {
         return <div>No encontrado</div>
     }
 
@@ -25,12 +26,12 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
     }
 
     return (
-        <div className="bg-gray-100 p-5 min-h-screen">
-            <div className="bg-white border border-gray-200 py-5">
+        <div className="p-5 pb-2">
+            <GeneralContainer>
                 <TopHeader>
                     <InfoUser
-                        codigo={egreso.codigo}
-                        ruc={egreso.ruc}
+                        codigo={garantia.codigo}
+                        ruc={garantia.cliente.ruc}
                     />
 
                     <DocumentTitle
@@ -42,25 +43,25 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                 <GridContent>
                     <InfoCard title="Contacto Cliente">
                         <div>
-                            <p><strong>Empresa: </strong>{egreso.empresa}</p>
-                            <p><strong>RUC: </strong>{egreso.ruc}</p>
-                            <p><strong>Teléfono: </strong>{egreso.telefono}</p>
-                            <p><strong>Dirección: </strong>{egreso.direccion}</p>
+                            <p><strong>Empresa: </strong>{garantia.cliente.empresa}</p>
+                            <p><strong>RUC: </strong>{garantia.cliente.ruc}</p>
+                            <p><strong>Teléfono: </strong>{garantia.cliente.telefono}</p>
+                            <p><strong>Dirección: </strong>{garantia.cliente.direccion}</p>
                         </div>
 
                         <div>
-                            <p><strong>Contacto: </strong>{egreso.cliente}</p>
-                            <p><strong>Fecha: </strong>{egreso.fecha}</p>
-                            <p><strong>Correo: </strong>{egreso.correo}</p>
+                            <p><strong>Contacto: </strong>{garantia.cliente.nombre}</p>
+                            <p><strong>Fecha: </strong>{garantia.fechas.egreso || garantia.fechas.ingreso}</p>
+                            <p><strong>Correo: </strong>{garantia.cliente.correo}</p>
                         </div>
                     </InfoCard>
 
                     <InfoCard title="Condiciones Generales">
                         <div>
-                            <p><strong>Técnico Asignado: </strong>{egreso.asignado}</p>
-                            <p><strong>Motivo: </strong>{egreso.motivo}</p>
-                            <p><strong>Marca: </strong>{egreso.marca}</p>
-                            <p><strong>Asunto: </strong>{egreso.asunto}</p>
+                            <p><strong>Técnico Asignado: </strong>{garantia.tecnico.asignado}</p>
+                            <p><strong>Motivo: </strong>{garantia.ingreso.motivo || "Revisión técnica"}</p>
+                            <p><strong>Marca: </strong>{garantia.equipo.marca}</p>
+                            <p><strong>Asunto: </strong>{garantia.egreso.asunto || "Entrega de equipo"}</p>
                         </div>
                     </InfoCard>
 
@@ -69,13 +70,13 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                         className="col-span-6"
                     >
                         <div>
-                            <p><strong>Modelo: </strong>{egreso.modelo}</p>
-                            <p><strong>Número de serie: </strong>{egreso.serie}</p>
+                            <p><strong>Modelo: </strong>{garantia.equipo.modelo}</p>
+                            <p><strong>Número de serie: </strong>{garantia.equipo.serie}</p>
                         </div>
 
                         <div>
-                            <p><strong>Código Interno: </strong>{egreso.codigo}</p>
-                            <p><strong>Fecha de Compra: </strong>{egreso.fecha}</p>
+                            <p><strong>Código Interno: </strong>{garantia.codigo}</p>
+                            <p><strong>Fecha de Compra: </strong>{garantia.equipo.fechaCompra}</p>
                         </div>
                     </InfoCard>
 
@@ -84,7 +85,7 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                         className="col-span-2"
                     >
                         <div className="col-span-2">
-                            <p>{egreso.problema}</p>
+                            <p>{garantia.ingreso.problemaReportado}</p>
                         </div>
                     </InfoCard>
 
@@ -93,7 +94,7 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                         className="col-span-2"
                     >
                         <div className="col-span-2">
-                            <p>{egreso.revision}</p>
+                            <p>{garantia.tecnico.revision}</p>
                         </div>
                     </InfoCard>
 
@@ -102,14 +103,14 @@ export default async function EgresoDetallePage({ params }: EgresoProps) {
                         className="col-span-2"
                     >
                         <div className="col-span-2">
-                            <p>{egreso.recomendaciones}</p>
+                            <p>{garantia.tecnico.recomendaciones}</p>
                         </div>
                     </InfoCard>
                 </GridContent>
                 <ContactInfoCard
                     title="Centro de Atención"
                 />
-            </div>
+            </GeneralContainer>
         </div>
     );
 }

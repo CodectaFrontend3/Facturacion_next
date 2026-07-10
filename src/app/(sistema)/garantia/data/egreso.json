@@ -1,6 +1,7 @@
 [
     {
         "id": 131,
+        "garantiaId": 3,
         "codigo": "000001",
         "equipo": "Laptop",
         "marca": "SAMSUNG",
@@ -23,6 +24,7 @@
     },
     {
         "id": 132,
+        "garantiaId": 4,
         "codigo": "000002",
         "equipo": "Laptop",
         "marca": "LENOVO",
@@ -45,6 +47,7 @@
     },
     {
         "id": 133,
+        "garantiaId": 5,
         "codigo": "000003",
         "equipo": "PC",
         "marca": "HP",
@@ -67,6 +70,7 @@
     },
     {
         "id": 134,
+        "garantiaId": 6,
         "codigo": "000004",
         "equipo": "Tablet",
         "marca": "SAMSUNG",
@@ -89,6 +93,7 @@
     },
     {
         "id": 135,
+        "garantiaId": 7,
         "codigo": "000005",
         "equipo": "Monitor",
         "marca": "LG",
@@ -111,6 +116,7 @@
     },
     {
         "id": 136,
+        "garantiaId": 1,
         "codigo": "000006",
         "equipo": "Impresora",
         "marca": "EPSON",

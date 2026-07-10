@@ -4,18 +4,19 @@ import { ContactInfoCard, InfoCard } from "../../components/cards-info/cards-inf
 import { InfoUser, DocumentTitle, TopHeader } from "../../components/cards-info/detail-header";
 import { DocumentActions } from "../../components/cards-info/document-actions";
 import { GridContent } from "../../components/cards-info/detail-grid";
+import { GeneralContainer } from "../../components/cards-info/general-container";
 
-import ingresoData from "../../data/ingreso.json";
+import garantiaMock from "../../data/garantia-mock.json";
 import 'font-awesome/css/font-awesome.min.css';
 
 export default async function IngresoDetallesPage({ params }: IngresoProps) {
     const { id } = await params;
 
-    const ingreso = ingresoData.find(
+    const garantia = garantiaMock.find(
         (item) => item.id === Number(id)
     );
 
-    if (!ingreso) {
+    if (!garantia) {
         return <div>No encontrado</div>
     }
 
@@ -24,12 +25,12 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
     }
 
     return (
-        <div className="bg-gray-100 p-5 min-h-screen">
-            <div className="bg-white border border-gray-200 py-5">
+        <div className="p-5 pb-2">
+            <GeneralContainer>
                 <TopHeader>
                     <InfoUser
-                        codigo={ingreso.codigo}
-                        ruc={ingreso.ruc}
+                        codigo={garantia.codigo}
+                        ruc={garantia.cliente.ruc}
                     />
                     <DocumentTitle
                         title="GUÍA DE INGRESO"
@@ -39,23 +40,23 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                 <GridContent>
                     <InfoCard title="Contacto Cliente">
                         <div>
-                            <p><strong>Empresa: </strong>{ingreso.empresa}</p>
-                            <p><strong>RUC: </strong>{ingreso.ruc}</p>
-                            <p><strong>Teléfono: </strong>{ingreso.telefono}</p>
-                            <p><strong>Dirección: </strong>{ingreso.direccion}</p>
+                            <p><strong>Empresa: </strong>{garantia.cliente.empresa}</p>
+                            <p><strong>RUC: </strong>{garantia.cliente.ruc}</p>
+                            <p><strong>Teléfono: </strong>{garantia.cliente.telefono}</p>
+                            <p><strong>Dirección: </strong>{garantia.cliente.direccion}</p>
                         </div>
 
                         <div>
-                            <p><strong>Contacto: </strong>{ingreso.cliente}</p>
-                            <p><strong>Fecha: </strong>{ingreso.fecha}</p>
-                            <p><strong>Correo: </strong>{ingreso.correo}</p>
+                            <p><strong>Contacto: </strong>{garantia.cliente.nombre}</p>
+                            <p><strong>Fecha: </strong>{garantia.fechas.ingreso}</p>
+                            <p><strong>Correo: </strong>{garantia.cliente.correo}</p>
                         </div>
                     </InfoCard>
 
                     <InfoCard title="Condiciones Generales">
                         <div>
-                            <p><strong>Técnico Asignado: </strong>{ingreso.asignado}</p>
-                            <p><strong>Marca: </strong>{ingreso.marca}</p>
+                            <p><strong>Técnico Asignado: </strong>{garantia.tecnico.asignado}</p>
+                            <p><strong>Marca: </strong>{garantia.equipo.marca}</p>
                         </div>
                     </InfoCard>
 
@@ -64,12 +65,12 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         className="col-span-6"
                     >
                         <div>
-                            <p><strong>Modelo: </strong>{ingreso.modelo}</p>
-                            <p><strong>Número de serie: </strong>{ingreso.serie}</p>
+                            <p><strong>Modelo: </strong>{garantia.equipo.modelo}</p>
+                            <p><strong>Número de serie: </strong>{garantia.equipo.serie}</p>
                         </div>
                         <div>
-                            <p><strong>Código Interno: </strong>{ingreso.codigo}</p>
-                            <p><strong>Fecha de Compra: </strong>{ingreso.fecha}</p>
+                            <p><strong>Código Interno: </strong>{garantia.codigo}</p>
+                            <p><strong>Fecha de Compra: </strong>{garantia.equipo.fechaCompra}</p>
                         </div>
                     </InfoCard>
 
@@ -78,7 +79,7 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         className="col-span-2"
                     >
                         <div className="col-span-2">
-                            <p>{ingreso.problema}</p>
+                            <p>{garantia.ingreso.problemaReportado}</p>
                         </div>
                     </InfoCard>
 
@@ -87,7 +88,7 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         className="col-span-2"
                     >
                         <div className="col-span-2">
-                            <p>{ingreso.revision}</p>
+                            <p>{garantia.tecnico.revision}</p>
                         </div>
                     </InfoCard>
 
@@ -96,14 +97,14 @@ export default async function IngresoDetallesPage({ params }: IngresoProps) {
                         className="col-span-2"
                     >
                         <div className="col-span-2">
-                            <p>{ingreso.estetica}</p>
+                            <p>{garantia.ingreso.estetica}</p>
                         </div>
                     </InfoCard>
                 </GridContent>
                 <ContactInfoCard
                     title="Centro de Atención"
                 />
-            </div>
+            </GeneralContainer>
         </div>
     );
 }

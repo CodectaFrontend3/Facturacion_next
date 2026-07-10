@@ -9,7 +9,7 @@ import Modal from "./modal"
 import { TabsNav } from "./TabsNav";
 import 'font-awesome/css/font-awesome.min.css';
 
-export default function TabsBar() {
+export default function TabsBar({ type = "ingreso" }: { type?: "ingreso" | "egreso" | "tecnico" }) {
     const [isOpen, setIsOpen] = useState(false);
     const tabs = [
         { key: "ingreso", label: "Guía de Ingreso", count: 1, color: "#FF0000", href: "/garantia/ingreso"},
@@ -19,27 +19,29 @@ export default function TabsBar() {
 
     return (
         <>
-        <div className="flex items-center justify-between w-full text-gray-500 mb-1">
-            <TabsNav tabs={tabs} />
+        <div className="flex items-end justify-between border-b border-gray-200 w-full text-gray-500">
+            <div className="flex items-center">
+                <TabsNav tabs={tabs} />
+            </div>
             
-            <div className="flex gap-4">
-                <button onClick={() => setIsOpen(true)} className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! add-btn text-white p-2 px-4 rounded">
-                    <i className="fa fa-plus" style={{
-                        fontSize: "15px",
-                        textShadow: "0 0 1px currentColor",
-                        translate: "0 1px"
-                    }}></i>
-                </button>
+            <div className="flex items-center gap-2 pb-2 pr-4">
+                {type === "ingreso" && (
+                    <button onClick={() => setIsOpen(true)} className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! add-btn text-white h-9 w-9 flex items-center justify-center rounded">
+                        <i className="fa fa-plus" style={{
+                            fontSize: "15px",
+                            textShadow: "0 0 1px currentColor",
+                        }}></i>
+                    </button>
+                )}
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! download-btn text-white p-2 px-4 rounded flex gap-2">
+                        <button className="bg-[#1a5eb3] hover:bg-[#1a3bb3]! download-btn text-white h-9 px-6 rounded flex items-center justify-center gap-2">
                             <i className="fa fa-download" style={{
                                 fontSize: "15px",
                                 textShadow: "0 0 1px currentColor",
-                                translate: "0 2px"
                             }}></i>
-                            <i className="bi bi-caret-down-fill translate-y-1" style={{
-                                fontSize: "8px",
+                            <i className="bi bi-caret-down-fill" style={{
+                                fontSize: "10px",
                             }}></i>
                         </button>
                     </DropdownMenuTrigger>

@@ -25,12 +25,12 @@ export function ContactInfoCard({
     title
 }: ContactInfoProps) {
     return (
-        <div className="px-5 text-gray-600 text-xs" style={{ fontSize: "13px" }}>
+        <div className="px-5 pb-12 text-gray-600 text-xs" style={{ fontSize: "13px" }}>
             <p style={{
                 textDecoration: "underline",
                 paddingBottom: "10px"
             }}><strong>{title}</strong></p>
-            
+
             <p><strong>Dirección: </strong>LIMA - LIMA</p>
             <p><strong>Teléfonos: </strong>900 800 700 | 999 888 777</p>
 

@@ -1,0 +1,289 @@
+[
+  {
+    "id": 1,
+    "codigo": "GAR-0001",
+    "estadoActual": "ingresado",
+    "fechas": {
+      "ingreso": "05/05/2026",
+      "revision": null,
+      "egreso": null
+    },
+    "cliente": {
+      "nombre": "Diego Herrera",
+      "ruc": "10445566771",
+      "empresa": "Net Solutions SAC",
+      "telefono": "944 221 110",
+      "direccion": "Av. Brasil 1540 - Lima",
+      "correo": "diego.herrera@gmail.com"
+    },
+    "equipo": {
+      "tipo": "Laptop",
+      "marca": "ASUS",
+      "modelo": "ASUS TUF Gaming F15",
+      "serie": "A51",
+      "fechaCompra": "12/10/2025"
+    },
+    "ingreso": {
+      "motivo": "Revisión técnica",
+      "problemaReportado": "El equipo se congela constantemente",
+      "estetica": "Laptop con leves marcas de uso"
+    },
+    "tecnico": {
+      "asignado": "Tecnico A",
+      "revision": "",
+      "diagnostico": "",
+      "solucion": "",
+      "recomendaciones": ""
+    },
+    "egreso": {
+      "asunto": "",
+      "observaciones": ""
+    }
+  },
+  {
+    "id": 2,
+    "codigo": "GAR-0002",
+    "estadoActual": "ingresado",
+    "fechas": {
+      "ingreso": "02/05/2026",
+      "revision": null,
+      "egreso": null
+    },
+    "cliente": {
+      "nombre": "Paola Palacios",
+      "ruc": "10778899001",
+      "empresa": "Oficinas Perú SAC",
+      "telefono": "955 778 441",
+      "direccion": "Jr. Los Pinos 320 - Trujillo",
+      "correo": "paola.palacios@gmail.com"
+    },
+    "equipo": {
+      "tipo": "PC",
+      "marca": "HP",
+      "modelo": "HP ProDesk 400",
+      "serie": "B62",
+      "fechaCompra": "15/01/2026"
+    },
+    "ingreso": {
+      "motivo": "Mantenimiento preventivo",
+      "problemaReportado": "No reconoce dispositivos USB",
+      "estetica": "Case en buen estado"
+    },
+    "tecnico": {
+      "asignado": "Tecnico B",
+      "revision": "",
+      "diagnostico": "",
+      "solucion": "",
+      "recomendaciones": ""
+    },
+    "egreso": {
+      "asunto": "",
+      "observaciones": ""
+    }
+  },
+  {
+    "id": 3,
+    "codigo": "GAR-0003",
+    "estadoActual": "egresado",
+    "fechas": {
+      "ingreso": "01/05/2026",
+      "revision": null,
+      "egreso": "06/05/2026"
+    },
+    "cliente": {
+      "nombre": "Fernando Rojas",
+      "ruc": "10990011223",
+      "empresa": "Visual Tech",
+      "telefono": "988 665 332",
+      "direccion": "Av. Ejército 890 - Arequipa",
+      "correo": "fernando.rojas@gmail.com"
+    },
+    "equipo": {
+      "tipo": "Monitor",
+      "marca": "LG",
+      "modelo": "LG UltraGear 27",
+      "serie": "C73",
+      "fechaCompra": "20/11/2025"
+    },
+    "ingreso": {
+      "motivo": "Diagnóstico técnico",
+      "problemaReportado": "Pantalla parpadea continuamente",
+      "estetica": "Monitor con marco desgastado"
+    },
+    "tecnico": {
+      "asignado": "Tecnico C",
+      "revision": "",
+      "diagnostico": "",
+      "solucion": "",
+      "recomendaciones": ""
+    },
+    "egreso": {
+      "asunto": "Entrega para revisión",
+      "observaciones": ""
+    }
+  },
+  {
+    "id": 4,
+    "codigo": "GAR-0004",
+    "estadoActual": "egresado",
+    "fechas": {
+      "ingreso": "06/05/2026",
+      "revision": null,
+      "egreso": "08/05/2026"
+    },
+    "cliente": {
+      "nombre": "Sofia Gomez",
+      "ruc": "10445566882",
+      "empresa": "Tech Data SAC",
+      "telefono": "944 221 555",
+      "direccion": "Av. Larco 100 - Miraflores",
+      "correo": "sofia.gomez@gmail.com"
+    },
+    "equipo": {
+      "tipo": "Impresora",
+      "marca": "EPSON",
+      "modelo": "L3150",
+      "serie": "X91",
+      "fechaCompra": "01/02/2026"
+    },
+    "ingreso": {
+      "motivo": "Revisión técnica",
+      "problemaReportado": "Atasco de papel constante",
+      "estetica": "Impresora sucia"
+    },
+    "tecnico": {
+      "asignado": "Tecnico A",
+      "revision": "",
+      "diagnostico": "",
+      "solucion": "",
+      "recomendaciones": ""
+    },
+    "egreso": {
+      "asunto": "Entrega para diagnóstico",
+      "observaciones": ""
+    }
+  },
+  {
+    "id": 5,
+    "codigo": "GAR-0005",
+    "estadoActual": "en_revision",
+    "fechas": {
+      "ingreso": "07/05/2026",
+      "revision": "09/05/2026",
+      "egreso": "08/05/2026"
+    },
+    "cliente": {
+      "nombre": "Jorge Luna",
+      "ruc": "10778899112",
+      "empresa": "Logistics SA",
+      "telefono": "955 778 666",
+      "direccion": "Av. Grau 1020 - Piura",
+      "correo": "jorge.luna@gmail.com"
+    },
+    "equipo": {
+      "tipo": "Tablet",
+      "marca": "Samsung",
+      "modelo": "Galaxy Tab S8",
+      "serie": "T62",
+      "fechaCompra": "20/03/2026"
+    },
+    "ingreso": {
+      "motivo": "Diagnóstico",
+      "problemaReportado": "Pantalla no enciende",
+      "estetica": "Pantalla con rasguños"
+    },
+    "tecnico": {
+      "asignado": "Tecnico B",
+      "revision": "Bateria descargada completamente",
+      "diagnostico": "Reemplazar centro de carga",
+      "solucion": "",
+      "recomendaciones": ""
+    },
+    "egreso": {
+      "asunto": "Entrega al técnico",
+      "observaciones": ""
+    }
+  },
+  {
+    "id": 6,
+    "codigo": "GAR-0006",
+    "estadoActual": "en_revision",
+    "fechas": {
+      "ingreso": "03/05/2026",
+      "revision": "07/05/2026",
+      "egreso": "05/05/2026"
+    },
+    "cliente": {
+      "nombre": "Marta Silva",
+      "ruc": "10990011334",
+      "empresa": "Design Studio",
+      "telefono": "988 665 444",
+      "direccion": "Ca. Las Camelias 400 - San Isidro",
+      "correo": "marta.silva@gmail.com"
+    },
+    "equipo": {
+      "tipo": "PC",
+      "marca": "Dell",
+      "modelo": "Optiplex 7080",
+      "serie": "D73",
+      "fechaCompra": "10/12/2025"
+    },
+    "ingreso": {
+      "motivo": "Diagnóstico técnico",
+      "problemaReportado": "Pitidos al encender",
+      "estetica": "Equipo en buen estado"
+    },
+    "tecnico": {
+      "asignado": "Tecnico C",
+      "revision": "Memoria RAM dañada",
+      "diagnostico": "Se probaron módulos y falló uno de 8GB",
+      "solucion": "",
+      "recomendaciones": ""
+    },
+    "egreso": {
+      "asunto": "Entrega de PC",
+      "observaciones": "Cliente verifica encendido correcto"
+    }
+  },
+  {
+    "id": 7,
+    "codigo": "GAR-0007",
+    "estadoActual": "anulado",
+    "fechas": {
+      "ingreso": "10/05/2026",
+      "revision": null,
+      "egreso": null
+    },
+    "cliente": {
+      "nombre": "Ricardo Torres",
+      "ruc": "10223344556",
+      "empresa": "Tech Support E.I.R.L.",
+      "telefono": "999 888 777",
+      "direccion": "Av. Los Proceres 123 - Surco",
+      "correo": "ricardo.torres@gmail.com"
+    },
+    "equipo": {
+      "tipo": "Laptop",
+      "marca": "ASUS",
+      "modelo": "ZenBook 14",
+      "serie": "Z14-998",
+      "fechaCompra": "05/01/2026"
+    },
+    "ingreso": {
+      "motivo": "Revisión técnica",
+      "problemaReportado": "El teclado no funciona correctamente",
+      "estetica": "Equipo con rayones visibles"
+    },
+    "tecnico": {
+      "asignado": "",
+      "revision": "",
+      "diagnostico": "",
+      "solucion": "",
+      "recomendaciones": ""
+    },
+    "egreso": {
+      "asunto": "",
+      "observaciones": ""
+    }
+  }
+]

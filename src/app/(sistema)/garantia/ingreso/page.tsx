@@ -20,20 +20,24 @@ function IngresoContent() {
     }
     return (
         <main className="min-h-screen bg-gray-100 space-y-6">
-            <div className="pl-5 pr-5 mt-5">
+            <div className="pl-5 pr-5 mt-5 pb-5">
                 <SummaryCards />
 
-                <div className="bg-white p-6 rounded shadow space-y-4">
+                <section className="bg-white rounded-md border border-gray-200 shadow-sm p-5">
+                    <div className="w-full">
+                        <TabsBar type="ingreso" />
 
-                    <TabsBar />
-
-                    <FilterBar type="ingreso" />
-
-                    <DataTable
-                        type="ingreso"
-                        filters={filters}
-                    />
-                </div>
+                        <div className="border-x border-b border-gray-200 bg-white p-4 space-y-4 rounded-b-sm">
+                            <FilterBar type="ingreso" />
+                            <div className="bg-white fixed-table custom-checkbox-table">
+                                <DataTable
+                                    type="ingreso"
+                                    filters={filters}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     );

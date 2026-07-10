@@ -3,14 +3,23 @@ import { InfoCard } from "../../components/cards-info/cards-info";
 import { GridContent } from "../../components/cards-info/detail-grid";
 import { TopHeader } from "../../components/cards-info/detail-header";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { CboData } from "@/components/common/CboData";
 
 export default function CreateClient() {
+    const router = useRouter();
     const clientes = [
         { nombre: "ABC", ruc: "891258913" }
     ];
 
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [activeTab, setActiveTab] = useState("descripcion");
+
+    const [selectedCliente, setSelectedCliente] = useState("");
+    const [selectedModelo, setSelectedModelo] = useState("");
+
+    const clientesOptions = clientes.map((c, i) => ({ value: String(i), label: `${c.nombre} | ${c.ruc}` }));
+    const modelosOptions = [{ value: "1", label: "MOUSE INALAMBRICO LENOVO 2 BOTONES" }];
 
     const [tabContent, setTabContent] = useState({
         descripcion: "",
@@ -19,14 +28,14 @@ export default function CreateClient() {
     });
 
     return (
-        <div className="bg-gray-100 min-h-screen p-5">
-            <div className="bg-white border border-gray-200">
+        <div className="p-5 pb-2">
+            <div className="bg-white border border-gray-200 mb-2">
                 <TopHeader>
                     <div className="flex items-center justify-between w-full px-5 py-4">
                         <h1 className="text-lg font-semibold text-gray-700">
                             GUÍA DE INGRESO LN-000007
                         </h1>
-                        <button className="text-gray-400 hover:text-gray-600 text-xl">
+                        <button onClick={() => router.back()} className="text-gray-400 hover:text-gray-600 text-xl">
                             ✕
                         </button>
                     </div>
@@ -58,14 +67,14 @@ export default function CreateClient() {
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-4">
                                 <label className="text-gray-700">Cliente:</label>
                                 <div className="grid grid-cols-[1fr_42px] w-full">
-                                    <select className="w-full border border-gray-300 px-3 py-2 rounded-l-sm outline-none">
-                                        <option>Seleccionar Cliente</option>
-                                        {clientes.map((cliente, index) => (
-                                            <option key={index}>
-                                                {cliente.nombre} | {cliente.ruc}
-                                            </option>
-                                        ))}
-                                    </select>
+                                    <CboData
+                                        items={clientesOptions}
+                                        value={selectedCliente}
+                                        onChange={setSelectedCliente}
+                                        placeholder="Seleccionar Cliente"
+                                        className="w-full rounded-r-none border-gray-300 h-full border-r-0"
+                                        hideArrow={true}
+                                    />
 
                                     <button
                                         className="bg-gray-600 hover:bg-gray-700 text-white rounded-r-sm"
@@ -94,11 +103,14 @@ export default function CreateClient() {
                                 <label className="text-gray-700">
                                     Modelo:
                                 </label>
-                                <select
-                                    className="w-full border border-gray-300 px-3 py-2 rounded-l-sm outline-none"
-                                >
-                                    <option>MOUSE INALAMBRICO LENOVO 2 BOTONES</option>
-                                </select>
+                                <CboData
+                                    items={modelosOptions}
+                                    value={selectedModelo}
+                                    onChange={setSelectedModelo}
+                                    placeholder="Seleccionar Modelo"
+                                    className="w-full rounded-r-none border-gray-300 h-full border-r-0"
+                                    hideArrow={true}
+                                />
                                 <button
                                     className="h-full bg-gray-600 hover:bg-gray-700 text-white rounded-r-sm"
                                 >
@@ -141,15 +153,15 @@ export default function CreateClient() {
                         className="col-span-6"
                     >
                         <div className="col-span-2">
-                            <div className="border-b border-gray-200">
-                                <ul className="flex">
+                            <div className="border-b border-gray-300">
+                                <ul className="flex gap-1">
                                     <li>
                                         <button
                                             onClick={() => setActiveTab("descripcion")}
-                                            className={`px-4 py-2 transition
+                                            className={`px-4 py-2 transition rounded-t-md font-semibold text-sm
                                                 ${activeTab === "descripcion"
-                                                    ? "border-t border-r border-l border-gray-300 text-blue-600 font-medium"
-                                                    : "border border-gray-300 bg-gray-200 text-gray-500 hover:text-gray-700"
+                                                    ? "border-t border-r border-l border-gray-200 text-gray-700 bg-white relative top-[1px]"
+                                                    : "text-gray-400 hover:text-gray-600"
                                                 }`}
                                         >
                                             Descripción del Problema
@@ -158,22 +170,22 @@ export default function CreateClient() {
                                     <li>
                                         <button
                                             onClick={() => setActiveTab("revision")}
-                                            className={`px-4 py-2 transition
+                                            className={`px-4 py-2 transition rounded-t-md font-semibold text-sm
                                                 ${activeTab === "revision"
-                                                    ? "border-t border-r border-l border-gray-300 text-blue-600 font-medium"
-                                                    : "border border-gray-300 bg-gray-200 text-gray-500 hover:text-gray-700"
+                                                    ? "border-t border-r border-l border-gray-200 text-gray-700 bg-white relative top-[1px]"
+                                                    : "text-gray-400 hover:text-gray-600"
                                                 }`}
                                         >
-                                            Revisión y Diagnóstico
+                                            Revisión y diagnóstico
                                         </button>
                                     </li>
                                     <li>
                                         <button
                                             onClick={() => setActiveTab("estetica")}
-                                            className={`px-4 py-2 transition
+                                            className={`px-4 py-2 transition rounded-t-md font-semibold text-sm
                                                 ${activeTab === "estetica"
-                                                    ? "border-t border-r border-l border-gray-300 text-blue-600 font-medium"
-                                                    : "border border-gray-300 bg-gray-200 text-gray-500 hover:text-gray-700"
+                                                    ? "border-t border-r border-l border-gray-200 text-gray-700 bg-white relative top-[1px]"
+                                                    : "text-gray-400 hover:text-gray-600"
                                                 }`}
                                         >
                                             Estética
@@ -190,8 +202,8 @@ export default function CreateClient() {
                                             [activeTab]: e.target.value,
                                         }))
                                     }
-                                    placeholder="Escribe aquí..."
-                                    className="w-full min-h-[250px] border border-gray-200 bg-gray-50 rounded-sm p-4 resize-none outline-none focus:border-blue-400"
+                                    placeholder={`Escribir aquí ${activeTab === 'descripcion' ? 'Descripción Del Problema' : activeTab === 'revision' ? 'Revisión y diagnostico' : 'Estética'}`}
+                                    className="w-full min-h-[250px] border border-gray-300 bg-white rounded-sm p-4 resize-none outline-none focus:border-gray-500 text-gray-700"
                                 />
                             </div>
                         </div>

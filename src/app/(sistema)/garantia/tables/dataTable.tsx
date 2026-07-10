@@ -3,9 +3,7 @@ import { ingresoColumns } from "./ingresoColumns";
 import { egresoColumns } from "./egresoColumns";
 import { tecnicoColumns } from "./tecnicoColums";
 
-import ingresoData from "../data/ingreso.json";
-import egresoData from "../data/egreso.json"
-import tecnicoData from "../data/tecnico.json";
+import garantiaMock from "../data/garantia-mock.json";
 
 import { DataTable as Table } from "@/components/shared/DataTable";
 import { useState } from "react";
@@ -42,11 +40,56 @@ export default function DataTable({ type, filters }: Props) {
     const [closing, setClosing] = useState(false);
     const [selectedId, setSelectedId] = useState<number | null>(null);
 
-    const [dataByType, setDataByType] = useState<Record<TableType, Garantia[]>>({
-        ingreso: ingresoData as Garantia[],
-        egreso: egresoData as Garantia[],
-        tecnico: tecnicoData as Garantia[],
+    const mapToGarantia = (item: any): Garantia => ({
+        id: item.id,
+        codigo: item.codigo,
+        producto: item.equipo.tipo,
+        equipo: item.equipo.tipo,
+        marca: item.equipo.marca,
+        serie: item.equipo.serie,
+        cliente: item.cliente.nombre,
+        ruc: item.cliente.ruc,
+        fecha: item.fechas.ingreso,
+        estado: item.estadoActual,
     });
+
+    const mappedData = garantiaMock.map(mapToGarantia);
+
+    const [dataByType, setDataByType] = useState<Record<TableType, Garantia[]>>({
+        ingreso: mappedData,
+        egreso: mappedData.filter(item => item.estado === "egresado" || item.estado === "en_revision" || item.estado === "reparado"),
+        tecnico: mappedData.filter(item => item.estado === "en_revision" || item.estado === "reparado"),
+    });
+
+    // Actualiza el estado de un item en todos los arrays
+    const updateEstadoGlobal = (id: number, nuevoEstado: string) => {
+        setDataByType((prev) => {
+            const updateArray = (arr: Garantia[]) =>
+                arr.map(item => item.id === id ? { ...item, estado: nuevoEstado } : item);
+            const updated = {
+                ingreso: updateArray(prev.ingreso),
+                egreso: updateArray(prev.egreso),
+                tecnico: updateArray(prev.tecnico),
+            };
+            // Si pasa a egresado, agrégalo al array de egreso si no estaba
+            if (nuevoEstado === "egresado") {
+                const item = updated.ingreso.find(i => i.id === id);
+                const yaEstaEnEgreso = updated.egreso.some(i => i.id === id);
+                if (item && !yaEstaEnEgreso) {
+                    updated.egreso = [{ ...item, estado: nuevoEstado }, ...updated.egreso];
+                }
+            }
+            // Si pasa a en_revision, agrégalo al array de tecnico si no estaba
+            if (nuevoEstado === "en_revision") {
+                const item = updated.egreso.find(i => i.id === id);
+                const yaEstaEnTecnico = updated.tecnico.some(i => i.id === id);
+                if (item && !yaEstaEnTecnico) {
+                    updated.tecnico = [{ ...item, estado: nuevoEstado }, ...updated.tecnico];
+                }
+            }
+            return updated;
+        });
+    };
 
     const handleOpenModal = (id: number) => {
         setSelectedId(id);
@@ -54,32 +97,27 @@ export default function DataTable({ type, filters }: Props) {
     }
 
     const handleAnular = (id: number) => {
-        setDataByType((prev) => ({
-            ...prev,
-
-            [type]: prev[type].map((item) =>
-                item.id === id
-                    ? { ...item, estado: "anulados" }
-                    : item
-            ),
-        }));
+        updateEstadoGlobal(id, "anulado");
     };
 
     const handleEgresar = (id: number) => {
-        setDataByType((prev) => ({
-            ...prev,
-            [type]: prev[type].map((item) =>
-                item.id === id
-                    ? { ...item, estado: "egresados" }
-                    : item
-            ),
-        }));
-    }
+        updateEstadoGlobal(id, "egresado");
+    };
+
+    const handleEnviarTecnico = (id: number) => {
+        updateEstadoGlobal(id, "en_revision");
+    };
 
     const columnsByType = {
         ingreso: ingresoColumns(handleAnular, handleEgresar, handleOpenModal),
-        egreso: egresoColumns,
+        egreso: egresoColumns(handleEnviarTecnico),
         tecnico: tecnicoColumns,
+    };
+
+    // Convierte "DD/MM/YYYY" a Date
+    const parseDate = (str: string) => {
+        const [d, m, y] = str.split("/");
+        return new Date(`${y}-${m}-${d}`);
     };
 
     const filteredData = dataByType[type].filter((item) => {
@@ -96,11 +134,11 @@ export default function DataTable({ type, filters }: Props) {
 
         const matchFechaInicio =
             !filters.fechaInicio ||
-            new Date(item.fecha || "") >= new Date(filters.fechaInicio);
+            parseDate(item.fecha || "") >= new Date(filters.fechaInicio);
 
         const matchFechaFin =
             !filters.fechaFin ||
-            new Date(item.fecha || "") <= new Date(filters.fechaFin);
+            parseDate(item.fecha || "") <= new Date(filters.fechaFin);
 
         const matchEstado =
             !filters.estado ||
