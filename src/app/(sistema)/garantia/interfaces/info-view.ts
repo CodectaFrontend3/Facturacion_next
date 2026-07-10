@@ -21,6 +21,7 @@ export interface ContactInfoProps {
 // Grid 
 export interface GridProps {
     children: ReactNode
+    className?: string
 }
 
 // Headers

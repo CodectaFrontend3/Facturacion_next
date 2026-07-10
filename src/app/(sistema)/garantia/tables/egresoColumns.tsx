@@ -46,7 +46,6 @@ export const egresoColumns = (
                 <ActionButton
                     icon={<i className="bi bi-eye"></i>}
                     href={`/garantia/egreso/${row.original.id}`}
-                    className="w-9 h-9 bg-[#0b65d8] hover:bg-[#0952b1] rounded-[3px]"
                 />
             ),
         },

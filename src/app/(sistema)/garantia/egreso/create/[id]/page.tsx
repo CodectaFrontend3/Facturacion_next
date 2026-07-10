@@ -26,7 +26,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
 
     return (
         <div className="p-5 pb-2">
-            <div className="bg-white border border-gray-200 mb-2">
+            <div className="bg-white rounded-md border border-gray-200 shadow-sm mb-2 overflow-hidden">
                 <TopHeader>
                     <div className="flex items-center justify-between w-full px-5 py-4">
                         <h1 className="text-lg font-semibold text-gray-700 uppercase">
