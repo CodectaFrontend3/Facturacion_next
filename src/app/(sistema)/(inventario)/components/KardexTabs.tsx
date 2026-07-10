@@ -30,7 +30,7 @@ function KardexTabs({ children, actions }: Props) {
               href={activeTab.href}
               className="flex items-center px-4 py-1.5 text-[12px] transition-all border-t border-l border-r rounded-t-md cursor-pointer select-none bg-white border-gray-300 text-slate-700 font-bold -mb-px z-10"
             >
-              <span className="bg-[#1A5EB3] text-white text-[9px] px-1.5 py-0.5 rounded-sm mr-1.5 flex items-center justify-center min-w-4 font-bold">
+              <span className="bg-[#2C1FF3] text-white text-[9px] px-1.5 py-0.5 rounded-sm mr-1.5 flex items-center justify-center min-w-4 font-bold">
                 {activeTab.count}
               </span>
               {activeTab.name}

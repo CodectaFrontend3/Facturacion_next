@@ -67,7 +67,7 @@ export function ConfirmModal({
             </button>
             <button
               onClick={onConfirm}
-              className="px-6 py-2 rounded-sm bg-[#1e40af] hover:bg-blue-800 text-white text-[13px] font-semibold transition-colors"
+              className="px-6 py-2 rounded-sm bg-[#1e40af] hover:bg-[#190FCE] text-white text-[13px] font-semibold transition-colors"
             >
               {confirmText}
             </button>

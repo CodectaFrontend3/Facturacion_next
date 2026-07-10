@@ -39,7 +39,7 @@ export const inactivoColumns: ColumnDef<Inactivos>[] = [
             return (
                 <Link
                     href={`/personal/inactivos/${row.original.id}`}
-                    className="bg-[#1a5eb3] text-white p-2 rounded hover:bg-blue-800"
+                    className="bg-[#2C1FF3] text-white p-2 rounded hover:bg-[#190FCE]"
                 >
                     <i className="bi bi-eye"></i>
                 </Link>

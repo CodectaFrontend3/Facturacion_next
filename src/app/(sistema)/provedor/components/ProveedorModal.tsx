@@ -164,7 +164,7 @@ export function ProveedorModal({ isOpen, onClose, onSave, provider, isViewOnly =
           </button>
           {!isViewOnly && (
             <button 
-              className="bg-[#1a5eb3] hover:bg-[#154a8e] text-white px-4 py-1.5 rounded-[3px] text-[13px] font-semibold transition-colors cursor-pointer"
+              className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white px-4 py-1.5 rounded-[3px] text-[13px] font-semibold transition-colors cursor-pointer"
               onClick={handleSave}
             >
               {provider ? "Actualizar" : "Guardar"}

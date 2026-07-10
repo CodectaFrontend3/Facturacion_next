@@ -86,7 +86,7 @@ export function AddButton() {
               ></i>
             }
             variant="filled"
-            className="w-12 h-12 rounded-full shadow-xl flex items-center justify-center bg-[#1a5eb3] hover:bg-[#1a3bb3] border-[#1a5eb3] hover:border-[#1a3bb3] hover:scale-105 active:scale-95 transition-all duration-200"
+            className="w-12 h-12 rounded-full shadow-xl flex items-center justify-center bg-[#2C1FF3] hover:bg-[#190FCE] border-[#2C1FF3] hover:border-[#190FCE] hover:scale-105 active:scale-95 transition-all duration-200"
             label="Acciones rápidas"
           />
         </div>

@@ -341,3 +341,36 @@ body {
 .animate-toast-in {
   animation: toastIn 0.28s cubic-bezier(0.21, 1.02, 0.43, 1.01) forwards;
 }
+
+/* Animación de despliegue y repliegue de arriba a abajo (desenrollando) */
+.share-popover-anim[data-state="open"] {
+  transform-origin: top !important;
+  animation: share-unfold-down 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.share-popover-anim[data-state="closed"] {
+  transform-origin: top !important;
+  animation: share-fold-up 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes share-unfold-down {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes share-fold-up {
+  from {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}

@@ -23,7 +23,7 @@ export default function SearchItem({
                 className="border border-gray-300 px-4 py-2 outline-none mr-[-18px] focus:border-green-600"
             />
             <button
-                className="bg-[#1a5eb3] hover:bg-[#1a3bb3] text-white h-full transition cursor-pointer"
+                className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white h-full transition cursor-pointer"
             >
                 <i className="fa fa-search" aria-hidden="true"></i>
             </button>

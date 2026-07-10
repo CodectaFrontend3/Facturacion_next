@@ -22,6 +22,7 @@ export interface ActionButtonProps {
   popoverOptions?: ActionPopoverOption[]
   popoverContent?: React.ReactNode
   className?: string
+  popoverClassName?: string
   disabled?: boolean
 }
 
@@ -37,14 +38,15 @@ export function ActionButton({
   popoverOptions,
   popoverContent,
   className,
+  popoverClassName,
   disabled
 }: ActionButtonProps) {
 
   const base = "inline-flex items-center justify-center gap-2 rounded font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
 
   const variants = {
-    filled:  "bg-[#1a5eb3] hover:bg-[#1a3bb3] text-white",
-    outline: "bg-white hover:bg-blue-50 text-[#1a5eb3] border border-[#1a5eb3]",
+    filled:  "bg-[#2C1FF3] hover:bg-[#190FCE] text-white",
+    outline: "bg-white hover:bg-blue-50 text-[#2C1FF3] border border-[#2C1FF3]",
   }
 
   const sizes = {
@@ -91,7 +93,7 @@ export function ActionButton({
         <PopoverTrigger asChild>
           {renderButton()}
         </PopoverTrigger>
-        <PopoverContent className="w-fit min-w-[144px] rounded-none p-2" align="end">
+        <PopoverContent className={cn("w-fit min-w-[144px] rounded-none p-2", popoverClassName)} align="end">
           {popoverContent ? (
             popoverContent
           ) : (

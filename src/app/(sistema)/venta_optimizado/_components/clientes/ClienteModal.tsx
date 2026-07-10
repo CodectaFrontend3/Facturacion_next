@@ -303,7 +303,7 @@ export function ClienteModal({ isOpen, onClose, onSave }: ClienteModalProps) {
                 {activeTab < 3 ? (
                   <button
                     onClick={() => setActiveTab(activeTab + 1)}
-                    className="bg-[#1e40af] hover:bg-blue-800 text-white px-7 py-2.5 rounded-md text-[14px] font-bold transition-colors cursor-pointer"
+                    className="bg-[#1e40af] hover:bg-[#190FCE] text-white px-7 py-2.5 rounded-md text-[14px] font-bold transition-colors cursor-pointer"
                   >
                     Sig.
                   </button>
@@ -311,7 +311,7 @@ export function ClienteModal({ isOpen, onClose, onSave }: ClienteModalProps) {
                   <button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className="bg-[#1e40af] hover:bg-blue-800 disabled:opacity-60 text-white px-7 py-2.5 rounded-md text-[14px] font-bold transition-colors cursor-pointer"
+                    className="bg-[#1e40af] hover:bg-[#190FCE] disabled:opacity-60 text-white px-7 py-2.5 rounded-md text-[14px] font-bold transition-colors cursor-pointer"
                   >
                     {isSubmitting ? "Guardando..." : "Guardar"}
                   </button>

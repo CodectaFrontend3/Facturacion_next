@@ -464,7 +464,7 @@ export default function GenerarKardexEntrada({
                     <Button
                       type="button"
                       size="icon"
-                      className="bg-[#1A5EB3] hover:opacity-90"
+                      className="bg-[#2C1FF3] hover:opacity-90"
                       disabled={fields.length === 1}
                       onClick={() => remove(index)}
                     >
@@ -573,7 +573,7 @@ export default function GenerarKardexEntrada({
             <div className="mt-10 flex justify-end">
               <Button
                 type="submit"
-                className="bg-[#1A5EB3] px-8 text-[12px] font-medium hover:opacity-95"
+                className="bg-[#2C1FF3] px-8 text-[12px] font-medium hover:opacity-95"
               >
                 Guardar
               </Button>

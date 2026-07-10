@@ -54,6 +54,7 @@ export function WhatsappShareButton({
         className={className}
         isPopover
         popoverContent={whatsappPopover}
+        popoverClassName="share-popover-anim"
       />
     </div>
   )

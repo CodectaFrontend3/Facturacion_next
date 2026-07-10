@@ -258,14 +258,14 @@ export function ClienteModal({ isOpen, onClose, onSave }: ClienteModalProps) {
                 )}
                 {activeTab < 3 ? (
                   <button 
-                    className="bg-[#1e40af] hover:bg-blue-800 text-white px-7 py-2.5 rounded-md text-[14px] font-bold transition-colors cursor-pointer"
+                    className="bg-[#1e40af] hover:bg-[#190FCE] text-white px-7 py-2.5 rounded-md text-[14px] font-bold transition-colors cursor-pointer"
                     onClick={() => setActiveTab(activeTab + 1)}
                   >
                     Sig.
                   </button>
                 ) : (
                   <button 
-                    className="bg-[#1e40af] hover:bg-blue-800 text-white px-7 py-2.5 rounded-md text-[14px] font-bold transition-colors cursor-pointer"
+                    className="bg-[#1e40af] hover:bg-[#190FCE] text-white px-7 py-2.5 rounded-md text-[14px] font-bold transition-colors cursor-pointer"
                     onClick={handleSave}
                   >
                     Guardar

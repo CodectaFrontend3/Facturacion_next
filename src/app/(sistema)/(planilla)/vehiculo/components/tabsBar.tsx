@@ -33,7 +33,7 @@ export default function VehiculoTabsBar() {
                                 setModalType("privado");
                             }
                         }}
-                        className="bg-[#1a5eb3] hover:bg-[#1a3bb3] text-white p-2 px-4 rounded cursor-pointer hover:translate-y-[-2px] transition duration-200"
+                        className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white p-2 px-4 rounded cursor-pointer hover:translate-y-[-2px] transition duration-200"
                     >
                         Agregar
                     </button>

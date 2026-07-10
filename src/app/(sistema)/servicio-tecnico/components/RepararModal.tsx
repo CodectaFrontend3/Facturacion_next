@@ -163,7 +163,7 @@ function RepararModal({
           </DialogClose>
           <Button
             type="button"
-            className="bg-[#1A5EB3] text-white hover:bg-[#164d93]"
+            className="bg-[#2C1FF3] text-white hover:bg-[#190FCE]"
             onClick={() => {
               onSubmit?.({
                 estado,

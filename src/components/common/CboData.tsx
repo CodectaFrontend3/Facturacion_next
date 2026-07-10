@@ -50,7 +50,7 @@ export function CboData({
                     type="button"
                     disabled={disabled}
                     className={cn(
-                        "flex min-h-[36px] w-full items-center cursor-pointer justify-between rounded-sm border border-gray-300 bg-white px-3 py-1.5 text-[13px] text-[#676A6C] outline-none focus:border-[#18a689] focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
+                        "flex min-h-[36px] w-full items-center cursor-pointer justify-between rounded-none border border-gray-300 bg-white px-3 py-1.5 text-[13px] text-[#676A6C] outline-none focus:border-[#18a689] focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
                         !selectedItem && "text-gray-500",
                         className
                     )}
@@ -74,7 +74,7 @@ export function CboData({
                     )}
                 </button>
             </PopoverTrigger>
-            <PopoverContent className="w-(--radix-popover-trigger-width) p-0 rounded-sm border border-[#aaa] shadow-md" align="start">
+            <PopoverContent className="w-(--radix-popover-trigger-width) p-0 rounded-none border border-[#aaa] shadow-md" align="start">
                 <div className="flex flex-col">
                     <div className="p-2 border-b border-gray-200">
                         <input

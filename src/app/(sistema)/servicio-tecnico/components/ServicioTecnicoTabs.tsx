@@ -46,7 +46,7 @@ function ServicioTecnicoTabs({ children, actions }: Props) {
                   }
                 `}
               >
-                <span className="bg-[#1A5EB3] text-white text-[10px] px-1.5 py-0.5 rounded mr-2 flex items-center justify-center min-w-4.5 font-bold">
+                <span className="bg-[#2C1FF3] text-white text-[10px] px-1.5 py-0.5 rounded mr-2 flex items-center justify-center min-w-4.5 font-bold">
                   {tab.count}
                 </span>
                 {tab.name}

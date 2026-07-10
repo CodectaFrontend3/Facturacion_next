@@ -63,11 +63,11 @@ export default function EmailPage() {
     loadData();
   }, []);
 
-  // Al cambiar de carpeta, limpiamos selecciones
-  useEffect(() => {
+  const handleFolderChange = (folder: "enviados" | "borradores") => {
+    setCurrentFolder(folder);
     setSelectedIds([]);
     setSelectedEmail(null);
-  }, [currentFolder]);
+  };
 
   // Obtenemos la lista activa actual según la carpeta seleccionada
   const currentList = currentFolder === "enviados" ? emails : drafts;
@@ -206,7 +206,7 @@ export default function EmailPage() {
       <div className="w-full md:w-[260px] shrink-0 bg-white border border-gray-200 shadow-sm p-4">
         <Button 
           onClick={handleOpenNuevo}
-          className="w-full bg-[#1a5eb3] hover:bg-blue-800 text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors"
+          className="w-full bg-[#2C1FF3] hover:bg-[#190FCE] text-white font-semibold mb-6 h-9 rounded-sm cursor-pointer transition-colors"
         >
           Redactar
         </Button>
@@ -219,7 +219,7 @@ export default function EmailPage() {
               onClick={() => setCurrentFolder("enviados")} 
               className={`w-full flex items-center justify-between px-2 py-2 text-[13px] border-l-2 cursor-pointer transition-colors ${
                 currentFolder === "enviados" 
-                  ? "bg-gray-50 border-[#1a5eb3] text-gray-800 font-bold" 
+                  ? "bg-gray-50 border-[#2C1FF3] text-gray-800 font-bold" 
                   : "text-gray-600 border-transparent hover:bg-gray-50"
               }`}
             >
@@ -236,7 +236,7 @@ export default function EmailPage() {
               onClick={() => setCurrentFolder("borradores")} 
               className={`w-full flex items-center justify-between px-2 py-2 text-[13px] border-l-2 cursor-pointer transition-colors mt-1 ${
                 currentFolder === "borradores" 
-                  ? "bg-gray-50 border-[#1a5eb3] text-gray-800 font-bold" 
+                  ? "bg-gray-50 border-[#2C1FF3] text-gray-800 font-bold" 
                   : "text-gray-600 border-transparent hover:bg-gray-50"
               }`}
             >
@@ -284,7 +284,7 @@ export default function EmailPage() {
                 />
               </div>
               <div className="flex gap-1.5">
-                <Button className="bg-[#1a5eb3] hover:bg-blue-800 text-white h-8 px-4 rounded-sm text-[13px] font-medium flex items-center gap-1.5 cursor-pointer">
+                <Button className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white h-8 px-4 rounded-sm text-[13px] font-medium flex items-center gap-1.5 cursor-pointer">
                   <i className="bi bi-arrow-clockwise"></i> Recargar
                 </Button>
                 <Button 
