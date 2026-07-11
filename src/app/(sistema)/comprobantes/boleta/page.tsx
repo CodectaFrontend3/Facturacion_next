@@ -5,7 +5,7 @@ import { ComprobantesTabTemplate } from "../components/ComprobantesTabTemplate";
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export interface FacturaRow {
+export interface BoletaRow {
   id: string | number;
   nro: string;
   rucDni: string;
@@ -13,29 +13,23 @@ export interface FacturaRow {
   emision: string;
   forma: string;
   importe: string;
+  // Puedes tener campos distintos a Factura si quieres
 }
 
-const columns: ColumnDef<FacturaRow>[] = [
+const columns: ColumnDef<BoletaRow>[] = [
   { id: "select", header: ({ table }) => <Checkbox />, cell: ({ row }) => <Checkbox /> },
   { accessorKey: "id", header: "ID" },
-  { accessorKey: "nro", header: "N°" },
-  { accessorKey: "rucDni", header: "RUC/DNI" },
+  { accessorKey: "nro", header: "N° de Boleta" }, // Título de columna diferente
   { accessorKey: "cliente", header: "Cliente" },
-  { accessorKey: "emision", header: "Emisión" },
-  { accessorKey: "forma", header: "Forma" },
-  { accessorKey: "importe", header: "Importe T." },
-  { id: "ver", header: "Ver" },
-  { id: "info", header: "Información" },
-  { id: "pago", header: "Pago" },
-  { id: "compartir", header: "Compartir R." },
+  // ... demás columnas
 ];
 
-export default function FacturasPage() {
+export default function BoletasPage() {
   return (
     <ComprobantesTabTemplate 
-      activeTab="factura" 
+      activeTab="boleta" 
       columns={columns} 
-      data={[]} // Aquí mandarás tu array de datos JSON luego
+      data={[]} 
       total="S/0.00"
       totalGeneral="S/0.00"
     />
