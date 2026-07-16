@@ -34,16 +34,16 @@ const guiasItems = [
   { icon: User, label: "Guía Remisión Man.", count: "0 Documentos", amount: "\u00A0", tone: { ring: "border-[#2C1FF3]", amount: "" } }
 ];
 
-// 2. RUTAS DE LAS PESTAÑAS (Con colores específicos para los contadores, igual a Ventas)
+// 2. RUTAS DE LAS PESTAÑAS
 const tabsConfig = [
-  { id: "boleta", label: "Boleta", count: 0, href: "/comprobantes/boleta", color: "#2C1FF3" }, // Verde
-  { id: "boleta_man", label: "Boleta Man.", count: 0, href: "/comprobantes/boleta_manual", color: "#2C1FF3" }, // Naranja
+  { id: "boleta", label: "Boleta", count: 0, href: "/comprobantes/boleta", color: "#2C1FF3" },
+  { id: "boleta_man", label: "Boleta Man.", count: 0, href: "/comprobantes/boleta_manual", color: "#2C1FF3" },
   { id: "factura", label: "Factura", count: 1, href: "/comprobantes/factura", color: "#2C1FF3" },
   { id: "factura_man", label: "Factura Man.", count: 0, href: "/comprobantes/factura_manual", color: "#2C1FF3" },
-  { id: "nota_credito", label: "Nota de Crédito", count: 0, href: "/comprobantes/nota_credito", color: "#2C1FF3" }, // Rojo
+  { id: "nota_credito", label: "Nota de Crédito", count: 0, href: "/comprobantes/nota_credito", color: "#2C1FF3" },
   { id: "nota_debito", label: "Nota de Débito", count: 0, href: "/comprobantes/nota_debito", color: "#2C1FF3" },
-  { id: "guia_remision", label: "Guía Remisión", count: 0, href: "/comprobantes/guia_remision", color: "#2C1FF3" }, // Azul
-  { id: "guia_remision_man", label: "Guía Remisión Man.", count: 0, href: "/comprobantes/guia_remision_manual", color: "#2C1FF3" }, // Gris
+  { id: "guia_remision", label: "Guía Remisión", count: 0, href: "/comprobantes/guia_remision", color: "#2C1FF3" },
+  { id: "guia_remision_man", label: "Guía Remisión Man.", count: 0, href: "/comprobantes/guia_remision_manual", color: "#2C1FF3" },
 ];
 
 // 3. INTERFAZ DE PROPS
@@ -55,12 +55,12 @@ interface ComprobantesTabTemplateProps {
   total?: string;
 }
 
-export function ComprobantesTabTemplate({
-  activeTab,
-  columns,
-  data,
-  total = "S/0.00",
-  totalGeneral = "S/0.00"
+export function ComprobantesTabTemplate({ 
+  activeTab, 
+  columns, 
+  data, 
+  total = "S/0.00", 
+  totalGeneral = "S/0.00" 
 }: ComprobantesTabTemplateProps) {
 
   const [filters, setFilters] = useState({
@@ -82,11 +82,11 @@ export function ComprobantesTabTemplate({
   const handleReset = () => {
     setFilters({ fechaInicio: "", fechaFin: "", estadoPago: "", estadoSunat: "", search: "" });
   };
-
+  
   return (
     <main className="min-h-screen bg-[#f3f3f4] space-y-6 font-sans">
       <div className="pl-5 pr-5 mt-5">
-
+        
         {/* ACORDEÓN DE RESUMEN */}
         <Accordion type="single" collapsible defaultValue="resumen" className="w-full bg-white border border-gray-200 shadow-sm rounded-none mb-6">
           <AccordionItem value="resumen" className="border-none">
@@ -106,21 +106,19 @@ export function ComprobantesTabTemplate({
 
         {/* CONTENEDOR PRINCIPAL TAB + CONTENIDO */}
         <div className="w-full bg-white border border-gray-200 shadow-sm p-4">
-
+          
           {/* Fila superior: Pestañas y Botones */}
           <div className="flex justify-between items-end border-b border-gray-200 relative z-10">
-            {/* PESTAÑAS (Al ras del borde izquierdo) */}
             <div className="flex flex-wrap">
               {tabsConfig.map((tab) => {
                 const isActive = tab.id === activeTab;
                 return (
                   <Link key={tab.id} href={tab.href}>
-                    {/* El 'top-[1px]' empuja la pestaña sobre la línea gris para fusionarse */}
-                    <div className={`flex items-center gap-2 px-4 py-2.5 text-[12px] font-bold transition-all relative top-[1px] ${isActive
-                        ? 'bg-white border-x border-t border-gray-200 text-gray-800 rounded-t-sm z-10'
+                    <div className={`flex items-center gap-2 px-4 py-2.5 text-[12px] font-bold transition-all relative top-[1px] ${
+                      isActive 
+                        ? 'bg-white border-x border-t border-gray-200 text-gray-800 rounded-t-sm z-10' 
                         : 'text-gray-500 border-x border-t border-transparent hover:text-gray-700 hover:bg-gray-50'
-                      }`}>
-                      {/* Badge con color individualizado como en Ventas */}
+                    }`}>
                       <span
                         className="flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-[3px] text-white text-[10px]"
                         style={{ backgroundColor: tab.color }}
@@ -133,12 +131,13 @@ export function ComprobantesTabTemplate({
                 );
               })}
             </div>
-
-            {/* Botones de acción al ras del borde derecho */}
-            <div className="flex gap-2 pb-2">
-              <Button className="bg-[#2C1FF3] hover:bg-blue-800 text-white h-8 w-10 px-0 rounded-[4px] shadow-sm cursor-pointer transition-colors">
-                <Plus size={16} />
-              </Button>
+            {/* Botones de acción */}
+            <div className="flex gap-2 pb-2">              
+              <Link href={`${tabsConfig.find(t => t.id === activeTab)?.href}/crear`}>
+                <Button className="bg-[#2C1FF3] hover:bg-blue-800 text-white h-8 w-10 px-0 rounded-[4px] shadow-sm cursor-pointer transition-colors">
+                  <Plus size={16} />
+                </Button>
+              </Link>
               <Button className="bg-[#2C1FF3] hover:bg-blue-800 text-white h-8 px-3 rounded-[4px] shadow-sm cursor-pointer transition-colors flex items-center gap-1">
                 <Download size={14} />
                 <i className="bi bi-chevron-down text-[10px] font-bold ml-1"></i>
@@ -147,9 +146,8 @@ export function ComprobantesTabTemplate({
           </div>
 
           {/* CAJA PRINCIPAL DE CONTENIDO */}
-          {/* Al tener border-x y border-b, empata perfectamente con el border-x de la pestaña activa */}
           <div className="bg-white border-x border-b border-gray-200 p-5 rounded-b-sm shadow-sm space-y-5 relative z-0">
-
+            
             {/* FILTROS GLOBALES */}
             <div className="flex flex-col gap-4 text-gray-500 border border-gray-200 p-4 bg-gray-50/30">
               <DataFilters onSearch={handleSearch} onReset={handleReset}>
@@ -192,17 +190,52 @@ export function ComprobantesTabTemplate({
               </DataFilters>
             </div>
 
-            {/* TABLA DINÁMICA */}
-            <div className="border border-gray-200 rounded-none overflow-hidden">
-              <DataTable
-                columns={columns}
-                data={data}
-                showSelection={false}
-
+            {/* TABLA, TOTALES Y PAGINACIÓN INTEGRADA */}
+            <div className="flex flex-col w-full relative custom-table-wrapper">
+              
+              {/* Estilos para colapsar los espacios vacíos y reordenar */}
+              <style>{`
+                .custom-table-wrapper > div:first-of-type {
+                  display: contents;
+                }
+                .custom-table-wrapper > div:first-of-type > .border {
+                  order: 1 !important;
+                  border-bottom-width: 0px !important;
+                  border-bottom-left-radius: 0px !important;
+                  border-bottom-right-radius: 0px !important;
+                  /* Elimina la altura mínima forzada que deja el hueco en blanco */
+                  min-height: auto !important; 
+                  flex-grow: 0 !important;
+                  margin-bottom: 0px !important;
+                }
+                .custom-table-wrapper > div:first-of-type > div:last-of-type {
+                  order: 3 !important;
+                  padding-top: 1rem;
+                  padding-bottom: 0.5rem;
+                }
+              `}</style>
+              
+              <DataTable 
+                columns={columns} 
+                data={data} 
+                showSelection={false} 
               />
+              
+              {/* FILA DE TOTALES */}
+              <div className="order-2 flex justify-end bg-white px-8 py-3 border border-gray-200 w-full rounded-b-md shadow-sm z-10">
+                <div className="flex gap-14 text-right">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Total</span>
+                    <span className="text-[13px] font-extrabold text-gray-800 mt-0.5">{total}</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Total G.</span>
+                    <span className="text-[13px] font-extrabold text-gray-800 mt-0.5">{totalGeneral}</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
-
-
 
           </div>
         </div>
