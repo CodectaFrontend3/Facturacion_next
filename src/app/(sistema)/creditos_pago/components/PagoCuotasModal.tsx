@@ -86,6 +86,8 @@ export function PagoCuotasModal({
     onSuccess: onClose,
   });
 
+  const TipoComprobante = boletasSeleccionadas[0]?.tipo || "Boletas";
+
   // Si el modal es activado por el botón pero no hay nada seleccionado, mostramos la alerta preventiva
   if (isOpen && !hayBoletasSeleccionadas) {
     return (
@@ -124,7 +126,7 @@ export function PagoCuotasModal({
                 className="!border-b-0 border border-gray-300 rounded-md mb-2 overflow-hidden"
               >
                 <AccordionTrigger className="bg-gray-100 px-4 py-3 font-semibold text-gray-800 hover:no-underline hover:bg-gray-200 rounded-t-md">
-                  Boletas a Pagar
+                  {TipoComprobante} a Pagar
                 </AccordionTrigger>
                 <AccordionContent className="p-4 space-y-4">
                   {fields.map((field, index) => (

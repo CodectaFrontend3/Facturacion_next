@@ -7,6 +7,7 @@ import { Banknote, ChevronDown, Clock9, Eye } from "lucide-react"; // Añadí Ey
 import { ComprobanteBase, TipoComprobante } from "../types/ComprobanteBase";
 import { ActionButton } from "@/components/common/ActionButton";
 import { PagoCuotasModal } from "../components/PagoCuotasModal";
+import { redirect } from "next/navigation";
 
 interface ConfigColumnas {
   tipo: TipoComprobante;
@@ -161,7 +162,7 @@ export const getColumns = ({
             size="icon-sm"
             className="bg-[#0052CC] hover:bg-[#0040A3] text-white rounded-sm h-9 w-10 cursor-pointer"
             onClick={() =>
-              alert(`Ver detalle del documento: ${row.original.id}`)
+              redirect("/creditos_pago/detalle/" + row.original.id)
             }
           >
             <Eye size={16} />
@@ -173,7 +174,7 @@ export const getColumns = ({
               size="icon-sm"
               className="bg-[#0052CC] hover:bg-[#0040A3] text-white rounded-sm h-9 w-10 cursor-pointer"
               onClick={() =>
-                alert(`Ver detalle del documento: ${row.original.id}`)
+                redirect("/creditos_pago/detalle/" + row.original.id)
               }
             >
               <Eye size={16} />

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "BOL-003",
+    "tipo_pago": "Pago",
+    "monto_pagado": 45.0,
+    "metodo_pago": "Efectivo",
+    "emisor": "Juan",
+    "fecha_pago": "20-06-2026"
+  },
+  {
+    "id": "BOL-004",
+    "tipo_pago": "Pago",
+    "monto_pagado": 199.9,
+    "metodo_pago": "Tarjeta Crédito",
+    "emisor": "Sistema",
+    "fecha_pago": "19-06-2026"
+  },
+  {
+    "id": "FAC-003",
+    "tipo_pago": "Pago",
+    "monto_pagado": 2800.0,
+    "metodo_pago": "Transferencia",
+    "emisor": "Juan",
+    "fecha_pago": "30-06-2026"
+  },
+  {
+    "id": "FAC-004",
+    "tipo_pago": "Pago",
+    "monto_pagado": 120.0,
+    "metodo_pago": "Tarjeta Débito",
+    "emisor": "Sistema",
+    "fecha_pago": "11-06-2026"
+  },
+  {
+    "id": "NV-003",
+    "tipo_pago": "Pago",
+    "monto_pagado": 189.0,
+    "metodo_pago": "Efectivo",
+    "emisor": "Juan",
+    "fecha_pago": "03-04-2024"
+  },
+  {
+    "id": "NV-004",
+    "tipo_pago": "Pago",
+    "monto_pagado": 1050.0,
+    "metodo_pago": "Transferencia",
+    "emisor": "Admin",
+    "fecha_pago": "14-05-2026"
+  }
+]
