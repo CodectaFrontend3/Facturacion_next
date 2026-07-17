@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTableData } from "@/hooks/useTableData";
 import { parse, isValid, isWithinInterval } from "date-fns";
 import { ComprobanteBase, TipoComprobante } from "../types/ComprobanteBase";
@@ -160,7 +160,17 @@ export function useComprobanteTable({ data, tipo }: UseComprobanteParams) {
     };
   }, [tableState.filteredData]);
 
-  // --- SE MANTIENEN TUS OPCIONES INTACTAS ---
+  // Filas seleccionadas
+  const [selectedRows, setSelectedRows] = useState<ComprobanteBase[] | null>(
+    null,
+  );
+
+  // Funcion para manejar la selección de filas en la tabla
+  const handleRowSelectionChange = (rows: ComprobanteBase[]) => {
+    setSelectedRows(rows); // Guardamos TODO el array de filas seleccionadas
+  };
+
+  // Data para los selectores de filtros (clientes, estados, formas de pago)
   const clientesOptions = useMemo(() => {
     const unicos = Array.from(
       new Set(data.map((b) => b.cliente).filter(Boolean)),
@@ -193,5 +203,7 @@ export function useComprobanteTable({ data, tipo }: UseComprobanteParams) {
     clientesOptions,
     estadosOptions,
     formasDePagoOptions,
+    selectedRows,
+    handleRowSelectionChange, // Exponemos la función para manejar la selección de filas
   };
 }
