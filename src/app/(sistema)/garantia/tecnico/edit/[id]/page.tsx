@@ -15,7 +15,7 @@ const TABS: { key: TabKey; label: string }[] = [
     { key: "solucion", label: "Solución" },
 ];
 
-export default function CreateInformeTecnico({ params }: { params: Promise<{ id: string }> }) {
+export default function EditInformeTecnico({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
     const router = useRouter();
 
@@ -23,11 +23,12 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
 
     const [activeTab, setActiveTab] = useState<TabKey>("estetica");
     const [tabContent, setTabContent] = useState<Record<TabKey, string>>({
-        estetica: "",
-        revision: "",
-        causas: "",
-        solucion: "",
+        estetica: garantia?.ingreso.estetica || "",
+        revision: garantia?.tecnico.revision || "",
+        causas: garantia?.ingreso.problemaReportado || "",
+        solucion: garantia?.tecnico.solucion || "",
     });
+    
     const [image, setImage] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -54,7 +55,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                 <TopHeader>
                     <div className="flex items-center justify-between w-full px-5 py-4">
                         <h1 className="text-lg font-semibold text-gray-700 uppercase">
-                            INFORME TÉCNICO {garantia.codigo || "LN-000010"}
+                            EDITAR INFORME TÉCNICO {garantia.codigo || "LN-000010"}
                         </h1>
                         <button onClick={() => router.back()} className="text-gray-400 hover:text-gray-600 text-xl cursor-pointer">
                             ✕
@@ -70,7 +71,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 </label>
                                 <input
                                     disabled
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -80,7 +81,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 <input
                                     disabled
                                     value={garantia.tecnico.asignado || "Administrador Web"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -88,7 +89,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 </label>
                                 <input
                                     disabled
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -98,7 +99,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                     type="date"
                                     disabled
                                     value={garantia.fechas.ingreso?.split("/").reverse().join("-") || "2026-06-29"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                 />
                             </div>
                         </div>
@@ -111,7 +112,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 <input
                                     disabled
                                     value={garantia.cliente.nombre || "prueba"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -119,7 +120,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 <input
                                     disabled
                                     value={garantia.cliente.telefono || "00000"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-4">
@@ -127,7 +128,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 <input
                                     disabled
                                     value={garantia.cliente.correo || "sincorreo@gmail.com"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                 />
                             </div>
                         </div>
@@ -141,7 +142,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                     <input
                                         disabled
                                         value={garantia.equipo.modelo || "MOUSE INALAMBRICO LENOVO 2 BOTONES"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[120px_1fr] items-center gap-3">
@@ -149,7 +150,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                     <input
                                         disabled
                                         value={garantia.equipo.serie || "0123456"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[130px_1fr] items-center gap-3">
@@ -157,7 +158,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                     <input
                                         disabled
                                         value={garantia.codigo || "000312"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[120px_1fr] items-center gap-3">
@@ -166,7 +167,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                         type="date"
                                         disabled
                                         value={garantia.equipo.fechaCompra?.split("/").reverse().join("-") || "2026-06-29"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500 cursor-not-allowed"
                                     />
                                 </div>
                             </div>
@@ -247,9 +248,15 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                         </div>
                     </div>
                 </GridContent>
-                <div className="flex justify-end px-5 pb-5">
+                <div className="flex justify-end gap-3 px-5 pb-5">
+                    <button
+                        onClick={() => router.back()}
+                        className="border border-gray-300 text-gray-600 px-6 py-2 rounded-sm font-medium hover:bg-gray-50"
+                    >
+                        Cancelar
+                    </button>
                     <button className="bg-[#1a5eb3] hover:bg-[#174a8f] text-white px-6 py-2 rounded-sm font-medium">
-                        Grabar
+                        Guardar
                     </button>
                 </div>
             </div>

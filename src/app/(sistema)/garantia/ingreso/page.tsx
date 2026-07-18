@@ -23,11 +23,11 @@ function IngresoContent() {
             <div className="pl-5 pr-5 mt-5 pb-5">
                 <SummaryCards />
 
-                <section className="bg-white rounded-md border border-gray-200 shadow-sm p-5">
+                <section className="bg-white rounded-none border border-gray-200 shadow-sm p-5">
                     <div className="w-full">
                         <TabsBar type="ingreso" />
 
-                        <div className="border-x border-b border-gray-200 bg-white p-4 space-y-4 rounded-b-sm">
+                        <div className="border-x border-b border-gray-200 bg-white p-4 space-y-4 rounded-none">
                             <FilterBar type="ingreso" />
                             <div className="bg-white fixed-table custom-checkbox-table">
                                 <DataTable
