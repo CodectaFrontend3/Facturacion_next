@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ComprobantesTabTemplate } from "../components/ComprobantesTabTemplate";
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Eye, Check, DollarSign, Mail } from "lucide-react";
 
 export interface FacturaRow {
   id: string | number;
@@ -16,28 +17,92 @@ export interface FacturaRow {
 }
 
 const columns: ColumnDef<FacturaRow>[] = [
-  { id: "select", header: ({ table }) => <Checkbox />, cell: ({ row }) => <Checkbox /> },
+  { id: "select", header: () => <Checkbox />, cell: () => <Checkbox className="mx-auto" /> },
   { accessorKey: "id", header: "ID" },
-  { accessorKey: "nro", header: "N°" },
+  { 
+    accessorKey: "nro", 
+    header: "N°",
+    cell: ({ row }) => (
+      <div className="flex items-center gap-2 whitespace-nowrap">
+        <span>{row.original.nro}</span>
+        <button className="border border-gray-300 rounded text-gray-400 w-[18px] h-[18px] flex items-center justify-center text-[12px] hover:bg-gray-50 transition-colors">+</button>
+      </div>
+    )
+  },
   { accessorKey: "rucDni", header: "RUC/DNI" },
   { accessorKey: "cliente", header: "Cliente" },
   { accessorKey: "emision", header: "Emisión" },
   { accessorKey: "forma", header: "Forma" },
   { accessorKey: "importe", header: "Importe T." },
-  { id: "ver", header: "Ver" },
-  { id: "info", header: "Información" },
-  { id: "pago", header: "Pago" },
-  { id: "compartir", header: "Compartir R." },
+  { 
+    id: "ver", 
+    header: () => <div className="text-center">Ver</div>,
+    cell: () => (
+      <div className="flex justify-center">
+        <button className="bg-[#1d59bc] hover:bg-[#164696] text-white p-1.5 rounded-[4px] cursor-pointer shadow-sm transition-colors"><Eye size={16} /></button>
+      </div>
+    )
+  },
+  { 
+    id: "informacion", 
+    header: () => <div className="text-center">Información</div>,
+    cell: () => (
+      <div className="flex justify-center items-center gap-1.5">
+        <div className="bg-[#2bc5b4] text-white w-6 h-6 rounded-full flex items-center justify-center shadow-sm"><Check size={14} strokeWidth={3} /></div>
+        <div className="bg-[#f8ac59] text-white w-6 h-6 rounded-full flex items-center justify-center shadow-sm"><i className="bi bi-layers-fill text-[11px]"></i></div>
+      </div>
+    )
+  },
+  { 
+    id: "pago", 
+    header: () => <div className="text-center">Pago</div>,
+    cell: () => (
+      <div className="flex justify-center">
+        <button className="bg-[#2bc5b4] hover:bg-[#24a99a] text-white w-7 h-7 rounded-full flex items-center justify-center shadow-sm cursor-pointer transition-colors"><DollarSign size={14} strokeWidth={2.5} /></button>
+      </div>
+    )
+  },
+  { 
+    id: "compartir", 
+    header: () => <div className="text-center">Compartir R.</div>,
+    cell: () => (
+      <div className="flex justify-center items-center gap-1.5">
+        <button className="bg-[#6c757d] hover:bg-[#5a6268] text-white p-1.5 rounded-[4px] cursor-pointer shadow-sm transition-colors"><Mail size={16} /></button>
+        <button className="bg-[#1ab394] hover:bg-[#18a689] text-white p-1.5 rounded-[4px] cursor-pointer shadow-sm transition-colors"><i className="bi bi-whatsapp text-[15px]"></i></button>
+      </div>
+    )
+  }
 ];
 
 export default function FacturasPage() {
+  const [data, setData] = useState<FacturaRow[]>([]);
+
+  useEffect(() => {
+    // Datos demo específicos para Facturas
+    const mockData: FacturaRow[] = [
+      { id: 1, nro: "F001-00000085", rucDni: "20522045773", cliente: "EMPRESA DEMO S.A.C.", emision: "16-07-2026", forma: "Contado", importe: "S/2,500.00" }
+    ];
+
+    // ATENCIÓN: Usamos una llave diferente en el localStorage
+    const guardadas = JSON.parse(localStorage.getItem('facturas_guardadas') || '[]');
+    setData([...guardadas, ...mockData]);
+  }, []);
+
+  const totalCalculado = data.reduce((sum, row) => {
+    const importeStr = row.importe.replace(/S\/|,/g, "").trim();
+    const importe = parseFloat(importeStr);
+    return sum + (isNaN(importe) ? 0 : importe);
+  }, 0);
+
+  const totalFormateado = `S/${totalCalculado.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
   return (
     <ComprobantesTabTemplate 
-      activeTab="factura" 
+      activeTab="factura" // ATENCIÓN: Esto debe coincidir con el id en tabsConfig
       columns={columns} 
-      data={[]} // Aquí mandarás tu array de datos JSON luego
-      total="S/0.00"
-      totalGeneral="S/0.00"
+      data={data} 
+      total={totalFormateado}
+      totalGeneral={totalFormateado}
     />
   );
 }
