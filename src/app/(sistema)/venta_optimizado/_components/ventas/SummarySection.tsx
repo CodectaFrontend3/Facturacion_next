@@ -44,10 +44,10 @@ export function SummarySection({ summaryCards }: SummarySectionProps) {
   const cardsVisibles = summaryCards.filter((c) => c.key !== "renovacion")
 
   return (
-    <section className="bg-white rounded-md border border-gray-200 shadow-sm">
+    <section className="bg-white border border-gray-200 shadow-sm">
       <Accordion type="single" collapsible defaultValue="resumen">
         <AccordionItem value="resumen" className="border-none">
-          <div className="flex items-center justify-between px-5 py-3 border-b border-gray-200 rounded-t-md bg-white">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-gray-200 bg-white">
             <span className="text-sm font-semibold text-[#676a6c]">{title}</span>
             <AccordionTrigger className="p-1 cursor-pointer bg-white hover:bg-white hover:no-underline rounded-md [&>svg]:!hidden">
               <i className="bi bi-chevron-up text-[#c4c4c4] [-webkit-text-stroke:1px_#c4c4c4] transition-transform duration-200 group-data-[state=closed]/accordion-trigger:rotate-180" />

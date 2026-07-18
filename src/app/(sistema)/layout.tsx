@@ -16,11 +16,9 @@ export default function SistemaLayout({ children }: { children: React.ReactNode 
       >
         <AppSidebar />
         <SidebarInset className="overflow-hidden">
-          <main className="flex min-w-0 flex-1 flex-col h-full overflow-hidden">
+          <main className="flex min-w-0 min-h-0 flex-1 flex-col overflow-y-auto bg-[#f4f6f9] p-4 lg:p-6">
             {/* Aquí se inyectan las páginas de ventas, tesorería, etc. */}
-            <div className="flex-1 flex flex-col bg-[#f4f6f9] p-4 lg:p-6 overflow-y-auto">
-                {children}
-            </div>
+            {children}
           </main>
           <AppFooter />
           <AddButton />
