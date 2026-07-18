@@ -9,6 +9,8 @@ import { DataTable } from "@/components/shared/DataTable";
 import { getColumns } from "../../../components/Columns";
 import Boletas from "../../../data/boletas.json";
 import { ComprobanteBase } from "../../../types/ComprobanteBase";
+import { PagoCuotasModal } from "../../../components/PagoCuotasModal";
+import { Button } from "@/app/(sistema)/garantia/components/cards-info/button-action";
 
 const BoletasData = Boletas as ComprobanteBase[];
 const BoletasDataPagadas = BoletasData.filter((b) => b.estado === "Pagado");
