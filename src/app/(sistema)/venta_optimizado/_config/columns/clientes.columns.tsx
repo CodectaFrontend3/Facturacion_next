@@ -14,11 +14,12 @@ export const getClienteColumns = (): ColumnDef<ClienteFilaLista>[] => [
     id: "acciones",
     header: "Ver",
     size: 50,
-    cell: () => (
+    cell: ({ row }) => (
       <ActionButton
         icon={<i className="bi bi-eye"></i>}
         label="Ver detalle"
         className="w-9 h-9 rounded-[3px]"
+        href={`/venta_optimizado/clientes/${row.original.id}`}
       />
     )
   }

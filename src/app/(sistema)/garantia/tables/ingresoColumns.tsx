@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Ingreso } from "../interfaces";
-import Link from "next/link";
+import { ActionButton } from "@/components/common/ActionButton";
 
 export const ingresoColumns = (
     handleAnular: (id: number) => void,
@@ -42,54 +42,54 @@ export const ingresoColumns = (
         {
             header: "Ver",
             id: "ver",
-            cell: ({ row }) => {
-                return (
-                    <Link
-                        href={`/garantia/ingreso/${row.original.id}`}
-                        className="view-btn bg-[#2C1FF3] text-white p-2 rounded"
-                    >
-                        <i className="bi bi-eye"></i>
-                    </Link>
-                )
-            },
+            size: 80,
+            cell: ({ row }) => (
+                <ActionButton
+                    icon={<i className="bi bi-eye"></i>}
+                    href={`/garantia/ingreso/${row.original.id}`}
+                />
+            ),
         },
         {
             header: "Acciones",
             id: "acciones",
+            size: 120,
             cell: ({ row }) => {
-                const isAnulado = row.original.estado === "anulados";
-                const isEgresado = row.original.estado === "egresados";
+                const isAnulado = row.original.estado === "anulado";
+                const isEgresado = row.original.estado === "egresado" || row.original.estado === "en_revision" || row.original.estado === "reparado";
 
                 if (isAnulado) {
                     return (
-                        <button className="icon-deleted bg-red-500 text-white p-2 h-8 w-8 rounded-full flex items-center justify-center">
-                            <i className="fa fa-times-circle" aria-hidden="true"></i>
-                        </button>
-                    )
+                        <ActionButton
+                            icon={<i className="bi bi-x-circle"></i>}
+                            className="w-9 h-9 bg-[#dc3545] hover:bg-[#c82333] rounded-full"
+                        />
+                    );
                 }
 
                 if (isEgresado) {
                     return (
-                        <button className="icon-check bg-teal-500 text-white p-2 h-8 w-8 rounded-full flex items-center justify-center">
-                            <i className="fa fa-check-circle" aria-hidden="true"></i>
-                        </button>
-                    )
+                        <ActionButton
+                            icon={<i className="bi bi-check-circle"></i>}
+                            className="w-9 h-9 bg-[#20c997] hover:bg-[#1ba87e] rounded-full"
+                        />
+                    );
                 }
 
                 return (
-                    <div className="flex gap-2">
-                        <button className="trash-btn bg-amber-400 text-white p-2 rounded hover:bg-amber-500"
+                    <div className="flex items-center gap-1.5">
+                        <ActionButton
+                            icon={<i className="bi bi-trash3"></i>}
+                            className="w-9 h-9 bg-[#f6a041] hover:bg-[#e08b33] rounded-full"
                             onClick={() => handleOpenModal(row.original.id)}
-                        >
-                            <i className="bi bi-trash3"></i>
-                        </button>
-                        <button className="sign-btn bg-teal-400 text-white p-2 rounded hover:bg-teal-500"
-                            onClick={() => handleEgresar(row.original.id)}
-                        >
-                            <i className="bi bi-box-arrow-in-right"></i>
-                        </button>
+                        />
+                        <ActionButton
+                            icon={<i className="bi bi-box-arrow-in-right"></i>}
+                            className="w-9 h-9 bg-[#20c997] hover:bg-[#1ba87e] rounded-[3px]"
+                            href={`/garantia/egreso/create/${row.original.id}`}
+                        />
                     </div>
-                )
+                );
             }
         },
     ];

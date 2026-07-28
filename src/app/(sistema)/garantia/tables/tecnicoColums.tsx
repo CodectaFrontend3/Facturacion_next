@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Tecnico } from "../interfaces";
-import Link from "next/link";
+import { ActionButton } from "@/components/common/ActionButton";
 
 export const tecnicoColumns: ColumnDef<Tecnico>[] = [
     {
@@ -38,14 +38,13 @@ export const tecnicoColumns: ColumnDef<Tecnico>[] = [
     {
         header: "Ver",
         id: "ver",
+        size: 80,
         cell: ({ row }) => {
             return (
-                <Link
+                <ActionButton
+                    icon={<i className="bi bi-eye"></i>}
                     href={`/garantia/tecnico/${row.original.id}`}
-                    className="view-btn bg-[#2C1FF3] text-white p-2 rounded hover:bg-[#190FCE]"
-                >
-                    <i className="bi bi-eye"></i>
-                </Link>
+                />
             )
         },
     },

@@ -1,115 +1,106 @@
+"use client"
+import { use } from "react";
+import { useRouter } from "next/navigation";
 import { EgresoProps } from "../../interfaces";
 
-import { InfoCard } from "../../components/cards-info/cards-info";
-import { InfoUser, DocumentTitle, TopHeader } from "../../components/cards-info/detail-header";
-import { DocumentActions } from "../../components/cards-info/document-actions";
+import { InfoCard, ContactInfoCard } from "../../components/cards-info/cards-info";
 import { GridContent } from "../../components/cards-info/detail-grid";
-import { ContactInfoCard } from "../../components/cards-info/cards-info";
+import { HeaderSectionGarantia } from "../../components/cards-info/detail-header";
 
-import egresoData from "../../data/egreso.json";
+import { DocumentDetailTemplate } from "@/components/shared/DocumentDetailTemplate";
+
+import garantiaMock from "../../data/garantia-mock.json";
 import 'font-awesome/css/font-awesome.min.css';
 
-export default async function EgresoDetallePage({ params }: EgresoProps) {
-    const { id } = await params;
+export default function EgresoDetallePage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
+    const router = useRouter();
 
-    const egreso = egresoData.find(
+    const garantia = garantiaMock.find(
         (item) => item.id === Number(id)
     );
 
-    if (!egreso) {
+    if (!garantia) {
         return <div>No encontrado</div>
     }
 
-    function Prueba() {
-        console.log("Prueba");
-    }
-
     return (
-        <div className="bg-gray-100 p-5 min-h-screen">
-            <div className="bg-white border border-gray-200 py-5">
-                <TopHeader>
-                    <InfoUser
-                        codigo={egreso.codigo}
-                        ruc={egreso.ruc}
+        <div className="p-4 bg-[#f5f5f5]">
+            <DocumentDetailTemplate
+                onClose={() => router.back()}
+                topHeader={
+                    <HeaderSectionGarantia
+                        numero={`EP-${garantia.codigo || "000000"}`}
+                        documentTitle="GUÍA DE EGRESO"
+                        ruc={garantia.cliente.ruc}
+                        celular={garantia.cliente.telefono}
                     />
+                }
+                topBody={
+                    <div className="mt-2 grid grid-cols-2 gap-8 items-start">
+                        <InfoCard title="Contacto Cliente" className="">
+                            <div>
+                                <p><strong>Empresa: </strong>{garantia.cliente.empresa}</p>
+                                <p><strong>RUC: </strong>{garantia.cliente.ruc}</p>
+                                <p><strong>Teléfono: </strong>{garantia.cliente.telefono}</p>
+                                <p><strong>Dirección: </strong>{garantia.cliente.direccion}</p>
+                            </div>
+                            <div>
+                                <p><strong>Contacto: </strong>{garantia.cliente.nombre}</p>
+                                <p><strong>Fecha: </strong>{garantia.fechas.egreso || garantia.fechas.ingreso}</p>
+                                <p><strong>Correo: </strong>{garantia.cliente.correo}</p>
+                            </div>
+                        </InfoCard>
 
-                    <DocumentTitle
-                        title="GUÍA DE EGRESO"
-                    />
+                        <InfoCard title="Condiciones Generales" className="">
+                            <div>
+                                <p><strong>Técnico Asignado: </strong>{garantia.tecnico.asignado}</p>
+                                <p><strong>Motivo: </strong>{garantia.ingreso.motivo || "Revisión técnica"}</p>
+                                <p><strong>Marca: </strong>{garantia.equipo.marca}</p>
+                                <p><strong>Asunto: </strong>{garantia.egreso.asunto || "Entrega de equipo"}</p>
+                            </div>
+                        </InfoCard>
+                    </div>
+                }
+                tableBody={
+                    <GridContent className="grid grid-cols-6 gap-8 items-start -mx-5">
+                        <InfoCard
+                            title="Datos del Equipo"
+                            className="col-span-6"
+                        >
+                            <div>
+                                <p><strong>Modelo: </strong>{garantia.equipo.modelo}</p>
+                                <p><strong>Número de serie: </strong>{garantia.equipo.serie}</p>
+                            </div>
+                            <div>
+                                <p><strong>Código Interno: </strong>{garantia.codigo}</p>
+                                <p><strong>Fecha de Compra: </strong>{garantia.equipo.fechaCompra}</p>
+                            </div>
+                        </InfoCard>
 
-                    <DocumentActions />
-                </TopHeader>
-                <GridContent>
-                    <InfoCard title="Contacto Cliente">
-                        <div>
-                            <p><strong>Empresa: </strong>{egreso.empresa}</p>
-                            <p><strong>RUC: </strong>{egreso.ruc}</p>
-                            <p><strong>Teléfono: </strong>{egreso.telefono}</p>
-                            <p><strong>Dirección: </strong>{egreso.direccion}</p>
-                        </div>
+                        <InfoCard title="Descripción del Problema" className="col-span-2">
+                            <div className="col-span-2">
+                                <p>{garantia.ingreso.problemaReportado}</p>
+                            </div>
+                        </InfoCard>
 
-                        <div>
-                            <p><strong>Contacto: </strong>{egreso.cliente}</p>
-                            <p><strong>Fecha: </strong>{egreso.fecha}</p>
-                            <p><strong>Correo: </strong>{egreso.correo}</p>
-                        </div>
-                    </InfoCard>
+                        <InfoCard title="Revisión y diagnóstico" className="col-span-2">
+                            <div className="col-span-2">
+                                <p>{garantia.tecnico.revision}</p>
+                            </div>
+                        </InfoCard>
 
-                    <InfoCard title="Condiciones Generales">
-                        <div>
-                            <p><strong>Técnico Asignado: </strong>{egreso.asignado}</p>
-                            <p><strong>Motivo: </strong>{egreso.motivo}</p>
-                            <p><strong>Marca: </strong>{egreso.marca}</p>
-                            <p><strong>Asunto: </strong>{egreso.asunto}</p>
-                        </div>
-                    </InfoCard>
-
-                    <InfoCard
-                        title="Datos del Equipo"
-                        className="col-span-6"
-                    >
-                        <div>
-                            <p><strong>Modelo: </strong>{egreso.modelo}</p>
-                            <p><strong>Número de serie: </strong>{egreso.serie}</p>
-                        </div>
-
-                        <div>
-                            <p><strong>Código Interno: </strong>{egreso.codigo}</p>
-                            <p><strong>Fecha de Compra: </strong>{egreso.fecha}</p>
-                        </div>
-                    </InfoCard>
-
-                    <InfoCard
-                        title="Descripción del Problema"
-                        className="col-span-2"
-                    >
-                        <div className="col-span-2">
-                            <p>{egreso.problema}</p>
-                        </div>
-                    </InfoCard>
-
-                    <InfoCard
-                        title="Revisión y diagnóstico"
-                        className="col-span-2"
-                    >
-                        <div className="col-span-2">
-                            <p>{egreso.revision}</p>
-                        </div>
-                    </InfoCard>
-
-                    <InfoCard
-                        title="Recomendaciones"
-                        className="col-span-2"
-                    >
-                        <div className="col-span-2">
-                            <p>{egreso.recomendaciones}</p>
-                        </div>
-                    </InfoCard>
-                </GridContent>
-                <ContactInfoCard
-                    title="Centro de Atención"
-                />
-            </div>
+                        <InfoCard title="Recomendaciones" className="col-span-2">
+                            <div className="col-span-2">
+                                <p>{garantia.tecnico.recomendaciones}</p>
+                            </div>
+                        </InfoCard>
+                    </GridContent>
+                }
+                actions={
+                    <ContactInfoCard title="Centro de Atención" />
+                }
+            />
         </div>
     );
 }

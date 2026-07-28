@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "numero_documento": "FFF1-0004512",
+    "proveedor": "IMPORTACIONES J&P S.A.C.",
+    "ruc": "20601234567",
+    "numero_documento_provedor": "F001-9854",
+    "subtotal": 1000.0,
+    "igv": 180.0,
+    "total": 1180.0
+  },
+  {
+    "id": 2,
+    "numero_documento": "FFF1-0004513",
+    "proveedor": "DISTRIBUIDORA DE TECNOLOGIA PERU",
+    "ruc": "20554321098",
+    "numero_documento_provedor": "F022-1145",
+    "subtotal": 2500.0,
+    "igv": 450.0,
+    "total": 2950.0
+  },
+  {
+    "id": 3,
+    "tipo": "Factura",
+    "numero_documento": "FFF1-0008954",
+    "proveedor": "ALICORP S.A.A.",
+    "ruc": "20100055237",
+    "numero_documento_provedor": "F005-0012",
+    "subtotal": 150.0,
+    "igv": 27.0,
+    "total": 177.0
+  },
+  {
+    "id": 4,
+    "tipo": "Boleta",
+    "numero_documento": "BBB1-0002145",
+    "proveedor": "JUAN CARLOS MENDOZA HERNANDEZ",
+    "ruc": "10457896321",
+    "numero_documento_provedor": "B001-5589",
+    "subtotal": 84.75,
+    "igv": 15.25,
+    "total": 100.0
+  }
+]

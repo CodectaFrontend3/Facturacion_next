@@ -17,6 +17,7 @@ function KardexTabs({ children, actions }: Props) {
     { name: "Distribuciones", href: "/kardex-entrada-Distribucion", count: 0 },
     { name: "Traslados", href: "/kardex-entrada-Traslado-almacen", count: 0 },
     { name: "Salidas", href: "/kardex-salida", count: 0 },
+    { name: "Cierre", href: "/cierre-periodo", count: 0 },
   ];
 
   const activeTab = allTabs.find((tab) => pathname === tab.href);

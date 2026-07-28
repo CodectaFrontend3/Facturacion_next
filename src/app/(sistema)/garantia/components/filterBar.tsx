@@ -66,7 +66,7 @@ export default function FilterBar({ type }: { type: TableType }) {
     };
 
     return (
-        <div className="flex flex-col gap-4 text-gray-500 border-t border-l border-r border-gray-200 p-5 mb-0">
+        <div className="flex flex-col gap-4 text-gray-500">
             <DataFilters
                 onSearch={handleSearch}
                 onReset={handleReset}

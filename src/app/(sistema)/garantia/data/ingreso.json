@@ -1,6 +1,6 @@
 [
   {
-    "id": 41,
+    "id": 1,
     "codigo": "000101",
     "producto": "Laptop",
     "marca": "ASUS",
@@ -20,7 +20,7 @@
     "estetica": "Laptop con leves marcas de uso"
   },
   {
-    "id": 42,
+    "id": 2,
     "codigo": "000102",
     "producto": "PC",
     "marca": "HP",
@@ -40,7 +40,7 @@
     "estetica": "Case en buen estado"
   },
   {
-    "id": 43,
+    "id": 3,
     "codigo": "000103",
     "producto": "Monitor",
     "marca": "LG",
@@ -48,7 +48,7 @@
     "cliente": "Fernando Rojas",
     "ruc": "10990011223",
     "fecha": "07/05/2026",
-    "estado": "sin_egresar",
+    "estado": "egresado",
     "empresa": "Visual Tech",
     "telefono": "988 665 332",
     "direccion": "Av. Ejército 890 - Arequipa",
@@ -60,7 +60,7 @@
     "estetica": "Monitor con marco desgastado"
   },
   {
-    "id": 44,
+    "id": 4,
     "codigo": "000104",
     "producto": "Impresora",
     "marca": "EPSON",
