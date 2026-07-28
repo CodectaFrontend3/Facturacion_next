@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FileText, File as FileIcon, User, Plus, Download } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -34,7 +34,7 @@ const guiasItems = [
   { icon: User, label: "Guía Remisión Man.", count: "0 Documentos", amount: "\u00A0", tone: { ring: "border-[#2C1FF3]", amount: "" } }
 ];
 
-// 2. RUTAS DE LAS PESTAÑAS
+// 2. RUTAS DE LAS PESTAÑAS (la propiedad 'count' ahora se usa como valor inicial base si se desea, pero será sobreescrita)
 const tabsConfig = [
   { id: "boleta", label: "Boleta", count: 0, href: "/comprobantes/boleta", color: "#2C1FF3" },
   { id: "boleta_man", label: "Boleta Man.", count: 0, href: "/comprobantes/boleta_manual", color: "#2C1FF3" },
@@ -62,6 +62,35 @@ export function ComprobantesTabTemplate({
   total = "S/0.00", 
   totalGeneral = "S/0.00" 
 }: ComprobantesTabTemplateProps) {
+
+  // ESTADO PARA CONTEO DINÁMICO DE LAS PESTAÑAS
+  const [conteos, setConteos] = useState<Record<string, number>>({
+    boleta: 0,
+    boleta_man: 0,
+    factura: 0,
+    factura_man: 0,
+    nota_credito: 0,
+    nota_debito: 0,
+    guia_remision: 0,
+    guia_remision_man: 0
+  });
+
+  // EFECTO QUE SE DISPARA AL CARGAR LA DATA PARA LEER EL LOCALSTORAGE
+  useEffect(() => {
+    const boletasStorage = JSON.parse(localStorage.getItem('boletas_guardadas') || '[]');
+    const facturasStorage = JSON.parse(localStorage.getItem('facturas_guardadas') || '[]');
+
+    setConteos({
+      boleta: boletasStorage.length + 2, // Sumamos los 2 de demostración estáticos
+      boleta_man: 0,
+      factura: facturasStorage.length + 1, // Sumamos 1 de demostración estático
+      factura_man: 0,
+      nota_credito: 0,
+      nota_debito: 0,
+      guia_remision: 0,
+      guia_remision_man: 0
+    });
+  }, [data]);
 
   const [filters, setFilters] = useState({
     fechaInicio: "",
@@ -112,6 +141,9 @@ export function ComprobantesTabTemplate({
             <div className="flex flex-wrap">
               {tabsConfig.map((tab) => {
                 const isActive = tab.id === activeTab;
+                // Obtenemos el número dinámico (Si no existe en el estado, muestra 0)
+                const numeroRegistros = conteos[tab.id] || 0;
+
                 return (
                   <Link key={tab.id} href={tab.href}>
                     <div className={`flex items-center gap-2 px-4 py-2.5 text-[12px] font-bold transition-all relative top-[1px] ${
@@ -123,7 +155,8 @@ export function ComprobantesTabTemplate({
                         className="flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-[3px] text-white text-[10px]"
                         style={{ backgroundColor: tab.color }}
                       >
-                        {tab.count}
+                        {/* APLICAMOS EL VALOR DINÁMICO */}
+                        {numeroRegistros}
                       </span>
                       {tab.label}
                     </div>
