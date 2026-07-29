@@ -2,9 +2,9 @@
 
 import React, { useState } from "react"
 import { ActionButton } from "@/components/common/ActionButton"
-import { ClienteModal } from "@/app/(sistema)/ventas/clientes/components/ClienteModal"
-import { addCliente } from "@/app/(sistema)/ventas/clientes/services/clienteService"
-import { ClienteFormData } from "@/app/(sistema)/ventas/types/cliente.types"
+import { ClienteModal } from "@/app/(sistema)/ventas/_components/legacy-clientes/ClienteModal"
+import { addCliente } from "@/app/(sistema)/ventas/_services/legacy-clientes/clienteService"
+import { ClienteFormData } from "@/app/(sistema)/ventas/_domain/legacy/cliente.types"
 import { showToast } from "@/components/shared/custom-toast"
 import { ProductoModal } from "@/app/(sistema)/(productos-servicios)/_components/productos/ProductoModal"
 import { Producto } from "@/app/(sistema)/(productos-servicios)/types/productos.types"

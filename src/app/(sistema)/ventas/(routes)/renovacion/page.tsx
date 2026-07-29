@@ -1,0 +1,99 @@
+// (routes)/renovacion/page.tsx
+"use client"
+
+import { useMemo } from "react"
+import { useRouter } from "next/navigation"
+
+import { VentasListLayout } from "../../_components/ventas/VentasListLayout"
+import { FilterBar } from "../../_components/shared/FilterBar"
+
+import { useVentasBasePath, useVentasContext } from "../../VentasContext"
+import { useVentasFilters } from "../../_hooks/ventas/useVentasFilters"
+import { useVentasList } from "../../_hooks/ventas/useVentasList"
+import { useVentasSummary } from "../../_hooks/ventas/useVentasSummary"
+
+import { getRenovacionColumns } from "../../_config/columns/renovacion.columns"
+import { SUMMARY_CARDS } from "../../_config/summaryCards"
+import { format } from "../../_utils/format"
+
+const COMPROBANTE_OPTIONS = [
+  { label: "Comprobantes", value: "todos" },
+  { label: "Factura", value: "Factura" },
+  { label: "Boleta", value: "Boleta" },
+  { label: "Nota de Venta", value: "Nota de Venta" },
+]
+
+const ESTADO_OPTIONS = [
+  { label: "Estados", value: "todos" },
+  { label: "Activa", value: "activo" },
+  { label: "Por vencer", value: "por_vencer" },
+  { label: "Vencida", value: "vencido" },
+]
+
+export default function RenovacionPage() {
+  const router = useRouter()
+  const basePath = useVentasBasePath()
+  const { cotizaciones, cotizacionesManuales, notasVenta, clientes, renovaciones, isLoading } =
+    useVentasContext()
+
+  const { filters, activeFilters, handleFilterChange, handleSearch, resetFilters } = useVentasFilters()
+  const renovacionesFiltradas = useVentasList(renovaciones, activeFilters)
+
+  const allDocs = useMemo(
+    () => [...cotizaciones, ...cotizacionesManuales, ...notasVenta],
+    [cotizaciones, cotizacionesManuales, notasVenta]
+  )
+  const summary = useVentasSummary(allDocs, clientes, renovaciones)
+
+  const summaryCards = SUMMARY_CARDS.map((card) => {
+    const s = summary[card.key as keyof typeof summary]
+    return {
+      ...card,
+      documents: s?.documents ?? 0,
+      amount: s && s.amount > 0 ? format.moneda(s.amount) : "S/ 0.00",
+    }
+  })
+
+  const totalAmount = useMemo(
+    () => format.moneda(renovacionesFiltradas.reduce((acc, r) => acc + (r.total ?? 0), 0)),
+    [renovacionesFiltradas]
+  )
+
+  const tabCounts = {
+    cotizaciones: cotizaciones.length,
+    cotizacionesManuales: cotizacionesManuales.length,
+    notasVenta: notasVenta.length,
+    clientes: clientes.length,
+    renovaciones: renovaciones.length,
+  }
+
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-gray-400 text-sm">Cargando datos...</div>
+
+  return (
+    <VentasListLayout
+      activeTab="renovaciones"
+      summaryCards={summaryCards}
+      tableColumns={getRenovacionColumns({
+        onView: (doc) => {
+          // La renovación puede provenir de Cotización o Cotización Manual,
+          // cada una con su propia ruta de detalle.
+          const ruta = doc.tipo === "cotizacion" ? "cotizacion" : "cotizacion_manual"
+          router.push(`${basePath}/${ruta}/${doc.id}`)
+        },
+      })}
+      tableData={renovacionesFiltradas}
+      tabCounts={tabCounts}
+      totalAmount={totalAmount}
+      filterBar={
+        <FilterBar
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          onSearchSubmit={handleSearch}
+          onReset={resetFilters}
+          selectConfig={{ name: "tipoDocumento", options: COMPROBANTE_OPTIONS }}
+          estadoSelectConfig={{ name: "estado", options: ESTADO_OPTIONS }}
+        />
+      }
+    />
+  )
+}
