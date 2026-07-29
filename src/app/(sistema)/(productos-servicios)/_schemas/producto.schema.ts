@@ -18,7 +18,7 @@ export const productoSchema = z.object({
   desc2: z.number().default(0),
   descMax: z.number().default(0),
   origen: z.string().default("Producto Nacional"),
-  utilidad: z.number().min(0, "La utilidad debe ser mayor o igual a 0"),
+  utilidad: z.number(),
   garantia: z.string().default("12 meses"),
   afectacion: z.string().default("Gravado - Operación Onerosa"),
   unidad: z.string().default("Bolsa"),
@@ -28,6 +28,7 @@ export const productoSchema = z.object({
   detalle: z.string().default(""),
   estado: z.enum(["Activo", "Inactivo"]).default("Activo"),
   precioNacional: z.number().default(0),
+  precioCompra: z.number().min(0, "El precio de compra debe ser mayor o igual a 0").default(0),
   stock: z.number().default(0),
 })
 

@@ -8,6 +8,7 @@ export interface Producto {
   unidad: string
   estado: ProductoEstado
   precioNacional: number
+  precioCompra?: number
   stock: number
   fichaTecnicaUrl?: string | null
   fechaRegistro: string

@@ -3,9 +3,10 @@ import { Servicio } from "../types/servicios.types"
 import { ActionButton } from "@/components/common/ActionButton"
 
 export const getServiciosColumns = (
+  onView: (servicio: Servicio) => void,
   onEdit: (servicio: Servicio) => void,
-  onToggleEstado: (id: string, currentEstado: "Activo" | "Anulado") => void,
-  onDelete: (id: string) => void
+  onDeactivate: (id: string) => void,
+  onViewFichaTecnica: (servicio: Servicio) => void
 ): ColumnDef<Servicio>[] => [
   {
     accessorKey: "codigoServicio",
@@ -42,13 +43,13 @@ export const getServiciosColumns = (
     accessorKey: "fichaTecnicaUrl",
     header: "Ficha Técnica",
     size: 120,
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <div className="flex justify-center">
           <ActionButton
             icon={<i className="bi bi-file-earmark-pdf text-[14px]" />}
             className="w-7 h-7 bg-[#ed5565] hover:bg-[#da4f5d] text-white rounded-[4px] flex items-center justify-center cursor-pointer shadow-none hover:shadow-none border-none p-0"
-            onClick={() => {}}
+            onClick={() => onViewFichaTecnica(row.original)}
             label="PDF"
           />
         </div>
@@ -66,8 +67,7 @@ export const getServiciosColumns = (
         <div className="flex justify-center">
           <ActionButton
             icon={<i className={`bi ${isActive ? "bi-check" : "bi-x"} text-[14px]`} />}
-            className={`w-6 h-6 rounded-full ${isActive ? "bg-[#0070f3]" : "bg-[#ed5565]"} text-white flex items-center justify-center cursor-pointer shadow-none hover:shadow-none border-none p-0`}
-            onClick={() => {}}
+            className={`w-6 h-6 rounded-full ${isActive ? "bg-[#0070f3]" : "bg-[#ed5565]"} text-white flex items-center justify-center shadow-none hover:shadow-none border-none p-0`}
             label={estado}
           />
         </div>
@@ -85,9 +85,16 @@ export const getServiciosColumns = (
     cell: ({ row }) => {
       const popoverOptions = [
         {
+          label: "Ver",
+          onClick: () => onView(row.original),
+        },
+        {
           label: "Editar",
           onClick: () => onEdit(row.original),
-        }
+        },
+        ...(row.original.estado === "Activo"
+          ? [{ label: "Desactivar", onClick: () => onDeactivate(row.original.id) }]
+          : []),
       ]
 
       return (

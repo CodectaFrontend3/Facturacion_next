@@ -8,15 +8,52 @@ import { DataTablePagination } from "@/components/DataTable/DataTablePagination"
 import { Producto } from "../../types/productos.types"
 import { useProductos } from "../../_hooks/useProductos"
 import { ProductoModal } from "../../_components/productos/ProductoModal"
+import { ReadOnlyDetailModal } from "../../_components/shared/ReadOnlyDetailModal"
+import { FichaTecnicaModal } from "../../_components/shared/FichaTecnicaModal"
+import { UtilityCalculator } from "../../_components/shared/UtilityCalculator"
+import { ImportFileModal } from "../../_components/shared/ImportFileModal"
 import { DashboardResumen } from "../../_components/dashboard/DashboardResumen"
 import { FilterBar } from "../../_components/shared/FilterBar"
 import { getProductosColumns } from "../../_config/productos-columns"
 import productosMock from "../../data/productos-mock.json"
 
+const completarProducto = (producto: Producto): Producto => {
+  const precioCompra = producto.precioCompra ?? Number((producto.precioNacional * 0.7).toFixed(2))
+  const utilidad = precioCompra > 0
+    ? Number((((producto.precioNacional - precioCompra) / precioCompra) * 100).toFixed(2))
+    : 0
+
+  return {
+    ...producto,
+    codOrig: producto.codOrig ?? producto.codigo,
+    descripcion: producto.descripcion ?? `Producto ${producto.nombre.toLowerCase()}.`,
+    peso: producto.peso ?? 0,
+    pesoUnidad: producto.pesoUnidad ?? "Kilogramos",
+    familia: producto.familia ?? producto.marca,
+    subFamilia: producto.subFamilia ?? "General",
+    stockMin: producto.stockMin ?? 0,
+    stockMax: producto.stockMax ?? Math.max(producto.stock * 2, 10),
+    desc1: producto.desc1 ?? 0,
+    desc2: producto.desc2 ?? 0,
+    descMax: producto.descMax ?? 0,
+    origen: producto.origen ?? "Producto Nacional",
+    garantia: producto.garantia ?? "12 meses",
+    afectacion: producto.afectacion ?? "Gravado - Operación Onerosa",
+    detalle: producto.detalle ?? "Sin observaciones adicionales.",
+    precioCompra,
+    utilidad,
+  }
+}
+
 export default function Page() {
-  const [productos, setProductos] = useState<Producto[]>(() => productosMock as Producto[])
+  const [productos, setProductos] = useState<Producto[]>(() =>
+    (productosMock as Producto[]).map(completarProducto)
+  )
   const [selectedProducto, setSelectedProducto] = useState<Producto | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [viewProducto, setViewProducto] = useState<Producto | null>(null)
+  const [fichaTecnicaProducto, setFichaTecnicaProducto] = useState<Producto | null>(null)
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false)
 
   useEffect(() => {
     const handleAdded = (e: Event) => {
@@ -97,25 +134,65 @@ export default function Page() {
   const columns = useMemo(
     () =>
       getProductosColumns(
+        (prod) => setViewProducto(prod),
         (prod) => {
           setSelectedProducto(prod)
           setIsModalOpen(true)
         },
-        (id, currentEstado) => {
-          const nextEstado = currentEstado === "Activo" ? "Inactivo" : "Activo"
+        (id) => {
           setProductos((prev) =>
-            prev.map((p) => (p.id === id ? { ...p, estado: nextEstado } : p))
+            prev.map((p) => (p.id === id && p.estado === "Activo" ? { ...p, estado: "Inactivo" } : p))
           )
-          showToast(
-            nextEstado === "Activo"
-              ? "Producto activado correctamente"
-              : "Producto desactivado correctamente",
-            1
-          )
-        }
+          showToast("Producto desactivado correctamente", 1)
+        },
+        (prod) => setFichaTecnicaProducto(prod)
       ),
     [productos]
   )
+
+  const productoDetailFields = viewProducto
+    ? [
+        { label: "Código", value: viewProducto.codigo },
+        { label: "Cod. Orig.", value: viewProducto.codOrig },
+        { label: "Nombre", value: viewProducto.nombre, fullWidth: true },
+        { label: "Descripción", value: viewProducto.descripcion, fullWidth: true },
+        { label: "Marca", value: viewProducto.marca },
+        { label: "Estado", value: viewProducto.estado },
+        { label: "Peso", value: viewProducto.peso ? `${viewProducto.peso} ${viewProducto.pesoUnidad ?? ""}` : undefined },
+        { label: "Unidad de medida", value: viewProducto.unidad },
+        { label: "Familia", value: viewProducto.familia },
+        { label: "Subfamilia", value: viewProducto.subFamilia },
+        { label: "Stock", value: viewProducto.stock },
+        { label: "Stock mínimo", value: viewProducto.stockMin },
+        { label: "Stock máximo", value: viewProducto.stockMax },
+        { label: "Precio nacional", value: `S/ ${viewProducto.precioNacional.toLocaleString("es-PE", { minimumFractionDigits: 2 })}` },
+        { label: "Precio de compra", value: `S/ ${(viewProducto.precioCompra ?? 0).toLocaleString("es-PE", { minimumFractionDigits: 2 })}` },
+        { label: "Desc. 1", value: viewProducto.desc1 === undefined ? undefined : `${viewProducto.desc1}%` },
+        { label: "Desc. 2", value: viewProducto.desc2 === undefined ? undefined : `${viewProducto.desc2}%` },
+        { label: "Desc. máximo", value: viewProducto.descMax === undefined ? undefined : `${viewProducto.descMax}%` },
+        { label: "Origen", value: viewProducto.origen },
+        { label: "Utilidad", value: viewProducto.utilidad === undefined ? undefined : `${viewProducto.utilidad}%` },
+        {
+          label: "panel-utilidad",
+          fullWidth: true,
+          bare: true,
+          value: (
+            <UtilityCalculator
+              variant="producto"
+              precioBase={viewProducto.precioNacional}
+              precioCompra={viewProducto.precioCompra}
+              utilidad={viewProducto.utilidad ?? 0}
+              readOnly
+              alwaysVisible
+            />
+          ),
+        },
+        { label: "Garantía", value: viewProducto.garantia },
+        { label: "Afectación", value: viewProducto.afectacion },
+        { label: "Fecha", value: viewProducto.fechaRegistro },
+        { label: "Detalle", value: viewProducto.detalle, fullWidth: true },
+      ]
+    : []
 
   const totalEntries = filteredData.length
   const pageSize = 10
@@ -152,7 +229,7 @@ export default function Page() {
                 icon={<i className="fa fa-upload text-[13px]" />}
                 className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white w-8 h-8 rounded-[4px] cursor-pointer"
                 label="Subir"
-                onClick={() => showToast("Subir archivo de productos...", 1)}
+                onClick={() => setIsImportModalOpen(true)}
               />
               <ActionButton
                 icon={<i className="fa fa-download text-[13px]" />}
@@ -231,6 +308,29 @@ export default function Page() {
         onClose={() => setIsModalOpen(false)}
         onSave={handleSave}
         producto={selectedProducto}
+      />
+
+      <ReadOnlyDetailModal
+        isOpen={viewProducto !== null}
+        onClose={() => setViewProducto(null)}
+        title="Ver Producto"
+        iconClass="fa fa-cube"
+        fields={productoDetailFields}
+        imageUrl={viewProducto?.imagen}
+        imageAlt={`Imagen de ${viewProducto?.nombre ?? "producto"}`}
+      />
+
+      <FichaTecnicaModal
+        isOpen={fichaTecnicaProducto !== null}
+        onClose={() => setFichaTecnicaProducto(null)}
+        nombre={fichaTecnicaProducto?.nombre ?? ""}
+        fichaTecnicaUrl={fichaTecnicaProducto?.fichaTecnicaUrl}
+      />
+
+      <ImportFileModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onImport={(file) => showToast(`Archivo ${file.name} listo para importar.`, 1)}
       />
     </main>
   )

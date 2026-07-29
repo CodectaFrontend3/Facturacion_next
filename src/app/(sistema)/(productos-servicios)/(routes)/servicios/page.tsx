@@ -8,6 +8,10 @@ import { DataTablePagination } from "@/components/DataTable/DataTablePagination"
 import { Servicio } from "../../types/servicios.types"
 import { useServicios } from "../../_hooks/useServicios"
 import { ServicioModal } from "../../_components/servicios/ServicioModal"
+import { ReadOnlyDetailModal } from "../../_components/shared/ReadOnlyDetailModal"
+import { FichaTecnicaModal } from "../../_components/shared/FichaTecnicaModal"
+import { UtilityCalculator } from "../../_components/shared/UtilityCalculator"
+import { ImportFileModal } from "../../_components/shared/ImportFileModal"
 import { DashboardResumen } from "../../_components/dashboard/DashboardResumen"
 import { FilterBar } from "../../_components/shared/FilterBar"
 import { getServiciosColumns } from "../../_config/servicios-columns"
@@ -17,6 +21,9 @@ export default function Page() {
   const [servicios, setServicios] = useState<Servicio[]>(() => serviciosMock as Servicio[])
   const [selectedServicio, setSelectedServicio] = useState<Servicio | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [viewServicio, setViewServicio] = useState<Servicio | null>(null)
+  const [fichaTecnicaServicio, setFichaTecnicaServicio] = useState<Servicio | null>(null)
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false)
 
   // Extraemos toda la lógica cerebro para manejar filtros, paginado, etc.
   const {
@@ -85,29 +92,54 @@ export default function Page() {
   const columns = useMemo(
     () =>
       getServiciosColumns(
+        (serv) => setViewServicio(serv),
         (serv) => {
           setSelectedServicio(serv)
           setIsModalOpen(true)
         },
-        (id, currentEstado) => {
-          const nextEstado = currentEstado === "Activo" ? "Anulado" : "Activo"
-          setServicios((prev) =>
-            prev.map((s) => (s.id === id ? { ...s, estado: nextEstado } : s))
-          )
-          showToast(
-            nextEstado === "Activo"
-              ? "Servicio activado correctamente"
-              : "Servicio desactivado correctamente",
-            1
-          )
-        },
         (id) => {
-          setServicios((prev) => prev.filter((s) => s.id !== id))
-          showToast("Servicio eliminado con éxito", 1)
-        }
+          setServicios((prev) =>
+            prev.map((s) => (s.id === id && s.estado === "Activo" ? { ...s, estado: "Anulado" } : s))
+          )
+          showToast("Servicio desactivado correctamente", 1)
+        },
+        (serv) => setFichaTecnicaServicio(serv)
       ),
     [servicios]
   )
+
+  const servicioDetailFields = viewServicio
+    ? [
+        { label: "Código", value: viewServicio.codigoServicio },
+        { label: "Código original", value: viewServicio.codigoOriginal },
+        { label: "Nombre", value: viewServicio.nombre, fullWidth: true },
+        { label: "Descripción", value: viewServicio.descripcion, fullWidth: true },
+        { label: "Familia", value: viewServicio.familia },
+        { label: "Subfamilia", value: viewServicio.subfamilia },
+        { label: "Marca", value: viewServicio.marca },
+        { label: "Estado", value: viewServicio.estado },
+        { label: "Descuento", value: `${viewServicio.descuento}%` },
+        { label: "Precio nacional", value: `S/ ${viewServicio.precioVentaPen.toLocaleString("es-PE", { minimumFractionDigits: 2 })}` },
+        { label: "Precio extranjero", value: `$ ${viewServicio.precioVentaUsd.toLocaleString("en-US", { minimumFractionDigits: 2 })}` },
+        { label: "Utilidad", value: `${viewServicio.utilidad}%` },
+        {
+          label: "panel-utilidad",
+          fullWidth: true,
+          bare: true,
+          value: (
+            <UtilityCalculator
+              variant="servicio"
+              precioBase={viewServicio.precioVentaPen}
+              utilidad={viewServicio.utilidad}
+              readOnly
+              alwaysVisible
+            />
+          ),
+        },
+        { label: "Afectación", value: viewServicio.afectacion },
+        { label: "Fecha", value: viewServicio.fechaRegistro },
+      ]
+    : []
 
   const totalEntries = filteredData.length
   const pageSize = 10
@@ -144,7 +176,7 @@ export default function Page() {
                 icon={<i className="fa fa-upload text-[13px]" />}
                 className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white w-8 h-8 rounded-[4px] cursor-pointer"
                 label="Subir"
-                onClick={() => showToast("Subir archivo de servicios...", 1)}
+                onClick={() => setIsImportModalOpen(true)}
               />
               <ActionButton
                 icon={<i className="fa fa-download text-[13px]" />}
@@ -223,6 +255,29 @@ export default function Page() {
         onClose={() => setIsModalOpen(false)}
         onSave={handleSave}
         servicio={selectedServicio}
+      />
+
+      <ReadOnlyDetailModal
+        isOpen={viewServicio !== null}
+        onClose={() => setViewServicio(null)}
+        title="Ver Servicio"
+        iconClass="fa fa-wrench"
+        fields={servicioDetailFields}
+        imageUrl={viewServicio?.imagenUrl}
+        imageAlt={`Imagen de ${viewServicio?.nombre ?? "servicio"}`}
+      />
+
+      <FichaTecnicaModal
+        isOpen={fichaTecnicaServicio !== null}
+        onClose={() => setFichaTecnicaServicio(null)}
+        nombre={fichaTecnicaServicio?.nombre ?? ""}
+        fichaTecnicaUrl={fichaTecnicaServicio?.fichaTecnicaUrl}
+      />
+
+      <ImportFileModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onImport={(file) => showToast(`Archivo ${file.name} listo para importar.`, 1)}
       />
     </main>
   )

@@ -6,6 +6,7 @@ import { ActionButton } from "@/components/common/ActionButton"
 import { Servicio } from "../../types/servicios.types"
 import { useServicioForm } from "../../_hooks/useServicioForm"
 import { UtilityCalculator } from "../shared/UtilityCalculator"
+import { useWatch } from "react-hook-form"
 
 interface ServicioModalProps {
   isOpen: boolean
@@ -33,9 +34,10 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
     onClose,
   })
 
-  const { register, watch, formState: { errors } } = form
+  const { register, control, watch, formState: { errors } } = form
 
-  const precioVentaPen = watch("precioVentaPen")
+  const precioVentaPen = useWatch({ control, name: "precioVentaPen" }) ?? 0
+  const utilidad = useWatch({ control, name: "utilidad" }) ?? 0
   const fechaRegistro = watch("fechaRegistro")
   const imagenUrl = watch("imagenUrl")
 
@@ -197,13 +199,12 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
                 <span className="px-3 text-gray-500 font-semibold text-[13px] border-r border-gray-300 h-full flex items-center bg-gray-100">S/</span>
                 <Input
                   type="number"
-                  {...register("precioVentaPen", {
-                    valueAsNumber: true,
-                    onChange: (e) => {
-                      const val = Number(e.target.value)
-                      setValue("precioVentaUsd", Number((val / 3.75).toFixed(2)), { shouldValidate: true })
-                    }
-                  })}
+                  {...register("precioVentaPen", { valueAsNumber: true })}
+                  onChange={(event) => {
+                    const valor = Number(event.target.value)
+                    setValue("precioVentaPen", valor, { shouldValidate: true, shouldDirty: true })
+                    setValue("precioVentaUsd", Number((valor / 3.75).toFixed(2)), { shouldValidate: true, shouldDirty: true })
+                  }}
                   className="h-full border-none focus-visible:ring-0 shadow-none rounded-none w-full bg-white px-3 text-[13px] text-[#676A6C]"
                 />
               </div>
@@ -240,9 +241,13 @@ export function ServicioModal({ isOpen, onClose, onSave, servicio }: ServicioMod
 
             {/* ¿En duda con su porcentaje de utilidad? */}
             <UtilityCalculator
-              precioVenta={precioVentaPen}
-              onChangePrecioVenta={(val) => setValue("precioVentaPen", val, { shouldValidate: true })}
-              onChangePrecioUsd={(val) => setValue("precioVentaUsd", val, { shouldValidate: true })}
+              variant="servicio"
+              precioBase={precioVentaPen}
+              utilidad={utilidad}
+              onChangePrecioBase={(val) => {
+                setValue("precioVentaPen", val, { shouldValidate: true, shouldDirty: true })
+                setValue("precioVentaUsd", Number((val / 3.75).toFixed(2)), { shouldValidate: true, shouldDirty: true })
+              }}
             />
 
             {/* Fecha */}
