@@ -7,10 +7,10 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { ActionButton } from "@/components/common/ActionButton";
-import { Switch } from "@/components/ui/switch";
 import { Producto } from "../../types/productos.types";
 import { useProductoForm } from "../../_hooks/useProductoForm";
 import { UtilityCalculator } from "../shared/UtilityCalculator";
+import { useWatch } from "react-hook-form";
 
 interface ProductoModalProps {
   isOpen: boolean;
@@ -61,15 +61,18 @@ export function ProductoModal({
 
   const {
     register,
+    control,
     watch,
     formState: { errors },
   } = form;
 
   // Watch fields needed for UI conditional rendering or select controls
-  const estado = watch("estado");
   const fechaRegistro = watch("fechaRegistro");
   const fichaTecnicaUrl = watch("fichaTecnicaUrl");
   const imagen = watch("imagen");
+  const precioCompra = useWatch({ control, name: "precioCompra" }) ?? 0;
+  const precioVenta = useWatch({ control, name: "precioNacional" }) ?? 0;
+  const utilidad = useWatch({ control, name: "utilidad" }) ?? 0;
 
   if (!isOpen) return null;
 
@@ -94,15 +97,6 @@ export function ProductoModal({
             </h2>
           </div>
           <div className="flex items-center gap-4">
-            {/* Estado Toggle Switch */}
-            <Switch
-              checked={estado === "Activo"}
-              onCheckedChange={(checked) =>
-                setValue("estado", checked ? "Activo" : "Inactivo", {
-                  shouldValidate: true,
-                })
-              }
-            />
             <button
               type="button"
               onClick={onClose}
@@ -421,6 +415,7 @@ export function ProductoModal({
                 <Input
                   type="number"
                   {...register("utilidad", { valueAsNumber: true })}
+                  readOnly
                   className="h-full border-none focus-visible:ring-0 shadow-none rounded-none w-full px-3 text-[13px] text-[#676A6C]"
                 />
                 <span className="px-3 bg-gray-50 border-l border-gray-300 text-gray-500 font-semibold text-[13px] h-full flex items-center justify-center">
@@ -436,9 +431,18 @@ export function ProductoModal({
 
             {/* ¿En duda con su porcentaje de utilidad? */}
             <UtilityCalculator
-              precioVenta={watch("precioNacional")}
-              onChangePrecioVenta={(val) =>
-                setValue("precioNacional", val, { shouldValidate: true })
+              variant="producto"
+              precioBase={precioVenta}
+              utilidad={utilidad}
+              precioCompra={precioCompra}
+              onChangePrecioCompra={(val) =>
+                setValue("precioCompra", val, { shouldValidate: true, shouldDirty: true })
+              }
+              onChangePrecioBase={(val) =>
+                setValue("precioNacional", val, { shouldValidate: true, shouldDirty: true })
+              }
+              onChangeUtilidad={(val) =>
+                setValue("utilidad", val, { shouldValidate: true, shouldDirty: true })
               }
             />
 

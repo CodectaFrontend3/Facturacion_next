@@ -53,6 +53,7 @@ export function useProductoForm({ isOpen, producto, onSave, onClose }: UseProduc
       detalle: "",
       estado: "Activo",
       precioNacional: 0,
+      precioCompra: 0,
       stock: 0,
     },
   })
@@ -88,6 +89,7 @@ export function useProductoForm({ isOpen, producto, onSave, onClose }: UseProduc
           detalle: producto.detalle || "",
           estado: producto.estado,
           precioNacional: producto.precioNacional || 0,
+          precioCompra: producto.precioCompra || 0,
           stock: producto.stock || 0,
         })
       } else {
@@ -117,6 +119,7 @@ export function useProductoForm({ isOpen, producto, onSave, onClose }: UseProduc
           detalle: "",
           estado: "Activo",
           precioNacional: 0,
+          precioCompra: 0,
           stock: 0,
         })
       }

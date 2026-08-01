@@ -10,23 +10,25 @@ export interface ActionPopoverOption {
   href?: string
 }
 
-export interface ActionButtonProps {
+export interface ActionButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children" | "className" | "disabled" | "onClick"> {
   icon?: React.ReactNode
   label?: string           // Texto accesible (aria-label / title)
   text?: string            // Texto visible junto al ícono
   variant?: "filled" | "outline" // Estilo del botón (por defecto: filled)
   size?: "sm" | "md"       // Tamaño (por defecto: md)
-  onClick?: () => void
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
   href?: string
   isPopover?: boolean
   popoverOptions?: ActionPopoverOption[]
   popoverContent?: React.ReactNode
   className?: string
+  /** Clase de hover que debe prevalecer sobre el color por defecto. */
+  hoverClassName?: string
   popoverClassName?: string
   disabled?: boolean
 }
 
-export function ActionButton({
+export const ActionButton = React.forwardRef<HTMLButtonElement, ActionButtonProps>(function ActionButton({
   icon,
   label,
   text,
@@ -38,9 +40,11 @@ export function ActionButton({
   popoverOptions,
   popoverContent,
   className,
+  hoverClassName,
   popoverClassName,
-  disabled
-}: ActionButtonProps) {
+  disabled,
+  ...buttonProps
+}: ActionButtonProps, ref) {
 
   const base = "inline-flex items-center justify-center gap-2 rounded font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
 
@@ -59,7 +63,8 @@ export function ActionButton({
     variants[variant],
     sizes[size],
     disabled && "opacity-50 cursor-not-allowed pointer-events-none hover:translate-y-0 hover:shadow-none shadow-none",
-    className
+    className,
+    hoverClassName
   )
 
   const renderButton = () => {
@@ -74,12 +79,14 @@ export function ActionButton({
 
     return (
       <button
+        ref={ref}
         type="button"
         className={btnClass}
         onClick={!isPopover && !disabled ? onClick : undefined}
         disabled={disabled}
         aria-label={label ?? text}
         title={label ?? text}
+        {...buttonProps}
       >
         {icon}
         {text && <span>{text}</span>}
@@ -126,4 +133,4 @@ export function ActionButton({
   }
 
   return renderButton()
-}
+})

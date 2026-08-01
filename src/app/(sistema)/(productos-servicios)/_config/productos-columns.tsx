@@ -3,8 +3,10 @@ import { Producto } from "../types/productos.types"
 import { ActionButton } from "@/components/common/ActionButton"
 
 export const getProductosColumns = (
+  onView: (producto: Producto) => void,
   onEdit: (producto: Producto) => void,
-  onToggleEstado: (id: string, currentEstado: "Activo" | "Inactivo") => void
+  onDeactivate: (id: string) => void,
+  onViewFichaTecnica: (producto: Producto) => void
 ): ColumnDef<Producto>[] => [
   {
     accessorKey: "codigo",
@@ -26,28 +28,6 @@ export const getProductosColumns = (
     size: 100,
   },
   {
-    accessorKey: "estado",
-    header: "Estado",
-    size: 100,
-    cell: ({ row }) => {
-      const estado = row.original.estado
-      let badgeColor = ""
-      switch (estado) {
-        case "Activo":
-          badgeColor = "bg-[#18a689] text-white"
-          break
-        case "Inactivo":
-          badgeColor = "bg-[#f8ac59] text-white"
-          break
-      }
-      return (
-        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-[3px] uppercase ${badgeColor}`}>
-          {estado}
-        </span>
-      )
-    },
-  },
-  {
     accessorKey: "precioNacional",
     header: "Precio Nacional (1/4)",
     size: 150,
@@ -62,14 +42,32 @@ export const getProductosColumns = (
     accessorKey: "fichaTecnicaUrl",
     header: "Ficha Técnica",
     size: 120,
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <div className="flex justify-center">
           <ActionButton
             icon={<i className="bi bi-file-earmark-pdf text-[14px]" />}
             className="w-7 h-7 bg-[#ed5565] hover:bg-[#da4f5d] text-white rounded-[4px] flex items-center justify-center cursor-pointer shadow-none hover:shadow-none border-none p-0"
-            onClick={() => {}}
+            onClick={() => onViewFichaTecnica(row.original)}
             label="PDF"
+          />
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: "estado",
+    header: "Estado",
+    size: 90,
+    cell: ({ row }) => {
+      const isActive = row.original.estado === "Activo"
+
+      return (
+        <div className="flex justify-center">
+          <ActionButton
+            icon={<i className={`bi ${isActive ? "bi-check" : "bi-x"} text-[14px]`} />}
+            className={`w-6 h-6 rounded-full ${isActive ? "bg-[#0070f3]" : "bg-[#ed5565]"} text-white flex items-center justify-center shadow-none hover:shadow-none border-none p-0`}
+            label={row.original.estado}
           />
         </div>
       )
@@ -86,13 +84,16 @@ export const getProductosColumns = (
     cell: ({ row }) => {
       const popoverOptions = [
         {
+          label: "Ver",
+          onClick: () => onView(row.original),
+        },
+        {
           label: "Editar",
           onClick: () => onEdit(row.original),
         },
-        {
-          label: row.original.estado === "Activo" ? "Desactivar" : "Activar",
-          onClick: () => onToggleEstado(row.original.id, row.original.estado),
-        }
+        ...(row.original.estado === "Activo"
+          ? [{ label: "Desactivar", onClick: () => onDeactivate(row.original.id) }]
+          : []),
       ]
 
       return (
