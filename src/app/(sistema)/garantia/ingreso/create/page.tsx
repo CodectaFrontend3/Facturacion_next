@@ -5,7 +5,7 @@ import { TopHeader } from "../../components/cards-info/detail-header";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CboData } from "@/components/common/CboData";
-import { ClienteModal } from "@/app/(sistema)/venta_optimizado/_components/clientes/ClienteModal";
+import { ClienteModal } from "@/app/(sistema)/ventas/_components/legacy-clientes/ClienteModal";
 import { ProductoModal } from "@/app/(sistema)/(productos-servicios)/_components/productos/ProductoModal";
 import { marcaOptions } from "../../components/selectOptions";
 
@@ -113,6 +113,7 @@ export default function CreateClient() {
                                     <ClienteModal
                                         isOpen={showClienteModal}
                                         onClose={() => setShowClienteModal(false)}
+                                        onSave={() => setShowClienteModal(false)}
                                     />
                                 </div>
                             </div>

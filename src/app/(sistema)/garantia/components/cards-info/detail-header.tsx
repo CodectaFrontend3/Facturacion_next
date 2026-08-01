@@ -1,5 +1,5 @@
 import { TopHeaderProps } from "../../interfaces/info-view"
-import { WhatsappShareButton } from "../../../venta_optimizado/_components/shared/WhatsappShareButton"
+import { WhatsappShareButton } from "../../../ventas/_components/shared/WhatsappShareButton"
 import { CorreoShareButton } from "../CorreoShareButton"
 
 // Usado por los create pages
