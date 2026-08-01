@@ -1,11 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { ComprobantesTabTemplate } from "../components/ComprobantesTabTemplate";
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, Check, DollarSign, Mail } from "lucide-react";
 
+// 1. IMPORTACIONES DEL POPOVER
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
+// 2. ACTUALIZACIÓN DE LA INTERFAZ
 export interface FacturaRow {
   id: string | number;
   nro: string;
@@ -14,6 +19,13 @@ export interface FacturaRow {
   emision: string;
   forma: string;
   importe: string;
+  // Nueva propiedad opcional para la información del pago
+  pagoInfo?: {
+    monto: string;
+    fecha: string;
+    tipo: string;
+    dato: string;
+  };
 }
 
 const columns: ColumnDef<FacturaRow>[] = [
@@ -37,9 +49,11 @@ const columns: ColumnDef<FacturaRow>[] = [
   { 
     id: "ver", 
     header: () => <div className="text-center">Ver</div>,
-    cell: () => (
+    cell: ({ row }) => (
       <div className="flex justify-center">
-        <button className="bg-[#1d59bc] hover:bg-[#164696] text-white p-1.5 rounded-[4px] cursor-pointer shadow-sm transition-colors"><Eye size={16} /></button>
+        <Link href={`/comprobantes/factura/${row.original.id}`}>
+          <button className="bg-[#1d59bc] hover:bg-[#164696] text-white p-1.5 rounded-[4px] cursor-pointer shadow-sm transition-colors"><Eye size={16} /></button>
+        </Link>
       </div>
     )
   },
@@ -53,14 +67,50 @@ const columns: ColumnDef<FacturaRow>[] = [
       </div>
     )
   },
+  
+  // 3. COLUMNA DE PAGO MODIFICADA CON POPOVER
   { 
     id: "pago", 
     header: () => <div className="text-center">Pago</div>,
-    cell: () => (
-      <div className="flex justify-center">
-        <button className="bg-[#2bc5b4] hover:bg-[#24a99a] text-white w-7 h-7 rounded-full flex items-center justify-center shadow-sm cursor-pointer transition-colors"><DollarSign size={14} strokeWidth={2.5} /></button>
-      </div>
-    )
+    cell: ({ row }) => {
+      // Si el registro no tiene info de pago, usamos estos datos de relleno
+      const pago = row.original.pagoInfo || {
+        monto: "S/ 0.00",
+        fecha: "---",
+        tipo: "---",
+        dato: "---"
+      };
+
+      return (
+        <div className="flex justify-center">
+          <Popover>
+            <PopoverTrigger asChild>
+              <button className="bg-[#2bc5b4] hover:bg-[#24a99a] text-white w-7 h-7 rounded-full flex items-center justify-center shadow-sm cursor-pointer transition-colors outline-none">
+                <DollarSign size={14} strokeWidth={2.5} />
+              </button>
+            </PopoverTrigger>
+            
+            {/* MODIFICACIÓN: side="right", ancho más pequeño (w-36), fuente reducida (text-[11px]) y espaciado menor */}
+            <PopoverContent 
+              side="right" 
+              align="center" 
+              sideOffset={12} 
+              className="w-36 p-2.5 bg-white rounded-md shadow-lg border border-gray-100 text-[11px] font-sans text-gray-700"
+            >
+              <div className="font-extrabold underline mb-1.5 decoration-gray-400 underline-offset-2">
+                Info. Ult. Pago
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <div><span className="font-bold">Monto:</span> {pago.monto}</div>
+                <div><span className="font-bold">Fecha:</span> {pago.fecha}</div>
+                <div><span className="font-bold">Tipo:</span> {pago.tipo}</div>
+                <div><span className="font-bold">Dato:</span> {pago.dato}</div>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+      );
+    }
   },
   { 
     id: "compartir", 
@@ -78,12 +128,25 @@ export default function FacturasPage() {
   const [data, setData] = useState<FacturaRow[]>([]);
 
   useEffect(() => {
-    // Datos demo específicos para Facturas
+    // Datos demo específicos para Facturas, ahora incluyen la información de pago
     const mockData: FacturaRow[] = [
-      { id: 1, nro: "F001-00000085", rucDni: "20522045773", cliente: "EMPRESA DEMO S.A.C.", emision: "16-07-2026", forma: "Contado", importe: "S/2,500.00" }
+      { 
+        id: 11, 
+        nro: "F001-00000010", 
+        rucDni: "31245134", 
+        cliente: "Mouse", 
+        emision: "10-07-2026", 
+        forma: "Credito", 
+        importe: "S/1,453.76",
+        pagoInfo: {
+          monto: "S/ 453.76",
+          fecha: "10-07-2026",
+          tipo: "Efectivo",
+          dato: "volvo"
+        }
+      }
     ];
 
-    // ATENCIÓN: Usamos una llave diferente en el localStorage
     const guardadas = JSON.parse(localStorage.getItem('facturas_guardadas') || '[]');
     setData([...guardadas, ...mockData]);
   }, []);
@@ -98,7 +161,7 @@ export default function FacturasPage() {
 
   return (
     <ComprobantesTabTemplate 
-      activeTab="factura" // ATENCIÓN: Esto debe coincidir con el id en tabsConfig
+      activeTab="factura"
       columns={columns} 
       data={data} 
       total={totalFormateado}

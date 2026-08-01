@@ -31,7 +31,7 @@ export const getRenovacionColumns = (
     )
   },
   { accessorKey: "clienteDocumento", header: "RUC-DNI", size: 120 },
-  { accessorKey: "clienteNombre", header: "Cliente" },
+  { accessorKey: "clienteNombre", header: "Cliente", size: 310 },
   { accessorKey: "fechaEmision", header: "Fecha Emisión", size: 100 },
   { accessorKey: "fechaRenovacion", header: "Renovación", size: 110 },
   { 

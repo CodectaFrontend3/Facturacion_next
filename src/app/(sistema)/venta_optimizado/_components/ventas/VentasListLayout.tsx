@@ -73,15 +73,13 @@ export function VentasListLayout<TData>({
             overflow-wrap: break-word !important;
           }
           .tab-renovaciones main,
-          .tab-renovaciones section,
+          .tab-renovaciones section {
+            max-width: 100%;
+            min-width: 0;
+          }
           .tab-renovaciones .fixed-table {
             max-width: 100%;
             min-width: 0;
-            overflow-x: hidden;
-          }
-          .tab-renovaciones .fixed-table [data-slot="table-container"] {
-            max-width: 100%;
-            overflow: visible;
           }
           .tab-renovaciones .fixed-table table {
             width: 100%;
@@ -104,7 +102,7 @@ export function VentasListLayout<TData>({
         <SummarySection summaryCards={summaryCards} />
 
         {/* TABLA Y FILTROS */}
-        <section className="bg-white rounded-md border border-gray-200 shadow-sm mt-4 p-5">
+        <section className="bg-white border border-gray-200 shadow-sm mt-4 p-5">
           <div className="w-full">
             {/* Cabecera: Pestañas + Acciones */}
             <div className="flex items-end justify-between border-b border-gray-200">
@@ -146,7 +144,7 @@ export function VentasListLayout<TData>({
             </div>
 
             {/* Cuerpo: Filtros y Tabla */}
-            <div className="border-x border-b border-gray-200 bg-white p-4 space-y-4 rounded-b-sm">
+            <div className="border-x border-b border-gray-200 bg-white p-4 space-y-4">
               {filterBar}
 
               <div className="bg-white fixed-table custom-checkbox-table">
