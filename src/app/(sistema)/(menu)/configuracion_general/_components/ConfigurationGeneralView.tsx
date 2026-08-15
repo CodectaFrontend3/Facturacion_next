@@ -1,16 +1,21 @@
 "use client";
 
 import { useWarehouseManager } from "../hooks/useWarehouseManager";
+import { useGarantiaManager } from "../hooks/useGarantiaManager";
 import { configurationSections } from "../data/images";
 import { ConfigurationCard } from "./ConfigurationCard";
 import { WarehouseModal } from "./warehouse/WarehouseModal";
+import { GarantiaModal } from "./garantia/GarantiaModal";
 
 export function ConfigurationGeneralView() {
   const warehouseManager = useWarehouseManager();
+  const garantiaManager = useGarantiaManager();
 
   const handleModalOpen = (modalId: string) => {
     if (modalId === "almacen") {
       warehouseManager.openModal();
+    } else if (modalId === "garantia") {
+      garantiaManager.openModal();
     }
   };
 
@@ -32,6 +37,7 @@ export function ConfigurationGeneralView() {
       </section>
 
       <WarehouseModal manager={warehouseManager} />
+      <GarantiaModal manager={garantiaManager} />
     </>
   );
 }
