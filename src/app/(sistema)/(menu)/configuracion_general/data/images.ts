@@ -3,13 +3,15 @@ import type { ConfigurationSection } from "../types/configuration-section";
 const IMG_BACKGROUND_CARD =
   "https://img.magnific.com/fotos-premium/abstract-background-images-wallpaper-ai-generated_643360-68582.jpg";
 
+export const WAREHOUSE_IMAGE =
+  "https://png.pngtree.com/png-vector/20240314/ourmid/pngtree-warehouse-flat-composition-png-image_11961969.png";
+
 export const configurationSections = [
   {
     id: "almacen",
     label: "Almacen",
     backgroundImage: IMG_BACKGROUND_CARD,
-    image:
-      "https://png.pngtree.com/png-vector/20240314/ourmid/pngtree-warehouse-flat-composition-png-image_11961969.png",
+    image: WAREHOUSE_IMAGE,
     action: { type: "modal", modalId: "almacen" },
   },
   {

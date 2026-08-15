@@ -1,0 +1,37 @@
+"use client";
+
+import { useWarehouseManager } from "../hooks/useWarehouseManager";
+import { configurationSections } from "../data/images";
+import { ConfigurationCard } from "./ConfigurationCard";
+import { WarehouseModal } from "./warehouse/WarehouseModal";
+
+export function ConfigurationGeneralView() {
+  const warehouseManager = useWarehouseManager();
+
+  const handleModalOpen = (modalId: string) => {
+    if (modalId === "almacen") {
+      warehouseManager.openModal();
+    }
+  };
+
+  return (
+    <>
+      <section
+        aria-label="Configuración general"
+        className="mx-auto w-full max-w-[1240px] px-4 py-6 sm:px-6 sm:py-8 lg:py-10"
+      >
+        <div className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 md:gap-x-12 md:gap-y-12 xl:grid-cols-4 xl:gap-x-14 xl:gap-y-14">
+          {configurationSections.map((section) => (
+            <ConfigurationCard
+              key={section.id}
+              section={section}
+              onModalOpen={handleModalOpen}
+            />
+          ))}
+        </div>
+      </section>
+
+      <WarehouseModal manager={warehouseManager} />
+    </>
+  );
+}

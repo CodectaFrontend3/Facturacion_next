@@ -1,5 +1,9 @@
-import React from "react";
+import { AparienciaCard } from "./_components/AparienciaCard";
 
-export default function page() {
-  return <div>page</div>;
+export default function AparienciaPage() {
+  return (
+    <div className="w-full p-4 sm:p-6 lg:p-8">
+      <AparienciaCard />
+    </div>
+  );
 }
