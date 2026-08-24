@@ -6,6 +6,7 @@ import { useUnitMeasureManager } from "../hooks/useUnitMeasureManager";
 import { useMarcaManager } from "../hooks/useMarcaManager";
 import { useMotivoManager } from "../hooks/useMotivoManager";
 import { useValidezManager } from "../hooks/useValidezManager";
+import { useTipoCambioManager } from "../hooks/useTipoCambioManager";
 import { configurationSections } from "../data/images";
 import { ConfigurationCard } from "./ConfigurationCard";
 
@@ -15,6 +16,7 @@ import { UnitMeasureModal } from "./unit-measure/UnitMeasureModal";
 import { MarcaModal } from "./marca/MarcaModal";
 import { MotivoModal } from "./motivo/MotivoModal";
 import { ValidezModal } from "./validez/ValidezModal";
+import { TipoCambioModal } from "./tipo-cambio/TipoCambioModal";
 
 export function ConfigurationGeneralView() {
   const warehouseManager = useWarehouseManager();
@@ -23,6 +25,7 @@ export function ConfigurationGeneralView() {
   const marcaManager = useMarcaManager();
   const motivoManager = useMotivoManager();
   const validezManager = useValidezManager();
+  const tipoCambioManager = useTipoCambioManager();
 
   const handleModalOpen = (modalId: string) => {
     if (modalId === "almacen") {
@@ -37,6 +40,8 @@ export function ConfigurationGeneralView() {
       motivoManager.openModal();
     } else if (modalId === "validez") {
       validezManager.openModal();
+    } else if (modalId === "tipo-de-cambio") {
+      tipoCambioManager.openModal();
     }
   };
 
@@ -63,6 +68,7 @@ export function ConfigurationGeneralView() {
       <MarcaModal manager={marcaManager} />
       <MotivoModal manager={motivoManager} />
       <ValidezModal manager={validezManager} />
+      <TipoCambioModal manager={tipoCambioManager} />
     </>
   );
 }
