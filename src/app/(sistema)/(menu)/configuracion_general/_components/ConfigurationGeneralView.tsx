@@ -3,17 +3,20 @@
 import { useWarehouseManager } from "../hooks/useWarehouseManager";
 import { useGarantiaManager } from "../hooks/useGarantiaManager";
 import { useUnitMeasureManager } from "../hooks/useUnitMeasureManager";
+import { useMarcaManager } from "../hooks/useMarcaManager";
 import { configurationSections } from "../data/images";
 import { ConfigurationCard } from "./ConfigurationCard";
 
 import { WarehouseModal } from "./warehouse/WarehouseModal";
 import { GarantiaModal } from "./garantia/GarantiaModal";
 import { UnitMeasureModal } from "./unit-measure/UnitMeasureModal";
+import { MarcaModal } from "./marca/MarcaModal";
 
 export function ConfigurationGeneralView() {
   const warehouseManager = useWarehouseManager();
   const garantiaManager = useGarantiaManager();
   const unitMeasureManager = useUnitMeasureManager();
+  const marcaManager = useMarcaManager();
 
   const handleModalOpen = (modalId: string) => {
     if (modalId === "almacen") {
@@ -22,6 +25,8 @@ export function ConfigurationGeneralView() {
       garantiaManager.openModal();
     } else if (modalId === "unidad-de-medida") {
       unitMeasureManager.openModal();
+    } else if (modalId === "marcas") {
+      marcaManager.openModal();
     }
   };
 
@@ -45,6 +50,7 @@ export function ConfigurationGeneralView() {
       <WarehouseModal manager={warehouseManager} />
       <GarantiaModal manager={garantiaManager} />
       <UnitMeasureModal manager={unitMeasureManager} />
+      <MarcaModal manager={marcaManager} />
     </>
   );
 }
