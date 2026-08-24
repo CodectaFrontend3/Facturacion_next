@@ -7,6 +7,7 @@ import { useMarcaManager } from "../hooks/useMarcaManager";
 import { useMotivoManager } from "../hooks/useMotivoManager";
 import { useValidezManager } from "../hooks/useValidezManager";
 import { useTipoCambioManager } from "../hooks/useTipoCambioManager";
+import { useFamiliaManager } from "../hooks/useFamiliaManager";
 import { configurationSections } from "../data/images";
 import { ConfigurationCard } from "./ConfigurationCard";
 
@@ -17,6 +18,7 @@ import { MarcaModal } from "./marca/MarcaModal";
 import { MotivoModal } from "./motivo/MotivoModal";
 import { ValidezModal } from "./validez/ValidezModal";
 import { TipoCambioModal } from "./tipo-cambio/TipoCambioModal";
+import { FamiliaModal } from "./familia/FamiliaModal";
 
 export function ConfigurationGeneralView() {
   const warehouseManager = useWarehouseManager();
@@ -26,6 +28,7 @@ export function ConfigurationGeneralView() {
   const motivoManager = useMotivoManager();
   const validezManager = useValidezManager();
   const tipoCambioManager = useTipoCambioManager();
+  const familiaManager = useFamiliaManager();
 
   const handleModalOpen = (modalId: string) => {
     if (modalId === "almacen") {
@@ -42,6 +45,8 @@ export function ConfigurationGeneralView() {
       validezManager.openModal();
     } else if (modalId === "tipo-de-cambio") {
       tipoCambioManager.openModal();
+    } else if (modalId === "familias") {
+      familiaManager.openModal();
     }
   };
 
@@ -69,6 +74,7 @@ export function ConfigurationGeneralView() {
       <MotivoModal manager={motivoManager} />
       <ValidezModal manager={validezManager} />
       <TipoCambioModal manager={tipoCambioManager} />
+      <FamiliaModal manager={familiaManager} />
     </>
   );
 }
