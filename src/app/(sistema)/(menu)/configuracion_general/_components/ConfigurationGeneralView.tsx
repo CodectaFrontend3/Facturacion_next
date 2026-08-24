@@ -4,6 +4,8 @@ import { useWarehouseManager } from "../hooks/useWarehouseManager";
 import { useGarantiaManager } from "../hooks/useGarantiaManager";
 import { useUnitMeasureManager } from "../hooks/useUnitMeasureManager";
 import { useMarcaManager } from "../hooks/useMarcaManager";
+import { useMotivoManager } from "../hooks/useMotivoManager";
+import { useValidezManager } from "../hooks/useValidezManager";
 import { configurationSections } from "../data/images";
 import { ConfigurationCard } from "./ConfigurationCard";
 
@@ -11,12 +13,16 @@ import { WarehouseModal } from "./warehouse/WarehouseModal";
 import { GarantiaModal } from "./garantia/GarantiaModal";
 import { UnitMeasureModal } from "./unit-measure/UnitMeasureModal";
 import { MarcaModal } from "./marca/MarcaModal";
+import { MotivoModal } from "./motivo/MotivoModal";
+import { ValidezModal } from "./validez/ValidezModal";
 
 export function ConfigurationGeneralView() {
   const warehouseManager = useWarehouseManager();
   const garantiaManager = useGarantiaManager();
   const unitMeasureManager = useUnitMeasureManager();
   const marcaManager = useMarcaManager();
+  const motivoManager = useMotivoManager();
+  const validezManager = useValidezManager();
 
   const handleModalOpen = (modalId: string) => {
     if (modalId === "almacen") {
@@ -27,6 +33,10 @@ export function ConfigurationGeneralView() {
       unitMeasureManager.openModal();
     } else if (modalId === "marcas") {
       marcaManager.openModal();
+    } else if (modalId === "motivos") {
+      motivoManager.openModal();
+    } else if (modalId === "validez") {
+      validezManager.openModal();
     }
   };
 
@@ -51,6 +61,8 @@ export function ConfigurationGeneralView() {
       <GarantiaModal manager={garantiaManager} />
       <UnitMeasureModal manager={unitMeasureManager} />
       <MarcaModal manager={marcaManager} />
+      <MotivoModal manager={motivoManager} />
+      <ValidezModal manager={validezManager} />
     </>
   );
 }
