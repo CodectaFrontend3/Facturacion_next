@@ -1,0 +1,51 @@
+{
+  "id": "comp-001",
+  "name": "DEMO",
+  "ruc": "20522045773",
+  "logoUrl": "http://jypsac.dyndns.org:190/facturacion_20522045773/public/img/logos/logooooooooooo.png",
+  "description": "Empresa dedicada en optimización de energías y eficiencia energética",
+  "phone": "0133333333333",
+  "mobile": "970102509",
+  "email": "eduardohuamanch16@gmail.com",
+  "website": "https://www.demo.com/",
+  "rubro": "VentaS.",
+  "country": "Peru",
+  "province": "Lima",
+  "city": "Lima",
+  "address": "Johan strauus 388",
+  "ubigeo": "150101",
+  "currencies": {
+    "national": "Soles / Moneda nacional",
+    "foreign": "Dolares / Moneda extranjera"
+  },
+  "bankAccounts": [
+    {
+      "id": "b-1",
+      "bankName": "BCP",
+      "accountType": "Cuenta Corriente",
+      "currency": "PEN",
+      "logoUrl": "/logos/bcp.png"
+    },
+    {
+      "id": "b-2",
+      "bankName": "Interbank",
+      "accountType": "Cuenta Ahorros",
+      "currency": "PEN",
+      "logoUrl": "/logos/interbank.png"
+    },
+    {
+      "id": "b-3",
+      "bankName": "Scotiabank",
+      "accountType": "Cuenta Corriente",
+      "currency": "PEN",
+      "logoUrl": "/logos/scotiabank.png"
+    },
+    {
+      "id": "b-4",
+      "bankName": "BBVA Continental",
+      "accountType": "Cuenta Ahorros",
+      "currency": "PEN",
+      "logoUrl": "/logos/bbva.png"
+    }
+  ]
+}
