@@ -1,0 +1,77 @@
+[
+  {
+    "id": "b-1",
+    "nombre": "Cuenta Corriente",
+    "titular": "00000000000",
+    "banco": "BCP",
+    "logoUrl": "http://jypsac.dyndns.org:190/facturacion_20522045773/public/img/logos/bcp.png",
+    "activo": true,
+    "cuentas": [
+      {
+        "id": "c-1",
+        "tipoCuenta": "Cuenta Corriente",
+        "moneda": "soles",
+        "numeroCuenta": "021-232-12345678",
+        "detraccion": false
+      }
+    ]
+  },
+  {
+    "id": "b-2",
+    "nombre": "Cuenta Ahorros",
+    "titular": "00000000000",
+    "banco": "Interbank",
+    "logoUrl": "http://jypsac.dyndns.org:190/facturacion_20522045773/public/img/logos/interbank.jpg",
+    "activo": true,
+    "cuentas": [
+      {
+        "id": "c-2",
+        "tipoCuenta": "Cuenta Corriente",
+        "moneda": "Dolares",
+        "numeroCuenta": "121-3233-23232323",
+        "detraccion": false
+      },
+      {
+        "id": "c-3",
+        "tipoCuenta": "Cuenta Corriente",
+        "moneda": "soles",
+        "numeroCuenta": "",
+        "detraccion": false
+      }
+    ]
+  },
+  {
+    "id": "b-3",
+    "nombre": "Cuenta Corriente",
+    "titular": "00000000000",
+    "banco": "Scotiabank",
+    "logoUrl": "http://jypsac.dyndns.org:190/facturacion_20522045773/public/img/logos/scotiabank.jpg",
+    "activo": true,
+    "cuentas": [
+      {
+        "id": "c-4",
+        "tipoCuenta": "Cuenta Corriente",
+        "moneda": "soles",
+        "numeroCuenta": "",
+        "detraccion": false
+      }
+    ]
+  },
+  {
+    "id": "b-4",
+    "nombre": "Cuenta Ahorro",
+    "titular": "00000000000",
+    "banco": "BBVA Continental",
+    "logoUrl": "http://jypsac.dyndns.org:190/facturacion_20522045773/public/img/logos/bbva.png",
+    "activo": true,
+    "cuentas": [
+      {
+        "id": "c-5",
+        "tipoCuenta": "Cuenta Ahorros",
+        "moneda": "soles",
+        "numeroCuenta": "",
+        "detraccion": false
+      }
+    ]
+  }
+]
