@@ -20,17 +20,22 @@ export function getGarantiaColumns({
       header: "Descripción",
       size: 400,
       cell: ({ row }) => (
-        <div className="flex items-center justify-between group">
+        <div className="flex items-center justify-between gap-3">
           <span className="text-[13px] text-[#676a6c]">
             {row.original.descripcion}
           </span>
           <button
             type="button"
-            onClick={() => onEdit(row.original.id)}
-            className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-gray-600 transition-opacity cursor-pointer"
+            onClick={(event) => {
+              event.stopPropagation();
+              onEdit(row.original.id);
+            }}
+            className="flex shrink-0 items-center gap-1 rounded px-2 py-1 text-[12px] text-[#1d5fbf] transition-colors hover:bg-blue-50 hover:text-[#154a96]"
             title="Editar descripción"
+            aria-label={`Editar ${row.original.descripcion}`}
           >
             <Pencil className="size-3.5" />
+            Editar
           </button>
         </div>
       ),
@@ -50,7 +55,10 @@ export function getGarantiaColumns({
                 <X className="size-4 stroke-[3]" />
               )
             }
-            onClick={() => onToggleStatus(row.original.id)}
+            onClick={(event) => {
+              event.stopPropagation();
+              onToggleStatus(row.original.id);
+            }}
             className={
               row.original.activo
                 ? "size-7 rounded-full bg-[#26c3ca] hover:bg-[#1daab0] text-white flex items-center justify-center"

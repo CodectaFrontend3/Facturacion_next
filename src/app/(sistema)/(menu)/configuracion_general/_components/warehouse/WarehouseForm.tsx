@@ -45,32 +45,38 @@ export function WarehouseForm({ manager }: WarehouseFormProps) {
     }
   }, [manager.selectedWarehouse, manager.mode, form]);
 
-  const onSubmit = form.handleSubmit(
-    (data) => {
-      manager.saveWarehouse(data);
-    },
-    (errors) => {
-      const hasGeneralErrors =
-        errors.nombre ||
-        errors.abreviatura ||
-        errors.direccion ||
-        errors.responsableId ||
-        errors.codigoUbigeo ||
-        errors.descripcion ||
-        errors.codigoSunat;
+  const onSubmit = async () => {
+    manager.setActiveTab("general");
+    const isGeneralValid = await form.trigger(
+      [
+        "nombre",
+        "abreviatura",
+        "direccion",
+        "responsableId",
+        "codigoUbigeo",
+        "descripcion",
+        "codigoSunat",
+      ],
+      { shouldFocus: true },
+    );
 
-      if (hasGeneralErrors) {
-        manager.setActiveTab("general");
-      }
-    },
-  );
+    if (isGeneralValid) {
+      manager.saveWarehouse(form.getValues());
+    }
+  };
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:flex-row">
       <WarehouseFormIntro mode={manager.mode} onCancel={manager.goToList} />
 
       <div className="min-w-0 flex-1 p-4">
-        <form onSubmit={onSubmit} noValidate>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            void onSubmit();
+          }}
+          noValidate
+        >
           <Tabs
             value={manager.activeTab}
             onValueChange={manager.setActiveTab}
@@ -97,7 +103,6 @@ export function WarehouseForm({ manager }: WarehouseFormProps) {
                   <ActionButton
                     type="submit"
                     text="Guardar"
-                    onClick={onSubmit}
                     className="h-9 min-w-[220px] rounded-[2px] bg-[#2C1FF3] text-[12px] text-white hover:bg-[#190FCE]"
                   />
                 </div>

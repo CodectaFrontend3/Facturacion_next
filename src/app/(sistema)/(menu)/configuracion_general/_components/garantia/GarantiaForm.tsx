@@ -30,7 +30,9 @@ export function GarantiaForm({ manager }: GarantiaFormProps) {
     formState: { errors },
   } = useForm<GarantiaFormValues>({
     resolver: zodResolver(garantiaSchema),
-    defaultValues: { descripcion: "" },
+    defaultValues: {
+      descripcion: manager.editingGarantia?.descripcion ?? "",
+    },
     mode: "onTouched",
   });
 

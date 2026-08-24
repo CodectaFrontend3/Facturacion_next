@@ -95,6 +95,24 @@ function createFilledSunatConfig(index: number): WarehouseSunatConfig {
   ) as WarehouseSunatConfig;
 }
 
+/** Completa solamente los códigos que el usuario dejó sin indicar. */
+export function completeSunatConfig(
+  sunat: WarehouseSunatConfig,
+  index: number,
+): WarehouseSunatConfig {
+  const generated = createFilledSunatConfig(index);
+
+  return Object.fromEntries(
+    sunatSeriesFields.map(({ key }) => [
+      key,
+      {
+        series: sunat[key].series.trim() || generated[key].series,
+        correlativo: sunat[key].correlativo.trim() || generated[key].correlativo,
+      },
+    ]),
+  ) as WarehouseSunatConfig;
+}
+
 export function createEmptyWarehouseForm(): WarehouseFormValues {
   return {
     nombre: "",

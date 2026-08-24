@@ -47,7 +47,10 @@ export function GarantiaModal({ manager }: GarantiaModalProps) {
         {/* Modal Content */}
         <div className="flex flex-col gap-5 overflow-y-auto p-5 sm:p-6">
           {/* Form */}
-          <GarantiaForm manager={manager} />
+          <GarantiaForm
+            key={manager.editingGarantia?.id ?? "new"}
+            manager={manager}
+          />
 
           {/* Divider */}
           <div className="border-t border-gray-200" />

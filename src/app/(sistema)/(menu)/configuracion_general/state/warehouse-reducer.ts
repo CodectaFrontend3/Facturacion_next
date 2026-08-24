@@ -1,4 +1,4 @@
-import { initialWarehouses } from "../data/warehouses";
+import { completeSunatConfig, initialWarehouses } from "../data/warehouses";
 import type {
   Warehouse,
   WarehouseFormMode,
@@ -104,6 +104,14 @@ export function warehouseManagerReducer(
       };
 
     case "SAVE_WAREHOUSE": {
+      const warehouseIndex = state.selectedWarehouse
+        ? state.selectedWarehouse.id - 1
+        : state.warehouses.length;
+      const data = {
+        ...action.data,
+        sunat: completeSunatConfig(action.data.sunat, warehouseIndex),
+      };
+
       if (state.mode === "edit" && state.selectedWarehouse) {
         return {
           ...state,
@@ -111,7 +119,7 @@ export function warehouseManagerReducer(
             warehouse.id === state.selectedWarehouse?.id
               ? {
                   ...warehouse,
-                  ...action.data,
+                  ...data,
                   responsable: action.responsable,
                 }
               : warehouse,
@@ -130,7 +138,7 @@ export function warehouseManagerReducer(
           ...state.warehouses,
           {
             id: nextId,
-            ...action.data,
+            ...data,
             responsable: action.responsable,
             activo: true,
           },
