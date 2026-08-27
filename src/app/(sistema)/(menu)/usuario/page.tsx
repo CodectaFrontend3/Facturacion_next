@@ -1,7 +1,5 @@
-import React from 'react'
+import { UsuarioView } from "./_components/UsuarioView";
 
-export default function page() {
-  return (
-    <div>page</div>
-  )
+export default function UsuarioPage() {
+  return <UsuarioView />;
 }
