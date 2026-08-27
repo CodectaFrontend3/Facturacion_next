@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 import { initialRoles } from "@/app/(sistema)/(menu)/usuario/data/roles";
 import { PERMISSION_MODULES } from "../data/permissions-modules";
-import type { RoleFormValues } from "../types/role-permissions";
 
 export function useRolePermissionsManager(roleId?: string) {
   const router = useRouter();
@@ -20,66 +19,139 @@ export function useRolePermissionsManager(roleId?: string) {
   );
   const [isMainCardOpen, setIsMainCardOpen] = useState(true);
 
-  // Initialize permissions (default all true for Admin or customize)
-  const [selectedPermissions, setSelectedPermissions] = useState<
+  // Initialize actions (all true for Administrador, or defaults)
+  const [selectedActions, setSelectedActions] = useState<
     Record<string, boolean>
   >(() => {
     const initial: Record<string, boolean> = {};
-    const defaultVal = existingRole?.nombre === "Administrador";
+    const defaultVal =
+      existingRole?.nombre === "Administrador" || !existingRole;
 
     PERMISSION_MODULES.forEach((mod) => {
-      mod.permissions.forEach((perm) => {
-        initial[perm.id] = defaultVal;
+      mod.sections.forEach((sec) => {
+        sec.actions.forEach((act) => {
+          initial[act.id] = defaultVal;
+        });
       });
     });
     return initial;
   });
 
-  const togglePermission = useCallback((id: string) => {
-    setSelectedPermissions((prev) => ({
+  // Track expanded sections in accordion
+  const [expandedSections, setExpandedSections] = useState<
+    Record<string, boolean>
+  >({
+    cotizacion_m: true, // Expand Cotizacion_M by default for demonstration as in screenshot
+  });
+
+  const toggleSectionAccordion = useCallback((sectionId: string) => {
+    setExpandedSections((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      [sectionId]: !prev[sectionId],
     }));
   }, []);
 
-  const toggleModulePermissions = useCallback(
-    (moduleId: string, checked: boolean) => {
-      const moduleItem = PERMISSION_MODULES.find((m) => m.id === moduleId);
-      if (!moduleItem) return;
+  const toggleAction = useCallback((actionId: string) => {
+    setSelectedActions((prev) => ({
+      ...prev,
+      [actionId]: !prev[actionId],
+    }));
+  }, []);
 
-      setSelectedPermissions((prev) => {
-        const next = { ...prev };
-        moduleItem.permissions.forEach((perm) => {
-          next[perm.id] = checked;
-        });
-        return next;
+  const toggleSection = useCallback((sectionId: string, checked: boolean) => {
+    let targetSection = undefined;
+    for (const mod of PERMISSION_MODULES) {
+      const found = mod.sections.find((s) => s.id === sectionId);
+      if (found) {
+        targetSection = found;
+        break;
+      }
+    }
+
+    if (!targetSection) return;
+
+    setSelectedActions((prev) => {
+      const next = { ...prev };
+      targetSection.actions.forEach((act) => {
+        next[act.id] = checked;
       });
+      return next;
+    });
+  }, []);
+
+  const toggleModule = useCallback((moduleId: string, checked: boolean) => {
+    const targetModule = PERMISSION_MODULES.find((m) => m.id === moduleId);
+    if (!targetModule) return;
+
+    setSelectedActions((prev) => {
+      const next = { ...prev };
+      targetModule.sections.forEach((sec) => {
+        sec.actions.forEach((act) => {
+          next[act.id] = checked;
+        });
+      });
+      return next;
+    });
+  }, []);
+
+  const isSectionFullySelected = useCallback(
+    (sectionId: string) => {
+      let targetSection = undefined;
+      for (const mod of PERMISSION_MODULES) {
+        const found = mod.sections.find((s) => s.id === sectionId);
+        if (found) {
+          targetSection = found;
+          break;
+        }
+      }
+      if (!targetSection || targetSection.actions.length === 0) return false;
+      return targetSection.actions.every((act) => selectedActions[act.id]);
     },
-    [],
+    [selectedActions],
+  );
+
+  const isSectionPartiallySelected = useCallback(
+    (sectionId: string) => {
+      let targetSection = undefined;
+      for (const mod of PERMISSION_MODULES) {
+        const found = mod.sections.find((s) => s.id === sectionId);
+        if (found) {
+          targetSection = found;
+          break;
+        }
+      }
+      if (!targetSection || targetSection.actions.length === 0) return false;
+      const some = targetSection.actions.some((act) => selectedActions[act.id]);
+      const every = targetSection.actions.every(
+        (act) => selectedActions[act.id],
+      );
+      return some && !every;
+    },
+    [selectedActions],
   );
 
   const isModuleFullySelected = useCallback(
     (moduleId: string) => {
-      const moduleItem = PERMISSION_MODULES.find((m) => m.id === moduleId);
-      if (!moduleItem) return false;
-      return moduleItem.permissions.every((p) => selectedPermissions[p.id]);
+      const targetModule = PERMISSION_MODULES.find((m) => m.id === moduleId);
+      if (!targetModule) return false;
+      return targetModule.sections.every((sec) =>
+        sec.actions.every((act) => selectedActions[act.id]),
+      );
     },
-    [selectedPermissions],
+    [selectedActions],
   );
 
   const isModulePartiallySelected = useCallback(
     (moduleId: string) => {
-      const moduleItem = PERMISSION_MODULES.find((m) => m.id === moduleId);
-      if (!moduleItem) return false;
-      const some = moduleItem.permissions.some(
-        (p) => selectedPermissions[p.id],
-      );
-      const every = moduleItem.permissions.every(
-        (p) => selectedPermissions[p.id],
-      );
+      const targetModule = PERMISSION_MODULES.find((m) => m.id === moduleId);
+      if (!targetModule) return false;
+      const allActions = targetModule.sections.flatMap((s) => s.actions);
+      if (allActions.length === 0) return false;
+      const some = allActions.some((act) => selectedActions[act.id]);
+      const every = allActions.every((act) => selectedActions[act.id]);
       return some && !every;
     },
-    [selectedPermissions],
+    [selectedActions],
   );
 
   const saveRole = useCallback(() => {
@@ -92,12 +164,17 @@ export function useRolePermissionsManager(roleId?: string) {
     nombre,
     descripcion,
     isMainCardOpen,
-    selectedPermissions,
+    selectedActions,
+    expandedSections,
     setNombre,
     setDescripcion,
     toggleMainCard: () => setIsMainCardOpen((v) => !v),
-    togglePermission,
-    toggleModulePermissions,
+    toggleAction,
+    toggleSection,
+    toggleModule,
+    toggleSectionAccordion,
+    isSectionFullySelected,
+    isSectionPartiallySelected,
     isModuleFullySelected,
     isModulePartiallySelected,
     saveRole,

@@ -46,31 +46,41 @@ export function getRolColumns({
       id: "acciones",
       header: () => <div className="text-center">Acciones</div>,
       size: 90,
-      cell: ({ row }) => (
-        <div className="flex items-center justify-center gap-1.5">
-          {/* Edit Rol Button */}
-          <ActionButton
-            type="button"
-            label={`Editar rol ${row.original.nombre}`}
-            icon={<Pencil className="size-3.5" />}
-            onClick={() => onEdit(row.original)}
-            className={
-              row.original.nombre === "Vendedor"
-                ? "size-7 rounded-[2px] bg-[#1d5fbf] text-white hover:bg-[#154a96]"
-                : "size-7 rounded-[2px] bg-[#26c3ca] text-white hover:bg-[#1daab0]"
-            }
-          />
+      cell: ({ row }) => {
+        const isEditable = row.original.nombre === "Vendedor";
 
-          {/* User Icon Button */}
-          <ActionButton
-            type="button"
-            label={`Usuarios del rol ${row.original.nombre}`}
-            icon={<User className="size-3.5" />}
-            onClick={() => onViewUsers(row.original)}
-            className="size-7 rounded-[2px] bg-[#4b5563] text-white hover:bg-[#374151]"
-          />
-        </div>
-      ),
+        return (
+          <div className="flex items-center justify-center gap-1.5">
+            {/* Edit Rol Button: Only Vendedor is enabled in blue; Administrador and Personalizado are disabled in teal */}
+            {isEditable ? (
+              <ActionButton
+                type="button"
+                label={`Editar rol ${row.original.nombre}`}
+                icon={<Pencil className="size-3.5" />}
+                onClick={() => onEdit(row.original)}
+                className="size-7 rounded-[2px] bg-[#1d5fbf] text-white hover:bg-[#154a96]"
+              />
+            ) : (
+              <ActionButton
+                type="button"
+                label={`Rol ${row.original.nombre} no editable`}
+                icon={<Pencil className="size-3.5" />}
+                disabled
+                className="size-7 rounded-[2px] bg-[#26c3ca] text-white opacity-80 cursor-not-allowed hover:bg-[#26c3ca]"
+              />
+            )}
+
+            {/* User Icon Button */}
+            <ActionButton
+              type="button"
+              label={`Usuarios del rol ${row.original.nombre}`}
+              icon={<User className="size-3.5" />}
+              onClick={() => onViewUsers(row.original)}
+              className="size-7 rounded-[2px] bg-[#4b5563] text-white hover:bg-[#374151]"
+            />
+          </div>
+        );
+      },
     },
   ];
 }

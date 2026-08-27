@@ -1,19 +1,28 @@
-export interface PermissionItem {
+export interface PermissionAction {
   id: string;
   label: string;
+  description?: string;
+}
+
+export interface PermissionSection {
+  id: string;
+  label: string;
+  actions: PermissionAction[];
 }
 
 export interface PermissionModule {
   id: string;
   title: string;
-  permissions: PermissionItem[];
+  sections: PermissionSection[];
 }
 
 export interface RolePermissionsState {
   id?: string;
   nombre: string;
   descripcion: string;
-  selectedPermissions: Record<string, boolean>;
+  selectedActions: Record<string, boolean>;
+  expandedModules: Record<string, boolean>;
+  expandedSections: Record<string, boolean>;
   isMainCardOpen: boolean;
 }
 
