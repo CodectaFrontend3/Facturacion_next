@@ -28,7 +28,21 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
         causas: "",
         solucion: "",
     });
-    const [images, setImages] = useState<FileList | null>(null);
+    const [image, setImage] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            setImage(file);
+            setPreviewUrl(URL.createObjectURL(file));
+        }
+    };
+
+    const handleRemoveImage = () => {
+        setImage(null);
+        setPreviewUrl(null);
+    };
 
     if (!garantia) {
         return <div>Garantía no encontrada</div>;
@@ -36,7 +50,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
 
     return (
         <div className="p-5 pb-2">
-            <div className="bg-white rounded-md border border-gray-200 shadow-sm mb-2 overflow-hidden">
+            <div className="bg-white rounded-none border border-gray-200 shadow-sm mb-2 overflow-hidden">
                 <TopHeader>
                     <div className="flex items-center justify-between w-full px-5 py-4">
                         <h1 className="text-lg font-semibold text-gray-700 uppercase">
@@ -56,7 +70,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 </label>
                                 <input
                                     disabled
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -66,7 +80,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 <input
                                     disabled
                                     value={garantia.tecnico.asignado || "Administrador Web"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -74,7 +88,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 </label>
                                 <input
                                     disabled
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -84,7 +98,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                     type="date"
                                     disabled
                                     value={garantia.fechas.ingreso?.split("/").reverse().join("-") || "2026-06-29"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                         </div>
@@ -97,7 +111,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 <input
                                     disabled
                                     value={garantia.cliente.nombre || "prueba"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -105,7 +119,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 <input
                                     disabled
                                     value={garantia.cliente.telefono || "00000"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-4">
@@ -113,7 +127,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                 <input
                                     disabled
                                     value={garantia.cliente.correo || "sincorreo@gmail.com"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                         </div>
@@ -127,7 +141,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                     <input
                                         disabled
                                         value={garantia.equipo.modelo || "MOUSE INALAMBRICO LENOVO 2 BOTONES"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[120px_1fr] items-center gap-3">
@@ -135,7 +149,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                     <input
                                         disabled
                                         value={garantia.equipo.serie || "0123456"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[130px_1fr] items-center gap-3">
@@ -143,7 +157,7 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                     <input
                                         disabled
                                         value={garantia.codigo || "000312"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[120px_1fr] items-center gap-3">
@@ -152,23 +166,23 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                         type="date"
                                         disabled
                                         value={garantia.equipo.fechaCompra?.split("/").reverse().join("-") || "2026-06-29"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                     />
                                 </div>
                             </div>
                         </div>
                     </InfoCard>
 
-                    {/* ── Informe del Problema (pestañas del técnico) ── */}
-                    <InfoCard title="Informe del Problema" className="col-span-6">
-                        <div className="col-span-2">
+                    {/* ── Tabs del técnico ── */}
+                    <div className="col-span-6">
+                        <div>
                             <div className="border-b border-gray-300">
                                 <ul className="flex flex-wrap gap-1">
                                     {TABS.map((tab) => (
                                         <li key={tab.key}>
                                             <button
                                                 onClick={() => setActiveTab(tab.key)}
-                                                className={`px-4 py-2 transition rounded-t-md font-semibold text-sm
+                                                className={`px-4 py-2 transition rounded-none font-semibold text-sm
                                                     ${activeTab === tab.key
                                                         ? "border-t border-r border-l border-gray-200 text-gray-700 bg-white relative top-[1px]"
                                                         : "text-gray-400 hover:text-gray-600"
@@ -190,30 +204,48 @@ export default function CreateInformeTecnico({ params }: { params: Promise<{ id:
                                         }))
                                     }
                                     placeholder={`Escribir aquí ${TABS.find(t => t.key === activeTab)?.label}`}
-                                    className="w-full min-h-[250px] border border-gray-300 bg-white rounded-sm p-4 resize-none outline-none focus:border-gray-500 text-gray-700"
+                                    className="w-full min-h-[250px] border border-gray-300 bg-white rounded-none p-4 resize-none outline-none focus:border-gray-500 text-gray-700"
                                 />
                             </div>
+                        </div>
 
-                            {/* Imágenes */}
-                            <div className="border border-t-0 border-gray-300 p-4 space-y-2">
-                                <p className="text-sm text-gray-600 font-medium">Imágenes</p>
-                                <div className="border border-gray-200 rounded-sm p-3">
+                        {/* Imágenes separadas */}
+                        <div className="mt-4 border border-gray-300 p-4 space-y-2">
+                            <p className="text-sm text-gray-600 font-medium">Imágenes</p>
+                            <div className="border border-gray-200 rounded-none p-3 flex flex-col gap-4">
+                                <div>
                                     <input
                                         type="file"
-                                        multiple
                                         accept="image/*"
-                                        onChange={(e) => setImages(e.target.files)}
+                                        onChange={handleImageChange}
                                         className="text-sm text-gray-500
                                             file:mr-3 file:py-1 file:px-3
-                                            file:rounded-sm file:border file:border-gray-400
+                                            file:rounded-none file:border file:border-gray-400
                                             file:text-sm file:text-gray-700
                                             file:bg-white file:cursor-pointer
                                             hover:file:bg-gray-50"
                                     />
                                 </div>
+                                
+                                {previewUrl && (
+                                    <div className="flex gap-4 mt-2">
+                                        <div className="relative border border-gray-300 w-24 h-24 flex flex-col items-center justify-center bg-gray-50 group overflow-hidden">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <div className="flex-1 flex items-center justify-center p-1 w-full h-[calc(100%-20px)]">
+                                                <img src={previewUrl} alt="Preview" className="max-w-full max-h-full object-contain" />
+                                            </div>
+                                            <button
+                                                onClick={handleRemoveImage}
+                                                className="w-full bg-[#3d3d3d] text-white text-[11px] py-[2px] text-center"
+                                            >
+                                                Remove image
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
-                    </InfoCard>
+                    </div>
                 </GridContent>
                 <div className="flex justify-end px-5 pb-5">
                     <button className="bg-[#1a5eb3] hover:bg-[#174a8f] text-white px-6 py-2 rounded-sm font-medium">

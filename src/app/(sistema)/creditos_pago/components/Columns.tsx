@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { Banknote, ChevronDown, Clock9, Eye } from "lucide-react"; // Añadí Eye para simular el botón azul de tus capturas
 import { ComprobanteBase, TipoComprobante } from "../types/ComprobanteBase";
 import { ActionButton } from "@/components/common/ActionButton";
+import { PagoCuotasModal } from "../components/PagoCuotasModal";
+import { redirect } from "next/navigation";
 
 interface ConfigColumnas {
   tipo: TipoComprobante;
@@ -143,6 +146,9 @@ export const getColumns = ({
     }
   }
 
+  // Variable de estado para controlar la apertura del modal de pago
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // 4. Columna de Acciones final ajustable
   columnasBase.push({
     id: "actions",
@@ -156,7 +162,7 @@ export const getColumns = ({
             size="icon-sm"
             className="bg-[#0052CC] hover:bg-[#0040A3] text-white rounded-sm h-9 w-10 cursor-pointer"
             onClick={() =>
-              alert(`Ver detalle del documento: ${row.original.id}`)
+              redirect("/creditos_pago/detalle/" + row.original.id)
             }
           >
             <Eye size={16} />
@@ -168,7 +174,7 @@ export const getColumns = ({
               size="icon-sm"
               className="bg-[#0052CC] hover:bg-[#0040A3] text-white rounded-sm h-9 w-10 cursor-pointer"
               onClick={() =>
-                alert(`Ver detalle del documento: ${row.original.id}`)
+                redirect("/creditos_pago/detalle/" + row.original.id)
               }
             >
               <Eye size={16} />
@@ -179,8 +185,7 @@ export const getColumns = ({
               popoverOptions={[
                 {
                   label: "Pagar",
-                  onClick: () =>
-                    alert(`Ver comprobante del documento: ${row.original.id}`),
+                  onClick: () => setIsModalOpen(true), // Abrir modal de pago
                 },
                 {
                   label: "Adelantar",
@@ -199,6 +204,13 @@ export const getColumns = ({
             />
           </>
         )}
+
+        {/* Modal de Pago */}
+        <PagoCuotasModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          boletasSeleccionadas={[row.original]}
+        />
       </div>
     ),
   });

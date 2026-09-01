@@ -24,6 +24,8 @@ export default function TecnicoDetallePage({ params }: { params: Promise<{ id: s
         return <div>No encontrado</div>
     }
 
+    const isCheckOrAnulado = ["en_revision", "reparado", "anulado"].includes(garantia.estadoActual || "");
+
     return (
         <div className="p-4 bg-[#f5f5f5]">
             <DocumentDetailTemplate
@@ -34,6 +36,10 @@ export default function TecnicoDetallePage({ params }: { params: Promise<{ id: s
                         documentTitle="INFORME TÉCNICO"
                         ruc={garantia.cliente.ruc}
                         celular={garantia.cliente.telefono}
+                        correo={garantia.cliente.correo}
+                        showEtiqueta={false}
+                        showEdit={isCheckOrAnulado}
+                        onEdit={() => router.push(`/garantia/tecnico/edit/${garantia.id}`)}
                     />
                 }
                 topBody={

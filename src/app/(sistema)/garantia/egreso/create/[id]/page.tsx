@@ -26,7 +26,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
 
     return (
         <div className="p-5 pb-2">
-            <div className="bg-white rounded-md border border-gray-200 shadow-sm mb-2 overflow-hidden">
+            <div className="bg-white rounded-none border border-gray-200 shadow-sm mb-2 overflow-hidden">
                 <TopHeader>
                     <div className="flex items-center justify-between w-full px-5 py-4">
                         <h1 className="text-lg font-semibold text-gray-700 uppercase">
@@ -46,7 +46,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                 </label>
                                 <input
                                     disabled
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -58,7 +58,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                 <input
                                     disabled
                                     value={garantia.tecnico.asignado || "Administrador Web"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -66,7 +66,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                 </label>
                                 <input
                                     disabled
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-2">
@@ -97,7 +97,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                 <input
                                     disabled
                                     value={garantia.cliente.telefono || "00000"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                             <div className="grid grid-cols-[110px_1fr] items-center gap-3 col-span-4">
@@ -105,7 +105,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                 <input
                                     disabled
                                     value={garantia.cliente.correo || "sincorreo@gmail.com"}
-                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                 />
                             </div>
                         </div>
@@ -121,7 +121,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                     <input
                                         disabled
                                         value={garantia.equipo.modelo || "MOUSE INALAMBRICO LENOVO 2 BOTONES"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[120px_1fr] items-center gap-3">
@@ -131,7 +131,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                     <input
                                         disabled
                                         value={garantia.equipo.serie || "0123456"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[130px_1fr] items-center gap-3">
@@ -141,7 +141,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                     <input
                                         disabled
                                         value={garantia.codigo || "000312"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                     />
                                 </div>
                                 <div className="grid grid-cols-[120px_1fr] items-center gap-3">
@@ -152,7 +152,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                         type="date"
                                         disabled
                                         value={garantia.equipo.fechaCompra?.split("/").reverse().join("-") || "2026-06-29"}
-                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-sm outline-none text-gray-500"
+                                        className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-none outline-none text-gray-500"
                                     />
                                 </div>
                             </div>
@@ -169,7 +169,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                     <li>
                                         <button
                                             onClick={() => setActiveTab("descripcion")}
-                                            className={`px-4 py-2 transition rounded-t-md font-semibold text-sm
+                                            className={`px-4 py-2 transition rounded-none font-semibold text-sm
                                                 ${activeTab === "descripcion"
                                                     ? "border-t border-r border-l border-gray-200 text-gray-700 bg-white relative top-[1px]"
                                                     : "text-gray-400 hover:text-gray-600"
@@ -181,7 +181,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                     <li>
                                         <button
                                             onClick={() => setActiveTab("diagnostico")}
-                                            className={`px-4 py-2 transition rounded-t-md font-semibold text-sm
+                                            className={`px-4 py-2 transition rounded-none font-semibold text-sm
                                                 ${activeTab === "diagnostico"
                                                     ? "border-t border-r border-l border-gray-200 text-gray-700 bg-white relative top-[1px]"
                                                     : "text-gray-400 hover:text-gray-600"
@@ -193,7 +193,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                     <li>
                                         <button
                                             onClick={() => setActiveTab("recomendaciones")}
-                                            className={`px-4 py-2 transition rounded-t-md font-semibold text-sm
+                                            className={`px-4 py-2 transition rounded-none font-semibold text-sm
                                                 ${activeTab === "recomendaciones"
                                                     ? "border-t border-r border-l border-gray-200 text-gray-700 bg-white relative top-[1px]"
                                                     : "text-gray-400 hover:text-gray-600"
@@ -214,7 +214,7 @@ export default function CreateEgreso({ params }: { params: Promise<{ id: string 
                                         }))
                                     }
                                     placeholder={`Escribir aquí ${activeTab === 'descripcion' ? 'Descripción Del Problema' : activeTab === 'diagnostico' ? 'Diagnóstico y Solucion' : 'Recomendaciones'}`}
-                                    className="w-full min-h-[250px] border border-gray-300 bg-white rounded-sm p-4 resize-none outline-none focus:border-gray-500 text-gray-700"
+                                    className="w-full min-h-[250px] border border-gray-300 bg-white rounded-none p-4 resize-none outline-none focus:border-gray-500 text-gray-700"
                                 />
                             </div>
                         </div>

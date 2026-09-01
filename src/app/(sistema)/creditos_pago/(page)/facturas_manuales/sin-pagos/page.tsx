@@ -11,6 +11,8 @@ import { DataTable } from "@/components/shared/DataTable";
 import { getColumns } from "../../../components/Columns";
 import Facturas from "../../../data/facturas.json";
 import { ComprobanteBase } from "../../../types/ComprobanteBase";
+import { PagoCuotasModal } from "../../../components/PagoCuotasModal";
+import { useState } from "react";
 
 const FacturasData = Facturas as ComprobanteBase[];
 const FacturasDataSinPago = FacturasData.filter(
@@ -18,6 +20,7 @@ const FacturasDataSinPago = FacturasData.filter(
 );
 
 function page() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     pendingFilters,
     setFilterValue,
@@ -29,22 +32,25 @@ function page() {
     clientesOptions,
     estadosOptions,
     formasDePagoOptions,
+    selectedRows,
+    handleRowSelectionChange,
   } = useComprobanteTable({ data: FacturasDataSinPago, tipo: "Factura" }); // Usamos el hook para obtener los datos y funciones de filtrado
-
-  const acciones = (
-    <Button
-      size="icon"
-      className="bg-[#18A689] hover:bg-[#116d5b] text-white rounded-md h-9 w-10 flex items-center justify-center shadow-xs transition-colors cursor-pointer"
-      aria-label="Registrar pago"
-    >
-      <Banknote size={24} strokeWidth={1.8} />
-    </Button>
-  );
 
   return (
     <main className="min-h-screen bg-[#f8fafc] p-4 lg:p-6 flex flex-col justify-between">
       <div className="w-full">
-        <FacturasManualTabs actions={acciones}>
+        <FacturasManualTabs
+          actions={
+            <Button
+              type="button"
+              size="icon"
+              onClick={() => setIsModalOpen(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white border border-blue-700 rounded-md shadow-sm h-9 w-9"
+            >
+              <Banknote className="h-5 w-5" />
+            </Button>
+          }
+        >
           {/* Filtros */}
           <div className="flex items-center justify-between mb-4">
             <DataFilters onSearch={applyFilters} onReset={resetFilters}>
@@ -88,6 +94,14 @@ function page() {
             pageIndex={pageIndex}
             onPageChange={setPageIndex}
             showPagination={true}
+            onRowSelectionChange={(rows) => handleRowSelectionChange(rows)} // Pasamos la función para manejar la selección de filas
+          />
+
+          {/* Modal para registrar el pago de cuotas */}
+          <PagoCuotasModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            boletasSeleccionadas={selectedRows || []}
           />
         </FacturasManualTabs>
       </div>

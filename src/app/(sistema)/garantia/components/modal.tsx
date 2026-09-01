@@ -3,13 +3,21 @@ import Link from "next/link"
 import { useState } from "react"
 import { ReactNode } from "react"
 
+import { CboData } from "@/components/common/CboData";
+
 export default function Modal({ onClose }: { onClose: () => void }) {
     const [closing, setClosing] = useState(false);
+    const [selectedMarca, setSelectedMarca] = useState("");
 
     const [options, setOptions] = useState([
         { option: "LENOVO" },
         { option: "SAMSUNG" },
     ]);
+
+    const cboOptions = options.map((opt) => ({
+        value: opt.option,
+        label: opt.option,
+    }));
 
     const handleClose = () => {
         setClosing(true);
@@ -20,8 +28,8 @@ export default function Modal({ onClose }: { onClose: () => void }) {
     }
 
     return (
-        <div className="modal-content fixed inset-0 bg-black-40 z-20" onClick={handleClose}>
-            <div className={`bg-white p-3 rounded shadow w-120 modal-box ${closing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-content fixed inset-0 bg-black-40" style={{ zIndex: 40 }} onClick={handleClose}>
+            <div className={`bg-white p-3 rounded-none shadow w-120 modal-box ${closing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
                 <div className="p-4 border border-gray-300 space-y-3">
                     <div className="flex justify-between items-center">
                         <h3 className="modal-title">Agregar</h3>
@@ -32,11 +40,14 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                     </div>
                     <div className="flex items-center gap-4">
                         <label className="w-20">Marca:</label>
-                        <select className="flex-1 border border-gray-300 p-2 rounded">
-                            {options.map((option, index) => (
-                                <option key={index}>{option.option}</option>
-                            ))}
-                        </select>
+                        <CboData
+                            items={cboOptions}
+                            value={selectedMarca}
+                            onChange={setSelectedMarca}
+                            placeholder="Seleccionar Marca"
+                            className="flex-1 rounded-none border-gray-300 h-[40px]"
+                            hideArrow={true}
+                        />
                     </div>
                     <div className="flex justify-end gap-3">
                         <Link

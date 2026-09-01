@@ -110,8 +110,8 @@ export default function DataTable({ type, filters }: Props) {
 
     const columnsByType = {
         ingreso: ingresoColumns(handleAnular, handleEgresar, handleOpenModal),
-        egreso: egresoColumns(handleEnviarTecnico),
-        tecnico: tecnicoColumns,
+        egreso: egresoColumns(handleEnviarTecnico, handleOpenModal),
+        tecnico: tecnicoColumns(handleOpenModal),
     };
 
     // Convierte "DD/MM/YYYY" a Date

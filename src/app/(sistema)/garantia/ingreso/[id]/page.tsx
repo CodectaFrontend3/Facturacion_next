@@ -24,6 +24,11 @@ export default function IngresoDetallesPage({ params }: { params: Promise<{ id: 
         return <div>No encontrado</div>
     }
 
+    const isEnProceso = garantia.estadoActual !== "anulado" &&
+        garantia.estadoActual !== "egresado" &&
+        garantia.estadoActual !== "en_revision" &&
+        garantia.estadoActual !== "reparado";
+
     return (
         <div className="p-4 bg-[#f5f5f5]">
             <DocumentDetailTemplate
@@ -34,6 +39,9 @@ export default function IngresoDetallesPage({ params }: { params: Promise<{ id: 
                         documentTitle="GUÍA DE INGRESO"
                         ruc={garantia.cliente.ruc}
                         celular={garantia.cliente.telefono}
+                        correo={garantia.cliente.correo}
+                        showEdit={isEnProceso}
+                        onEdit={() => router.push(`/garantia/ingreso/edit/${garantia.id}`)}
                     />
                 }
                 topBody={

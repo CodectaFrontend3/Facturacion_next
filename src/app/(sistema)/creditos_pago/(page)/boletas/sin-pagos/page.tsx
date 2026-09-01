@@ -9,6 +9,10 @@ import { DataTable } from "@/components/shared/DataTable";
 import { getColumns } from "../../../components/Columns";
 import Boletas from "../../../data/boletas.json";
 import { ComprobanteBase } from "../../../types/ComprobanteBase";
+import { PagoCuotasModal } from "../../../components/PagoCuotasModal";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Banknote } from "lucide-react";
 
 const BoletasData = Boletas as ComprobanteBase[];
 const BoletasDataSinPagos = BoletasData.filter(
@@ -16,6 +20,7 @@ const BoletasDataSinPagos = BoletasData.filter(
 );
 
 function page() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     pendingFilters,
     setFilterValue,
@@ -27,16 +32,25 @@ function page() {
     clientesOptions,
     estadosOptions,
     formasDePagoOptions,
+    selectedRows,
+    handleRowSelectionChange,
   } = useComprobanteTable({ data: BoletasDataSinPagos, tipo: "Boleta" }); // Usamos el hook para obtener los datos y funciones de filtrado
-
-  console.log("BoletasData", BoletasData);
-
-  console.log("BoletasDataSinPagos", BoletasDataSinPagos);
 
   return (
     <main className="min-h-screen bg-[#f8fafc] p-4 lg:p-6 flex flex-col justify-between">
       <div className="w-full">
-        <BoletasTabs>
+        <BoletasTabs
+          actions={
+            <Button
+              type="button"
+              size="icon"
+              onClick={() => setIsModalOpen(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white border border-blue-700 rounded-md shadow-sm h-9 w-9"
+            >
+              <Banknote className="h-5 w-5" />
+            </Button>
+          }
+        >
           {/* Filtros */}
           <div className="flex items-center justify-between mb-4">
             <DataFilters onSearch={applyFilters} onReset={resetFilters}>
@@ -80,8 +94,16 @@ function page() {
             pageIndex={pageIndex}
             onPageChange={setPageIndex}
             showPagination={true}
+            onRowSelectionChange={(rows) => handleRowSelectionChange(rows)} // Pasamos la función para manejar la selección de filas
           />
         </BoletasTabs>
+
+        {/* Modal para registrar el pago de cuotas */}
+        <PagoCuotasModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          boletasSeleccionadas={selectedRows || []}
+        />
       </div>
     </main>
   );

@@ -7,6 +7,7 @@ export interface Tecnico {
     cliente: string
     ruc: string
     fecha: string
+    estado?: string
 }
 
 export interface TecnicoProps {

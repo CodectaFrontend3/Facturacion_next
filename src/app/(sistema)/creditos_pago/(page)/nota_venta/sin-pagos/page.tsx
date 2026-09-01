@@ -9,11 +9,16 @@ import { DataTable } from "@/components/shared/DataTable";
 import { getColumns } from "../../../components/Columns";
 import NotaVenta from "../../../data/notas_venta.json";
 import { ComprobanteBase } from "../../../types/ComprobanteBase";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Banknote } from "lucide-react";
+import { PagoCuotasModal } from "../../../components/PagoCuotasModal";
 
 const NotaVentaData = NotaVenta as ComprobanteBase[];
 const NotaVentaSinPagar = NotaVentaData.filter((b) => b.estado === "Sin Pagar");
 
 function page() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     pendingFilters,
     setFilterValue,
@@ -25,12 +30,25 @@ function page() {
     clientesOptions,
     estadosOptions,
     formasDePagoOptions,
+    selectedRows,
+    handleRowSelectionChange,
   } = useComprobanteTable({ data: NotaVentaSinPagar, tipo: "NotaVenta" }); // Usamos el hook para obtener los datos y funciones de filtrado
 
   return (
     <main className="min-h-screen bg-[#f8fafc] p-4 lg:p-6 flex flex-col justify-between">
       <div className="w-full">
-        <NotaVentaTabs>
+        <NotaVentaTabs
+          actions={
+            <Button
+              type="button"
+              size="icon"
+              onClick={() => setIsModalOpen(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white border border-blue-700 rounded-md shadow-sm h-9 w-9"
+            >
+              <Banknote className="h-5 w-5" />
+            </Button>
+          }
+        >
           {/* Filtros */}
           <div className="flex items-center justify-between mb-4">
             <DataFilters onSearch={applyFilters} onReset={resetFilters}>
@@ -74,6 +92,14 @@ function page() {
             pageIndex={pageIndex}
             onPageChange={setPageIndex}
             showPagination={true}
+            onRowSelectionChange={(rows) => handleRowSelectionChange(rows)} // Pasamos la función para manejar la selección de filas
+          />
+
+          {/* Modal para registrar el pago de cuotas */}
+          <PagoCuotasModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            boletasSeleccionadas={selectedRows || []}
           />
         </NotaVentaTabs>
       </div>

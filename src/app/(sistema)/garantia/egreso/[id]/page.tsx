@@ -24,6 +24,8 @@ export default function EgresoDetallePage({ params }: { params: Promise<{ id: st
         return <div>No encontrado</div>
     }
 
+    const isEnProceso = garantia.estadoActual === "egresado";
+
     return (
         <div className="p-4 bg-[#f5f5f5]">
             <DocumentDetailTemplate
@@ -34,6 +36,10 @@ export default function EgresoDetallePage({ params }: { params: Promise<{ id: st
                         documentTitle="GUÍA DE EGRESO"
                         ruc={garantia.cliente.ruc}
                         celular={garantia.cliente.telefono}
+                        correo={garantia.cliente.correo}
+                        showEtiqueta={false}
+                        showEdit={isEnProceso}
+                        onEdit={() => router.push(`/garantia/egreso/edit/${garantia.id}`)}
                     />
                 }
                 topBody={

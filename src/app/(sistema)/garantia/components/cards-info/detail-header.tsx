@@ -1,4 +1,6 @@
 import { TopHeaderProps } from "../../interfaces/info-view"
+import { WhatsappShareButton } from "../../../ventas/_components/shared/WhatsappShareButton"
+import { CorreoShareButton } from "../CorreoShareButton"
 
 // Usado por los create pages
 export function TopHeader({ children }: TopHeaderProps) {
@@ -27,6 +29,10 @@ interface HeaderSectionProps {
     documentTitle: string;
     ruc?: string;
     celular?: string;
+    correo?: string;
+    showEtiqueta?: boolean;
+    showEdit?: boolean;
+    onEdit?: () => void;
 }
 
 export function HeaderSectionGarantia({
@@ -34,6 +40,10 @@ export function HeaderSectionGarantia({
     documentTitle,
     ruc,
     celular,
+    correo,
+    showEtiqueta = true,
+    showEdit,
+    onEdit,
 }: HeaderSectionProps) {
     return (
         <div className="relative flex items-center justify-between border-b border-gray-200 pb-4">
@@ -53,10 +63,23 @@ export function HeaderSectionGarantia({
 
             <div className="flex items-center gap-1 transition-all duration-300 ease-out z-10 relative">
                 <ActionBtn icon="bi-file-earmark-pdf" color="bg-[#1b86c9]" title="PDF" />
-                <ActionBtn icon="bi-tag" color="bg-[#27c7c9]" title="Etiqueta" />
+                {showEtiqueta && (
+                    <ActionBtn icon="bi-tag" color="bg-[#27c7c9]" title="Etiqueta" />
+                )}
                 <ActionBtn icon="bi-printer" color="bg-[#1b86c9]" title="Imprimir" />
-                <ActionBtn icon="bi-envelope-fill" color="bg-[#6c757d]" title="Correo" />
-                <ActionBtn icon="bi-whatsapp" color="bg-[#28a745]" title="Whatsapp" />
+                <CorreoShareButton
+                    correo={correo}
+                    numeroDoc={numero}
+                    className="flex h-[32px] w-[32px] items-center justify-center rounded-[4px] bg-[#6c757d] text-white transition-all hover:brightness-95 active:brightness-90"
+                />
+                <WhatsappShareButton 
+                    celular={celular} 
+                    numeroDoc={numero} 
+                    className="flex h-[32px] w-[32px] items-center justify-center rounded-[4px] bg-[#28a745] text-white transition-all hover:brightness-95 active:brightness-90"
+                />
+                {showEdit && (
+                    <ActionBtn icon="bi-pencil-square" color="bg-[#f6a041]" title="Editar" onClick={onEdit} />
+                )}
             </div>
         </div>
     )
