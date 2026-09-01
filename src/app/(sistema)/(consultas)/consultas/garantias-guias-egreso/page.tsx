@@ -1,7 +1,11 @@
-export default function Page() {
+import { ConsultasGarantiaLayout } from "../_components/ConsultasGarantiaLayout";
+import { mockGarantiaEgreso } from "../_data/mockConsultasGarantia";
+
+export default function GarantiasGuiasEgresoPage() {
   return (
-    <main className="min-h-screen bg-white p-6">
-      <h2 className="text-xl font-semibold text-black">Guía Egreso</h2>
-    </main>
+    <ConsultasGarantiaLayout
+      title="Guías de Egreso"
+      data={mockGarantiaEgreso}
+    />
   );
 }

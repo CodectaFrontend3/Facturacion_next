@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "marca": "EPSON",
+    "estado": "Anulado",
+    "motivo": "Servicio",
+    "ingAsignado": "Julio Flores Vicuña",
+    "fecha": "2022-02-16",
+    "ordenServicio": "EP-000001",
+    "asunto": "Ingreso de Equipo",
+    "cliente": "COPACO S.A.C. / COPACO S.A.C.",
+    "nrDocumentoCliente": "20513033690"
+  },
+  {
+    "id": 2,
+    "marca": "LENOVO",
+    "estado": "Anulado",
+    "motivo": "Servicio",
+    "ingAsignado": "Julio Flores Vicuña",
+    "fecha": "2022-03-10",
+    "ordenServicio": "LNV-000001",
+    "asunto": "Ingreso de Equipo",
+    "cliente": "COPACO S.A.C. / COPACO S.A.C.",
+    "nrDocumentoCliente": "20513033690"
+  },
+  {
+    "id": 3,
+    "marca": "COMPATIBLE",
+    "estado": "Anulado",
+    "motivo": "Servicio",
+    "ingAsignado": "Julio Flores Vicuña",
+    "fecha": "2022-05-07",
+    "ordenServicio": "CP-000001",
+    "asunto": "Ingreso de Equipo",
+    "cliente": "ALBELI SOCIEDAD ANONIMA CERRADA-ALBELI S.A.C / ALBELI SOCIEDAD ANONIMA CERRADA-ALBELI S.A.C",
+    "nrDocumentoCliente": "20538632211"
+  },
+  {
+    "id": 4,
+    "marca": "COMPATIBLE",
+    "estado": "Anulado",
+    "motivo": "Servicio",
+    "ingAsignado": "Julio Flores Vicuña",
+    "fecha": "2022-05-19",
+    "ordenServicio": "CP-000002",
+    "asunto": "Ingreso de Equipo",
+    "cliente": "SERVICIOS INTERNET Y CO. SOCIEDAD ANONIMA CERRADA / SERVICIOS INTERNET Y CO. SOCIEDAD ANONIMA CERRADA",
+    "nrDocumentoCliente": "20421736147"
+  },
+  {
+    "id": 5,
+    "marca": "COMPATIBLE",
+    "estado": "Anulado",
+    "motivo": "Servicio",
+    "ingAsignado": "Julio Flores Vicuña",
+    "fecha": "2022-05-21",
+    "ordenServicio": "CP-000003",
+    "asunto": "Ingreso de Equipo",
+    "cliente": "ALBELI SOCIEDAD ANONIMA CERRADA-ALBELI S.A.C / ALBELI SOCIEDAD ANONIMA CERRADA-ALBELI S.A.C",
+    "nrDocumentoCliente": "20538632211"
+  },
+  {
+    "id": 6,
+    "marca": "COMPATIBLE",
+    "estado": "Anulado",
+    "motivo": "Servicio",
+    "ingAsignado": "Julio Flores Vicuña",
+    "fecha": "2022-05-30",
+    "ordenServicio": "CP-000004",
+    "asunto": "Ingreso de Equipo",
+    "cliente": "ALBELI SOCIEDAD ANONIMA CERRADA-ALBELI S.A.C / ALBELI SOCIEDAD ANONIMA CERRADA-ALBELI S.A.C",
+    "nrDocumentoCliente": "20538632211"
+  },
+  {
+    "id": 7,
+    "marca": "RICOH",
+    "estado": "Anulado",
+    "motivo": "Servicio",
+    "ingAsignado": "Julio Flores Vicuña",
+    "fecha": "2022-06-02",
+    "ordenServicio": "RC-000001",
+    "asunto": "Ingreso de Equipo",
+    "cliente": "SERVICIOS INTERNET Y CO. SOCIEDAD ANONIMA CERRADA / SERVICIOS INTERNET Y CO. SOCIEDAD ANONIMA CERRADA",
+    "nrDocumentoCliente": "20421736147"
+  }
+]
