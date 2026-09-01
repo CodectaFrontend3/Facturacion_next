@@ -1,7 +1,11 @@
-export default function Page() {
+import { ConsultasGarantiaLayout } from "../_components/ConsultasGarantiaLayout";
+import { mockGarantiaInformeTecnico } from "../_data/mockConsultasGarantia";
+
+export default function GarantiasInformeTecnicoPage() {
   return (
-    <main className="min-h-screen bg-white p-6">
-      <h2 className="text-xl font-semibold text-black">Informe Técnico</h2>
-    </main>
+    <ConsultasGarantiaLayout
+      title="Informe Técnico"
+      data={mockGarantiaInformeTecnico}
+    />
   );
 }

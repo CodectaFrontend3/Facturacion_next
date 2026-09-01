@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "marca": "EPSON",
+    "estado": "Egresado",
+    "motivo": "Servicio",
+    "ingAsignado": "Julio Flores Vicuña",
+    "fecha": "2022-02-20",
+    "ordenServicio": "EP-000001",
+    "asunto": "Egreso de Equipo",
+    "cliente": "COPACO S.A.C. / COPACO S.A.C.",
+    "nrDocumentoCliente": "20513033690"
+  },
+  {
+    "id": 2,
+    "marca": "HP",
+    "estado": "Egresado",
+    "motivo": "Servicio",
+    "ingAsignado": "Carlos Ruiz",
+    "fecha": "2022-03-15",
+    "ordenServicio": "HP-000002",
+    "asunto": "Egreso de Equipo",
+    "cliente": "ALBELI S.A.C.",
+    "nrDocumentoCliente": "20538632211"
+  }
+]
