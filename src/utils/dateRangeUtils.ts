@@ -23,7 +23,7 @@ export function todayDate(): Date {
 export function getMonthGrid(year: number, month: number): (Date | null)[] {
     const firstDay = startOfMonth(new Date(year, month, 1))
     // getDay retorna 0=domingo..6=sábado, convertimos a lunes=0
-    let startOffset = (getDay(firstDay) + 6) % 7
+    const startOffset = (getDay(firstDay) + 6) % 7
     const daysInMonth = getDaysInMonth(new Date(year, month, 1))
     const grid: (Date | null)[] = []
 
