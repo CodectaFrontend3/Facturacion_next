@@ -4,25 +4,22 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, FileText, Printer, Mail, Receipt } from "lucide-react";
-import { FacturaRow } from "../page"; // Importamos la interfaz de la tabla
+import { FacturaManualRow } from "../page";
 
-export default function DetalleFacturaPage() {
+export default function DetalleFacturaManualPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [factura, setFactura] = useState<FacturaRow | null>(null);
+  const [factura, setFactura] = useState<FacturaManualRow | null>(null);
 
   useEffect(() => {
-    // 1. Cargamos datos de localStorage
-    const guardadas: FacturaRow[] = JSON.parse(localStorage.getItem('facturas_guardadas') || '[]');
+    const guardadas: FacturaManualRow[] = JSON.parse(localStorage.getItem('facturas_manual_guardadas') || '[]');
     
-    // 2. Datos estáticos por defecto (deben ser los mismos que tienes en page.tsx)
-    const mockData: FacturaRow[] = [
-      { id: 1, nro: "F001-00000085", rucDni: "20522045773", cliente: "EMPRESA DEMO S.A.C.", emision: "16-07-2026", forma: "Contado", importe: "S/2,500.00" }
+    const mockData: FacturaManualRow[] = [
+      { id: 1, nro: "FM01-00000012", rucDni: "20601234567", cliente: "DISTRIBUIDORA COMERCIAL DEL SUR S.A.C.", emision: "16-07-2026", forma: "Credito", importe: "S/2,100.00" },
+      { id: 2, nro: "FM01-00000011", rucDni: "20489123891", cliente: "SERVICIOS GENERALES INDUSTRIALES E.I.R.L.", emision: "12-07-2026", forma: "Contado", importe: "S/950.00" }
     ];
 
     const todasLasFacturas = [...guardadas, ...mockData];
-    
-    // 3. Buscamos el registro que coincide con el ID de la URL
     const registroEncontrado = todasLasFacturas.find(f => String(f.id) === String(id));
     
     if (registroEncontrado) {
@@ -34,7 +31,6 @@ export default function DetalleFacturaPage() {
     return <div className="p-8 text-center text-gray-500">Cargando documento...</div>;
   }
 
-  // Cálculos simulados para la vista en base al importe total
   const importeNumerico = parseFloat(factura.importe.replace(/S\/|,/g, "").trim()) || 0;
   const opGravada = importeNumerico / 1.18;
   const igv = importeNumerico - opGravada;
@@ -43,12 +39,11 @@ export default function DetalleFacturaPage() {
     <div className="w-full bg-[#f8f9fa] min-h-screen p-4 font-sans text-[#333]">
       <div className="w-full bg-white border border-gray-200 shadow-sm relative overflow-hidden">
         
-        {/* CABECERA SUPERIOR */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <Link
-            href="/comprobantes/factura"
+            href="/comprobantes/factura_manual"
             className="text-gray-500 hover:text-gray-800 transition-colors cursor-pointer p-1 inline-flex items-center justify-center hover:bg-gray-100 rounded-full"
-            title="Regresar a Facturas"
+            title="Regresar a Facturas Manuales"
           >
             <ArrowLeft size={18} />
           </Link>
@@ -62,24 +57,22 @@ export default function DetalleFacturaPage() {
           </div>
         </div>
 
-        {/* TÍTULO CENTRAL Y EMPRESA */}
         <div className="px-8 py-6 flex items-center justify-between border-b border-gray-100 relative">
           <div className="z-10">
             <h2 className="text-[16px] font-bold text-gray-800">{factura.nro}</h2>
             <p className="text-[12px] font-bold text-gray-500">R.U.C : 20522045773</p>
           </div>
           <div className="absolute left-0 w-full text-center z-0 pointer-events-none">
-            <h1 className="text-[22px] font-light text-gray-400 tracking-wider">FACTURA ELECTRÓNICA</h1>
+            <h1 className="text-[22px] font-light text-gray-400 tracking-wider">FACTURA MANUAL ELECTRÓNICA</h1>
           </div>
         </div>
 
         <div className="p-8">
-          {/* CAJAS DE INFORMACIÓN (CLIENTE Y DOCUMENTO) */}
           <div className="grid grid-cols-2 gap-4 mb-8">
             <div className="border border-gray-200 p-4 rounded-sm text-[12px] leading-relaxed">
-              <p><span className="font-bold">Cliente:</span> {factura.cliente}</p>
+              <p><span className="font-bold">Cliente / Razón Social:</span> {factura.cliente}</p>
               <p><span className="font-bold">R.U.C:</span> {factura.rucDni}</p>
-              <p><span className="font-bold">Dirección:</span> Lima</p>
+              <p><span className="font-bold">Dirección:</span> Lima, Perú</p>
               <div className="flex gap-8 mt-1">
                 <p><span className="font-bold">Condiciones de Pago:</span> {factura.forma}</p>
                 <p><span className="font-bold">Tipo de Moneda:</span> Soles</p>
@@ -87,14 +80,13 @@ export default function DetalleFacturaPage() {
             </div>
             
             <div className="border border-gray-200 p-4 rounded-sm text-[12px] leading-relaxed">
-              <p><span className="font-bold">Orden de Compra:</span> TE01-0001</p>
-              <p><span className="font-bold">Guía de Remisión:</span> TE01-0001</p>
+              <p><span className="font-bold">Orden de Compra:</span> --</p>
+              <p><span className="font-bold">Guía de Remisión:</span> --</p>
               <p><span className="font-bold">Fecha Emisión:</span> {factura.emision}</p>
-              <p><span className="font-bold">Fecha de Vencimiento:</span> 10-09-2026</p>
+              <p><span className="font-bold">Fecha de Vencimiento:</span> 30 días</p>
             </div>
           </div>
 
-          {/* TABLA DE ÍTEMS */}
           <div className="border-b border-gray-200 mb-8">
             <table className="w-full text-left text-[11px]">
               <thead>
@@ -114,8 +106,8 @@ export default function DetalleFacturaPage() {
               <tbody>
                 <tr className="border-b border-gray-100 text-gray-600">
                   <td className="py-3 px-2">1</td>
-                  <td className="py-3 px-2">SERV-00000001</td>
-                  <td className="py-3 px-2">REPARACION DE EQUIPO</td>
+                  <td className="py-3 px-2">PROD-FM001</td>
+                  <td className="py-3 px-2">SUMINISTRO DE MATERIALES Y SERVICIOS</td>
                   <td className="py-3 px-2">1.00</td>
                   <td className="py-3 px-2">{opGravada.toFixed(2)}</td>
                   <td className="py-3 px-2">0%</td>
@@ -128,7 +120,6 @@ export default function DetalleFacturaPage() {
             </table>
           </div>
 
-          {/* TOTALES Y OBSERVACIONES */}
           <div className="flex justify-between items-start mb-8">
             <div className="w-1/2">
               <p className="text-[13px] font-bold text-gray-700">Son : (Texto en letras simulado) soles</p>
@@ -144,13 +135,11 @@ export default function DetalleFacturaPage() {
             </div>
           </div>
 
-          {/* CAJA OBSERVACIONES */}
           <div className="border border-gray-200 p-4 rounded-sm mb-8 text-[12px]">
             <p className="font-bold text-gray-700 mb-1">Observaciones:</p>
-            <p className="text-gray-600">Emitimos la siguiente Factura a vuestra solicitud</p>
+            <p className="text-gray-600">Emitimos la siguiente Factura Manual a vuestra solicitud</p>
           </div>
 
-          {/* CUENTAS BANCARIAS */}
           <div className="grid grid-cols-3 gap-4">
             <div className="border border-gray-200 p-4 flex flex-col items-center justify-center gap-3">
               <div className="bg-[#009B3A] text-white px-3 py-1 font-bold text-[14px] rounded tracking-wide">Interbank</div>

@@ -13,12 +13,13 @@ interface Articulo {
   precioUnitario: number;
 }
 
-export default function CrearBoletaPage() {
+export default function CrearBoletaManualPage() {
   const router = useRouter();
 
-  // Estados del formulario
   const [cliente, setCliente] = useState("");
   const [documento, setDocumento] = useState("");
+  const [serie, setSerie] = useState("BM01");
+  const [correlativo, setCorrelativo] = useState("");
   const [formaPago, setFormaPago] = useState("Contado");
   const [articulos, setArticulos] = useState<Articulo[]>([
     { id: 1, descripcion: "", cantidad: 1, precioUnitario: 0 }
@@ -52,25 +53,33 @@ export default function CrearBoletaPage() {
 
   const totales = calcularTotales();
 
-  // FUNCIÓN ACTUALIZADA: Guarda en localStorage para simular base de datos
   const handleGuardar = () => {
-    const nuevaBoleta = {
-      id: Date.now(), // ID único
-      nro: `B001-${Math.floor(Math.random() * 10000000).toString().padStart(8, '0')}`, // Generar N° aleatorio
+    const nroGenerado = correlativo 
+      ? `${serie}-${correlativo.padStart(8, '0')}`
+      : `${serie}-${Math.floor(Math.random() * 10000000).toString().padStart(8, '0')}`;
+
+    const nuevaBoletaManual = {
+      id: Date.now(),
+      nro: nroGenerado,
       rucDni: documento || "Sin Documento",
       cliente: cliente || "Cliente Varios",
-      emision: new Date().toLocaleDateString('es-PE').replace(/\//g, '-'), // Formato DD-MM-YYYY
+      emision: new Date().toLocaleDateString('es-PE').replace(/\//g, '-'),
       forma: formaPago,
-      importe: `S/${totales.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      importe: `S/${totales.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+      pagoInfo: {
+        monto: `S/ ${totales.total.toFixed(2)}`,
+        fecha: new Date().toLocaleDateString('es-PE').replace(/\//g, '-'),
+        tipo: formaPago,
+        dato: "Manual"
+      }
     };
 
-    // Obtenemos los registros previos, agregamos el nuevo al inicio y guardamos
-    const guardadas = JSON.parse(localStorage.getItem('boletas_guardadas') || '[]');
-    guardadas.unshift(nuevaBoleta); 
-    localStorage.setItem('boletas_guardadas', JSON.stringify(guardadas));
+    const guardadas = JSON.parse(localStorage.getItem('boletas_manual_guardadas') || '[]');
+    guardadas.unshift(nuevaBoletaManual); 
+    localStorage.setItem('boletas_manual_guardadas', JSON.stringify(guardadas));
 
-    alert("¡Boleta generada con éxito!");
-    router.push("/comprobantes/boleta"); 
+    alert("¡Boleta manual registrada con éxito!");
+    router.push("/comprobantes/boleta_manual"); 
   };
 
   return (
@@ -80,13 +89,13 @@ export default function CrearBoletaPage() {
         <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link
-              href="/comprobantes/boleta"
+              href="/comprobantes/boleta_manual"
               className="text-gray-500 hover:text-gray-800 transition-colors p-1 hover:bg-gray-100 rounded-full cursor-pointer inline-flex items-center justify-center"
-              title="Regresar a Boletas"
+              title="Regresar a Boletas Manuales"
             >
               <ArrowLeft size={18} />
             </Link>
-            <h1 className="text-[14px] font-bold text-gray-700">Generar Boleta de Venta Electrónica</h1>
+            <h1 className="text-[14px] font-bold text-gray-700">Registrar Boleta de Venta Manual</h1>
           </div>
         </div>
 
@@ -95,7 +104,7 @@ export default function CrearBoletaPage() {
             <div className="space-y-4">
               <h3 className="text-[12px] font-extrabold text-[#1d59bc] uppercase tracking-wider mb-2 border-b border-gray-200 pb-1">Datos del Cliente</h3>
               <div className="flex items-center gap-3">
-                <label className="w-24 text-[12px] font-bold text-gray-600">DNI:</label>
+                <label className="w-24 text-[12px] font-bold text-gray-600">DNI / Doc:</label>
                 <div className="flex flex-1">
                   <input
                     type="text"
@@ -113,7 +122,7 @@ export default function CrearBoletaPage() {
                 <label className="w-24 text-[12px] font-bold text-gray-600">Nombres:</label>
                 <input
                   type="text"
-                  placeholder="Nombre completo"
+                  placeholder="Nombre completo del cliente"
                   value={cliente}
                   onChange={(e) => setCliente(e.target.value)}
                   className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#1d59bc]"
@@ -122,7 +131,25 @@ export default function CrearBoletaPage() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-[12px] font-extrabold text-[#1d59bc] uppercase tracking-wider mb-2 border-b border-gray-200 pb-1">Datos del Comprobante</h3>
+              <h3 className="text-[12px] font-extrabold text-[#1d59bc] uppercase tracking-wider mb-2 border-b border-gray-200 pb-1">Datos del Comprobante Físico</h3>
+              <div className="flex items-center gap-3">
+                <label className="w-28 text-[12px] font-bold text-gray-600">Serie - Número:</label>
+                <div className="flex gap-2 flex-1">
+                  <input
+                    type="text"
+                    value={serie}
+                    onChange={(e) => setSerie(e.target.value)}
+                    className="w-20 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#1d59bc] uppercase"
+                  />
+                  <input
+                    type="text"
+                    placeholder="00000001"
+                    value={correlativo}
+                    onChange={(e) => setCorrelativo(e.target.value)}
+                    className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#1d59bc]"
+                  />
+                </div>
+              </div>
               <div className="flex items-center gap-3">
                 <label className="w-28 text-[12px] font-bold text-gray-600">Fecha Emisión:</label>
                 <input
@@ -239,7 +266,7 @@ export default function CrearBoletaPage() {
                 className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white px-8 py-5 rounded-[4px] font-bold text-[13px] shadow-md flex items-center gap-2 cursor-pointer"
               >
                 <Save size={18} />
-                Guardar y Finalizar
+                Guardar Boleta Manual
               </Button>
             </div>
           </div>

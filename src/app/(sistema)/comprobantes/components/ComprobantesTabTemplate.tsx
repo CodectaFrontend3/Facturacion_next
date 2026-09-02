@@ -14,36 +14,24 @@ import { FilterSearch } from "@/components/DataFilters/FilterSearch";
 import { FilterSelect } from "@/components/DataFilters/FilterSelect";
 
 // 1. CONFIGURACIÓN DE TARJETAS DE RESUMEN
-const boletasItems = [
-  { icon: FileText, label: "Boleta", count: "0 Documentos", amount: "S/ 0.00", tone: { ring: "border-[#1AB394]", amount: "text-[#1AB394]" } },
-  { icon: FileText, label: "Boleta Manual", count: "0 Documentos", amount: "S/ 0.00", tone: { ring: "border-[#1AB394]", amount: "text-[#1AB394]" } }
-];
+export interface SummaryItemData {
+  icon: any;
+  label: string;
+  count: string;
+  amount: string;
+  tone: { ring: string; amount: string };
+}
 
-const facturasItems = [
-  { icon: FileText, label: "Factura", count: "1 Documentos", amount: "S/ 89.00", tone: { ring: "border-[#F8AC59]", amount: "text-[#F8AC59]" } },
-  { icon: FileText, label: "Factura Manual", count: "0 Documentos", amount: "S/ 0.00", tone: { ring: "border-[#F8AC59]", amount: "text-[#F8AC59]" } }
-];
-
-const notasItems = [
-  { icon: FileIcon, label: "Nota de Crédito", count: "0 Documentos", amount: "\u00A0", tone: { ring: "border-[#ED5565]", amount: "" } },
-  { icon: FileIcon, label: "Nota de Débito", count: "0 Documentos", amount: "\u00A0", tone: { ring: "border-[#ED5565]", amount: "" } }
-];
-
-const guiasItems = [
-  { icon: User, label: "Guía Remisión", count: "0 Documentos", amount: "\u00A0", tone: { ring: "border-[#2C1FF3]", amount: "" } },
-  { icon: User, label: "Guía Remisión Man.", count: "0 Documentos", amount: "\u00A0", tone: { ring: "border-[#2C1FF3]", amount: "" } }
-];
-
-// 2. RUTAS DE LAS PESTAÑAS (la propiedad 'count' ahora se usa como valor inicial base si se desea, pero será sobreescrita)
-const tabsConfig = [
-  { id: "boleta", label: "Boleta", count: 0, href: "/comprobantes/boleta", color: "#2C1FF3" },
-  { id: "boleta_man", label: "Boleta Man.", count: 0, href: "/comprobantes/boleta_manual", color: "#2C1FF3" },
-  { id: "factura", label: "Factura", count: 1, href: "/comprobantes/factura", color: "#2C1FF3" },
-  { id: "factura_man", label: "Factura Man.", count: 0, href: "/comprobantes/factura_manual", color: "#2C1FF3" },
-  { id: "nota_credito", label: "Nota de Crédito", count: 0, href: "/comprobantes/nota_credito", color: "#2C1FF3" },
-  { id: "nota_debito", label: "Nota de Débito", count: 0, href: "/comprobantes/nota_debito", color: "#2C1FF3" },
-  { id: "guia_remision", label: "Guía Remisión", count: 0, href: "/comprobantes/guia_remision", color: "#2C1FF3" },
-  { id: "guia_remision_man", label: "Guía Remisión Man.", count: 0, href: "/comprobantes/guia_remision_manual", color: "#2C1FF3" },
+// 2. RUTAS DE LAS PESTAÑAS
+export const tabsConfig = [
+  { id: "boleta", label: "Boleta", href: "/comprobantes/boleta", color: "#1AB394" },
+  { id: "boleta_man", label: "Boleta Man.", href: "/comprobantes/boleta_manual", color: "#1AB394" },
+  { id: "factura", label: "Factura", href: "/comprobantes/factura", color: "#F8AC59" },
+  { id: "factura_man", label: "Factura Man.", href: "/comprobantes/factura_manual", color: "#F8AC59" },
+  { id: "nota_credito", label: "Nota de Crédito", href: "/comprobantes/nota_credito", color: "#ED5565" },
+  { id: "nota_debito", label: "Nota de Débito", href: "/comprobantes/nota_debito", color: "#ED5565" },
+  { id: "guia_remision", label: "Guía Remisión", href: "/comprobantes/guia_remision", color: "#2C1FF3" },
+  { id: "guia_remision_man", label: "Guía Remisión Man.", href: "/comprobantes/guia_remision_manual", color: "#2C1FF3" },
 ];
 
 // 3. INTERFAZ DE PROPS
@@ -53,6 +41,7 @@ interface ComprobantesTabTemplateProps {
   data: any[];
   totalGeneral?: string;
   total?: string;
+  onSearchChange?: (search: string) => void;
 }
 
 export function ComprobantesTabTemplate({ 
@@ -63,7 +52,7 @@ export function ComprobantesTabTemplate({
   totalGeneral = "S/0.00" 
 }: ComprobantesTabTemplateProps) {
 
-  // ESTADO PARA CONTEO DINÁMICO DE LAS PESTAÑAS
+  // ESTADO PARA CONTEO DINÁMICO DE LAS PESTAÑAS Y MONTOS
   const [conteos, setConteos] = useState<Record<string, number>>({
     boleta: 0,
     boleta_man: 0,
@@ -75,22 +64,16 @@ export function ComprobantesTabTemplate({
     guia_remision_man: 0
   });
 
-  // EFECTO QUE SE DISPARA AL CARGAR LA DATA PARA LEER EL LOCALSTORAGE
-  useEffect(() => {
-    const boletasStorage = JSON.parse(localStorage.getItem('boletas_guardadas') || '[]');
-    const facturasStorage = JSON.parse(localStorage.getItem('facturas_guardadas') || '[]');
-
-    setConteos({
-      boleta: boletasStorage.length + 2, // Sumamos los 2 de demostración estáticos
-      boleta_man: 0,
-      factura: facturasStorage.length + 1, // Sumamos 1 de demostración estático
-      factura_man: 0,
-      nota_credito: 0,
-      nota_debito: 0,
-      guia_remision: 0,
-      guia_remision_man: 0
-    });
-  }, [data]);
+  const [totalesResumen, setTotalesResumen] = useState<Record<string, string>>({
+    boleta: "S/ 0.00",
+    boleta_man: "S/ 0.00",
+    factura: "S/ 0.00",
+    factura_man: "S/ 0.00",
+    nota_credito: "S/ 0.00",
+    nota_debito: "S/ 0.00",
+    guia_remision: "0 Guías",
+    guia_remision_man: "0 Guías"
+  });
 
   const [filters, setFilters] = useState({
     fechaInicio: "",
@@ -100,17 +83,139 @@ export function ComprobantesTabTemplate({
     search: "",
   });
 
+  const calculateSum = (items: any[]) => {
+    const sum = items.reduce((acc, row) => {
+      if (!row.importe) return acc;
+      const num = parseFloat(String(row.importe).replace(/S\/|,/g, "").trim());
+      return acc + (isNaN(num) ? 0 : num);
+    }, 0);
+    return `S/ ${sum.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  };
+
+  // EFECTO QUE SE DISPARA AL CARGAR LA DATA PARA LEER EL LOCALSTORAGE
+  useEffect(() => {
+    try {
+      const boletasStorage = JSON.parse(localStorage.getItem('boletas_guardadas') || '[]');
+      const boletasManStorage = JSON.parse(localStorage.getItem('boletas_manual_guardadas') || '[]');
+      const facturasStorage = JSON.parse(localStorage.getItem('facturas_guardadas') || '[]');
+      const facturasManStorage = JSON.parse(localStorage.getItem('facturas_manual_guardadas') || '[]');
+      const notasCreditoStorage = JSON.parse(localStorage.getItem('notas_credito_guardadas') || '[]');
+      const notasDebitoStorage = JSON.parse(localStorage.getItem('notas_debito_guardadas') || '[]');
+      const guiasStorage = JSON.parse(localStorage.getItem('guias_remision_guardadas') || '[]');
+      const guiasManStorage = JSON.parse(localStorage.getItem('guias_remision_manual_guardadas') || '[]');
+
+      // Default mock totals
+      const boletasMock = [
+        { importe: "S/1,453.76" },
+        { importe: "S/810.40" }
+      ];
+      const boletasManMock = [
+        { importe: "S/320.00" },
+        { importe: "S/540.00" }
+      ];
+      const facturasMock = [
+        { importe: "S/1,453.76" }
+      ];
+      const facturasManMock = [
+        { importe: "S/2,100.00" },
+        { importe: "S/950.00" }
+      ];
+      const notasCredMock = [
+        { importe: "S/450.00" }
+      ];
+      const notasDebMock = [
+        { importe: "S/120.00" }
+      ];
+
+      const allBoletas = [...boletasStorage, ...boletasMock];
+      const allBoletasMan = [...boletasManStorage, ...boletasManMock];
+      const allFacturas = [...facturasStorage, ...facturasMock];
+      const allFacturasMan = [...facturasManStorage, ...facturasManMock];
+      const allNotasCred = [...notasCreditoStorage, ...notasCredMock];
+      const allNotasDeb = [...notasDebitoStorage, ...notasDebMock];
+      const allGuias = [...guiasStorage, { id: 1 }, { id: 2 }];
+      const allGuiasMan = [...guiasManStorage, { id: 1 }];
+
+      setConteos({
+        boleta: allBoletas.length,
+        boleta_man: allBoletasMan.length,
+        factura: allFacturas.length,
+        factura_man: allFacturasMan.length,
+        nota_credito: allNotasCred.length,
+        nota_debito: allNotasDeb.length,
+        guia_remision: allGuias.length,
+        guia_remision_man: allGuiasMan.length
+      });
+
+      setTotalesResumen({
+        boleta: calculateSum(allBoletas),
+        boleta_man: calculateSum(allBoletasMan),
+        factura: calculateSum(allFacturas),
+        factura_man: calculateSum(allFacturasMan),
+        nota_credito: calculateSum(allNotasCred),
+        nota_debito: calculateSum(allNotasDeb),
+        guia_remision: `${allGuias.length} Guías`,
+        guia_remision_man: `${allGuiasMan.length} Guías`
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, [data]);
+
   const handleFilterChange = (name: string, value: string) => {
     setFilters(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSearch = () => {
-    console.log("Buscando con filtros:", filters);
+    // Interactive filtering is computed below
   };
 
   const handleReset = () => {
     setFilters({ fechaInicio: "", fechaFin: "", estadoPago: "", estadoSunat: "", search: "" });
   };
+
+  // Filtrado local inteligente sobre la data
+  const filteredData = React.useMemo(() => {
+    return data.filter(item => {
+      if (filters.search) {
+        const query = filters.search.toLowerCase();
+        const matchesNro = item.nro ? String(item.nro).toLowerCase().includes(query) : false;
+        const matchesCliente = item.cliente ? String(item.cliente).toLowerCase().includes(query) : false;
+        const matchesDoc = item.rucDni ? String(item.rucDni).toLowerCase().includes(query) : false;
+        const matchesDest = item.destinatario ? String(item.destinatario).toLowerCase().includes(query) : false;
+        const matchesMotivo = item.motivo ? String(item.motivo).toLowerCase().includes(query) : false;
+        if (!matchesNro && !matchesCliente && !matchesDoc && !matchesDest && !matchesMotivo) {
+          return false;
+        }
+      }
+      if (filters.estadoPago) {
+        if (filters.estadoPago === "pagado" && item.forma && !item.forma.toLowerCase().includes("contado")) {
+          // just basic condition
+        }
+      }
+      return true;
+    });
+  }, [data, filters]);
+
+  const boletasItems: SummaryItemData[] = [
+    { icon: FileText, label: "Boleta", count: `${conteos.boleta} Documentos`, amount: totalesResumen.boleta, tone: { ring: "border-[#1AB394]", amount: "text-[#1AB394]" } },
+    { icon: FileText, label: "Boleta Manual", count: `${conteos.boleta_man} Documentos`, amount: totalesResumen.boleta_man, tone: { ring: "border-[#1AB394]", amount: "text-[#1AB394]" } }
+  ];
+
+  const facturasItems: SummaryItemData[] = [
+    { icon: FileText, label: "Factura", count: `${conteos.factura} Documentos`, amount: totalesResumen.factura, tone: { ring: "border-[#F8AC59]", amount: "text-[#F8AC59]" } },
+    { icon: FileText, label: "Factura Manual", count: `${conteos.factura_man} Documentos`, amount: totalesResumen.factura_man, tone: { ring: "border-[#F8AC59]", amount: "text-[#F8AC59]" } }
+  ];
+
+  const notasItems: SummaryItemData[] = [
+    { icon: FileIcon, label: "Nota de Crédito", count: `${conteos.nota_credito} Documentos`, amount: totalesResumen.nota_credito, tone: { ring: "border-[#ED5565]", amount: "text-[#ED5565]" } },
+    { icon: FileIcon, label: "Nota de Débito", count: `${conteos.nota_debito} Documentos`, amount: totalesResumen.nota_debito, tone: { ring: "border-[#ED5565]", amount: "text-[#ED5565]" } }
+  ];
+
+  const guiasItems: SummaryItemData[] = [
+    { icon: User, label: "Guía Remisión", count: `${conteos.guia_remision} Documentos`, amount: totalesResumen.guia_remision, tone: { ring: "border-[#2C1FF3]", amount: "text-[#2C1FF3]" } },
+    { icon: User, label: "Guía Remisión Man.", count: `${conteos.guia_remision_man} Documentos`, amount: totalesResumen.guia_remision_man, tone: { ring: "border-[#2C1FF3]", amount: "text-[#2C1FF3]" } }
+  ];
   
   return (
     <main className="min-h-screen bg-[#f3f3f4] space-y-6 font-sans">
@@ -250,7 +355,7 @@ export function ComprobantesTabTemplate({
               
               <DataTable 
                 columns={columns} 
-                data={data} 
+                data={filteredData} 
                 showSelection={false} 
               />
               

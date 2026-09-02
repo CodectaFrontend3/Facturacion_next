@@ -13,15 +13,16 @@ interface Articulo {
   precioUnitario: number;
 }
 
-export default function CrearBoletaPage() {
+export default function CrearNotaCreditoPage() {
   const router = useRouter();
 
-  // Estados del formulario
+  const [tipoDoc, setTipoDoc] = useState("Factura");
+  const [docModifica, setDocModifica] = useState("F001-00000085");
+  const [motivo, setMotivo] = useState("01 - Anulación de la operación");
   const [cliente, setCliente] = useState("");
   const [documento, setDocumento] = useState("");
-  const [formaPago, setFormaPago] = useState("Contado");
   const [articulos, setArticulos] = useState<Articulo[]>([
-    { id: 1, descripcion: "", cantidad: 1, precioUnitario: 0 }
+    { id: 1, descripcion: "Anulación por error en comprobante", cantidad: 1, precioUnitario: 0 }
   ]);
 
   const agregarArticulo = () => {
@@ -52,25 +53,25 @@ export default function CrearBoletaPage() {
 
   const totales = calcularTotales();
 
-  // FUNCIÓN ACTUALIZADA: Guarda en localStorage para simular base de datos
   const handleGuardar = () => {
-    const nuevaBoleta = {
-      id: Date.now(), // ID único
-      nro: `B001-${Math.floor(Math.random() * 10000000).toString().padStart(8, '0')}`, // Generar N° aleatorio
-      rucDni: documento || "Sin Documento",
-      cliente: cliente || "Cliente Varios",
-      emision: new Date().toLocaleDateString('es-PE').replace(/\//g, '-'), // Formato DD-MM-YYYY
-      forma: formaPago,
+    const seriePrefix = tipoDoc === "Factura" ? "FC01" : "BC01";
+    const nuevaNotaCredito = {
+      id: Date.now(),
+      nro: `${seriePrefix}-${Math.floor(Math.random() * 10000000).toString().padStart(8, '0')}`,
+      rucDni: documento || "20522045773",
+      cliente: cliente || "CORPORACION LOGISTICA ANDINA S.A.C.",
+      docModifica: docModifica || "F001-00000001",
+      motivo: motivo,
+      emision: new Date().toLocaleDateString('es-PE').replace(/\//g, '-'),
       importe: `S/${totales.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
     };
 
-    // Obtenemos los registros previos, agregamos el nuevo al inicio y guardamos
-    const guardadas = JSON.parse(localStorage.getItem('boletas_guardadas') || '[]');
-    guardadas.unshift(nuevaBoleta); 
-    localStorage.setItem('boletas_guardadas', JSON.stringify(guardadas));
+    const guardadas = JSON.parse(localStorage.getItem('notas_credito_guardadas') || '[]');
+    guardadas.unshift(nuevaNotaCredito); 
+    localStorage.setItem('notas_credito_guardadas', JSON.stringify(guardadas));
 
-    alert("¡Boleta generada con éxito!");
-    router.push("/comprobantes/boleta"); 
+    alert("¡Nota de Crédito generada con éxito!");
+    router.push("/comprobantes/nota_credito"); 
   };
 
   return (
@@ -80,74 +81,100 @@ export default function CrearBoletaPage() {
         <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link
-              href="/comprobantes/boleta"
+              href="/comprobantes/nota_credito"
               className="text-gray-500 hover:text-gray-800 transition-colors p-1 hover:bg-gray-100 rounded-full cursor-pointer inline-flex items-center justify-center"
-              title="Regresar a Boletas"
+              title="Regresar a Notas de Crédito"
             >
               <ArrowLeft size={18} />
             </Link>
-            <h1 className="text-[14px] font-bold text-gray-700">Generar Boleta de Venta Electrónica</h1>
+            <h1 className="text-[14px] font-bold text-gray-700">Generar Nota de Crédito Electrónica</h1>
           </div>
         </div>
 
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6 mb-8 bg-gray-50/50 p-5 border border-gray-200 rounded-md">
             <div className="space-y-4">
-              <h3 className="text-[12px] font-extrabold text-[#1d59bc] uppercase tracking-wider mb-2 border-b border-gray-200 pb-1">Datos del Cliente</h3>
+              <h3 className="text-[12px] font-extrabold text-[#ed5565] uppercase tracking-wider mb-2 border-b border-gray-200 pb-1">Documento que Modifica</h3>
               <div className="flex items-center gap-3">
-                <label className="w-24 text-[12px] font-bold text-gray-600">DNI:</label>
+                <label className="w-28 text-[12px] font-bold text-gray-600">Tipo Doc:</label>
+                <select
+                  value={tipoDoc}
+                  onChange={(e) => setTipoDoc(e.target.value)}
+                  className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#ed5565] bg-white"
+                >
+                  <option value="Factura">Factura Electrónica</option>
+                  <option value="Boleta">Boleta de Venta Electrónica</option>
+                </select>
+              </div>
+              <div className="flex items-center gap-3">
+                <label className="w-28 text-[12px] font-bold text-gray-600">N° Documento:</label>
+                <input
+                  type="text"
+                  placeholder="Ej: F001-00000085"
+                  value={docModifica}
+                  onChange={(e) => setDocModifica(e.target.value)}
+                  className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#ed5565]"
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <label className="w-28 text-[12px] font-bold text-gray-600">Tipo Nota (SUNAT):</label>
+                <select
+                  value={motivo}
+                  onChange={(e) => setMotivo(e.target.value)}
+                  className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#ed5565] bg-white text-[11px]"
+                >
+                  <option value="01 - Anulación de la operación">01 - Anulación de la operación</option>
+                  <option value="02 - Anulación por error en el RUC">02 - Anulación por error en el RUC</option>
+                  <option value="03 - Corrección por error en la descripción">03 - Corrección por error en la descripción</option>
+                  <option value="04 - Descuento global">04 - Descuento global</option>
+                  <option value="05 - Descuento por ítem">05 - Descuento por ítem</option>
+                  <option value="06 - Devolución total">06 - Devolución total</option>
+                  <option value="07 - Devolución por ítem">07 - Devolución por ítem</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-[12px] font-extrabold text-[#ed5565] uppercase tracking-wider mb-2 border-b border-gray-200 pb-1">Datos del Cliente</h3>
+              <div className="flex items-center gap-3">
+                <label className="w-24 text-[12px] font-bold text-gray-600">RUC / DNI:</label>
                 <div className="flex flex-1">
                   <input
                     type="text"
-                    placeholder="Buscar DNI..."
+                    placeholder="Documento..."
                     value={documento}
                     onChange={(e) => setDocumento(e.target.value)}
-                    className="flex-1 border border-gray-300 rounded-l-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#1d59bc]"
+                    className="flex-1 border border-gray-300 rounded-l-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#ed5565]"
                   />
-                  <button className="bg-[#1d59bc] text-white px-3 py-1.5 rounded-r-[4px] hover:bg-[#164696] transition-colors cursor-pointer">
+                  <button className="bg-[#ed5565] text-white px-3 py-1.5 rounded-r-[4px] hover:bg-red-700 transition-colors cursor-pointer">
                     <Search size={14} />
                   </button>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <label className="w-24 text-[12px] font-bold text-gray-600">Nombres:</label>
+                <label className="w-24 text-[12px] font-bold text-gray-600">Razón / Nombre:</label>
                 <input
                   type="text"
-                  placeholder="Nombre completo"
+                  placeholder="Nombre o Razón Social"
                   value={cliente}
                   onChange={(e) => setCliente(e.target.value)}
-                  className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#1d59bc]"
+                  className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#ed5565]"
                 />
               </div>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-[12px] font-extrabold text-[#1d59bc] uppercase tracking-wider mb-2 border-b border-gray-200 pb-1">Datos del Comprobante</h3>
               <div className="flex items-center gap-3">
-                <label className="w-28 text-[12px] font-bold text-gray-600">Fecha Emisión:</label>
+                <label className="w-24 text-[12px] font-bold text-gray-600">Fecha Emisión:</label>
                 <input
                   type="date"
                   defaultValue={new Date().toISOString().split('T')[0]}
-                  className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#1d59bc]"
+                  className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#ed5565]"
                 />
-              </div>
-              <div className="flex items-center gap-3">
-                <label className="w-28 text-[12px] font-bold text-gray-600">Forma de Pago:</label>
-                <select 
-                  value={formaPago}
-                  onChange={(e) => setFormaPago(e.target.value)}
-                  className="flex-1 border border-gray-300 rounded-[4px] px-3 py-1.5 text-[12px] focus:outline-none focus:border-[#1d59bc] bg-white"
-                >
-                  <option value="Contado">Al Contado</option>
-                  <option value="Credito">Al Crédito</option>
-                </select>
               </div>
             </div>
           </div>
 
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-[13px] font-extrabold text-gray-700">Detalle de Artículos</h3>
+              <h3 className="text-[13px] font-extrabold text-gray-700">Detalle del Monto a Acreditar / Anular</h3>
               <Button 
                 onClick={agregarArticulo}
                 className="bg-[#1ab394] hover:bg-[#18a689] text-white h-7 px-3 rounded-[4px] text-[11px] font-bold shadow-sm"
@@ -161,7 +188,7 @@ export default function CrearBoletaPage() {
                 <thead className="bg-gray-50 border-b border-gray-200 text-gray-600">
                   <tr>
                     <th className="py-2.5 px-3 font-bold w-12 text-center">Acción</th>
-                    <th className="py-2.5 px-3 font-bold">Descripción</th>
+                    <th className="py-2.5 px-3 font-bold">Descripción / Motivo del Detalle</th>
                     <th className="py-2.5 px-3 font-bold w-24 text-center">Cantidad</th>
                     <th className="py-2.5 px-3 font-bold w-32 text-right">P. Unitario (S/)</th>
                     <th className="py-2.5 px-3 font-bold w-32 text-right bg-gray-100">Total (S/)</th>
@@ -182,10 +209,10 @@ export default function CrearBoletaPage() {
                       <td className="py-2 px-3">
                         <input 
                           type="text" 
-                          placeholder="Descripción del producto..."
+                          placeholder="Descripción del concepto a ajustar..."
                           value={art.descripcion}
                           onChange={(e) => actualizarArticulo(art.id, "descripcion", e.target.value)}
-                          className="w-full border border-gray-200 rounded px-2 py-1 focus:outline-none focus:border-[#1d59bc]"
+                          className="w-full border border-gray-200 rounded px-2 py-1 focus:outline-none focus:border-[#ed5565]"
                         />
                       </td>
                       <td className="py-2 px-3">
@@ -194,7 +221,7 @@ export default function CrearBoletaPage() {
                           min="1"
                           value={art.cantidad || ""}
                           onChange={(e) => actualizarArticulo(art.id, "cantidad", Number(e.target.value))}
-                          className="w-full border border-gray-200 rounded px-2 py-1 text-center focus:outline-none focus:border-[#1d59bc]"
+                          className="w-full border border-gray-200 rounded px-2 py-1 text-center focus:outline-none focus:border-[#ed5565]"
                         />
                       </td>
                       <td className="py-2 px-3">
@@ -204,7 +231,7 @@ export default function CrearBoletaPage() {
                           step="0.01"
                           value={art.precioUnitario || ""}
                           onChange={(e) => actualizarArticulo(art.id, "precioUnitario", Number(e.target.value))}
-                          className="w-full border border-gray-200 rounded px-2 py-1 text-right focus:outline-none focus:border-[#1d59bc]"
+                          className="w-full border border-gray-200 rounded px-2 py-1 text-right focus:outline-none focus:border-[#ed5565]"
                         />
                       </td>
                       <td className="py-2 px-3 text-right font-bold text-gray-700 bg-gray-50/50">
@@ -227,8 +254,8 @@ export default function CrearBoletaPage() {
                 <span className="font-bold">IGV (18%):</span>
                 <span>S/ {totales.igv.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-[14px] text-gray-800">
-                <span className="font-extrabold">Importe Total:</span>
+              <div className="flex justify-between text-[14px] text-red-600">
+                <span className="font-extrabold">Total a Acreditar:</span>
                 <span className="font-extrabold">S/ {totales.total.toFixed(2)}</span>
               </div>
             </div>
@@ -236,10 +263,10 @@ export default function CrearBoletaPage() {
             <div className="flex flex-col justify-end h-full pt-2">
               <Button 
                 onClick={handleGuardar}
-                className="bg-[#2C1FF3] hover:bg-[#190FCE] text-white px-8 py-5 rounded-[4px] font-bold text-[13px] shadow-md flex items-center gap-2 cursor-pointer"
+                className="bg-[#ed5565] hover:bg-red-700 text-white px-8 py-5 rounded-[4px] font-bold text-[13px] shadow-md flex items-center gap-2 cursor-pointer"
               >
                 <Save size={18} />
-                Guardar y Finalizar
+                Emitir Nota de Crédito
               </Button>
             </div>
           </div>
