@@ -1,0 +1,26 @@
+[
+  {
+    "key": "boletas",
+    "label": "Boletas",
+    "color": "#28a745",
+    "href": "/boletas_electronicas"
+  },
+  {
+    "key": "enviados_boletas",
+    "label": "Enviados",
+    "color": "#ffa500",
+    "href": "/boletas_electronicas/enviadas"
+  },
+  {
+    "key": "boletas_manuales",
+    "label": "Boletas Manuales",
+    "color": "#28a745",
+    "href": "/boletas_m_electronicas"
+  },
+  {
+    "key": "enviados_manual",
+    "label": "Enviados",
+    "color": "#dc3545",
+    "href": "/boletas_m_electronicas/enviadas"
+  }
+]

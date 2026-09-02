@@ -1,222 +1,218 @@
 [
-	{
-		"label": "Inicio",
-		"path": "/",
-		"icon": "Home"
-	},
-	{
-		"label": "Ventas",
-		"path": "/ventas/cotizacion",
-		"icon": "Tags"
-	},
-	{
-		"label": "Tesoreria",
-		"path": "/consulta/tesoreria/caja-chica",
-		"icon": "Wallet"
-	},
-	{
-		"label": "Comprobantes",
-		"path": "/comprobantes/factura",
-		"icon": "FileText"
-	},
-	{
-		"label": "Garantias",
-		"path": "/garantia/ingreso",
-		"icon": "ShieldCheck"
-	},
-	{
-		"label": "Inventario",
-		"icon": "Archive",
-		"subPath": [
-			{
-				"label": "Kardex-Productos",
-				"kPath": [
-					{
-						"label": "Entrada Producto",
-						"path": "/kardex-entrada"
-					},
-					{
-						"label": "Distribución Producto",
-						"path": "/kardex-entrada-Distribucion"
-					},
-					{
-						"label": "Traslado de Almacén",
-						"path": "/kardex-entrada-Traslado-almacen"
-					},
-					{
-						"label": "Salida Producto",
-						"path": "/kardex-salida"
-					}
-				]
-			},
-			{
-				"label": "Consultas de Inventario",
-				"path": "/periodo-consulta"
-			},
-			{
-				"label": "Cierre Periodo",
-				"path": "/cierre-periodo"
-			},
-			{
-				"label": "Movimiento Consulta",
-				"path": "/movimiento-consulta"
-			}
-		]
-	},
-	{
-		"label": "Creditos y Cobranzas",
-		"icon": "CreditCard",
-		"subPath": [
-			{
-				"label": "Facturas",
-				"path": "/creditos_pago/facturas"
-			},
-			{
-				"label": "Facturas M.",
-				"path": "/creditos_pago/facturas_manuales"
-			},
-			{
-				"label": "Boletas",
-				"path": "/creditos_pago/boletas"
-			},
-			{
-				"label": "Boletas M.",
-				"path": "/creditos_pago/boletas_manuales"
-			},
-			{
-				"label": "Nota de Venta",
-				"path": "/creditos_pago/nota_venta"
-			}
-		]
-	},
-	{
-		"label": "Servicio Técnico",
-		"path": "/servicio-tecnico",
-		"icon": "Wrench"
-	},
-	{
-		"label": "Planilla",
-		"icon": "Sheet",
-		"subPath": [
-			{
-				"label": "Personal",
-				"path": "/personal"
-			},
-			{
-				"label": "Vendedores",
-				"path": "/vendedores"
-			},
-			{
-				"label": "Vehículos",
-				"path": "/vehiculo"
-			}
-		]
-	},
-	{
-		"label": "Consultas",
-		"icon": "MessageCircle",
-		"subPath": [
-			{
-				"label": "Garantias",
-				"kPath": [
-					{
-						"label": "Guía Ingreso",
-						"path": "/consultas/garantias-guias-ingreso"
-					},
-					{
-						"label": "Guía Egreso",
-						"path": "/consultas/garantias-guias-egreso"
-					},
-					{
-						"label": "Informe Técnico",
-						"path": "/consultas/garantias-informe-tecnico"
-					}
-				]
-			},
-			{
-				"label": "Productos",
-				"path": "/cantidad_precio"
-			},
-			{
-				"label": "Servicios",
-				"path": "/cantidad_precio/servicio"
-			},
-			{
-				"label": "Reportes",
-				"path": "/reportes"
-			}
-		]
-	},
-	{
-		"label": "Registros Sunat",
-		"icon": "BadgeCheck",
-		"subPath": [
-			{
-				"label": "Facturas",
-				"path": "/facturacion_electronica"
-			},
-			{
-				"label": "Boletas",
-				"path": "/boletas_electronicas"
-			},
-			{
-				"label": "Guía Remisión",
-				"path": "/guias_electronicas"
-			},
-			{
-				"label": "Nota de créditos",
-				"path": "/nota_credito_electronica"
-			},
-			{
-				"label": "Nota de débitos",
-				"path": "/nota_debito_electronica"
-			}
-		]
-	},
-	{
-		"label": "Productos y Servicios",
-		"icon": "Handbag",
-		"subPath": [
-			{
-				"label": "Productos",
-				"path": "/productos"
-			},
-			{
-				"label": "Servicios",
-				"path": "/servicios"
-			}
-		]
-	},
-	{
-		"label": "Correo",
-		"icon": "Mail",
-		"subPath": [
-			{
-				"label": "Bandeja de Entrada",
-				"path": "/email"
-			},
-			{
-				"label": "Configuración",
-				"path": "/configuracion_email"
-			},
-			{
-				"label": "Papelera",
-				"path": "/trash"
-			}
-		]
-	},
-	{
-		"label": "Auxiliares",
-		"icon": "Users",
-		"subPath": [
-			{
-				"label": "Clientes",
-				"path": "/ventas/clientes"
-			},
-			{
-				"label": "Proveedores",
-				"path": "/provedor"
-			}
-		]
-	}
+  {
+    "label": "Inicio",
+    "path": "/inicio",
+    "icon": "Home"
+  },
+  {
+    "label": "Ventas",
+    "path": "/ventas/cotizacion",
+    "icon": "Tags"
+  },
+  {
+    "label": "Tesoreria",
+    "path": "/consulta/tesoreria/caja-chica",
+    "icon": "Wallet"
+  },
+  {
+    "label": "Comprobantes",
+    "path": "/comprobantes/factura",
+    "icon": "FileText"
+  },
+  {
+    "label": "Garantias",
+    "path": "/garantia/ingreso",
+    "icon": "ShieldCheck"
+  },
+  {
+    "label": "Inventario",
+    "icon": "Archive",
+    "subPath": [
+      {
+        "label": "Kardex-Productos",
+        "kPath": [
+          {
+            "label": "Entrada Producto",
+            "path": "/kardex-entrada"
+          },
+          {
+            "label": "Distribución Producto",
+            "path": "/kardex-entrada-Distribucion"
+          },
+          {
+            "label": "Traslado de Almacén",
+            "path": "/kardex-entrada-Traslado-almacen"
+          },
+          {
+            "label": "Salida Producto",
+            "path": "/kardex-salida"
+          }
+        ]
+      },
+      {
+        "label": "Consultas de Inventario",
+        "path": "/periodo-consulta"
+      },
+      {
+        "label": "Cierre Periodo",
+        "path": "/cierre-periodo"
+      },
+      {
+        "label": "Movimiento Consulta",
+        "path": "/movimiento-consulta"
+      }
+    ]
+  },
+  {
+    "label": "Creditos y Cobranzas",
+    "icon": "CreditCard",
+    "subPath": [
+      {
+        "label": "Facturas",
+        "path": "/creditos_pago/facturas"
+      },
+      {
+        "label": "Facturas M.",
+        "path": "/creditos_pago/facturas_manuales"
+      },
+      {
+        "label": "Boletas",
+        "path": "/creditos_pago/boletas"
+      },
+      {
+        "label": "Boletas M.",
+        "path": "/creditos_pago/boletas_manuales"
+      },
+      {
+        "label": "Nota de Venta",
+        "path": "/creditos_pago/nota_venta"
+      }
+    ]
+  },
+  {
+    "label": "Servicio Técnico",
+    "path": "/servicio-tecnico",
+    "icon": "Wrench"
+  },
+  {
+    "label": "Planilla",
+    "icon": "Sheet",
+    "subPath": [
+      {
+        "label": "Personal",
+        "path": "/personal"
+      },
+      {
+        "label": "Vendedores",
+        "path": "/vendedores"
+      },
+      {
+        "label": "Vehículos",
+        "path": "/vehiculo"
+      }
+    ]
+  },
+  {
+    "label": "Consultas",
+    "icon": "MessageCircle",
+    "subPath": [
+      {
+        "label": "Garantias",
+        "kPath": [
+          {
+            "label": "Guía Ingreso",
+            "path": "/consultas/garantias-guias-ingreso"
+          },
+          {
+            "label": "Guía Egreso",
+            "path": "/consultas/garantias-guias-egreso"
+          },
+          {
+            "label": "Informe Técnico",
+            "path": "/consultas/garantias-informe-tecnico"
+          }
+        ]
+      },
+      {
+        "label": "Productos",
+        "path": "/cantidad_precio"
+      },
+      {
+        "label": "Servicios",
+        "path": "/cantidad_precio/servicio"
+      }
+    ]
+  },
+  {
+    "label": "Registros Sunat",
+    "icon": "BadgeCheck",
+    "subPath": [
+      {
+        "label": "Facturas",
+        "path": "/facturacion_electronica"
+      },
+      {
+        "label": "Boletas",
+        "path": "/boletas_electronicas"
+      },
+      {
+        "label": "Guía Remisión",
+        "path": "/guias_electronicas"
+      },
+      {
+        "label": "Nota de créditos",
+        "path": "/nota_credito_electronica"
+      },
+      {
+        "label": "Nota de débitos",
+        "path": "/nota_debito_electronica"
+      }
+    ]
+  },
+  {
+    "label": "Productos y Servicios",
+    "icon": "Handbag",
+    "subPath": [
+      {
+        "label": "Productos",
+        "path": "/productos"
+      },
+      {
+        "label": "Servicios",
+        "path": "/servicios"
+      }
+    ]
+  },
+  {
+    "label": "Correo",
+    "icon": "Mail",
+    "subPath": [
+      {
+        "label": "Bandeja de Entrada",
+        "path": "/email"
+      },
+      {
+        "label": "Configuración",
+        "path": "/configuracion_email"
+      },
+      {
+        "label": "Papelera",
+        "path": "/trash"
+      }
+    ]
+  },
+  {
+    "label": "Auxiliares",
+    "icon": "Users",
+    "subPath": [
+      {
+        "label": "Clientes",
+        "path": "/ventas/clientes"
+      },
+      {
+        "label": "Proveedores",
+        "path": "/provedor"
+      }
+    ]
+  }
 ]

@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useState, memo } from "react"
 import {
     ColumnDef,
     flexRender,
@@ -59,7 +59,7 @@ interface DataTableProps<TData, TValue> {
     }
 }
 
-export function DataTable<TData, TValue>({
+function DataTableInner<TData, TValue>({
     columns,
     data,
     pageSize = 16,
@@ -150,11 +150,10 @@ export function DataTable<TData, TValue>({
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
                                     className="transition-colors odd:bg-[#F2F2F2] even:bg-white hover:bg-[#ECECEC] border-b border-gray-200"
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className="border-r border-gray-200 last:border-r-0 text-[13px] font-sans text-[#676A6C] py-3">
+                                        <TableCell key={cell.id} className="border-r border-gray-200 last:border-r-0 text-[13px] font-sans text-[#676A6C] py-1.5">
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
@@ -204,3 +203,7 @@ export function DataTable<TData, TValue>({
         </div>
     )
 }
+
+export const DataTable = memo(DataTableInner) as <TData, TValue>(
+    props: DataTableProps<TData, TValue>
+) => React.ReactElement

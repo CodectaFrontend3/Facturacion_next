@@ -9,7 +9,6 @@ interface DataFiltersProps {
     onSearch: () => void
     onReset: () => void
     children: React.ReactNode
-    childClassNames?: string[]
 }
 
 /**
@@ -28,7 +27,7 @@ function buildGridTemplate(total: number): string {
     const middleCount = Math.max(0, total - 2)
 
     if (total === 2) {
-        return `30% 55% ${actionsCol}`
+        return `40% 45% ${actionsCol}`
     }
 
     if (total === 3) {
@@ -77,7 +76,7 @@ function FilterActions({
         <div className="flex h-9 w-full min-w-0 items-center justify-end gap-2">
             <Button
                 onClick={onSearch}
-                className="focus:bg-[#18a689] h-9 min-w-0 flex-1 bg-[#1a5eb3] hover:bg-[#1a3bb3]! cursor-pointer rounded px-0 font-sans text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                className="focus:bg-[#18a689] h-9 min-w-0 flex-1 bg-[#2C1FF3] hover:bg-[#190FCE]! cursor-pointer rounded px-0 font-sans text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
             >
                 Buscar
             </Button>

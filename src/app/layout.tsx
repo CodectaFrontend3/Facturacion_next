@@ -3,46 +3,54 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "font-awesome/css/font-awesome.min.css";
-import AppSidebar from "@/components/layout/app-sidebar";
-import AppHeader from "@/components/layout/app-header";
-import AppFooter from "@/components/layout/app-footer";
 import { Toaster } from "@/components/ui/sonner";
 
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
-  preload: false,
-  fallback: []
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
-  title: "Sistema de facturacion Leonosoft",
-  description: "Sistema de facturacion Leonosoft",
+  title: "Facturador Electrónico",
+  description: "Sistema de facturación electrónica, inventario, ventas y servicios SUNAT",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${outfit.variable} h-full antialiased`}
-    >
-      <body className="h-screen flex flex-col font-sans overflown-hidden">
-        <AppSidebar>
-          <div className="flex flex-col min-h-screen flex-1">
-            <AppHeader />
-            <main className="flex-1 min-w-0 flex flex-col">
-              <div className="flex-1 flex flex-col bg-white">
-                {children}
-              </div>
-            </main>
-            <AppFooter />
-          </div>
-        </AppSidebar>
-        <Toaster />
+    <html lang="es" className={`${outfit.variable} h-full antialiased`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var desc = Object.getOwnPropertyDescriptor(window, 'fetch');
+                  if (!desc && typeof Window !== 'undefined' && Window.prototype) {
+                    desc = Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+                  }
+                  if (desc && desc.get && !desc.set) {
+                    var currentFetch = window.fetch;
+                    try {
+                      Object.defineProperty(window, 'fetch', {
+                        get: function() { return currentFetch; },
+                        set: function(fn) { currentFetch = fn; },
+                        configurable: true,
+                        enumerable: true
+                      });
+                    } catch(e) {}
+                  }
+                } catch(err) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      {/* Todo el diseño de Tailwind Base */}
+      {/* AÑADIMOS suppressHydrationWarning AQUÍ 👇 */}
+      <body suppressHydrationWarning className="min-h-full flex flex-col font-sans bg-white text-gray-800">
+        {children}
+        <Toaster/>
       </body>
     </html>
   );

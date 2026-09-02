@@ -1,0 +1,62 @@
+[
+  {
+    "id": "NV-001",
+    "tipo": "NotaVenta",
+    "cliente": "prueba",
+    "fecha_emision": "24-06-2026",
+    "monto_total": 70.8,
+    "saldo": 70.8,
+    "fecha_vencimiento": "05-07-2026",
+    "fecha_cancelado": "",
+    "estado": "Sin Pagar",
+    "forma_pago": "Contado",
+    "observaciones": "",
+    "tipo_emision": "Manual",
+    "n_nota_venta": "NV 001-00000024"
+  },
+  {
+    "id": "NV-002",
+    "tipo": "NotaVenta",
+    "cliente": "Estudio Contable Carpio",
+    "fecha_emision": "02-07-2026",
+    "monto_total": 520.0,
+    "saldo": 520.0,
+    "fecha_vencimiento": "12-07-2026",
+    "fecha_cancelado": "",
+    "estado": "Sin Pagar",
+    "forma_pago": "Crédito",
+    "observaciones": "",
+    "tipo_emision": "Automatica",
+    "n_nota_venta": "NV 002-00000015"
+  },
+  {
+    "id": "NV-003",
+    "tipo": "NotaVenta",
+    "cliente": "ANDREA ALEXANDRA ROQUE ANDRADE",
+    "fecha_emision": "15-11-2022",
+    "monto_total": 189.0,
+    "saldo": 0.0,
+    "fecha_vencimiento": "",
+    "fecha_cancelado": "03-04-2024",
+    "estado": "Pagado",
+    "forma_pago": "Crédito",
+    "observaciones": "",
+    "tipo_emision": "Manual",
+    "n_nota_venta": "NV 001-00000002"
+  },
+  {
+    "id": "NV-004",
+    "tipo": "NotaVenta",
+    "cliente": "Constructora Beta S.A.",
+    "fecha_emision": "14-05-2026",
+    "monto_total": 1050.0,
+    "saldo": 0.0,
+    "fecha_vencimiento": "",
+    "fecha_cancelado": "14-05-2026",
+    "estado": "Pagado",
+    "forma_pago": "Contado",
+    "observaciones": "",
+    "tipo_emision": "Automatica",
+    "n_nota_venta": "NV 002-00000001"
+  }
+]

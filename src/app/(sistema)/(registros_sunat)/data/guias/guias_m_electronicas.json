@@ -1,0 +1,24 @@
+[
+  {
+    "id": "gm-101",
+    "item": 1,
+    "codigo": "TM01-00000001",
+    "rucDni": "10457812961",
+    "cliente": "JUAN CARLOS BAZAN",
+    "fechaEmision": "18/06/2026",
+    "fechaEntrega": "29/06/2026",
+    "tipoTransporte": "Trasporte Privado",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "gm-102",
+    "item": 2,
+    "codigo": "TM01-00000002",
+    "rucDni": "20102598741",
+    "cliente": "METALURGICA DEL SUR E.I.R.L.",
+    "fechaEmision": "21/06/2026",
+    "fechaEntrega": "25/06/2026",
+    "tipoTransporte": "Trasporte Público",
+    "sunatStatus": "pendiente"
+  }
+]

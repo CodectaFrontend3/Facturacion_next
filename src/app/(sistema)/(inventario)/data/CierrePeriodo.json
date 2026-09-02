@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "codAnexo": "AX-001",
+    "nombreArticulo": "Teclado Mecánico RGB Logitech G413",
+    "monto": 45,
+    "precioUnitario": 185.5,
+    "fecha_cierre": "2022-02-28"
+  },
+  {
+    "id": 2,
+    "codAnexo": "AX-002",
+    "nombreArticulo": "Mouse Óptico Ergonómico Razer DeathAdder",
+    "monto": 120,
+    "precioUnitario": 95.0,
+    "fecha_cierre": "2022-02-28"
+  },
+  {
+    "id": 3,
+    "codAnexo": "AX-003",
+    "nombreArticulo": "Monitor Gamer Asus 24\" IPS 144Hz",
+    "monto": 15,
+    "precioUnitario": 680.0,
+    "fecha_cierre": "2022-02-28"
+  },
+  {
+    "id": 4,
+    "codAnexo": "AX-004",
+    "nombreArticulo": "Memoria RAM Kingston Fury 16GB DDR4",
+    "monto": 60,
+    "precioUnitario": 145.0,
+    "fecha_cierre": "2022-02-28"
+  },
+  {
+    "id": 5,
+    "codAnexo": "AX-005",
+    "nombreArticulo": "Disco Duro Sólido SSD Crucial BX500 1TB",
+    "monto": 35,
+    "precioUnitario": 210.0,
+    "fecha_cierre": "2022-02-28"
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1",
+    "tipo": "nota_venta",
+    "numero": "NV 001-00000018",
+
+    "fechaEmision": "2026-04-18",
+    "estado": "Emitida",
+    "observacion": "Emitimos la siguiente Nota de Venta...",
+
+
+    "clienteId": "1",
+    "almacenId": "2",
+    
+    "moneda": "soles",
+    "formaPago": "Contado",
+    "garantia" :  "3 MESES",
+
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "9",
+        "descripcion": "DEPILACION LASER SOPRANO... No es el nombre,es  una breve descripcion",
+        "cantidad": 2,
+        "precioAsignado": 150.00
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "tipo": "nota_venta",
+    "numero": "NV 001-00000019",
+    "fechaEmision": "2026-04-20",
+    "estado": "Emitida",
+    "observacion": "Venta realizada exitosamente.",
+    "clienteId": "7",
+    "almacenId": "1",
+    "moneda": "soles",
+    "formaPago": "Contado",
+    "garantia": "12 MESES",
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "4",
+        "descripcion": "MANTENIMIENTO PREVENTIVO DE PC",
+        "cantidad": 2,
+        "precioAsignado": 28.00
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "tipo": "nota_venta",
+    "numero": "NV 001-00000020",
+    "fechaEmision": "2026-04-21",
+    "estado": "Anulada",
+    "observacion": "Documento anulado.",
+    "clienteId": "6",
+    "almacenId": "2",
+    "moneda": "soles",
+    "formaPago": "Credito",
+    "garantia": "6 MESES",
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "8",
+        "descripcion": "MOUSE OPTICO ALAMBRICO LENOVO",
+        "cantidad": 5,
+        "precioAsignado": 20.00
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "tipo": "nota_venta",
+    "numero": "NV 001-00000021",
+    "fechaEmision": "2026-04-22",
+    "estado": "Emitida",
+    "observacion": "Venta corporativa.",
+    "clienteId": "1",
+    "almacenId": "1",
+    "moneda": "dolares",
+    "formaPago": "Contado",
+    "garantia": "24 MESES",
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "3",
+        "descripcion": "carboxiterapia",
+        "cantidad": 5,
+        "precioAsignado": 95
+      },
+      {
+        "id": "2",
+        "articuloId": "5",
+        "descripcion": "MONITOR GAMER LENOVO 24 PULGADAS",
+        "cantidad": 5,
+        "precioAsignado": 180.00
+      }
+    ]
+  }
+]

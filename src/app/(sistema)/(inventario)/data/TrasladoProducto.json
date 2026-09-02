@@ -1,0 +1,287 @@
+[
+  {
+    "id": "1",
+    "codigo": "TR-00000001",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 3,
+    "almacen_destino": 1,
+    "fecha_traslado": "03/04/2024",
+    "productos": [
+      {
+        "id": "p1",
+        "nombre": "Cable UTP Categoría 6",
+        "unidad": "METROS",
+        "cantidad": 100,
+        "precio": 1.5,
+        "total": 150.0
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "codigo": "TR-00000002",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 3,
+    "almacen_destino": 2,
+    "fecha_traslado": "03/04/2024",
+    "productos": [
+      {
+        "id": "p2",
+        "nombre": "Switch TP-Link 16 Puertos Gigabit",
+        "unidad": "UNIDADES",
+        "cantidad": 2,
+        "precio": 180.0,
+        "total": 360.0
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "codigo": "TR-00000003",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 1,
+    "almacen_destino": 3,
+    "fecha_traslado": "12/04/2024",
+    "productos": [
+      {
+        "id": "p3",
+        "nombre": "Access Point Ubiquiti Lite",
+        "unidad": "UNIDADES",
+        "cantidad": 5,
+        "precio": 320.0,
+        "total": 1600.0
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "codigo": "TR-00000004",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 2,
+    "almacen_destino": 1,
+    "fecha_traslado": "20/04/2024",
+    "productos": [
+      {
+        "id": "p1",
+        "nombre": "Cable UTP Categoría 6",
+        "unidad": "METROS",
+        "cantidad": 50,
+        "precio": 1.5,
+        "total": 75.0
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "codigo": "TR-00000005",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 3,
+    "almacen_destino": 2,
+    "fecha_traslado": "05/05/2024",
+    "productos": [
+      {
+        "id": "p4",
+        "nombre": "Conectores RJ45 Cat6",
+        "unidad": "CIENTOS",
+        "cantidad": 3,
+        "precio": 45.0,
+        "total": 135.0
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "codigo": "TR-00000006",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 1,
+    "almacen_destino": 2,
+    "fecha_traslado": "18/06/2024",
+    "productos": [
+      {
+        "id": "p5",
+        "nombre": "Patch Panel 24 Puertos Cat6",
+        "unidad": "UNIDADES",
+        "cantidad": 2,
+        "precio": 110.0,
+        "total": 220.0
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "codigo": "TR-00000007",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 2,
+    "almacen_destino": 3,
+    "fecha_traslado": "02/07/2024",
+    "productos": [
+      {
+        "id": "p2",
+        "nombre": "Switch TP-Link 16 Puertos Gigabit",
+        "unidad": "UNIDADES",
+        "cantidad": 1,
+        "precio": 180.0,
+        "total": 180.0
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "codigo": "TR-00000008",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 3,
+    "almacen_destino": 1,
+    "fecha_traslado": "14/08/2024",
+    "productos": [
+      {
+        "id": "p6",
+        "nombre": "Router Mikrotik RB4011",
+        "unidad": "UNIDADES",
+        "cantidad": 1,
+        "precio": 850.0,
+        "total": 850.0
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "codigo": "TR-00000009",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 1,
+    "almacen_destino": 2,
+    "fecha_traslado": "25/09/2024",
+    "productos": [
+      {
+        "id": "p3",
+        "nombre": "Access Point Ubiquiti Lite",
+        "unidad": "UNIDADES",
+        "cantidad": 2,
+        "precio": 320.0,
+        "total": 640.0
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "codigo": "TR-00000010",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 2,
+    "almacen_destino": 3,
+    "fecha_traslado": "05/10/2024",
+    "productos": [
+      {
+        "id": "p4",
+        "nombre": "Conectores RJ45 Cat6",
+        "unidad": "CIENTOS",
+        "cantidad": 1,
+        "precio": 45.0,
+        "total": 45.0
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "codigo": "TR-00000011",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 3,
+    "almacen_destino": 1,
+    "fecha_traslado": "12/11/2024",
+    "productos": [
+      {
+        "id": "p1",
+        "nombre": "Cable UTP Categoría 6",
+        "unidad": "METROS",
+        "cantidad": 200,
+        "precio": 1.5,
+        "total": 300.0
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "codigo": "TR-00000012",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 1,
+    "almacen_destino": 2,
+    "fecha_traslado": "20/12/2024",
+    "productos": [
+      {
+        "id": "p5",
+        "nombre": "Patch Panel 24 Puertos Cat6",
+        "unidad": "UNIDADES",
+        "cantidad": 1,
+        "precio": 110.0,
+        "total": 110.0
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "codigo": "TR-00000013",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 2,
+    "almacen_destino": 3,
+    "fecha_traslado": "15/01/2025",
+    "productos": [
+      {
+        "id": "p2",
+        "nombre": "Switch TP-Link 16 Puertos Gigabit",
+        "unidad": "UNIDADES",
+        "cantidad": 3,
+        "precio": 180.0,
+        "total": 540.0
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "codigo": "TR-00000014",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 3,
+    "almacen_destino": 1,
+    "fecha_traslado": "05/02/2025",
+    "productos": [
+      {
+        "id": "p3",
+        "nombre": "Access Point Ubiquiti Lite",
+        "unidad": "UNIDADES",
+        "cantidad": 1,
+        "precio": 320.0,
+        "total": 320.0
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "codigo": "TR-00000015",
+    "motivo": "Traslado de almacen",
+    "categoria": "PRODUCTOS",
+    "almacen_origen": 1,
+    "almacen_destino": 2,
+    "fecha_traslado": "28/02/2025",
+    "productos": [
+      {
+        "id": "p6",
+        "nombre": "Router Mikrotik RB4011",
+        "unidad": "UNIDADES",
+        "cantidad": 2,
+        "precio": 850.0,
+        "total": 1700.0
+      }
+    ]
+  }
+]

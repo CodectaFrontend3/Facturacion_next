@@ -1,0 +1,137 @@
+[
+  {
+    "id": "1",
+    "codigo": "GD-00000001",
+    "fecha_distribucion": "03/04/2024",
+    "cantidad_productos": 1,
+    "cantidad_distribuida": 2,
+    "almacen": 3,
+    "guia_remision": "Sin guia"
+  },
+  {
+    "id": "2",
+    "codigo": "GD-00000002",
+    "fecha_distribucion": "03/04/2024",
+    "cantidad_productos": 1,
+    "cantidad_distribuida": 6,
+    "almacen": 3,
+    "guia_remision": "Sin guia"
+  },
+  {
+    "id": "3",
+    "codigo": "GD-00000003",
+    "fecha_distribucion": "04/04/2024",
+    "cantidad_productos": 3,
+    "cantidad_distribuida": 12,
+    "almacen": 1,
+    "guia_remision": "EG01-000021"
+  },
+  {
+    "id": "4",
+    "codigo": "GD-00000004",
+    "fecha_distribucion": "10/04/2024",
+    "cantidad_productos": 2,
+    "cantidad_distribuida": 5,
+    "almacen": 2,
+    "guia_remision": "Sin guia"
+  },
+  {
+    "id": "5",
+    "codigo": "GD-00000005",
+    "fecha_distribucion": "15/05/2024",
+    "cantidad_productos": 5,
+    "cantidad_distribuida": 20,
+    "almacen": 3,
+    "guia_remision": "EG01-000022"
+  },
+  {
+    "id": "6",
+    "codigo": "GD-00000006",
+    "fecha_distribucion": "18/05/2024",
+    "cantidad_productos": 1,
+    "cantidad_distribuida": 1,
+    "almacen": 1,
+    "guia_remision": "Sin guia"
+  },
+  {
+    "id": "7",
+    "codigo": "GD-00000007",
+    "fecha_distribucion": "22/06/2024",
+    "cantidad_productos": 4,
+    "cantidad_distribuida": 15,
+    "almacen": 2,
+    "guia_remision": "EG01-000023"
+  },
+  {
+    "id": "8",
+    "codigo": "GD-00000008",
+    "fecha_distribucion": "05/07/2024",
+    "cantidad_productos": 2,
+    "cantidad_distribuida": 8,
+    "almacen": 3,
+    "guia_remision": "Sin guia"
+  },
+  {
+    "id": "9",
+    "codigo": "GD-00000009",
+    "fecha_distribucion": "12/08/2024",
+    "cantidad_productos": 1,
+    "cantidad_distribuida": 10,
+    "almacen": 1,
+    "guia_remision": "Sin guia"
+  },
+  {
+    "id": "10",
+    "codigo": "GD-00000010",
+    "fecha_distribucion": "25/09/2024",
+    "cantidad_productos": 6,
+    "cantidad_distribuida": 32,
+    "almacen": 2,
+    "guia_remision": "EG01-000024"
+  },
+  {
+    "id": "11",
+    "codigo": "GD-00000011",
+    "fecha_distribucion": "02/10/2024",
+    "cantidad_productos": 3,
+    "cantidad_distribuida": 7,
+    "almacen": 3,
+    "guia_remision": "Sin guia"
+  },
+  {
+    "id": "12",
+    "codigo": "GD-00000012",
+    "fecha_distribucion": "14/11/2024",
+    "cantidad_productos": 1,
+    "cantidad_distribuida": 4,
+    "almacen": 1,
+    "guia_remision": "EG01-000025"
+  },
+  {
+    "id": "13",
+    "codigo": "GD-00000013",
+    "fecha_distribucion": "20/12/2024",
+    "cantidad_productos": 2,
+    "cantidad_distribuida": 11,
+    "almacen": 2,
+    "guia_remision": "Sin guia"
+  },
+  {
+    "id": "14",
+    "codigo": "GD-00000014",
+    "fecha_distribucion": "15/01/2025",
+    "cantidad_productos": 4,
+    "cantidad_distribuida": 18,
+    "almacen": 3,
+    "guia_remision": "EG01-000026"
+  },
+  {
+    "id": "15",
+    "codigo": "GD-00000015",
+    "fecha_distribucion": "28/02/2025",
+    "cantidad_productos": 1,
+    "cantidad_distribuida": 3,
+    "almacen": 1,
+    "guia_remision": "Sin guia"
+  }
+]

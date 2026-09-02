@@ -7,19 +7,19 @@
   --card-foreground: #171717;
   --popover: #ffffff;
   --popover-foreground: #171717;
-  --primary: #1D549F;
+  --primary: #1d549f;
   --primary-foreground: #ffffff;
   --secondary: #f1f5f9;
   --secondary-foreground: #171717;
   --muted: #e2e8f0;
-  --muted-foreground: #676A6C;
+  --muted-foreground: #676a6c;
   --accent: #e2e8f0;
   --accent-foreground: #171717;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --border: #e2e8f0;
   --input: #e2e8f0;
-  --ring: #1D549F;
+  --ring: #1d549f;
   --radius: 0rem;
 }
 
@@ -43,8 +43,6 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 }
-
-
 
 body {
   cursor: default;
@@ -138,7 +136,7 @@ body {
 .dropdown-item:hover {
   cursor: pointer;
   transform: translateX(4px);
-  color: rgb(21, 65, 185)
+  color: rgb(21, 65, 185);
 }
 
 .modal-box {
@@ -203,7 +201,7 @@ body {
 }
 
 .danger-btn:hover {
-  background-color: #EC4758;
+  background-color: #ec4758;
   transform: translateY(-3px);
   transition: transform 0.3s ease;
 }
@@ -222,7 +220,7 @@ body {
 
 .view-btn {
   display: inline-block;
-  transition: transform 0.2s ease-in-out
+  transition: transform 0.2s ease-in-out;
 }
 
 .view-btn:hover {
@@ -280,7 +278,7 @@ body {
 .dropdown-item:hover {
   cursor: pointer;
   transform: translateX(4px);
-  color: rgb(21, 65, 185)
+  color: rgb(21, 65, 185);
 }
 
 @keyframes accordion-down {
@@ -312,7 +310,6 @@ body {
 }
 
 @keyframes breathe {
-
   0%,
   100% {
     transform: scale(1);
@@ -325,4 +322,52 @@ body {
 
 .animate-breathe {
   animation: breathe 1s infinite ease-in-out;
+}
+
+@keyframes toastIn {
+  from {
+    transform: translateY(-15px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-toast-in {
+  animation: toastIn 0.28s cubic-bezier(0.21, 1.02, 0.43, 1.01) forwards;
+}
+
+/* Animación de despliegue y repliegue de arriba a abajo (desenrollando) */
+.share-popover-anim[data-state="open"] {
+  transform-origin: top !important;
+  animation: share-unfold-down 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.share-popover-anim[data-state="closed"] {
+  transform-origin: top !important;
+  animation: share-fold-up 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes share-unfold-down {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes share-fold-up {
+  from {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0);
+  }
 }

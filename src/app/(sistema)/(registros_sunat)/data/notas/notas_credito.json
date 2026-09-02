@@ -1,0 +1,24 @@
+[
+  {
+    "id": "nc-101",
+    "item": 1,
+    "codigo": "FC01-00000001",
+    "tipo": "Anulación de la operación",
+    "docAsoc": "F001-00001234",
+    "rucDni": "20554879631",
+    "cliente": "DISTRIBUIDORA ACME S.A.C.",
+    "fechaEmision": "14/06/2026",
+    "sunatStatus": "pendiente"
+  },
+  {
+    "id": "nc-102",
+    "item": 2,
+    "codigo": "FC01-00000002",
+    "tipo": "Descuento por ítem",
+    "docAsoc": "F001-00001567",
+    "rucDni": "10427896351",
+    "cliente": "JUAN PEREZ GONZALES",
+    "fechaEmision": "18/06/2026",
+    "sunatStatus": "pendiente"
+  }
+]

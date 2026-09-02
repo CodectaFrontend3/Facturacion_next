@@ -1,0 +1,94 @@
+[
+  {
+    "id": "1",
+    "tipo": "cotizacion_manual",
+    "numero": "CMF 001-00000001",
+
+    "fechaEmision": "2026-04-02",
+    "estado": "Pendiente",
+    "validez":"7 DIAS",
+
+    "clienteId": "1",
+    "almacenId": "2",
+    "tipoOperacionId": "1",
+
+    "moneda": "dolares",
+    "formaPago": "Credito",
+    "garantia" :  "2 MESES",
+    "tipoDocumento": "Boleta",
+
+    "observacion": "Emitimos la siguiente Cotización...",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "6",
+        "descripcion": "LIMPIEZA FACIAL PROFUNDA...descripcion",
+        "cantidad": 4,
+        "precioAsignado": 40.00
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "tipo": "cotizacion_manual",
+    "numero": "CMF 001-00000002",
+    "fechaEmision": "2026-04-12",
+    "estado": "Pendiente",
+    "validez": "5 DIAS",
+    "clienteId": "6",
+    "almacenId": "1",
+    "tipoOperacionId": "1",
+    "moneda": "soles",
+    "formaPago": "Contado",
+    "garantia": "1 MES",
+    "tipoDocumento": "Boleta",
+    "observacion": "Servicio de mantenimiento preventivo.",
+    "renovacion": {
+      "isActive": false,
+      "fechaRenovacion": null
+    },
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "11",
+        "descripcion": "AURICULARES BLUETOOTH LENOVO",
+        "cantidad": 1,
+        "precioAsignado": 25.00
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "tipo": "cotizacion_manual",
+    "numero": "CMF 001-00000003",
+    "fechaEmision": "2026-04-15",
+    "estado": "Aceptada",
+    "validez": "30 DIAS",
+    "clienteId": "7",
+    "almacenId": "2",
+    "tipoOperacionId": "2",
+    "moneda": "dolares",
+    "formaPago": "Credito",
+    "garantia": "12 MESES",
+    "tipoDocumento": "Factura",
+    "observacion": "Instalación de red empresarial.",
+    "renovacion": {
+      "isActive": true,
+      "fechaRenovacion": "2026-05-15"
+    },
+    "items": [
+      {
+        "id": "1",
+        "articuloId": "14",
+        "descripcion": "CARGADOR PARA LAPTOP LENOVO 65W",
+        "cantidad": 5,
+        "precioAsignado": 12.00
+      }
+    ]
+  }
+]

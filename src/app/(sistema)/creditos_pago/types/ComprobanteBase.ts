@@ -1,0 +1,30 @@
+export type TipoComprobante = "Factura" | "Boleta" | "NotaVenta";
+export type EstadoPago = "Sin Pagar" | "Pagado";
+export type FormaPago = "Contado" | "Crédito";
+export type ModoEmision = "Manual" | "Automatica";
+
+// Lo que comparten absolutamente todos
+export interface ComprobanteBase {
+  id: string;
+  tipo: TipoComprobante;
+  cliente: string;
+  fecha_emision: string;
+  monto_total: number;
+  saldo: number;
+  fecha_vencimiento: string;
+  fecha_cancelado: string;
+  estado: EstadoPago;
+  forma_pago: FormaPago | null; // Puede ser null si no se ha definido
+  observaciones: string;
+  tipo_emision: ModoEmision; // Simplificamos tipo_factura, tipo_boleta, etc. en uno solo
+}
+
+// Historial del comprobante pagado, para mostrar en la tabla de detalle de pagos
+export interface HistorialPago {
+  id: string | number;
+  tipo_pago: string;
+  monto_pagado: number;
+  metodo_pago: string;
+  emisor: string;
+  fecha_pago: string;
+}

@@ -1,0 +1,152 @@
+[
+  {
+    "id": "d-501",
+    "item": 1,
+    "codigo": "FA00-00000003",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "11-06-2026",
+    "montoTotal": "S/ 800.00",
+    "montoDetraccion": "S/. 80.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-502",
+    "item": 2,
+    "codigo": "FA00-00000004",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "12-06-2026",
+    "montoTotal": "S/ 1,200.00",
+    "montoDetraccion": "S/. 120.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-503",
+    "item": 3,
+    "codigo": "FA00-00000005",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "15-06-2026",
+    "montoTotal": "S/ 2,500.00",
+    "montoDetraccion": "S/. 250.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-504",
+    "item": 4,
+    "codigo": "FA00-00000006",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "16-06-2026",
+    "montoTotal": "S/ 4,000.00",
+    "montoDetraccion": "S/. 400.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-505",
+    "item": 5,
+    "codigo": "FA00-00000007",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "18-06-2026",
+    "montoTotal": "S/ 950.00",
+    "montoDetraccion": "S/. 95.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-506",
+    "item": 6,
+    "codigo": "FA00-00000008",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "20-06-2026",
+    "montoTotal": "S/ 1,500.00",
+    "montoDetraccion": "S/. 150.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-507",
+    "item": 7,
+    "codigo": "FA00-00000009",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "22-06-2026",
+    "montoTotal": "S/ 3,200.00",
+    "montoDetraccion": "S/. 320.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-508",
+    "item": 8,
+    "codigo": "FA00-00000010",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "24-06-2026",
+    "montoTotal": "S/ 6,800.00",
+    "montoDetraccion": "S/. 680.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-509",
+    "item": 9,
+    "codigo": "FA00-00000011",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "25-06-2026",
+    "montoTotal": "S/ 1,100.00",
+    "montoDetraccion": "S/. 110.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-510",
+    "item": 10,
+    "codigo": "FA00-00000012",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "26-06-2026",
+    "montoTotal": "S/ 550.00",
+    "montoDetraccion": "S/. 55.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-511",
+    "item": 11,
+    "codigo": "FA00-00000013",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "28-06-2026",
+    "montoTotal": "S/ 1,800.00",
+    "montoDetraccion": "S/. 180.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-512",
+    "item": 12,
+    "codigo": "FA00-00000014",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "29-06-2026",
+    "montoTotal": "S/ 8,400.00",
+    "montoDetraccion": "S/. 840.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-513",
+    "item": 13,
+    "codigo": "FA00-00000015",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "30-06-2026",
+    "montoTotal": "S/ 2,250.00",
+    "montoDetraccion": "S/. 225.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-514",
+    "item": 14,
+    "codigo": "FA00-00000016",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "02-06-2026",
+    "montoTotal": "S/ 3,700.00",
+    "montoDetraccion": "S/. 370.00",
+    "sunatStatus": "error"
+  },
+  {
+    "id": "d-515",
+    "item": 15,
+    "codigo": "FA00-00000017",
+    "tipoDoc": "Factura M.",
+    "fechaEmision": "04-06-2026",
+    "montoTotal": "S/ 1,600.00",
+    "montoDetraccion": "S/. 160.00",
+    "sunatStatus": "error"
+  }
+]

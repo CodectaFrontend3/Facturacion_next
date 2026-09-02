@@ -1,0 +1,60 @@
+[
+  {
+    "id": 17,
+    "numero": "CMB 005-00000001",
+    "ruc_dni": "12322222222",
+    "cliente": "were",
+    "direccion": "Lima",
+    "telefono": "00000",
+    "fecha_emision": "04-05-2026",
+    "fecha_vencimiento": "18-05-2026",
+    "tipo_comprobante": "Factura",
+    "forma_pago": "Credito",
+    "moneda": "soles",
+    "validez": "7 DIAS",
+    "garantia": "6 MESES",
+    "subtotal": "S/100.00",
+    "igv": "S/18.00",
+    "importe_total": "S/118.00",
+    "total_letras": "Son : Ciento dieciocho con 00/100 soles",
+    "items": [
+      {
+        "item": 1,
+        "codigo": "EP-000002",
+        "descripcion": "sdfs | Esto es prueba",
+        "cantidad": 10,
+        "precio_unitario": 10.0,
+        "precio_total": 100.0
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "numero": "CMB 005-00000002",
+    "ruc_dni": "20522045773",
+    "cliente": "Tecnologías Avanzadas S.A.",
+    "direccion": "Av. Las Camelias 456",
+    "telefono": "987654321",
+    "fecha_emision": "05-05-2026",
+    "fecha_vencimiento": "12-05-2026",
+    "tipo_comprobante": "Boleta",
+    "forma_pago": "Contado",
+    "moneda": "soles",
+    "validez": "15 DIAS",
+    "garantia": "12 MESES",
+    "subtotal": "S/211.86",
+    "igv": "S/38.14",
+    "importe_total": "S/250.00",
+    "total_letras": "Son : Doscientos cincuenta con 00/100 soles",
+    "items": [
+      {
+        "item": 1,
+        "codigo": "SERV-001",
+        "descripcion": "Mantenimiento de Laptop HP",
+        "cantidad": 1,
+        "precio_unitario": 250.0,
+        "precio_total": 250.0
+      }
+    ]
+  }
+]
