@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { ArrowLeft, FileText, Printer, Mail, Receipt } from "lucide-react";
 import { BoletaRow } from "../page";
 
@@ -41,9 +42,13 @@ export default function DetalleBoletaPage() {
       <div className="w-full bg-white border border-gray-200 shadow-sm relative overflow-hidden">
         
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-          <button onClick={() => router.back()} className="text-gray-500 hover:text-gray-800 transition-colors cursor-pointer p-1">
+          <Link
+            href="/comprobantes/boleta"
+            className="text-gray-500 hover:text-gray-800 transition-colors cursor-pointer p-1 inline-flex items-center justify-center hover:bg-gray-100 rounded-full"
+            title="Regresar a Boletas"
+          >
             <ArrowLeft size={18} />
-          </button>
+          </Link>
           
           <div className="flex gap-1.5">
             <button className="bg-[#1c84c6] hover:bg-[#166b9a] text-white p-1.5 rounded-[2px] transition-colors cursor-pointer"><FileText size={16} /></button>

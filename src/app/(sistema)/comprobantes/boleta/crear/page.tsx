@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ArrowLeft, Plus, Trash2, Search, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -78,12 +79,13 @@ export default function CrearBoletaPage() {
         
         <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => router.back()}
-              className="text-gray-500 hover:text-gray-800 transition-colors p-1 hover:bg-gray-100 rounded-full cursor-pointer"
+            <Link
+              href="/comprobantes/boleta"
+              className="text-gray-500 hover:text-gray-800 transition-colors p-1 hover:bg-gray-100 rounded-full cursor-pointer inline-flex items-center justify-center"
+              title="Regresar a Boletas"
             >
               <ArrowLeft size={18} />
-            </button>
+            </Link>
             <h1 className="text-[14px] font-bold text-gray-700">Generar Boleta de Venta Electrónica</h1>
           </div>
         </div>

@@ -1,0 +1,6 @@
+{
+  "name": "Facturador Electrónico",
+  "description": "Sistema de facturación electrónica, inventario, ventas y servicios SUNAT",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
